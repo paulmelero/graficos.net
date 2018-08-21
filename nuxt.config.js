@@ -32,7 +32,6 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'cms-config-url', type: 'text/yaml', href: '/config.yml' },
     ]
   },
   /*
