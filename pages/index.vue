@@ -1,16 +1,17 @@
 <template>
   <section>
-    <div class="xl:contianer p-4">
-      <h1 class="text-3xl">{{ title }}</h1>
+    <div>
+      <h1>{{ title }}</h1>
     </div>
   </section>
 </template>
 
 <script>
+const HOME = 'Home'
 export default {
-  name: 'Home',
+  name: HOME,
   head: {
-    title: this.title,
+    title: HOME,
     meta: [
       { hid: 'description', name: 'description',
         content: 'Welcome'
@@ -19,7 +20,7 @@ export default {
   },
   data() {
     return {
-      title: 'Home'
+      title: HOME
     }
   }
 }
