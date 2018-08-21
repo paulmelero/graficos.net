@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <main>
     <nuxt/>
-  </div>
+  </main>
 </template>
 
 <style>
-html {
-  background-color: config('colors.white');
+body {
+  background-color: config('colors.grey-lightest');
   font-family: config('fonts.sans');
 }
 </style>

@@ -1,24 +1,31 @@
-const PurgecssPlugin = require('purgecss-webpack-plugin')
-const glob = require('glob-all')
-const path = require('path')
+const tailwindConfig = require('./tailwind.config')
+// const PurgecssPlugin = require('purgecss-webpack-plugin')
+// const glob = require('glob-all')
+// const path = require('path')
 
-class TailwindExtractor {
-  static extract (content) {
-    return content.match(/[A-Za-z0-9-_:\/]+/g) || []
-  }
-}
+// class TailwindExtractor {
+//   static extract (content) {
+//     return content.match(/[A-Za-z0-9-_:\/]+/g) || []
+//   }
+// }
+
+const APP_NAME = 'Graficos.net'
+const THEME_COLOR = tailwindConfig.colors['teal-light']
 
 module.exports = {
   /*
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s | graficos',
+    titleTemplate: APP_NAME + ' – %s',
     htmlAttrs: { lang: 'en' },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Graficos.net' }
+      { hid: 'description', name: 'description', content: '▶ Frontend Web Developer (now with more Backend!) // Former graffiti artist. && Agriculture Engineer. Responsive. WPO. Creative Ilustrator. Engineer. Freelance.' },
+      { name: 'apple-mobile-web-app-title', content: APP_NAME },
+      { name: 'application-name', content: APP_NAME },
+      { name: 'theme-color', content: THEME_COLOR },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -44,8 +51,8 @@ module.exports = {
   */
   build: {
     /*
-+    ** Extract CSS
-+    */
+    ** Extract CSS
+    */
     extractCSS: true,
     /*
     ** Run ESLint on save
@@ -59,26 +66,28 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-
       /*
       ** Cleanup CSS with PurgeCSS
       */
-      if (!isDev) {
-        config.plugins.push(
-          new PurgecssPlugin({
-            paths: glob.sync([
-              path.join(__dirname, './pages/**/*.vue'),
-              path.join(__dirname, './layouts/**/*.vue'),
-              path.join(__dirname, './components/**/*.vue')
-            ]),
-            extractors: [{
-              extractor: TailwindExtractor,
-              extensions: ['vue']
-            }],
-            whitelist: ['html', 'body']
-          })
-        )
-      }
+      // if (!isDev) {
+        // config.plugins.push(
+          // new PurgecssPlugin({
+            // paths: glob.sync([
+              // path.join(__dirname, './pages/**/*.vue'),
+              // path.join(__dirname, './layouts/**/*.vue'),
+              // path.join(__dirname, './components/**/*.vue')
+            // ]),
+            // extractors: [{
+              // extractor: TailwindExtractor,
+              // extensions: ['vue']
+            // }],
+            // whitelist: ['html', 'body']
+          // })
+        // )
+      // }
     }
-  }
+  },
+  env: {
+    APP_NAME
+  },
 }

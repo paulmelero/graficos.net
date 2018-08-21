@@ -1,3 +1,5 @@
+
+
 module.exports = {
   plugins: [
     require('postcss-import'),
@@ -13,6 +15,7 @@ module.exports = {
     require('cssnano')({
       preset: 'default',
       discardComments: { removeAll: true },
+      discardDuplicates: false,
       zindex: false
     })
   ]

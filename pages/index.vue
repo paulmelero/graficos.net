@@ -1,14 +1,26 @@
 <template>
-  <div>
-
-  </div>
+  <section>
+    <div class="xl:contianer p-4">
+      <h1 class="text-3xl">{{ title }}</h1>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
+  name: 'Home',
   head: {
-    title: 'Welcome',
-    meta: [{ hid: 'description', name: 'description', content: 'Welcome' }]
+    title: this.title,
+    meta: [
+      { hid: 'description', name: 'description',
+        content: 'Welcome'
+      }
+    ]
+  },
+  data() {
+    return {
+      title: 'Home'
+    }
   }
 }
 </script>
