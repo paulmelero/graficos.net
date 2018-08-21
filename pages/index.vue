@@ -12,11 +12,6 @@ export default {
   name: HOME,
   head: {
     title: HOME,
-    meta: [
-      { hid: 'description', name: 'description',
-        content: 'Welcome'
-      }
-    ]
   },
   data() {
     return {
