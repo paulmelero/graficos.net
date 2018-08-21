@@ -28,7 +28,8 @@ module.exports = {
       { name: 'theme-color', content: THEME_COLOR },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'cms-config-url', type: 'text/yaml', href: '/config.yml' },
     ]
   },
   /*
