@@ -97,11 +97,6 @@ module.exports = {
     APP_NAME
   },
   modules: [
-    ['nuxt-netlify-cms', {
-      adminPath: 'admin',
-      adminTitle: 'Admin!'
-    }],
-    ['nuxtent'],
     ['@nuxtjs/axios'],
   ],
   generate: {
