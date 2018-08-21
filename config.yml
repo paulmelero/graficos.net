@@ -1,0 +1,4 @@
+backend:
+  name: git-gateway
+  accept_roles: #optional - accepts all users if left out
+    - admin
