@@ -1,7 +1,7 @@
 const tailwindConfig = require('./tailwind.config')
 // const PurgecssPlugin = require('purgecss-webpack-plugin')
-// const glob = require('glob-all')
-// const path = require('path')
+const glob = require('glob-all')
+const path = require('path')
 
 // class TailwindExtractor {
 //   static extract (content) {
@@ -11,6 +11,9 @@ const tailwindConfig = require('./tailwind.config')
 
 const APP_NAME = 'Graficos.net'
 const THEME_COLOR = tailwindConfig.colors['teal-light']
+const dynamicRoutes  = getDynamicPaths({
+  '/blog': 'blog/posts/*.json'
+});
 
 module.exports = {
   /*
@@ -100,5 +103,22 @@ module.exports = {
     }],
     ['nuxtent'],
     ['@nuxtjs/axios'],
-  ]
+  ],
+  generate: {
+    routes: dynamicRoutes
+  },
+}
+/**
+ * Create an array of URLs from a list of files
+ * @param {*} urlFilepathTable
+ */
+function getDynamicPaths(urlFilepathTable) {
+  return [].concat(
+    ...Object.keys(urlFilepathTable).map(url => {
+      var filepathGlob = urlFilepathTable[url];
+      return glob
+        .sync(filepathGlob, { cwd: 'content' })
+        .map(filepath => `${url}/${path.basename(filepath, '.json')}`);
+    })
+  );
 }

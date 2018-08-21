@@ -1,5 +1,0 @@
-backend:
-  name: github
-  accept_roles: #optional - accepts all users if left out
-    - admin
-media_folder: static/uploads

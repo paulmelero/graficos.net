@@ -1,9 +1,10 @@
 module.exports = {
   content: {
     permalink: ':slug',
-    page: '/_content',
+    page: '/blog/_content',
     generate: [ // for static build
-      'get', 'getAll'
+      'get',
+      'getAll'
     ],
     isPost: false
   },
