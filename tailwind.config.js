@@ -45,7 +45,7 @@ let colors = {
   'transparent': 'transparent',
 
   'black': '#22292f',
-  // 'grey-darkest': '#3d4852',
+  'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',
   'grey-dark': '#8795a1',
   'grey': '#b8c2cc',
@@ -87,9 +87,9 @@ let colors = {
   // 'green-lightest': '#e3fcec',
 
   // 'teal-darkest': '#0d3331',
-  // 'teal-darker': '#20504f',
+  'teal-darker': '#20504f',
   // 'teal-dark': '#38a89d',
-  // 'teal': '#4dc0b5',
+  'teal': '#4dc0b5',
   'teal-light': '#64d5ca',
   'teal-lighter': '#a0f0ed',
   // 'teal-lightest': '#e8fffe',
@@ -248,7 +248,7 @@ module.exports = {
   textSizes: {
     'xs': '.75rem', // 12px
     'sm': '.875rem', // 14px
-    'base': '1rem', // 16px
+    'base': '1.125rem', // 16px
     'lg': '1.125rem', // 18px
     'xl': '1.25rem', // 20px
     '2xl': '1.5rem', // 24px

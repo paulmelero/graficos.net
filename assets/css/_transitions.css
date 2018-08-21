@@ -1,0 +1,12 @@
+
+.transition {
+  transition: all .2s  ease-out;
+
+  &\:box-shadow {
+    transition: box-shadow .2s  ease-out;
+  }
+
+  &\:color {
+    transition: color .2s  ease-out;
+  }
+}

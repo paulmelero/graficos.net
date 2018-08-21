@@ -3,7 +3,7 @@
     <header>
       <the-header></the-header>
     </header>
-    <main class="p-4">
+    <main class="container mx-auto p-4">
       <nuxt/>
     </main>
   </div>
