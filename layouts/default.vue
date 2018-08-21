@@ -1,8 +1,22 @@
 <template>
-  <main>
-    <nuxt/>
-  </main>
+  <div>
+    <header>
+      <the-header></the-header>
+    </header>
+    <main class="p-4">
+      <nuxt/>
+    </main>
+  </div>
 </template>
+
+<script>
+const TheHeader = () => import('~/components/main-presentation/head-nav.vue')
+export default {
+  components: {
+    TheHeader
+  }
+}
+</script>
 
 <style>
 body {

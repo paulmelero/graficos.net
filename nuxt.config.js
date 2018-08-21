@@ -34,7 +34,9 @@ module.exports = {
   /*
   ** Load global CSS
   */
-  css: ['@/assets/css/main.css'],
+  css: [
+    '@/assets/css/main.css',
+  ],
   /*
   ** This option is given directly to the vue-router Router constructor
   */
@@ -90,4 +92,12 @@ module.exports = {
   env: {
     APP_NAME
   },
+  modules: [
+    ['nuxt-netlify-cms', {
+      adminPath: 'admin',
+      adminTitle: 'Admin!'
+    }],
+    ['nuxtent'],
+    ['@nuxtjs/axios'],
+  ]
 }
