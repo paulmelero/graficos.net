@@ -40,5 +40,5 @@ p {
 }
 
 :--headings {
-  @apply leading-tight text-grey-darkest;
+  @apply leading-tight text-grey-darkest mb-2;
 }

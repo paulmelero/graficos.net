@@ -19,7 +19,7 @@ export default {
     title,
     meta: [
       { hid: 'description', name: 'description',
-        content: 'Blog - Web development related posts by Paul Melero. Frontend developer located in Barcelona.'
+        content: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.'
       }
     ]
   },
