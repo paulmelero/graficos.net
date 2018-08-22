@@ -1,10 +1,10 @@
 <template>
-  <nav class="flex items-center bg-primary" role="navigatioon">
+  <nav class="flex items-center bg-primary overflow-hidden" role="navigatioon">
     <nuxt-link
-      class="flex items-center flex-no-shrink text-white mx-6 py-4 disable-underline"
+      class="flex items-center flex-no-shrink text-white mx-6 py-4 disable-underline disable-transition disable-hover"
       to="/"
     >
-      <img src="~/static/logo/graficos.svg" alt="Graficos.net Logo" class="h-8">
+      <the-logo class="h-8 transition:color hover:text-secondary"></the-logo>
     </nuxt-link>
     <div class="h-full w-full flex-1 flex-grow items-center pr-6">
       <nuxt-link
@@ -17,10 +17,13 @@
         {{ link.name }}
       </nuxt-link>
     </div>
+    <social-networks></social-networks>
   </nav>
 </template>
 
 <script>
+const SocialNetworks = () => import('~/components/main-presentation/images/social-networks')
+const TheLogo = () => import('~/components/main-presentation/images/logo.vue')
 export default {
   data() {
     return {
@@ -37,6 +40,10 @@ export default {
         },
       ]
     }
+  },
+  components: {
+    SocialNetworks,
+    TheLogo
   }
 }
 </script>

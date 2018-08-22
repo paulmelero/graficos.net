@@ -31,7 +31,9 @@ a {
     }
   }
   &:hover {
-    @apply text-teal-darker;
+    &:not(.disable-hover) {
+      @apply text-teal-darker;
+    }
   }
 }
 

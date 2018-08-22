@@ -10,6 +10,7 @@
   ##  CUSTOM CLASSES
   --------------------------------------------------------- */
 @import '_custom-preflight';
+@import '_resets/_nuxt';
 @import '_colors';
 @import '_texts';
 @import '_transitions';

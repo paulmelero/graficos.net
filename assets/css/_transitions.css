@@ -9,4 +9,12 @@
   &\:color {
     transition: color .2s  ease-out;
   }
+
+  &\:fill {
+    transition: fill .2s  ease-out;
+  }
+}
+
+.disable-transition {
+  transition: none;
 }

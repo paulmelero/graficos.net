@@ -127,6 +127,13 @@ let colors = {
   // 'pink-lightest': '#ffebef'
 }
 
+colors = {
+  ...colors,
+  primary: colors['teal'],
+  secondary: colors['teal-darker'],
+  accent: colors['purple-dark'],
+}
+
 module.exports = {
 
   /*
@@ -142,7 +149,7 @@ module.exports = {
   |
   */
 
-  colors: colors,
+ colors,
 
   /*
   |-----------------------------------------------------------------------------
@@ -787,7 +794,10 @@ module.exports = {
   */
 
   svgFill: {
-    'current': 'currentColor'
+    'current': 'currentColor',
+    'white': colors['white'],
+    'primary': colors['primary'],
+    'secondary': colors['secondary'],
   },
 
   /*
@@ -828,17 +838,17 @@ module.exports = {
   */
 
   modules: {
-    appearance: ['responsive'],
-    backgroundAttachment: ['responsive'],
-    backgroundColors: ['responsive', 'hover', 'focus'],
+    appearance: [],
+    backgroundAttachment: [],
+    backgroundColors: ['hover', 'focus'],
     backgroundPosition: ['responsive'],
-    backgroundRepeat: ['responsive'],
+    backgroundRepeat: [],
     backgroundSize: ['responsive'],
     borderCollapse: [],
-    borderColors: ['responsive', 'hover', 'focus'],
-    borderRadius: ['responsive'],
-    borderStyle: ['responsive'],
-    borderWidths: ['responsive'],
+    borderColors: ['hover', 'focus'],
+    borderRadius: [],
+    borderStyle: [],
+    borderWidths: [],
     cursor: ['responsive'],
     display: ['responsive'],
     flexbox: ['responsive'],
@@ -853,26 +863,26 @@ module.exports = {
     maxWidth: ['responsive'],
     minHeight: ['responsive'],
     minWidth: ['responsive'],
-    negativeMargin: ['responsive'],
+    negativeMargin: [],
     opacity: [],
     outline: ['focus'],
-    overflow: ['responsive'],
+    overflow: [],
     padding: ['responsive'],
-    pointerEvents: ['responsive'],
-    position: ['responsive'],
-    resize: ['responsive'],
+    pointerEvents: [],
+    position: [],
+    resize: [],
     shadows: ['responsive', 'hover', 'focus'],
-    svgFill: [],
+    svgFill: ['hover'],
     svgStroke: [],
     textAlign: ['responsive'],
     textColors: ['responsive', 'hover', 'focus'],
     textSizes: ['responsive'],
-    textStyle: ['responsive', 'hover', 'focus'],
-    tracking: ['responsive'],
-    userSelect: ['responsive'],
+    textStyle: [],
+    tracking: [],
+    userSelect: [],
     verticalAlign: ['responsive'],
     visibility: ['responsive'],
-    whitespace: ['responsive'],
+    whitespace: [],
     width: ['responsive'],
     zIndex: ['responsive']
   },
