@@ -1,34 +1,49 @@
 <template>
   <div class="container">
-    <h2 v-if="articles.length">list</h2>
     <article
-      class="w-full"
+      class="w-full mb-4"
       v-for="(article, i) in articles"
       :key="i"
     >
-      <h1>{{ article.title }}</h1>
-      <p>{{ article.extract }}</p>
+      <article-card
+        :title="article.title"
+        :url="article._path"
+        :extract="getExtract(article.body)"
+      ></article-card>
     </article>
   </div>
 </template>
 
 <script>
+const ArticleCard = () => import('~/components/main-presentation/article-card')
+
 export default {
-  data() {
-    return {
-      articles: []
+  props: {
+    articles: {
+      type: Array,
+      required: true
     }
   },
-  asyncData() {
-    return {
-      articles: [
-        {
-          title: 'a',
-          extract: 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum '
-        }
-      ]
+  methods: {
+    getExtract(text) {
+      if (text && typeof text === 'string') {
+        const trimmedText = text.slice(0, 420)
+        const cleanedText = this.cleanExtract(trimmedText)
+        return (cleanedText +  '...')
+      }
+      return ''
+    },
+    cleanExtract(text) {
+      if (text && typeof text === 'string') {
+        return (
+          text.replace(/([\*=_<>]+?)|[\.\s]+$/gi, '')
+        )
+      }
+      return ''
     }
+  },
+  components: {
+    ArticleCard
   }
 }
 </script>
-

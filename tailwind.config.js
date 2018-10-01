@@ -45,7 +45,7 @@ let colors = {
   'transparent': 'transparent',
 
   'black': '#22292f',
-  // 'grey-darkest': '#3d4852',
+  'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',
   'grey-dark': '#8795a1',
   'grey': '#b8c2cc',
@@ -87,9 +87,9 @@ let colors = {
   // 'green-lightest': '#e3fcec',
 
   // 'teal-darkest': '#0d3331',
-  // 'teal-darker': '#20504f',
+  'teal-darker': '#20504f',
   // 'teal-dark': '#38a89d',
-  // 'teal': '#4dc0b5',
+  'teal': '#4dc0b5',
   'teal-light': '#64d5ca',
   'teal-lighter': '#a0f0ed',
   // 'teal-lightest': '#e8fffe',
@@ -127,6 +127,13 @@ let colors = {
   // 'pink-lightest': '#ffebef'
 }
 
+colors = {
+  ...colors,
+  primary: colors['teal'],
+  secondary: colors['teal-darker'],
+  accent: colors['purple-dark'],
+}
+
 module.exports = {
 
   /*
@@ -142,7 +149,7 @@ module.exports = {
   |
   */
 
-  colors: colors,
+ colors,
 
   /*
   |-----------------------------------------------------------------------------
@@ -248,7 +255,7 @@ module.exports = {
   textSizes: {
     'xs': '.75rem', // 12px
     'sm': '.875rem', // 14px
-    'base': '1rem', // 16px
+    'base': '1.125rem', // 18px
     'lg': '1.125rem', // 18px
     'xl': '1.25rem', // 20px
     '2xl': '1.5rem', // 24px
@@ -787,7 +794,10 @@ module.exports = {
   */
 
   svgFill: {
-    'current': 'currentColor'
+    'current': 'currentColor',
+    'white': colors['white'],
+    'primary': colors['primary'],
+    'secondary': colors['secondary'],
   },
 
   /*
@@ -828,17 +838,17 @@ module.exports = {
   */
 
   modules: {
-    appearance: ['responsive'],
-    backgroundAttachment: ['responsive'],
-    backgroundColors: ['responsive', 'hover', 'focus'],
+    appearance: [],
+    backgroundAttachment: [],
+    backgroundColors: ['hover', 'focus'],
     backgroundPosition: ['responsive'],
-    backgroundRepeat: ['responsive'],
+    backgroundRepeat: [],
     backgroundSize: ['responsive'],
     borderCollapse: [],
-    borderColors: ['responsive', 'hover', 'focus'],
-    borderRadius: ['responsive'],
-    borderStyle: ['responsive'],
-    borderWidths: ['responsive'],
+    borderColors: ['hover', 'focus'],
+    borderRadius: [],
+    borderStyle: [],
+    borderWidths: [],
     cursor: ['responsive'],
     display: ['responsive'],
     flexbox: ['responsive'],
@@ -853,26 +863,26 @@ module.exports = {
     maxWidth: ['responsive'],
     minHeight: ['responsive'],
     minWidth: ['responsive'],
-    negativeMargin: ['responsive'],
+    negativeMargin: [],
     opacity: [],
     outline: ['focus'],
-    overflow: ['responsive'],
+    overflow: [],
     padding: ['responsive'],
-    pointerEvents: ['responsive'],
-    position: ['responsive'],
-    resize: ['responsive'],
+    pointerEvents: [],
+    position: [],
+    resize: [],
     shadows: ['responsive', 'hover', 'focus'],
-    svgFill: [],
+    svgFill: ['hover'],
     svgStroke: [],
     textAlign: ['responsive'],
     textColors: ['responsive', 'hover', 'focus'],
     textSizes: ['responsive'],
-    textStyle: ['responsive', 'hover', 'focus'],
-    tracking: ['responsive'],
-    userSelect: ['responsive'],
+    textStyle: [],
+    tracking: [],
+    userSelect: [],
     verticalAlign: ['responsive'],
     visibility: ['responsive'],
-    whitespace: ['responsive'],
+    whitespace: [],
     width: ['responsive'],
     zIndex: ['responsive']
   },

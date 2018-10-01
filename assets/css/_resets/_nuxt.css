@@ -1,0 +1,7 @@
+.nuxt-progress + * {
+  margin-top: -2px;
+}
+
+.nuxt-link-exact-active.is-active {
+  @apply text-teal-darker;
+}
