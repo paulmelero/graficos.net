@@ -1,6 +1,11 @@
 <template>
   <div class="max-w-lg border rounded overflow-hidden shadow-md hover:shadow-lg p-6 transition:box-shadow">
     <h1 class="text-lg mb-6">
+      <span
+        v-if="lang"
+        class="bg-grey-light rounded p-1 mr-2 text-sm"
+        :title="language"
+      >{{ langClean }}</span>
       <span v-if="!url">{{ title }}</span>
       <nuxt-link
         v-else
@@ -30,6 +35,19 @@ export default {
       required: false,
       default: () => ''
     },
+    lang: {
+      type: String,
+      required: true,
+      default: () => 'EN'
+    },
+  },
+  computed: {
+    language() {
+      return (this.lang + '').toLowerCase() === 'en' && 'English' || 'Spanish'
+    },
+    langClean() {
+      return (this.language + '').slice(0, 2).toUpperCase()
+    }
   }
 }
 </script>
