@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <article
-      class="w-full"
+      class="w-full mb-4"
       v-for="(article, i) in articles"
       :key="i"
     >
@@ -27,7 +27,7 @@ export default {
   methods: {
     getExtract(text) {
       if (text && typeof text === 'string') {
-        const trimmedText = text.slice(0, 240)
+        const trimmedText = text.slice(0, 420)
         const cleanedText = this.cleanExtract(trimmedText)
         return (cleanedText +  '...')
       }
@@ -36,11 +36,7 @@ export default {
     cleanExtract(text) {
       if (text && typeof text === 'string') {
         return (
-          text.replace(/\*/gi, '')
-              .replace(/=/gi, '')
-              .replace(/_/gi, '')
-              .replace(/\s$/, '')
-              .replace(/\.$/, '')
+          text.replace(/([\*=_<>]+?)|[\.\s]+$/gi, '')
         )
       }
       return ''
