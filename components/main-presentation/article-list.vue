@@ -6,6 +6,7 @@
       :key="i"
     >
       <article-card
+        :lang="article.lang"
         :title="article.title"
         :url="article._path"
         :extract="getExtract(article.body)"
