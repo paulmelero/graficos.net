@@ -1,22 +1,26 @@
 <template>
-  <nav class="flex items-center bg-primary overflow-hidden" role="navigatioon">
+  <nav class="flex items-center bg-primary overflow-hidden" aria-label="Main Navigation" role="presentation">
     <nuxt-link
       class="flex items-center flex-no-shrink text-white mx-6 py-4 disable-underline disable-transition disable-hover"
       to="/"
     >
       <the-logo class="h-8 transition:color hover:text-secondary"></the-logo>
     </nuxt-link>
-    <div class="h-full w-full flex-1 flex-grow items-center pr-6">
-      <nuxt-link
+    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center pr-6">
+      <li
         v-for="(link, i) in sections"
         :key="i"
-        :to="link.href"
-        :title="link.title"
-        class="block inline-block my-0 text-sm text-white hover:text-white mr-4"
+        class="block inline-block"
       >
-        {{ link.name }}
-      </nuxt-link>
-    </div>
+        <nuxt-link
+          :to="link.href"
+          :title="link.title"
+          class="my-0 text-sm text-white hover:text-white mr-4"
+        >
+          {{ link.name }}
+        </nuxt-link>
+      </li>
+    </ul>
     <social-networks></social-networks>
   </nav>
 </template>

@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col content-around h-screen">
-    <header>
+    <header role="banner">
       <the-header></the-header>
     </header>
-    <main class="container mx-auto p-4 flex-grow">
+    <main class="container mx-auto p-4 flex-grow" role="main">
       <nuxt/>
     </main>
-    <footer>
+    <footer role="contentinfo">
       <the-footer></the-footer>
     </footer>
   </div>

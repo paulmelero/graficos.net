@@ -1,18 +1,16 @@
 <template>
-  <div class="container">
-    <article
-      class="w-full mb-4"
+  <section
+    class="w-full mb-4" role="region"
+  >
+    <article-card
       v-for="(article, i) in articles"
       :key="i"
-    >
-      <article-card
-        :lang="article.lang"
-        :title="article.title"
-        :url="article._path"
-        :extract="getExtract(article.body)"
-      ></article-card>
-    </article>
-  </div>
+      :lang="article.lang"
+      :title="article.title"
+      :url="article._path"
+      :extract="getExtract(article.body)"
+    ></article-card>
+  </section>
 </template>
 
 <script>
@@ -36,8 +34,13 @@ export default {
     },
     cleanExtract(text) {
       if (text && typeof text === 'string') {
+        // const tags = []
         return (
-          text.replace(/([\*=_<>]+?)|[\.\s]+$/gi, '')
+          text.replace(
+            /([#\*=_<>`\[\]]+?)|(\(.+\))|[\.\s]+$/gi, // TODO, escape html tags
+            ''
+          ).replace(/\s\s/, ' ')
+          .replace(/\s,/, ',')
         )
       }
       return ''

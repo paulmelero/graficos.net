@@ -1,9 +1,9 @@
 <template>
-  <div class="max-w-lg border rounded overflow-hidden shadow-md hover:shadow-lg p-6 transition:box-shadow">
-    <h1 class="text-lg mb-6">
+  <article class="max-w-lg border rounded overflow-hidden shadow-md hover:shadow-lg p-6 transition:box-shadow">
+    <h2 class="text-lg mb-6">
       <span
         v-if="lang"
-        class="bg-grey-light rounded p-1 mr-2 text-sm"
+        class="hidden bg-grey-light rounded p-1 mr-2 text-sm"
         :title="language"
       >{{ langClean }}</span>
       <span v-if="!url">{{ title }}</span>
@@ -12,9 +12,9 @@
         :to="url"
         class="no-underline disable-underline transition:color"
       >{{ title }}</nuxt-link>
-    </h1>
+    </h2>
     <p class="text-grey-darker overflow-hidden">{{ extract }}</p>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
       required: false,
       default: () => ''
     },
-    lang: {
+    lang: { // TODO: https://github.com/nuxt-community/nuxt-i18n
       type: String,
       required: true,
       default: () => 'EN'
