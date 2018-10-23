@@ -1,9 +1,9 @@
 <template>
   <article>
     <h1>{{ post.title }}</h1>
-    <p>{{ post.date }}</p>
+    <time :date-time="post.date">{{ post.date }}</time>
     <img class="img-post" :src="post.thumbnail">
-    <p v-html="parsedBody"></p>
+    <div v-html="parsedBody"></div>
   </article>
 </template>
 
