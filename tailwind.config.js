@@ -64,7 +64,7 @@ let colors = {
 
   // 'orange-darkest': '#462a16',
   // 'orange-darker': '#613b1f',
-  // 'orange-dark': '#de751f',
+  'orange-dark': '#de751f',
   // 'orange': '#f6993f',
   // 'orange-light': '#faad63',
   // 'orange-lighter': '#fcd9b6',
@@ -86,12 +86,12 @@ let colors = {
   // 'green-lighter': '#a2f5bf',
   // 'green-lightest': '#e3fcec',
 
-  // 'teal-darkest': '#0d3331',
+  'teal-darkest': '#0d3331',
   'teal-darker': '#20504f',
-  // 'teal-dark': '#38a89d',
+  'teal-dark': '#38a89d',
   'teal': '#4dc0b5',
   'teal-light': '#64d5ca',
-  'teal-lighter': '#a0f0ed',
+  // 'teal-lighter': '#a0f0ed',
   // 'teal-lightest': '#e8fffe',
 
   // 'blue-darkest': '#12283a',
@@ -111,9 +111,9 @@ let colors = {
   // 'indigo-lightest': '#e6e8ff',
 
   // 'purple-darkest': '#21183c',
-  // 'purple-darker': '#382b5f',
-  'purple-dark': '#794acf',
-  // 'purple': '#9561e2',
+  'purple-darker': '#382b5f',
+  // 'purple-dark': '#794acf',
+  'purple': '#9561e2',
   // 'purple-light': '#a779e9',
   // 'purple-lighter': '#d6bbfc',
   // 'purple-lightest': '#f3ebff',
@@ -131,7 +131,7 @@ colors = {
   ...colors,
   primary: colors['teal'],
   secondary: colors['teal-darker'],
-  accent: colors['purple-dark'],
+  accent: colors['purple'],
 }
 
 module.exports = {

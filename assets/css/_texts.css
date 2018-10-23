@@ -1,7 +1,7 @@
 @custom-selector :--headings h1, h2, h3, h4, h5, h6;
 
 a {
-  @apply text-teal no-underline;
+  @apply text-teal-dark no-underline;
   &:not(.disable-underline) {
     position: relative;
     &:before {
@@ -9,7 +9,7 @@ a {
       speak: none;
       position: absolute;
       margin: 0 auto;
-      bottom: -.2em;
+      bottom: -.17em;
       left: 0;
       width: 100%;
       height: 2px;
@@ -17,7 +17,7 @@ a {
       opacity: .2;
       filter: alpha 20;
       transform: scaleX(.8);
-      transition-property: transform;
+      transition-property: transform, opacity;
       transition-duration: .2s;
     }
     &.big-underline:before {
@@ -35,6 +35,13 @@ a {
       @apply text-teal-darker;
     }
   }
+}
+
+ul,
+ol,
+article img,
+p {
+  @apply mb-4;
 }
 
 p {
