@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {markdown} from 'markdown';
+import md from 'md';
 
 import TheTime from '@/components/main-presentation/base-texts/the-time'
 
@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     parsedBody() {
-      return markdown.toHTML(this.post.body)
+      return md(this.post.body);
     },
     trimmedDescription() {
       return (this.post.description + '').slice(0, 150)
