@@ -57,6 +57,11 @@ export default {
       return (this.post.description + '').slice(0, 150)
     }
   },
+  mounted() {
+    Prism.highlightAll(false, () => {
+      // console.log('edited')
+    })
+  },
   components: {
     TheTime
   }
