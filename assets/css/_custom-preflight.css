@@ -5,3 +5,7 @@ html {
 p code {
   white-space: pre-wrap;
 }
+
+pre {
+  @apply mx-8;
+}

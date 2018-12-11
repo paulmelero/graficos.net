@@ -79,14 +79,11 @@ module.exports = {
   /*
     ** Build configuration
     */
+  plugins: [
+    '~/plugins/prism',
+  ],
   build: {
     extractCSS: true,
-    vendor: [
-      'prismjs',
-      'prismjs/plugins/toolbar/prism-toolbar.js',
-      'prismjs/plugins/show-language/prism-show-language.min.js',
-      'prismjs/components/prism-yaml.min.js'
-    ],
     /*
     ** You can extend webpack config here
     */
@@ -120,6 +117,8 @@ module.exports = {
   */
   purgeCSS: {
     // See https://github.com/Developmint/nuxt-purgecss
+    mode: 'postcss',
+    whitelistPatterns: [/^(lang)/, /token/gm]
   },
 
 }
