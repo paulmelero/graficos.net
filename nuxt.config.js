@@ -79,6 +79,7 @@ module.exports = {
     ** Build configuration
     */
   build: {
+    extractCSS: true,
     /*
     ** You can extend webpack config here
     */
@@ -98,8 +99,8 @@ module.exports = {
     APP_NAME
   },
   modules: [
-    '@nuxtjs/axios',
-    'nuxt-purgecss',
+    ['@nuxtjs/axios'],
+    ['nuxt-purgecss'],
   ],
   generate: {
     routes: dynamicRoutes
