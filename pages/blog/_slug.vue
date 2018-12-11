@@ -1,15 +1,25 @@
 <template>
   <article>
-    <h1>{{ post.title }}</h1>
-    <time :date-time="post.date">{{ post.date }}</time>
-    <img class="img-post" :src="post.thumbnail">
-    <div v-html="parsedBody"></div>
+    <header
+      class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
+      :style="`background-image: url( ${ post.thumbnail } )`"
+    >
+      <div class="container my-auto">
+        <h1 class="mb-8 text-white">{{ post.title }}</h1>
+        <the-time class="text-white" :date="post.date"></the-time>
+      </div>
+    </header>
+    <div v-html="parsedBody" class="container py-20 "></div>
   </article>
 </template>
 
 <script>
 import {markdown} from 'markdown';
+
+import TheTime from '@/components/main-presentation/base-texts/the-time'
+
 export default {
+  layout: 'post',
   head() {
     return {
       title: `${ (this.post && this.post.title) || 'Post' }`,
@@ -35,7 +45,7 @@ export default {
   },
   async asyncData({ params }) {
     const post = await import('~/content/blog/posts/' + params.slug + '.json');
-    console.log(post);
+    // console.log(post);
     return { post };
   },
   computed: {
@@ -46,5 +56,19 @@ export default {
       return (this.post.description + '').slice(0, 150)
     }
   },
+  components: {
+    TheTime
+  }
 };
 </script>
+
+<style scoped>
+.bg-image {
+  @apply z-1 relative;
+  &:after {
+    content: '';
+    @apply pin absolute bg-black opacity-50;
+    z-index: -1;
+  }
+}
+</style>

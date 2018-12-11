@@ -1,14 +1,8 @@
 const pkg = require('./package')
-const tailwindConfig = require('./tailwind')
-// const PurgecssPlugin = require('purgecss-webpack-plugin')
+const tailwindConfig = require('./tailwind.config')
+
 const glob = require('glob-all')
 const path = require('path')
-
-// class TailwindExtractor {
-//   static extract (content) {
-//     return content.match(/[A-Za-z0-9-_:\/]+/g) || []
-//   }
-// }
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'graficos.net'

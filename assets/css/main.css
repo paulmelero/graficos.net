@@ -5,4 +5,5 @@
 @import '_resets/_nuxt';
 @import '_colors';
 @import '_texts';
+@import '_articles';
 @import '_transitions';

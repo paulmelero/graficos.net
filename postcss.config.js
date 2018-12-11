@@ -1,4 +1,4 @@
-const tailwindJS = require('./tailwind')
+const tailwindJS = require('./tailwind.config')
 
 module.exports = {
   // order of requires is important!

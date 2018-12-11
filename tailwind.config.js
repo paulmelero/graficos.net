@@ -564,7 +564,8 @@ module.exports = {
   minHeight: {
     '0': '0',
     'full': '100%',
-    'screen': '100vh'
+    'screen': '100vh',
+    '50': '50vh',
   },
 
   /*
@@ -775,6 +776,7 @@ module.exports = {
 
   opacity: {
     '0': '0',
+    '5': '.05',
     '50': '.5',
     '100': '1'
   },
@@ -903,7 +905,7 @@ module.exports = {
 
   plugins: [
     require('tailwindcss/plugins/container')({
-      // center: true,
+      center: true,
       // padding: '1rem',
     })
   ],
