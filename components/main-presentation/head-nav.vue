@@ -6,7 +6,7 @@
     >
       <the-logo class="h-8 transition:color hover:text-secondary"></the-logo>
     </nuxt-link>
-    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center pr-6">
+    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center mb-0">
       <li
         v-for="(link, i) in sections"
         :key="i"
@@ -23,12 +23,11 @@
       <li
         class="inline-block"
       >
-        <a
+        <!-- noIcon -->
+        <external-link
           href="https://paulmelero.netlify.com"
-          target="_blank"
-          rel="noopener noreferrer"
           class="my-0 text-sm text-white hover:text-white mr-4"
-        ><abbr title="Curriculum Vitae">CV</abbr></a>
+        ><abbr title="Curriculum Vitae">CV</abbr></external-link>
       </li>
     </ul>
     <social-networks></social-networks>
@@ -38,6 +37,8 @@
 <script>
 const SocialNetworks = () => import('~/components/main-presentation/images/social-networks')
 const TheLogo = () => import('~/components/main-presentation/images/logo.vue')
+const ExternalLink = () => import('~/components/main-presentation/base-texts/external-link')
+
 export default {
   data() {
     return {
@@ -57,7 +58,8 @@ export default {
   },
   components: {
     SocialNetworks,
-    TheLogo
+    TheLogo,
+    ExternalLink
   }
 }
 </script>

@@ -1,8 +1,10 @@
+const glob = require('glob-all')
+const path = require('path')
+
 const pkg = require('./package')
 const tailwindConfig = require('./tailwind.config')
 
-const glob = require('glob-all')
-const path = require('path')
+const socialLinks = require('./assets/social-links')
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'graficos.net'
@@ -100,7 +102,10 @@ module.exports = {
     }
   },
   env: {
-    APP_NAME
+    APP_NAME,
+    social: {
+      ...socialLinks
+    }
   },
   modules: [
     ['@nuxtjs/axios'],
