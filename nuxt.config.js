@@ -1,8 +1,10 @@
+const glob = require('glob-all')
+const path = require('path')
+
 const pkg = require('./package')
 const tailwindConfig = require('./tailwind.config')
 
-const glob = require('glob-all')
-const path = require('path')
+const socialLinks = require('./assets/social-links')
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'graficos.net'
@@ -100,7 +102,10 @@ module.exports = {
     }
   },
   env: {
-    APP_NAME
+    APP_NAME,
+    social: {
+      ...socialLinks
+    }
   },
   modules: [
     ['@nuxtjs/axios'],
@@ -118,6 +123,8 @@ module.exports = {
   purgeCSS: {
     // See https://github.com/Developmint/nuxt-purgecss
     mode: 'postcss',
+    // https://github.com/FullHuman/purgecss/issues/67
+    // https://github.com/Developmint/nuxt-purgecss/issues/14
     whitelistPatterns: [/^(lang)/, /token/gm]
   },
 

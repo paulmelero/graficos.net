@@ -854,7 +854,7 @@ module.exports = {
     cursor: ['responsive'],
     display: ['responsive'],
     flexbox: ['responsive'],
-    float: [],
+    float: false,
     fonts: ['responsive'],
     fontWeights: ['responsive', 'hover', 'focus'],
     height: ['responsive'],

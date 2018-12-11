@@ -4,22 +4,38 @@
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
     <section class="container mx-auto px-4">
-        <h2 class="text-2xl mb-8">Hi! I'm Paul Melero, Engineer, Frontend Dev. and Visual Artist.</h2>
+        <h2 class="text-2xl mb-8">Hi! I'm Paul Melero, Engineer, Web Developer and Visual Artist.</h2>
         <h3 slot="title" class="text-xl mb-6">About Graficos.NET and me ></h3>
       <p class="text-base">
         Awesome! It's been awhile, but here I am, again.
-        You may know me as Paul or
-        <external-link href="https://twitter.com/paul_melero">@paul_melero</external-link>
+        You may know me as
+        <external-link :href="social.twitter.link">@{{social.twitter.name}}</external-link>
         or
-        <external-link href="https://github.com/gangsthub">Gangsthub</external-link>.
-        The first version of this site was made by me in the early 00's.
+        <external-link :href="social.github.link">{{social.github.name}}</external-link>.
+        The first version of this site was made by me in
+        <external-link
+          href="http://web.archive.org/web/20020603194144/http://www.graficos.net:80/"
+        >the early 00's</external-link>.
         Yes, I was and I am a proud self-taught geek.
         I've also studied Agriculture Engineering and a bunch of other things.
       </p>
       <p class="text-base">
+        In case you are interested, I have also prepared an online version of
+        <external-link
+          :href="social.cv.link"
+        >my CV 📝</external-link>.
+      </p>
+      <p class="text-base">
         This is the first time I'm publishing my web on OS.
-        Be sure you check the source. The Blog is powered by Nuxt and Netlify.
-        I wrote a post about it.
+        Be sure you check
+        <external-link href="https://github.com/gangsthub/graficos.net">the source</external-link>.
+      </p>
+      <p class="text-base">
+        The <nuxt-link to="/blog">Blog section</nuxt-link> is powered by Nuxt and Netlify. Actually, I wrote
+        <nuxt-link
+          to="/blog/2018-08-21-setting-up-nuxt-with-netlify-netlify-cms-and-netlify-identity"
+        >a post</nuxt-link>
+        about the process.
       </p>
     </section>
   </section>
@@ -38,6 +54,11 @@ export default {
   data() {
     return {
       title: HOME
+    }
+  },
+  computed: {
+    social() {
+      return process.env.social
     }
   },
   components: {
