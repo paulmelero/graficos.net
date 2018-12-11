@@ -9,12 +9,13 @@
         <the-time class="text-white" :date="post.date"></the-time>
       </div>
     </header>
-    <div v-html="parsedBody" class="container py-20 "></div>
+    <div v-html="parsedBody" class="container py-20" ></div>
   </article>
 </template>
 
 <script>
 import md from 'md';
+import Prism from 'prismjs';
 
 import TheTime from '@/components/main-presentation/base-texts/the-time'
 
