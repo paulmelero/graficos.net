@@ -61,6 +61,7 @@ module.exports = {
   ** Load global CSS
   */
   css: [
+    'prismjs/themes/prism.css',
     '@/assets/css/tailwind.css',
     '@/assets/css/main.css',
   ],
@@ -80,6 +81,12 @@ module.exports = {
     */
   build: {
     extractCSS: true,
+    vendor: [
+      'prismjs',
+      'prismjs/plugins/toolbar/prism-toolbar.js',
+      'prismjs/plugins/show-language/prism-show-language.min.js',
+      'prismjs/components/prism-yaml.min.js'
+    ],
     /*
     ** You can extend webpack config here
     */
@@ -101,9 +108,6 @@ module.exports = {
   modules: [
     ['@nuxtjs/axios'],
     ['nuxt-purgecss'],
-  ],
-  plugins: [
-    '~/plugins/prism',
   ],
   generate: {
     routes: dynamicRoutes
