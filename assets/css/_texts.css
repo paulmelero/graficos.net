@@ -39,7 +39,6 @@ a {
 
 ul,
 ol,
-article img,
 p {
   @apply mb-4;
 }

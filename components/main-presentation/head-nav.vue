@@ -20,6 +20,16 @@
           {{ link.name }}
         </nuxt-link>
       </li>
+      <li
+        class="inline-block"
+      >
+        <a
+          href="https://paulmelero.netlify.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="my-0 text-sm text-white hover:text-white mr-4"
+        ><abbr title="Curriculum Vitae">CV</abbr></a>
+      </li>
     </ul>
     <social-networks></social-networks>
   </nav>
@@ -52,3 +62,8 @@ export default {
 }
 </script>
 
+<style scoped>
+abbr[title] {
+  text-decoration: none;
+}
+</style>
