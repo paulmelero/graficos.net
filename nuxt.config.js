@@ -102,6 +102,9 @@ module.exports = {
     ['@nuxtjs/axios'],
     ['nuxt-purgecss'],
   ],
+  plugins: [
+    '~/plugins/prism',
+  ],
   generate: {
     routes: dynamicRoutes
   },
