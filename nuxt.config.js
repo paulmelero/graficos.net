@@ -118,6 +118,8 @@ module.exports = {
   purgeCSS: {
     // See https://github.com/Developmint/nuxt-purgecss
     mode: 'postcss',
+    // https://github.com/FullHuman/purgecss/issues/67
+    // https://github.com/Developmint/nuxt-purgecss/issues/14
     whitelistPatterns: [/^(lang)/, /token/gm]
   },
 
