@@ -54,7 +54,7 @@ export default {
       return md(this.post.body);
     },
     trimmedDescription() {
-      return (this.post.description + '').slice(0, 150)
+      return (this.post.description + '').slice(0, 300)
     }
   },
   mounted() {
