@@ -9,3 +9,7 @@ p code {
 pre {
   @apply mx-8;
 }
+
+code {
+  max-width: 100%;
+}
