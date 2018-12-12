@@ -10,6 +10,7 @@ const APP_NAME = 'Graficos.net'
 const APP_URL = 'graficos.net'
 const APP_COVER_IMG = '/cover.png';
 const THEME_COLOR = tailwindConfig.colors['teal-light']
+
 const dynamicRoutes  = getDynamicPaths({
   '/blog': 'blog/posts/*.json'
 });
