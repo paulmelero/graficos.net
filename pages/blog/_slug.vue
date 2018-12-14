@@ -6,7 +6,11 @@
     >
       <div class="container my-auto">
         <h1 class="mb-8 text-white">{{ post.title }}</h1>
-        <the-time class="text-white" :date="post.date"></the-time>
+        <p class="text-white">
+          <the-time :date="post.date"></the-time> {{ '·' }}
+          <span>{{ cupsWhileReading }}️</span>
+          <span>{{ minutesToRead }} mins read</span>
+        </p>
       </div>
     </header>
     <div v-html="parsedBody" class="container py-20" ></div>
@@ -41,7 +45,7 @@ export default {
         date: '',
         thumbnail: '',
         body: '',
-      }
+      },
     }
   },
   async asyncData({ params }) {
@@ -55,7 +59,13 @@ export default {
     },
     trimmedDescription() {
       return (this.post.description + '').slice(0, 300)
-    }
+    },
+    minutesToRead() {
+      return Math.floor(this.post.body.split(' ').length  * .99 / 150);
+    },
+    cupsWhileReading() {
+      return this.minutesToRead && new Array(Math.floor(this.minutesToRead / 3)).fill('☕️').join('');
+    },
   },
   mounted() {
     Prism.highlightAll(false, () => {
