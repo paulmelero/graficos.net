@@ -1,4 +1,13 @@
 
-article img {
-  @apply mb-4 rounded;
+article img,
+article pre {
+  @apply mb-4 rounded-lg;
+}
+
+article {
+  ul,
+  ol,
+  p {
+    @apply mb-8;
+  }
 }

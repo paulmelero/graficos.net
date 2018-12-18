@@ -11,6 +11,10 @@ const APP_URL = 'graficos.net'
 const APP_COVER_IMG = '/cover.png';
 const THEME_COLOR = tailwindConfig.colors['teal-light']
 
+const importScripts = [
+  '/my-sw.js'
+]
+
 const dynamicRoutes  = getDynamicPaths({
   '/blog': 'blog/posts/*.json'
 });
@@ -85,6 +89,30 @@ module.exports = {
   plugins: [
     '~/plugins/prism',
   ],
+  modules: [
+    ['@nuxtjs/axios'],
+    ['nuxt-purgecss'],
+    ['@nuxtjs/pwa', { icon: false, oneSignal: false }],
+  ],
+  /*
+  ** @nuxt/axios module configuration
+  */
+ axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+  },
+  /*
+  ** nuxt-purgecss module configuration
+  */
+  purgeCSS: {
+    // See https://github.com/Developmint/nuxt-purgecss
+    mode: 'postcss',
+    // https://github.com/FullHuman/purgecss/issues/67
+    // https://github.com/Developmint/nuxt-purgecss/issues/14
+    whitelistPatterns: [/^(lang)/, /token/gm]
+  },
+  workbox: {
+    offlineAssets: ['/logo/graficos.svg']
+  },
   build: {
     extractCSS: true,
     /*
@@ -108,27 +136,12 @@ module.exports = {
       ...socialLinks
     }
   },
-  modules: [
-    ['@nuxtjs/axios'],
-    ['nuxt-purgecss'],
-  ],
+  /*
+  ** Dynamic Routes added
+  */
   generate: {
     routes: dynamicRoutes
   },
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
-  /*
-  ** nuxt-purgecss module configuration
-  */
-  purgeCSS: {
-    // See https://github.com/Developmint/nuxt-purgecss
-    mode: 'postcss',
-    // https://github.com/FullHuman/purgecss/issues/67
-    // https://github.com/Developmint/nuxt-purgecss/issues/14
-    whitelistPatterns: [/^(lang)/, /token/gm]
-  },
-
 }
 /**
  * Create an array of URLs from a list of files
