@@ -11,13 +11,18 @@ const APP_URL = 'graficos.net'
 const APP_COVER_IMG = '/cover.png';
 const THEME_COLOR = tailwindConfig.colors['teal-light']
 
-const importScripts = [
-  '/my-sw.js'
-]
-
 const dynamicRoutes  = getDynamicPaths({
   '/blog': 'blog/posts/*.json'
 });
+
+const isProd = process.env.NODE_ENV === 'production';
+
+const envDependantModules =
+  isProd ?
+    [
+      ['@nuxtjs/pwa', { icon: false, oneSignal: false }]
+    ] :
+      [];
 
 module.exports = {
   /*
@@ -92,7 +97,7 @@ module.exports = {
   modules: [
     ['@nuxtjs/axios'],
     ['nuxt-purgecss'],
-    ['@nuxtjs/pwa', { icon: false, oneSignal: false }],
+    ...envDependantModules,
   ],
   /*
   ** @nuxt/axios module configuration

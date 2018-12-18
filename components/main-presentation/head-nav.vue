@@ -23,14 +23,15 @@
       <li
         class="inline-block"
       >
-        <!-- noIcon -->
         <external-link
           href="https://paulmelero.netlify.com"
           class="my-0 text-sm text-white hover:text-white mr-4"
         ><abbr title="Curriculum Vitae">CV</abbr></external-link>
       </li>
     </ul>
-    <social-networks></social-networks>
+    <div class="hidden sm:flex">
+      <social-networks class="sm:flex"></social-networks>
+    </div>
   </nav>
 </template>
 

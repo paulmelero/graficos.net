@@ -1,20 +1,22 @@
 <template>
-  <ul class="flex mb-0">
-    <li
-      v-for="(network, i) in socialNetworks"
-      :key="i"
-      class="inline-block"
-    >
-      <external-link :href="network.link" class="block disable-underline">
-        <svg class="fill-white w-6 mr-5 hover:fill-secondary transition:fill" viewBox="0 0 33 33">
-          <title>{{ network.name }}</title>
-          <g>
-            <path :d="network.iconPath"></path>
-          </g>
-        </svg>
-      </external-link>
-    </li>
-  </ul>
+  <div> <!-- accepts display classes -->
+    <ul class="flex mb-0">
+      <li
+        v-for="(network, i) in socialNetworks"
+        :key="i"
+        class="inline-block"
+      >
+        <external-link :href="network.link" class="block disable-underline">
+          <svg class="fill-white w-6 mr-5 hover:fill-secondary transition:fill" viewBox="0 0 33 33">
+            <title>{{ network.name }}</title>
+            <g>
+              <path :d="network.iconPath"></path>
+            </g>
+          </svg>
+        </external-link>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 const ExternalLink = () => import('~/components/main-presentation/base-texts/external-link')
