@@ -20,7 +20,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const envDependantModules =
   isProd ?
     [
-      ['@nuxtjs/pwa', { icon: false, oneSignal: false }]
+      ['@nuxtjs/pwa', { oneSignal: false }]
     ] :
       [];
 
