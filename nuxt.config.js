@@ -15,6 +15,15 @@ const dynamicRoutes  = getDynamicPaths({
   '/blog': 'blog/posts/*.json'
 });
 
+const isProd = process.env.NODE_ENV === 'production';
+
+const envDependantModules =
+  isProd ?
+    [
+      ['@nuxtjs/pwa', { oneSignal: false }]
+    ] :
+      [];
+
 module.exports = {
   /*
   ** Headers of the page
@@ -85,6 +94,30 @@ module.exports = {
   plugins: [
     '~/plugins/prism',
   ],
+  modules: [
+    ['@nuxtjs/axios'],
+    ['nuxt-purgecss'],
+    ...envDependantModules,
+  ],
+  /*
+  ** @nuxt/axios module configuration
+  */
+ axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+  },
+  /*
+  ** nuxt-purgecss module configuration
+  */
+  purgeCSS: {
+    // See https://github.com/Developmint/nuxt-purgecss
+    mode: 'postcss',
+    // https://github.com/FullHuman/purgecss/issues/67
+    // https://github.com/Developmint/nuxt-purgecss/issues/14
+    whitelistPatterns: [/^(lang)/, /token/gm]
+  },
+  workbox: {
+    offlineAssets: ['/logo/graficos.svg']
+  },
   build: {
     extractCSS: true,
     /*
@@ -108,27 +141,12 @@ module.exports = {
       ...socialLinks
     }
   },
-  modules: [
-    ['@nuxtjs/axios'],
-    ['nuxt-purgecss'],
-  ],
+  /*
+  ** Dynamic Routes added
+  */
   generate: {
     routes: dynamicRoutes
   },
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
-  /*
-  ** nuxt-purgecss module configuration
-  */
-  purgeCSS: {
-    // See https://github.com/Developmint/nuxt-purgecss
-    mode: 'postcss',
-    // https://github.com/FullHuman/purgecss/issues/67
-    // https://github.com/Developmint/nuxt-purgecss/issues/14
-    whitelistPatterns: [/^(lang)/, /token/gm]
-  },
-
 }
 /**
  * Create an array of URLs from a list of files

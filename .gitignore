@@ -12,3 +12,5 @@ dist
 
 # Editor
 /.vscode
+/static/my-sw.js
+/static/sw.js
