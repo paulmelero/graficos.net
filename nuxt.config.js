@@ -30,7 +30,7 @@ module.exports = {
   */
   head: {
     titleTemplate: titleChunk => {
-      return titleChunk ? `${titleChunk} - Paul Melero's CV` : `Paul Melero's CV`
+      return titleChunk ? `${titleChunk} - Graficos.net` : `Graficos.net`
     },
     htmlAttrs: { lang: 'en' },
     meta: [
