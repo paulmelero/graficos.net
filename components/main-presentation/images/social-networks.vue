@@ -1,13 +1,20 @@
 <template>
   <div> <!-- accepts display classes -->
-    <ul class="flex mb-0">
+    <ul class="flex mb-0 pl-0">
       <li
         v-for="(network, i) in socialNetworks"
         :key="i"
-        class="inline-block"
+        class="flex"
       >
         <external-link :href="network.link" class="block disable-underline">
-          <svg class="fill-white w-6 mr-5 hover:fill-secondary transition:fill" viewBox="0 0 33 33">
+          <svg
+            class="w-6 mx-2 hover:fill-secondary transition:fill"
+            viewBox="0 0 33 33"
+            :class="{
+              'fill-white': dark,
+              'fill-primary': !dark,
+            }"
+          >
             <title>{{ network.name }}</title>
             <g>
               <path :d="network.iconPath"></path>
@@ -22,6 +29,12 @@
 const ExternalLink = () => import('~/components/main-presentation/base-texts/external-link')
 export default {
   name: 'SocialNetworks',
+  props: {
+    dark: {
+      type: Boolean,
+      default: true,
+    }
+  },
   data() {
     return {
       socialNetworks: [
