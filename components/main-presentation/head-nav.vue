@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center bg-primary overflow-hidden" aria-label="Main Navigation" role="presentation">
+  <nav class="flex items-center bg-primary overflow-hidden" aria-label="Main Navigation." role="presentation">
     <nuxt-link
       class="flex items-center flex-no-shrink text-white mx-6 py-4 disable-underline disable-transition disable-hover"
       to="/"

@@ -1,9 +1,9 @@
 <template>
   <section>
-    <the-title>
-      <h1 slot="title" class="text-3xl">{{ title }}</h1>
+    <the-title class="text-center">
+      <the-logo slot="title" class="text-primary m-auto logo-height"></the-logo>
     </the-title>
-    <section class="container mx-auto px-4">
+    <section class="container mx-auto px-4" aria-label="Main section.">
         <h2 class="text-2xl mb-8">Hi! I'm Paul Melero, Engineer, Web Developer and Visual Artist.</h2>
         <h3 slot="title" class="text-xl mb-6">About Graficos.NET and me ></h3>
       <p class="text-base">
@@ -44,17 +44,13 @@
 <script>
 const TheTitle = () => import('~/components/main-presentation/base-texts/the-title')
 const ExternalLink = () => import('~/components/main-presentation/base-texts/external-link')
+const TheLogo = () => import('~/components/main-presentation/images/logo.vue')
 const HOME = 'Home'
 
 export default {
   name: HOME,
   head: {
     title: HOME,
-  },
-  data() {
-    return {
-      title: HOME
-    }
   },
   computed: {
     social() {
@@ -63,7 +59,15 @@ export default {
   },
   components: {
     TheTitle,
-    ExternalLink
+    ExternalLink,
+    TheLogo,
   }
 }
 </script>
+
+<style scoped>
+.logo-height {
+  height: 20vw;
+  max-height: 200px;
+}
+</style>

@@ -13,3 +13,8 @@ pre {
 code {
   max-width: 100%;
 }
+
+svg,
+img {
+  max-width: 100%;
+}
