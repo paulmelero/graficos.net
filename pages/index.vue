@@ -1,9 +1,9 @@
 <template>
   <section>
-    <the-title class="text-center">
-      <the-logo slot="title" class="text-primary m-auto logo-height"></the-logo>
+    <the-title class="text-center logo-placeholder">
+      <the-logo slot="title" class="text-primary mx-auto logo-height mt-6 block"></the-logo>
     </the-title>
-    <section class="container mx-auto px-4" aria-label="Main section.">
+    <section class="container mx-auto sm:mt-8 px-4" aria-label="Main section.">
         <h2 class="text-2xl mb-8">Hi! I'm Paul Melero, Engineer, Web Developer and Visual Artist.</h2>
         <h3 slot="title" class="text-xl mb-6">About Graficos.NET and me ></h3>
       <p class="text-base">
@@ -66,7 +66,8 @@ export default {
 </script>
 
 <style scoped>
-.logo-height {
+.logo-height,
+.logo-placeholder {
   height: 20vw;
   max-height: 200px;
 }
