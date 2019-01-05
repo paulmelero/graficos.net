@@ -3,8 +3,9 @@
     <h2 class="text-lg mb-6">
       <span
         v-if="lang"
-        class="hidden bg-grey-light rounded p-1 mr-2 text-sm"
+        class="bg-grey-light rounded p-1 mr-2 text-sm"
         :title="language"
+        :aria-label="language"
       >{{ langClean }}</span>
       <span v-if="!url">{{ title }}</span>
       <nuxt-link

@@ -15,7 +15,7 @@
         The first version of this site was made by me in
         <external-link
           href="http://web.archive.org/web/20020603194144/http://www.graficos.net:80/"
-        >the early 00's</external-link>.
+        >the early 2000's</external-link>.
         Yes, I was and I am a proud self-taught geek.
         I've also studied Agriculture Engineering and a bunch of other things.
       </p>

@@ -1,8 +1,0 @@
-
-.text-primary {
-  color: config('colors.teal');
-}
-
-.bg-primary {
-  background-color: config('colors.teal');
-}

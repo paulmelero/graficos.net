@@ -113,14 +113,14 @@ let colors = {
   // 'purple-darkest': '#21183c',
   'purple-darker': '#382b5f',
   // 'purple-dark': '#794acf',
-  'purple': '#9561e2',
+  // 'purple': '#9561e2',
   // 'purple-light': '#a779e9',
   // 'purple-lighter': '#d6bbfc',
   // 'purple-lightest': '#f3ebff',
 
   // 'pink-darkest': '#451225',
   // 'pink-darker': '#6f213f',
-  // 'pink-dark': '#eb5286',
+  'pink-dark': '#eb5286',
   // 'pink': '#f66d9b',
   // 'pink-light': '#fa7ea8',
   // 'pink-lighter': '#ffbbca',
@@ -131,7 +131,7 @@ colors = {
   ...colors,
   primary: colors['teal'],
   secondary: colors['teal-darker'],
-  accent: colors['purple'],
+  accent: colors['pink-dark'],
 }
 
 module.exports = {
