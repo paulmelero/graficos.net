@@ -12,9 +12,25 @@ pre {
 
 code {
   max-width: 100%;
+  word-break: break-word;
 }
 
 svg,
 img {
   max-width: 100%;
+}
+
+label,
+label input,
+label textarea {
+  @apply block;
+}
+
+input:not([type="radio"]):not([type="checkbox"]),
+textarea {
+  @apply font-mono;
+}
+
+button {
+  @apply text-accent font-bold p-2 bg-grey-light rounded;
 }

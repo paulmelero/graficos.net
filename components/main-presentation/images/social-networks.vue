@@ -8,7 +8,7 @@
       >
         <external-link :href="network.link" class="block disable-underline">
           <svg
-            class="w-6 mx-2 hover:fill-secondary transition:fill"
+            class="w-6 mx-2 hover:fill-action transition:fill"
             viewBox="0 0 33 33"
             :class="{
               'fill-white': dark,

@@ -132,6 +132,7 @@ colors = {
   primary: colors['teal'],
   secondary: colors['teal-darker'],
   accent: colors['pink-dark'],
+  action: colors['purple-darker'],
 }
 
 module.exports = {
@@ -593,6 +594,8 @@ module.exports = {
     '3xl': '80rem',
     '4xl': '90rem',
     '5xl': '100rem',
+    '1/2': '50%',
+    '3/4': '75%',
     'full': '100%'
   },
 
@@ -796,10 +799,12 @@ module.exports = {
   */
 
   svgFill: {
-    'current': 'currentColor',
-    'white': colors['white'],
-    'primary': colors['primary'],
-    'secondary': colors['secondary'],
+    current: 'currentColor',
+    white: colors['white'],
+    primary: colors['primary'],
+    secondary: colors['secondary'],
+    accent: colors['accent'],
+    action: colors['purple-darker'],
   },
 
   /*
