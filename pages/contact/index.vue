@@ -3,10 +3,11 @@
     <the-title>
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
+    <p id="success" class="text-teal-dark font-bold hidden">🙏 Thanks for sending! I'll get in touch ASAP!</p>
     <form
       name="contact"
       method="POST"
-      action="#sucess"
+      action="#success"
       data-netlify="true"
       netlify
     >
@@ -68,6 +69,7 @@
           ">Send</button>
         </div>
     </form>
+    <p id="success"></p>
   </section>
 </template>
 
@@ -96,3 +98,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#success:target {
+  display: block;
+}
+</style>
