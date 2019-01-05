@@ -3,12 +3,10 @@
     <the-title>
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
-    <transition name="fade">
-      <p v-if="sent" class="text-teal-dark font-bold">🙏 Thanks for sending! I'll get in touch ASAP!</p>
-    </transition>
     <form
       name="contact"
       method="POST"
+      action="/thank-you"
       data-netlify="true"
       netlify-honeypot="bot-field"
     >
@@ -64,14 +62,6 @@
         ></textarea>
       </label>
       <div class="row flex justify-end">
-        <transition name="fade">
-          <button
-            type="button"
-            class="button mr-3"
-            @click="goToHome"
-            v-if="sent"
-          >Go To Home</button>
-        </transition>
         <button
           type="submit" class="button"
           @click="onSubmit"
@@ -106,18 +96,9 @@ export default {
     onSubmit() {
       this.sent = true
     },
-    goToHome() {
-      this.$router.push('/')
-    }
   },
   components: {
     TheTitle,
   }
 }
 </script>
-
-<style scoped>
-#success:target {
-  display: block;
-}
-</style>
