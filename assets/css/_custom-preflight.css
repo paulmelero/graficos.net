@@ -12,6 +12,7 @@ pre {
 
 code {
   max-width: 100%;
+  word-break: break-word;
 }
 
 svg,

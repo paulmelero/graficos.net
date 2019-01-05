@@ -4,16 +4,16 @@
       class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
       :style="`background-image: url( ${ post.thumbnail } )`"
     >
-      <div class="container my-auto">
+      <div class="max-w-3/4 sm:max-w-1/2 my-auto mx-auto">
         <h1 class="mb-8 text-white">{{ post.title }}</h1>
         <p class="text-white">
-          <the-time :date="post.date"></the-time> {{ '·' }}
-          <span>{{ cupsWhileReading }}️</span>
-          <span>{{ minutesToRead }} mins read</span>
+          <the-time :date="post.date" class="block sm:inline-block"></the-time>
+          <span class="hidden sm:inline-block"></span>
+          <span class="block sm:inline-block">{{ cupsWhileReading }}️ {{ minutesToRead }} mins read</span>
         </p>
       </div>
     </header>
-    <div v-html="parsedBody" class="container py-20" ></div>
+    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-20" ></div>
   </article>
 </template>
 
