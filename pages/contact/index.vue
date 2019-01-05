@@ -3,8 +3,11 @@
     <the-title>
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
-    <p v-if="sent" class="text-teal-dark font-bold hidden">🙏 Thanks for sending! I'll get in touch ASAP!</p>
+    <transition name="fade">
+      <p v-if="sent" class="text-teal-dark font-bold">🙏 Thanks for sending! I'll get in touch ASAP!</p>
+    </transition>
     <form
+      @submit="onSubmit"
       name="contact"
       method="POST"
       data-netlify="true"
@@ -58,15 +61,15 @@
           ></textarea>
         </label>
         <div class="row flex justify-end">
-          <button type="submit" class="
-            rounded
-            px-8 py-3
-            mt-2
-            hover:bg-teal-light
-            hover:text-purple-darker
-            transition
-          "
-            @click="sent = true"
+          <transition name="fade">
+            <button
+              type="button"
+              class="button mr-3"
+              @click="goToHome"
+              v-if="sent"
+            >Go To Home</button>
+          </transition>
+          <button type="submit" class="button"
           >Send</button>
         </div>
     </form>
@@ -93,6 +96,15 @@ export default {
     return {
       sent: false,
       title
+    }
+  },
+  methods: {
+    onSubmit(e) {
+      e.preventDefault()
+      this.sent = true
+    },
+    goToHome() {
+      this.$router.push('/')
     }
   },
   components: {
