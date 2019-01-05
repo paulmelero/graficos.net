@@ -53,6 +53,7 @@
           placeholder="Your message..."
           required
           minlength="4"
+          rows="4"
           class="
             mb-3 mt-2
             p-2
