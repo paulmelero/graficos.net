@@ -135,6 +135,7 @@ module.exports = {
       }
     }
   },
+  watch: ['~/tailwind.config.js'],
   env: {
     APP_NAME,
     social: {
