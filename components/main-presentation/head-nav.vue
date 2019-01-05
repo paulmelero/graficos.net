@@ -4,7 +4,7 @@
       class="flex items-center flex-no-shrink text-white mx-6 py-4 disable-underline disable-transition disable-hover"
       to="/"
     >
-      <the-logo class="h-8 transition:color hover:text-secondary disable-hover"></the-logo>
+      <the-logo class="h-8 transition:color hover:text-purple-darker disable-hover"></the-logo>
     </nuxt-link>
     <ul class="pl-0 h-full w-full flex-1 flex-grow items-center mb-0">
       <li
@@ -15,7 +15,7 @@
         <nuxt-link
           :to="link.href"
           :title="link.title"
-          class="my-0 text-sm text-white hover:text-secondary disable-hover mr-4"
+          class="my-0 text-sm text-white hover:text-purple-darker disable-hover mr-4"
         >
           {{ link.name }}
         </nuxt-link>
@@ -25,7 +25,7 @@
       >
         <external-link
           href="https://paulmelero.netlify.com"
-          class="my-0 text-sm text-white hover:text-secondary disable-hover mr-4"
+          class="my-0 text-sm text-white hover:text-purple-darker disable-hover mr-4"
         ><abbr title="Curriculum Vitae">CV</abbr></external-link>
       </li>
     </ul>
@@ -44,15 +44,20 @@ export default {
   data() {
     return {
       sections: [
-        {
+        /* {
           href: '/',
           name: 'Home',
           title: 'Home'
-        },
+        }, */
         {
           href: '/blog',
           name: 'Blog',
           title: 'Blog'
+        },
+        {
+          href: '/contact',
+          name: 'Contact',
+          title: 'Contact'
         },
       ]
     }

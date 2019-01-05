@@ -802,6 +802,8 @@ module.exports = {
     'white': colors['white'],
     'primary': colors['primary'],
     'secondary': colors['secondary'],
+    'accent': colors['accent'],
+    'purple-darker': colors['purple-darker'],
   },
 
   /*

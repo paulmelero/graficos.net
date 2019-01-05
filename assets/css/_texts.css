@@ -19,6 +19,7 @@ a {
       transform: scaleX(.8);
       transition-property: transform, opacity;
       transition-duration: .2s;
+      pointer-events: none;
     }
     &.big-underline:before {
       transform: scaleX(.9);
