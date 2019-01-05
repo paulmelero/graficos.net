@@ -21,7 +21,7 @@
 import md from 'md';
 import Prism from 'prismjs';
 
-import TheTime from '@/components/main-presentation/base-texts/the-time'
+const TheTime = () => import('@/components/main-presentation/base-texts/the-time')
 
 export default {
   layout: 'post',

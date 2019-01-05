@@ -7,7 +7,7 @@ const tailwindConfig = require('./tailwind.config')
 const socialLinks = require('./assets/social-links')
 
 const APP_NAME = 'Graficos.net'
-const APP_URL = 'graficos.net'
+const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png';
 const THEME_COLOR = tailwindConfig.colors['teal-light']
 
