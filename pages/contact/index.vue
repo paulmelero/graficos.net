@@ -3,11 +3,10 @@
     <the-title>
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
-    <p id="success" class="text-teal-dark font-bold hidden">🙏 Thanks for sending! I'll get in touch ASAP!</p>
+    <p v-if="sent" class="text-teal-dark font-bold hidden">🙏 Thanks for sending! I'll get in touch ASAP!</p>
     <form
       name="contact"
       method="POST"
-      action="#success"
       data-netlify="true"
       netlify
     >
@@ -66,7 +65,9 @@
             hover:bg-teal-light
             hover:text-purple-darker
             transition
-          ">Send</button>
+          "
+            @click="sent = true"
+          >Send</button>
         </div>
     </form>
     <p id="success"></p>
@@ -90,6 +91,7 @@ export default {
   },
   data() {
     return {
+      sent: false,
       title
     }
   },
