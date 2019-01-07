@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const webapackGetPosts = require('~/api/posts').webapackGetPosts
+const { webapackGetPosts } = require('~/api/posts/')
 
 const TheTitle = () => import('~/components/main-presentation/base-texts/the-title')
 const ArticleList = () => import('~/components/main-presentation/article-list')

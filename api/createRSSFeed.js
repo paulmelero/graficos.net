@@ -1,6 +1,6 @@
 
 const glob = require('glob-all')
-const { getURIFromFileName } = require('./posts')
+const { getURIFromFileName } = require('./posts.c')
 
 const createRSSFeed = (
   feed,
