@@ -8,6 +8,9 @@ article img {
   @apply block mx-auto;
 }
 
+article pre {
+  @apply text-base;
+}
 
 article ul,
 article ol,

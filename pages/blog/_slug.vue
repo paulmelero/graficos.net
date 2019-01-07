@@ -13,13 +13,25 @@
         </p>
       </div>
     </header>
-    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-20 sm:text-xl"></div>
+    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-20 sm:text-lg"></div>
   </article>
 </template>
 
 <script>
 import md from 'md';
 import Prism from 'prismjs';
+// Themes
+import 'prismjs/themes/prism.css';
+// Plugins
+import 'prismjs/plugins/toolbar/prism-toolbar.min.js';
+import 'prismjs/plugins/toolbar/prism-toolbar.css';
+import 'prismjs/plugins/show-language/prism-show-language.min.js';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.min.js';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import 'prismjs/plugins/line-highlight/prism-line-highlight.min.js';
+import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
+// Extra Languages
+import 'prismjs/components/prism-yaml.min.js';
 
 const TheTime = () => import('@/components/main-presentation/base-texts/the-time')
 

@@ -82,7 +82,6 @@ module.exports = {
   ** Load global CSS
   */
   css: [
-    'prismjs/themes/prism.css',
     '@/assets/css/tailwind.css',
     '@/assets/css/main.css',
   ],
@@ -101,7 +100,7 @@ module.exports = {
     ** Build configuration
     */
   plugins: [
-    '~/plugins/prism',
+    // '~/plugins/prism',
   ],
   modules: [
     ['@nuxtjs/axios'],
