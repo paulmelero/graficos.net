@@ -41,7 +41,7 @@ a {
 ul,
 ol,
 p {
-  @apply mb-4;
+  @apply mb-4-em;
 }
 
 p {

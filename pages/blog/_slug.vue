@@ -5,15 +5,15 @@
       :style="`background-image: url( ${ post.thumbnail } )`"
     >
       <div class="max-w-3/4 sm:max-w-1/2 my-auto mx-auto">
-        <h1 class="mb-8 text-white">{{ post.title }}</h1>
+        <h1 class="mb-8 text-white sm:text-5xl">{{ post.title }}</h1>
         <p class="text-white">
-          <the-time :date="post.date" class="block sm:inline-block"></the-time>
-          <span class="hidden sm:inline-block"></span>
+          <the-time :date="post.date" class="block sm:inline-block sm:text-2xl"></the-time>
+          <span class="hidden sm:inline-block">·</span>
           <span class="block sm:inline-block">{{ cupsWhileReading }}️ {{ minutesToRead }} mins read</span>
         </p>
       </div>
     </header>
-    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-20" ></div>
+    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-20 sm:text-xl"></div>
   </article>
 </template>
 
@@ -33,7 +33,20 @@ export default {
           name: 'description',
           content: `${ (this.trimmedDescription) || '' }`,
           hid: 'description'
-        }
+        },
+        { hid: 'og:title', property: 'og:title', content: this.post.title },
+        { hid: 'twitter:title', name: 'twitter:title', content: this.post.title },
+        { hid: 'twitter:description', name: 'twitter:description', content: this.trimmedDescription },
+        { hid: 'og:image', property: 'og:image', content: this.siteUrl + this.post.thumbnail },
+        { hid: 'twitter:image', name: 'twitter:image', content: this.siteUrl + this.post.thumbnail },
+        { hid: 'twitter:image:src', name: 'twitter:image:src', content: this.siteUrl + this.post.thumbnail },
+        { hid: 'itemprop-name', itemprop: 'name', content: this.post.title },
+        { hid: 'itemprop-description', itemprop: 'description', content: this.trimmedDescription },
+        { hid: 'itemprop-image', itemprop: 'image', content: this.siteUrl + this.post.thumbnail },
+        { hid: 'image', name: 'image', content: this.siteUrl + this.post.thumbnail },
+      ],
+      link: [
+        { hid: 'publisher', rel: 'publisher', href: this.siteName },
       ]
     };
   },
@@ -48,10 +61,12 @@ export default {
       },
     }
   },
-  async asyncData({ params }) {
+  async asyncData({ params, env }) {
     const post = await import('~/content/blog/posts/' + params.slug + '.json');
-    // console.log(post);
-    return { post };
+    const siteUrl = env.APP_URL
+    const siteName = env.APP_NAME
+
+    return { post, siteUrl, siteName };
   },
   computed: {
     parsedBody() {

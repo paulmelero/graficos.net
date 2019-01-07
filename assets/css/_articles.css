@@ -4,10 +4,13 @@ article pre {
   @apply mb-4 rounded-lg;
 }
 
-article {
-  ul,
-  ol,
-  p {
-    @apply mb-8;
-  }
+article img {
+  @apply block mx-auto;
+}
+
+
+article ul,
+article ol,
+article p {
+  margin-bottom: 1.45em;
 }

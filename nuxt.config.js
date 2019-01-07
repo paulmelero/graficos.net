@@ -8,7 +8,7 @@ const tailwindConfig = require('./tailwind.config')
 
 const socialLinks = require('./assets/social-links')
 
-const createRSSFeed = require('./api/createRSSFeed')
+const createRSSFeed = require('./core/createRSSFeed')
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
@@ -51,30 +51,31 @@ module.exports = {
       { name: 'application-name', content: APP_NAME },
       { name: 'theme-color', content: THEME_COLOR },
       // Social OG
-      { property: 'og:type', content: 'profile' },
-      { property: 'og:title', content: APP_NAME },
-      { property: 'og:url', content: APP_URL },
-      { property: 'og:image', content: APP_URL + APP_COVER_IMG },
-      { property: 'og:image:width', content: '791' },
-      { property: 'og:image:height', content: '399' },
-      { property: 'profile:first_name', content: 'Paul' },
-      { property: 'profile:last_name', content: 'Melero' },
+      { hid: 'og:type', property: 'og:type', content: 'profile' },
+      { hid: 'og:title', property: 'og:title', content: APP_NAME },
+      { hid: 'og:site_name', property: 'og:site_name', content: APP_NAME },
+      { hid: 'og:url', property: 'og:url', content: APP_URL },
+      { hid: 'og:image', property: 'og:image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'profile:first_name', property: 'profile:first_name', content: 'Paul' },
+      { hid: 'profile:last_name', property: 'profile:last_name', content: 'Melero' },
       // Twitter
-      { property: 'twitter:title', content: APP_NAME },
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:description', content: pkg.description },
-      { name: 'twitter:site', content: '@paul_melero' },
-      { name: 'twitter:creator', content: '@paul_melero' },
-      { name: 'twitter:image:src', content: APP_URL + APP_COVER_IMG },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
+      { hid: 'twitter:site', name: 'twitter:site', content: '@paul_melero' },
+      { hid: 'twitter:creator', name: 'twitter:creator', content: '@paul_melero' },
+      { hid: 'twitter:title', name: 'twitter:title', content: APP_NAME },
+      { hid: 'twitter:description', name: 'twitter:description', content: pkg.description },
+      { hid: 'twitter:image', name: 'twitter:image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'twitter:image:src', name: 'twitter:image:src', content: APP_URL + APP_COVER_IMG },
       // Search engines
-      { name: 'image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'image', name: 'image', content: APP_URL + APP_COVER_IMG },
       // Schema.org for Google
-      { itemprop: 'name', content: APP_NAME },
-      { itemprop: 'description', content: pkg.description },
-      { itemprop: 'image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'itemprop-name', itemprop: 'name', content: APP_NAME },
+      { hid: 'itemprop-description', itemprop: 'description', content: pkg.description },
+      { hid: 'itemprop-image', itemprop: 'image', content: APP_URL + APP_COVER_IMG },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=1' },
+      { hid: 'publisher', rel: 'publisher', href: APP_URL },
     ]
   },
   /*
@@ -174,10 +175,11 @@ module.exports = {
   },
   watch: [
     '~/tailwind.config.js',
-    'api'
+    'core'
   ],
   env: {
     APP_NAME,
+    APP_URL,
     social: {
       ...socialLinks
     }

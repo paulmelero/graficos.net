@@ -150,7 +150,7 @@ module.exports = {
   |
   */
 
- colors,
+  colors,
 
   /*
   |-----------------------------------------------------------------------------
@@ -256,13 +256,13 @@ module.exports = {
   textSizes: {
     'xs': '.75rem', // 12px
     'sm': '.875rem', // 14px
-    'base': '1.125rem', // 18px
+    'base': '1rem', // 16px
     'lg': '1.125rem', // 18px
     'xl': '1.25rem', // 20px
     '2xl': '1.5rem', // 24px
     '3xl': '1.875rem', // 30px
     '4xl': '2.25rem', // 36px
-    '5xl': '3rem' // 48px
+    '5xl': '3rem', // 48px
   },
 
   /*
@@ -415,7 +415,9 @@ module.exports = {
   |
   */
 
-  borderColors: global.Object.assign({ default: colors['grey-light'] }, colors),
+  borderColors: global.Object.assign({
+    default: colors['grey-light']
+  }, colors),
 
   /*
   |-----------------------------------------------------------------------------
@@ -682,7 +684,20 @@ module.exports = {
     '16': '4rem',
     '20': '5rem',
     '24': '6rem',
-    '32': '8rem'
+    '32': '8rem',
+    '1-em': '0.25em',
+    '2-em': '0.5em',
+    '3-em': '0.75em',
+    '4-em': '1em',
+    '5-em': '1.25em',
+    '6-em': '1.5em',
+    '8-em': '2em',
+    '1-em0': '2.5em',
+    '1-em2': '3em',
+    '1-em6': '4em',
+    '2-em0': '5em',
+    '2-em4': '6em',
+    '3-em2': '8em',
   },
 
   /*
