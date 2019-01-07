@@ -1,15 +1,23 @@
-const glob = require('glob-all')
+
+
 const path = require('path')
+const glob = require('glob-all')
 
 const pkg = require('./package')
 const tailwindConfig = require('./tailwind.config')
 
 const socialLinks = require('./assets/social-links')
 
+const createRSSFeed = require('./api/createRSSFeed')
+
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png';
 const THEME_COLOR = tailwindConfig.colors['teal-light']
+
+const FEED_FILE_NAME = 'feed.xml'
+const AUTHOR = '@paul_melero'
+const AUTHOR_EMAIL = 'paulmelero@gmail.com'
 
 const dynamicRoutes  = getDynamicPaths({
   '/blog': 'blog/posts/*.json'
@@ -97,6 +105,7 @@ module.exports = {
   modules: [
     ['@nuxtjs/axios'],
     ['nuxt-purgecss'],
+    ['@nuxtjs/feed'],
     ...envDependantModules,
   ],
   /*
@@ -115,9 +124,37 @@ module.exports = {
     // https://github.com/Developmint/nuxt-purgecss/issues/14
     whitelistPatterns: [/^(lang)/, /token/gm]
   },
+  /*
+  ** @nuxt/pwa module configuration
+  */
   workbox: {
     offlineAssets: ['/logo/graficos.svg']
   },
+  /*
+  ** @nuxt/feed module configuration
+  */
+  feed: [ {
+      path: '/' + FEED_FILE_NAME, // The route to your feed.
+      cacheTime: 1000 * 60 * 15, // How long should the feed be cached
+      async create(feed) {
+        await Promise.resolve(
+          createRSSFeed(
+            feed,
+            APP_URL + '/' + FEED_FILE_NAME,
+            AUTHOR,
+            AUTHOR_EMAIL,
+            APP_URL,
+            APP_URL,
+            APP_NAME,
+            pkg.description,
+            APP_URL + APP_COVER_IMG,
+            'Graficos.net'
+          )
+        )
+      },
+      type: 'rss2', // Can be: rss2, atom1, json1
+    }
+  ],
   build: {
     extractCSS: true,
     /*
@@ -135,7 +172,10 @@ module.exports = {
       }
     }
   },
-  watch: ['~/tailwind.config.js'],
+  watch: [
+    '~/tailwind.config.js',
+    'api'
+  ],
   env: {
     APP_NAME,
     social: {

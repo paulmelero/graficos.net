@@ -8,6 +8,8 @@
 </template>
 
 <script>
+const { webapackGetPosts } = require('~/api/posts/')
+
 const TheTitle = () => import('~/components/main-presentation/base-texts/the-title')
 const ArticleList = () => import('~/components/main-presentation/article-list')
 
@@ -24,12 +26,7 @@ export default {
     ]
   },
   data() {
-    // Using webpacks context to gather all files from a folder
-    const context = require.context('~/content/blog/posts/', false, /\.json$/);
-    const posts = context.keys().map(key => ({
-      ...context(key),
-      _path: `/blog/${key.replace('.json', '').replace('./', '')}`
-    }));
+    const posts = webapackGetPosts()
     return {
       title,
       posts
