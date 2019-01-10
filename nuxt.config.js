@@ -55,7 +55,7 @@ module.exports = {
       { property: 'og:title', content: APP_NAME },
       { property: 'og:url', content: APP_URL },
       { property: 'og:image', content: APP_URL + APP_COVER_IMG },
-      { pro aperty: 'og:image:width', content: '791' },
+      { property: 'og:image:width', content: '791' },
       { property: 'og:image:height', content: '399' },
       { property: 'profile:first_name', content: 'Paul' },
       { property: 'profile:last_name', content: 'Melero' },
