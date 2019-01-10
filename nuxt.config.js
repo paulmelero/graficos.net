@@ -55,7 +55,7 @@ module.exports = {
       { property: 'og:title', content: APP_NAME },
       { property: 'og:url', content: APP_URL },
       { property: 'og:image', content: APP_URL + APP_COVER_IMG },
-      { property: 'og:image:width', content: '791' },
+      { pro aperty: 'og:image:width', content: '791' },
       { property: 'og:image:height', content: '399' },
       { property: 'profile:first_name', content: 'Paul' },
       { property: 'profile:last_name', content: 'Melero' },
@@ -72,6 +72,8 @@ module.exports = {
       { itemprop: 'name', content: APP_NAME },
       { itemprop: 'description', content: pkg.description },
       { itemprop: 'image', content: APP_URL + APP_COVER_IMG },
+      // Google
+      { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=1' },
