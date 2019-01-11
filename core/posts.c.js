@@ -1,3 +1,5 @@
+const md = require('md')
+
 const getURIFromFileName = (fileName, parentCategory = 'blog') => {
   return `${parentCategory ? '/' + parentCategory : ''}/${fileName.replace('.json', '').replace('./', '')}`
 }
@@ -14,7 +16,15 @@ const webapackGetPosts = () => {
   return posts
 }
 
+const renderer = new md.Renderer()
+renderer.codespan = (text) => `<code class="language-markup">${text}</code>`
+
+const mdToHTML = (string) => {
+  return md(string, { renderer })
+}
+
 module.exports = {
   getURIFromFileName,
   webapackGetPosts,
+  mdToHTML,
 }

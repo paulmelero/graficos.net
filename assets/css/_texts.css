@@ -41,7 +41,7 @@ a {
 ul,
 ol,
 p {
-  @apply mb-4;
+  @apply mb-4-em;
 }
 
 p {
@@ -49,5 +49,5 @@ p {
 }
 
 :--headings {
-  @apply leading-tight text-grey-darkest mb-2;
+  @apply leading-tight text-grey-darkest mb-2-em;
 }

@@ -1,7 +1,8 @@
-
 const glob = require('glob-all')
-const { getURIFromFileName } = require('./posts.c')
-
+const {
+  getURIFromFileName,
+  mdToHTML
+} = require('./posts.c')
 const createRSSFeed = (
   feed,
   feedPath,
@@ -28,7 +29,9 @@ const createRSSFeed = (
     .sync([cwd + '/*.json'])
     .map(file => ({
       ...require(`../${file}`),
-      _path: siteUrl + getURIFromFileName(file, 'blog').replace(cwd + '/', '')
+      _path: (
+        siteUrl + getURIFromFileName(file, 'blog').replace(cwd + '/', '')
+      )
     }))
 
   posts.forEach(post => {
@@ -37,7 +40,7 @@ const createRSSFeed = (
       id: post.date,
       link: post._path,
       description: post.description,
-      content: post.body
+      content: mdToHTML(post.body)
     })
   })
 
