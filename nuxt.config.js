@@ -72,6 +72,8 @@ module.exports = {
       { hid: 'itemprop-name', itemprop: 'name', content: APP_NAME },
       { hid: 'itemprop-description', itemprop: 'description', content: pkg.description },
       { hid: 'itemprop-image', itemprop: 'image', content: APP_URL + APP_COVER_IMG },
+      // Google
+      { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=1' },
