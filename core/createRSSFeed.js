@@ -1,8 +1,8 @@
 const glob = require('glob-all')
 const {
-  getURIFromFileName
+  getURIFromFileName,
+  mdToHTML
 } = require('./posts.c')
-
 const createRSSFeed = (
   feed,
   feedPath,
@@ -40,7 +40,7 @@ const createRSSFeed = (
       id: post.date,
       link: post._path,
       description: post.description,
-      content: post.body
+      content: mdToHTML(post.body)
     })
   })
 
