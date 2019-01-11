@@ -106,6 +106,7 @@ module.exports = {
     ['@nuxtjs/axios'],
     ['nuxt-purgecss'],
     ['@nuxtjs/feed'],
+    ['@nuxtjs/sitemap'],
     ...envDependantModules,
   ],
   /*
@@ -148,13 +149,20 @@ module.exports = {
             APP_NAME,
             pkg.description,
             APP_URL + APP_COVER_IMG,
-            'Graficos.net'
+            'Graficos.net',
           )
         )
       },
       type: 'rss2', // Can be: rss2, atom1, json1
     }
   ],
+  sitemap: {
+    hostname: APP_URL,
+    exclude: [
+      '/admin/**',
+    ],
+    generate: true,
+  },
   build: {
     extractCSS: true,
     /*

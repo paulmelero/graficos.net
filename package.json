@@ -16,6 +16,7 @@
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/feed": "^0.2.0",
     "@nuxtjs/pwa": "^2.6.0",
+    "@nuxtjs/sitemap": "^0.2.0",
     "@types/prismjs": "^1.9.0",
     "feed": "^2.0.2",
     "md": "^0.6.0",

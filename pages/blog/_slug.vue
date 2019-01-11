@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import md from 'md';
 import Prism from 'prismjs';
 // Themes
 import 'prismjs/themes/prism.css';
@@ -33,6 +32,7 @@ import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 // Extra Languages
 import 'prismjs/components/prism-yaml.min.js';
 
+import { mdToHTML } from '@/core/posts'
 const TheTime = () => import('@/components/main-presentation/base-texts/the-time')
 
 export default {
@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     parsedBody() {
-      return md(this.post.body);
+      return mdToHTML(this.post.body);
     },
     trimmedDescription() {
       return (this.post.description + '').slice(0, 300)
@@ -95,9 +95,7 @@ export default {
     },
   },
   mounted() {
-    Prism.highlightAll(false, () => {
-      // console.log('edited')
-    })
+    Prism.highlightAll(false)
   },
   components: {
     TheTime
