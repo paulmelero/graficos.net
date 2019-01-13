@@ -162,6 +162,7 @@ module.exports = {
     hostname: APP_URL,
     exclude: [
       '/admin/**',
+      '/thank-you'
     ],
     generate: true,
   },
