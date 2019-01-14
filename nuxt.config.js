@@ -166,6 +166,10 @@ export default {
     generate: true,
   },
   build: {
+    analyze: !isProd,
+    analyze: {
+      analyzerMode: 'static'
+    },
     extractCSS: true,
     /*
     ** You can extend webpack config here
