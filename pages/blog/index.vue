@@ -32,6 +32,17 @@ export default {
       posts
     }
   },
+  /* computed: {
+    tags() {
+      return this.posts
+        .map(post => post.tags)
+        .flat()
+        .reduce((acc, tag, i, arr) => {
+          if (!tag) return acc
+          return acc[tag] ? (acc[tag] + 1) : acc.tag = 1 && acc
+        }, {})
+    }
+  }, */
   components: {
     TheTitle,
     ArticleList,

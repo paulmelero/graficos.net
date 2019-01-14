@@ -34,7 +34,7 @@ export const mdToHTML = (string, options = {}) => {
 
 export const mdToText = (string, options = {}) => {
   const renderer = new md.Renderer()
-  renderer.link = (_href, _title, text) => text + ' '
+  renderer.link = (_href, _title, text) => text + ''
   renderer.paragraph = (text) => text + ' '
   renderer.blockquote = renderer.paragraph
   renderer.br = renderer.paragraph

@@ -1,5 +1,5 @@
 <template>
-  <article class="max-w-lg border rounded overflow-hidden shadow-md hover:shadow-lg p-6 transition:box-shadow">
+  <article class="card">
     <h2 class="text-2xl mb-6">
       <span
         v-if="lang"

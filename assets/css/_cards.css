@@ -1,0 +1,6 @@
+.card {
+  @apply overflow-hidden max-w-lg border rounded shadow-md p-6 transition:box-shadow;
+  &:hover {
+    @apply shadow-lg;
+  }
+}
