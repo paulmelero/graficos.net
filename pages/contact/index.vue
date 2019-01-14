@@ -78,6 +78,7 @@ const title = 'Contact'
 
 export default {
   name: title,
+  transition: 'page-opacity',
   head: {
     title,
     meta: [

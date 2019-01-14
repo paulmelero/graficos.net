@@ -43,7 +43,9 @@ const TheTime = () => import('@/components/base-texts/the-time')
 const GoBack = () => import('@/components/base-texts/go-back')
 
 export default {
+  name: 'Post',
   layout: 'post',
+  transition: 'page-left',
   head() {
     return {
       title: `${ (this.post && this.post.title) || 'Post' }`,
@@ -77,6 +79,7 @@ export default {
         date: '',
         thumbnail: '',
         body: '',
+        tags: [],
       },
     }
   },

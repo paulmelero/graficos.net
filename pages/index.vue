@@ -49,6 +49,7 @@ const HOME = 'Home'
 
 export default {
   name: HOME,
+  transition: 'page-opacity',
   head: {
     title: HOME,
   },

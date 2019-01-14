@@ -36,6 +36,7 @@ export const mdToText = (string, options = {}) => {
   const renderer = new md.Renderer()
   renderer.link = (_href, _title, text) => text + ''
   renderer.paragraph = (text) => text + ' '
+  renderer.heading = renderer.paragraph
   renderer.blockquote = renderer.paragraph
   renderer.br = renderer.paragraph
   renderer.codespan = renderer.paragraph
@@ -50,4 +51,20 @@ export const mdToText = (string, options = {}) => {
     renderer,
     ...options,
   })
+}
+
+export const getTagsFromPosts = (posts) => {
+  return posts
+    .map(post => post.tags)
+    .reduce((acc, arr) => [...acc, ...arr], [])
+    .reduce((acc, tag, i, arr) => {
+      if (!tag) return acc
+      tag.toLowerCase();
+      if (acc[tag]) {
+        acc[tag]++
+      } else {
+          acc[tag] = 1
+      }
+      return acc
+    }, {})
 }

@@ -25,6 +25,7 @@ const ExternalLink = () => import('~/components/base-texts/external-link')
 
 export default {
   name: 'thankyou',
+  transition: 'page-left',
   head: {
     meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }]
   },

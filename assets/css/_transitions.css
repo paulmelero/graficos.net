@@ -29,3 +29,32 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+/* Comming from left */
+.page-left-enter-active,
+.page-left-leave-active {
+    transition:
+      transform .16s ease-out,
+      opacity .16s ease-out
+    ;
+}
+
+.page-left-enter,
+.page-left-leave-to {
+    opacity: 0;
+}
+
+.page-left-enter {
+    transform: translateX(-5%);
+}
+
+/* Opacity */
+.page-opacity-enter-active,
+.page-opacity-leave-active {
+    transition: opacity .16s ease-out;
+}
+
+.page-opacity-enter,
+.page-opacity-leave-to {
+    opacity: 0;
+}
