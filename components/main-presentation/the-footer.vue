@@ -16,7 +16,7 @@
 </template>
 
 <script>
-const SocialNetworks = () => import('~/components/main-presentation/images/social-networks')
+const SocialNetworks = () => import('~/components/images/social-networks')
 export default {
   components: {
     SocialNetworks,

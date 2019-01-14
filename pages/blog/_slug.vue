@@ -13,7 +13,13 @@
         </p>
       </div>
     </header>
-    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-20 sm:text-lg"></div>
+    <div class="max-w-3/4 sm:max-w-1/2 mx-auto py-8 sm:text-lg">
+      <go-back></go-back>
+    </div>
+    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-10 sm:text-lg"></div>
+    <div class="max-w-3/4 sm:max-w-1/2 mx-auto pb-10 sm:text-lg">
+      <go-back></go-back>
+    </div>
   </article>
 </template>
 
@@ -33,10 +39,13 @@ import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 import 'prismjs/components/prism-yaml.min.js';
 
 import { mdToHTML } from '@/core/posts'
-const TheTime = () => import('@/components/main-presentation/base-texts/the-time')
+const TheTime = () => import('@/components/base-texts/the-time')
+const GoBack = () => import('@/components/base-texts/go-back')
 
 export default {
+  name: 'Post',
   layout: 'post',
+  transition: 'page-left',
   head() {
     return {
       title: `${ (this.post && this.post.title) || 'Post' }`,
@@ -70,6 +79,7 @@ export default {
         date: '',
         thumbnail: '',
         body: '',
+        tags: [],
       },
     }
   },
@@ -98,7 +108,8 @@ export default {
     Prism.highlightAll(false)
   },
   components: {
-    TheTime
+    TheTime,
+    GoBack,
   }
 };
 </script>

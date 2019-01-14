@@ -1,7 +1,7 @@
 <template>
   <div>
     <the-title>
-      <h1 slot="title" class="text-3xl">{{ title }}</h1>
+      <h1 slot="title" class="text-3xl">Tag: <span class="capitalize">{{ title }}</span></h1>
     </the-title>
     <section class="sm:flex sm:justify-between">
       <article-list class="max-w-lg" :articles="posts"></article-list>
@@ -21,30 +21,37 @@ const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
 
-const title = 'Blog'
-
 export default {
-  name: title,
-  transition: 'page-opacity',
+  name: 'Tag',
+  transition: 'page-left',
   head: {
-    title,
+    title: `${ (this && this.title) || 'Tag' }`,
     meta: [
       { hid: 'description', name: 'description',
-        content: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.'
+        content: 'Tag - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.'
       }
     ]
   },
   data() {
+    return {
+      title: '',
+      posts: []
+    }
+  },
+  asyncData({ params }) {
     const posts = webapackGetPosts()
     return {
-      title,
-      posts
+      title: params.tag,
+      posts: posts.filter(post => [...post.tags].includes(params.tag))
     }
   },
   computed: {
     tags() {
       return getTagsFromPosts(this.posts)
     }
+  },
+  mounted() {
+    console.log(this)
   },
   components: {
     TheTitle,

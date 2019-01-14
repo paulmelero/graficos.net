@@ -42,13 +42,14 @@
 </template>
 
 <script>
-const TheTitle = () => import('~/components/main-presentation/base-texts/the-title')
-const ExternalLink = () => import('~/components/main-presentation/base-texts/external-link')
-const TheLogo = () => import('~/components/main-presentation/images/logo.vue')
+const TheTitle = () => import('~/components/base-texts/the-title')
+const ExternalLink = () => import('~/components/base-texts/external-link')
+const TheLogo = () => import('~/components/images/logo.vue')
 const HOME = 'Home'
 
 export default {
   name: HOME,
+  transition: 'page-opacity',
   head: {
     title: HOME,
   },

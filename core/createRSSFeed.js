@@ -1,8 +1,6 @@
-const glob = require('glob-all')
-const {
-  getURIFromFileName,
-  mdToHTML
-} = require('./posts.c')
+import { sync } from 'glob-all';
+import { getURIFromFileName, mdToHTML } from './posts';
+
 const createRSSFeed = (
   feed,
   feedPath,
@@ -25,8 +23,7 @@ const createRSSFeed = (
   }
 
   const cwd = 'content/blog/posts'
-  const posts = glob
-    .sync([cwd + '/*.json'])
+  const posts = sync([cwd + '/*.json'])
     .map(file => ({
       ...require(`../${file}`),
       _path: (
@@ -51,4 +48,4 @@ const createRSSFeed = (
   })
 }
 
-module.exports = createRSSFeed
+export default createRSSFeed

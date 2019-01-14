@@ -1,5 +1,5 @@
 <template>
-  <article class="max-w-lg border rounded overflow-hidden shadow-md hover:shadow-lg p-6 transition:box-shadow">
+  <article class="card">
     <h2 class="text-2xl mb-6">
       <span
         v-if="lang"
@@ -14,7 +14,7 @@
         class="no-underline disable-underline transition:color"
       >{{ title }}</nuxt-link>
     </h2>
-    <p class="text-grey-darker overflow-hidden leading-loose">{{ extract }}</p>
+    <p class="text-grey-darker overflow-hidden leading-loose" v-html="extract"></p>
   </article>
 </template>
 
