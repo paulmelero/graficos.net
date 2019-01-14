@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-const ExternalLink = () => import('~/components/main-presentation/base-texts/external-link')
+const ExternalLink = () => import('~/components/base-texts/external-link')
 export default {
   name: 'SocialNetworks',
   props: {

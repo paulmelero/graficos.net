@@ -1,14 +1,13 @@
 
+import path from 'path'
+import globAll from 'glob-all'
 
-const path = require('path')
-const glob = require('glob-all')
+import pkg from './package'
+import tailwindConfig from './tailwind.config'
 
-const pkg = require('./package')
-const tailwindConfig = require('./tailwind.config')
+import socialLinks from './assets/social-links'
 
-const socialLinks = require('./assets/social-links')
-
-const createRSSFeed = require('./core/createRSSFeed')
+import createRSSFeed from './core/createRSSFeed'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
@@ -32,7 +31,7 @@ const envDependantModules =
     ] :
       [];
 
-module.exports = {
+export default {
   /*
   ** Headers of the page
   */
@@ -209,7 +208,7 @@ function getDynamicPaths(urlFilepathTable) {
   return [].concat(
     ...Object.keys(urlFilepathTable).map(url => {
       var filepathGlob = urlFilepathTable[url];
-      return glob
+      return globAll
         .sync(filepathGlob, { cwd: 'content' })
         .map(filepath => `${url}/${path.basename(filepath, '.json')}`);
     })

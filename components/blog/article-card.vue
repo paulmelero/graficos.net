@@ -14,7 +14,7 @@
         class="no-underline disable-underline transition:color"
       >{{ title }}</nuxt-link>
     </h2>
-    <p class="text-grey-darker overflow-hidden leading-loose">{{ extract }}</p>
+    <p class="text-grey-darker overflow-hidden leading-loose" v-html="extract"></p>
   </article>
 </template>
 
