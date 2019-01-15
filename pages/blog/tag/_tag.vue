@@ -1,8 +1,9 @@
 <template>
   <div>
-    <the-title>
-      <h1 slot="title" class="text-3xl">Tag: <span class="capitalize">{{ title }}</span></h1>
+    <the-title class="pb-2">
+      <h1 slot="title" class="text-3xl">Blog posts on <span class="capitalize">"{{ title }}"</span></h1>
     </the-title>
+    <a class="block mb-6" :href="'/blog'">&lt; Come back to blog</a>
     <section class="sm:flex sm:justify-between">
       <article-list class="max-w-lg" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
@@ -49,9 +50,6 @@ export default {
     tags() {
       return getTagsFromPosts(this.posts)
     }
-  },
-  mounted() {
-    console.log(this)
   },
   components: {
     TheTitle,
