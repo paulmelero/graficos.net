@@ -17,7 +17,7 @@ const THEME_COLOR = tailwindConfig.colors['teal-light']
 
 const FEED_FILE_NAME = 'feed.xml'
 const AUTHOR = '@paul_melero'
-const AUTHOR_EMAIL = 'paulmelero@gmail.com'
+const AUTHOR_EMAIL = 'paul' + '@graficos' + '.' + 'net'
 
 const blogPostRoutes  = getRoutesFromPosts({
   '/blog': 'blog/posts/*.json'
@@ -109,10 +109,10 @@ export default {
     // '~/plugins/prism',
   ],
   modules: [
-    ['@nuxtjs/axios'],
-    ['nuxt-purgecss'],
-    ['@nuxtjs/feed'],
-    ['@nuxtjs/sitemap'],
+    '@nuxtjs/axios',
+    'nuxt-purgecss',
+    '@nuxtjs/feed],
+    '@nuxtjs/sitemap',
     ...envDependantModules,
   ],
   /*
