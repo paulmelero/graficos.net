@@ -111,7 +111,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     'nuxt-purgecss',
-    '@nuxtjs/feed],
+    '@nuxtjs/feed',
     '@nuxtjs/sitemap',
     ...envDependantModules,
   ],
