@@ -14,7 +14,8 @@
 </template>
 
 <script>
-const ArticleCard = () => import('~/components/main-presentation/article-card')
+import { mdToText } from '~/core/posts';
+const ArticleCard = () => import('~/components/blog/article-card')
 
 export default {
   props: {
@@ -26,25 +27,12 @@ export default {
   methods: {
     getExtract(text) {
       if (text && typeof text === 'string') {
-        const trimmedText = text.slice(0, 420)
-        const cleanedText = this.cleanExtract(trimmedText)
-        return (cleanedText +  '...')
+        const html = mdToText(text)
+        const trimmedText = html.slice(0, 420)
+        return (trimmedText +  '...')
       }
       return ''
     },
-    cleanExtract(text) {
-      if (text && typeof text === 'string') {
-        // const tags = []
-        return (
-          text.replace(
-            /([#\*=_<>`\[\]]+?)|(\(.+\))|[\.\s]+$/gi, // TODO, escape html tags
-            ''
-          ).replace(/\s\s/, ' ')
-          .replace(/\s,/, ',')
-        )
-      }
-      return ''
-    }
   },
   components: {
     ArticleCard

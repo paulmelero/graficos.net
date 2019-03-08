@@ -1,19 +1,31 @@
-const glob = require('glob-all')
-const path = require('path')
 
-const pkg = require('./package')
-const tailwindConfig = require('./tailwind.config')
+import path from 'path'
+import globAll from 'glob-all'
 
-const socialLinks = require('./assets/social-links')
+import pkg from './package'
+import tailwindConfig from './tailwind.config'
+
+import socialLinks from './assets/social-links'
+
+import createRSSFeed from './core/createRSSFeed'
+import { webapackGetPosts, getTagsFromPosts } from './core/posts'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png';
 const THEME_COLOR = tailwindConfig.colors['teal-light']
 
-const dynamicRoutes  = getDynamicPaths({
+const FEED_FILE_NAME = 'feed.xml'
+const AUTHOR = '@paul_melero'
+const AUTHOR_EMAIL = 'paul' + '@graficos' + '.' + 'net'
+
+const blogPostRoutes  = getRoutesFromPosts({
   '/blog': 'blog/posts/*.json'
 });
+
+const tagsRoutes = getRoutesFromPostTags({
+  '/blog': 'blog/posts/*.json'
+})
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -24,7 +36,7 @@ const envDependantModules =
     ] :
       [];
 
-module.exports = {
+export default {
   /*
   ** Headers of the page
   */
@@ -43,37 +55,39 @@ module.exports = {
       { name: 'application-name', content: APP_NAME },
       { name: 'theme-color', content: THEME_COLOR },
       // Social OG
-      { property: 'og:type', content: 'profile' },
-      { property: 'og:title', content: APP_NAME },
-      { property: 'og:url', content: APP_URL },
-      { property: 'og:image', content: APP_URL + APP_COVER_IMG },
-      { property: 'og:image:width', content: '791' },
-      { property: 'og:image:height', content: '399' },
-      { property: 'profile:first_name', content: 'Paul' },
-      { property: 'profile:last_name', content: 'Melero' },
+      { hid: 'og:type', property: 'og:type', content: 'profile' },
+      { hid: 'og:title', property: 'og:title', content: APP_NAME },
+      { hid: 'og:site_name', property: 'og:site_name', content: APP_NAME },
+      { hid: 'og:url', property: 'og:url', content: APP_URL },
+      { hid: 'og:image', property: 'og:image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'profile:first_name', property: 'profile:first_name', content: 'Paul' },
+      { hid: 'profile:last_name', property: 'profile:last_name', content: 'Melero' },
       // Twitter
-      { property: 'twitter:title', content: APP_NAME },
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:description', content: pkg.description },
-      { name: 'twitter:site', content: '@paul_melero' },
-      { name: 'twitter:creator', content: '@paul_melero' },
-      { name: 'twitter:image:src', content: APP_URL + APP_COVER_IMG },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
+      { hid: 'twitter:site', name: 'twitter:site', content: '@paul_melero' },
+      { hid: 'twitter:creator', name: 'twitter:creator', content: '@paul_melero' },
+      { hid: 'twitter:title', name: 'twitter:title', content: APP_NAME },
+      { hid: 'twitter:description', name: 'twitter:description', content: pkg.description },
+      { hid: 'twitter:image', name: 'twitter:image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'twitter:image:src', name: 'twitter:image:src', content: APP_URL + APP_COVER_IMG },
       // Search engines
-      { name: 'image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'image', name: 'image', content: APP_URL + APP_COVER_IMG },
       // Schema.org for Google
-      { itemprop: 'name', content: APP_NAME },
-      { itemprop: 'description', content: pkg.description },
-      { itemprop: 'image', content: APP_URL + APP_COVER_IMG },
+      { hid: 'itemprop-name', itemprop: 'name', content: APP_NAME },
+      { hid: 'itemprop-description', itemprop: 'description', content: pkg.description },
+      { hid: 'itemprop-image', itemprop: 'image', content: APP_URL + APP_COVER_IMG },
+      // Google
+      { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=1' },
+      { hid: 'publisher', rel: 'publisher', href: APP_URL },
     ]
   },
   /*
   ** Load global CSS
   */
   css: [
-    'prismjs/themes/prism.css',
     '@/assets/css/tailwind.css',
     '@/assets/css/main.css',
   ],
@@ -92,11 +106,13 @@ module.exports = {
     ** Build configuration
     */
   plugins: [
-    '~/plugins/prism',
+    // '~/plugins/prism',
   ],
   modules: [
-    ['@nuxtjs/axios'],
-    ['nuxt-purgecss'],
+    '@nuxtjs/axios',
+    'nuxt-purgecss',
+    '@nuxtjs/feed',
+    '@nuxtjs/sitemap',
     ...envDependantModules,
   ],
   /*
@@ -115,10 +131,50 @@ module.exports = {
     // https://github.com/Developmint/nuxt-purgecss/issues/14
     whitelistPatterns: [/^(lang)/, /token/gm]
   },
+  /*
+  ** @nuxt/pwa module configuration
+  */
   workbox: {
     offlineAssets: ['/logo/graficos.svg']
   },
+  /*
+  ** @nuxt/feed module configuration
+  */
+  feed: [ {
+      path: '/' + FEED_FILE_NAME, // The route to your feed.
+      cacheTime: 1000 * 60 * 15, // How long should the feed be cached
+      async create(feed) {
+        await Promise.resolve(
+          createRSSFeed(
+            feed,
+            APP_URL + '/' + FEED_FILE_NAME,
+            AUTHOR,
+            AUTHOR_EMAIL,
+            APP_URL,
+            APP_URL,
+            APP_NAME,
+            pkg.description,
+            APP_URL + APP_COVER_IMG,
+            'Graficos.net',
+          )
+        )
+      },
+      type: 'rss2', // Can be: rss2, atom1, json1
+    }
+  ],
+  sitemap: {
+    hostname: APP_URL,
+    exclude: [
+      '/admin/**',
+      '/thank-you'
+    ],
+    generate: true,
+  },
   build: {
+    analyze: !isProd,
+    analyze: {
+      analyzerMode: 'static'
+    },
     extractCSS: true,
     /*
     ** You can extend webpack config here
@@ -135,9 +191,13 @@ module.exports = {
       }
     }
   },
-  watch: ['~/tailwind.config.js'],
+  watch: [
+    '~/tailwind.config.js',
+    'core'
+  ],
   env: {
     APP_NAME,
+    APP_URL,
     social: {
       ...socialLinks
     }
@@ -146,20 +206,38 @@ module.exports = {
   ** Dynamic Routes added
   */
   generate: {
-    routes: dynamicRoutes
+    routes: [
+      ...blogPostRoutes,
+      ...tagsRoutes,
+    ]
   },
 }
 /**
  * Create an array of URLs from a list of files
  * @param {*} urlFilepathTable
  */
-function getDynamicPaths(urlFilepathTable) {
+function getRoutesFromPosts(urlFilepathTable) {
   return [].concat(
     ...Object.keys(urlFilepathTable).map(url => {
       var filepathGlob = urlFilepathTable[url];
-      return glob
+      return globAll
         .sync(filepathGlob, { cwd: 'content' })
         .map(filepath => `${url}/${path.basename(filepath, '.json')}`);
     })
   );
+}
+
+function getRoutesFromPostTags(urlFilepathTable) {
+  const tags = [].concat(
+    ...Object.keys(urlFilepathTable).map(url => {
+      var filepathGlob = urlFilepathTable[url];
+      return globAll
+        .sync(filepathGlob, { cwd: 'content' })
+        .map(article => require(`./content/${article}`))
+        .map(article => getTagsFromPosts([article]))
+        .map(Object.keys)
+        .reduce((acc, arr) => [...acc, ...arr], []) // flat
+    })
+  );
+  return tags.map(tagName => `/blog/tag/${tagName}`)
 }

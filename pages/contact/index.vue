@@ -72,12 +72,13 @@
 </template>
 
 <script>
-const TheTitle = () => import('~/components/main-presentation/base-texts/the-title')
+const TheTitle = () => import('~/components/base-texts/the-title')
 
 const title = 'Contact'
 
 export default {
   name: title,
+  transition: 'page-opacity',
   head: {
     title,
     meta: [
