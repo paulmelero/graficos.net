@@ -5,6 +5,7 @@
     </header>
     <main class="container mx-auto p-4 flex-grow" role="main">
       <nuxt/>
+      <div class="bg-container" aria-hidden="true"></div>
     </main>
     <footer role="contentinfo">
       <the-footer></the-footer>
@@ -13,19 +14,31 @@
 </template>
 
 <script>
-const TheHeader = () => import('~/components/main-presentation/head-nav.vue')
-const TheFooter = () => import('~/components/main-presentation/the-footer.vue')
+const TheHeader = () => import('~/components/main-presentation/head-nav')
+const TheFooter = () => import('~/components/main-presentation/the-footer')
+
 export default {
   components: {
     TheHeader,
-    TheFooter
-  }
+    TheFooter,
+  },
 }
 </script>
 
 <style>
-body {
-  background-color: config('colors.grey-lightest');
-  font-family: config('fonts.sans');
+.bg-container {
+  @apply absolute pin w-full h-full;
+  z-index: -1;
+  background-image: url('/images/valves/v2.svg');
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  background-position: 80vw -30vw;
+}
+@screen md {
+  .bg-container {
+    background-position: 85vw -9vw;
+    background-size: 40vw;
+  }
 }
 </style>

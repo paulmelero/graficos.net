@@ -44,7 +44,7 @@
 <script>
 const TheTitle = () => import('~/components/base-texts/the-title')
 const ExternalLink = () => import('~/components/base-texts/external-link')
-const TheLogo = () => import('~/components/images/logo.vue')
+const TheLogo = () => import('~/components/images/logo')
 const HOME = 'Home'
 
 export default {

@@ -6,9 +6,10 @@ import pkg from './package'
 import tailwindConfig from './tailwind.config'
 
 import socialLinks from './assets/social-links'
+import tailwindJS from './tailwind.config'
 
 import createRSSFeed from './core/createRSSFeed'
-import { webapackGetPosts, getTagsFromPosts } from './core/posts'
+import { getTagsFromPosts } from './core/posts'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
@@ -155,7 +156,7 @@ export default {
             APP_NAME,
             pkg.description,
             APP_URL + APP_COVER_IMG,
-            'Graficos.net',
+            APP_NAME,
           )
         )
       },
@@ -172,10 +173,27 @@ export default {
   },
   build: {
     analyze: !isProd,
-    analyze: {
-      analyzerMode: 'static'
-    },
     extractCSS: true,
+    postcss: {
+      // order of requires is important!
+      plugins: [
+        require('postcss-import'),
+        require('postcss-preset-env')({
+          stage: 0
+        }),
+        require('postcss-url'),
+        require('tailwindcss')(tailwindJS),
+        require('autoprefixer')({
+          cascade: false,
+          grid: true
+        }),
+        require('cssnano')({
+          preset: 'default',
+          discardComments: { removeAll: true },
+          zindex: false
+        }),
+      ],
+    },
     /*
     ** You can extend webpack config here
     */
@@ -213,31 +231,33 @@ export default {
   },
 }
 /**
- * Create an array of URLs from a list of files
+ * Return a path from glob
  * @param {*} urlFilepathTable
  */
-function getRoutesFromPosts(urlFilepathTable) {
+function getPathFromGlob(urlFilepathTable) {
   return [].concat(
     ...Object.keys(urlFilepathTable).map(url => {
       var filepathGlob = urlFilepathTable[url];
       return globAll
         .sync(filepathGlob, { cwd: 'content' })
-        .map(filepath => `${url}/${path.basename(filepath, '.json')}`);
     })
   );
 }
+/**
+ * Create an array of URLs from a list of files
+ * @param {*} urlFilepathTable
+ */
+function getRoutesFromPosts(urlFilepathTable) {
+  return getPathFromGlob(urlFilepathTable)
+        .map(articlePath => `/blog/${path.basename(articlePath, '.json')}`);
+}
+
 
 function getRoutesFromPostTags(urlFilepathTable) {
-  const tags = [].concat(
-    ...Object.keys(urlFilepathTable).map(url => {
-      var filepathGlob = urlFilepathTable[url];
-      return globAll
-        .sync(filepathGlob, { cwd: 'content' })
-        .map(article => require(`./content/${article}`))
-        .map(article => getTagsFromPosts([article]))
-        .map(Object.keys)
-        .reduce((acc, arr) => [...acc, ...arr], []) // flat
-    })
-  );
+  const tags = getPathFromGlob(urlFilepathTable)
+      .map(articlePath => require(`./content/${articlePath}`))
+      .map(article => getTagsFromPosts([article]))
+      .map(Object.keys)
+      .reduce((acc, arr) => [...acc, ...arr], []) // flatten
   return tags.map(tagName => `/blog/tag/${tagName}`)
 }

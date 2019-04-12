@@ -53,6 +53,7 @@ let colors = {
   // 'grey-lighter': '#f1f5f8',
   'grey-lightest': '#f8fafc',
   'white': '#ffffff',
+  'false-white': 'hsl(0, 0%, 98%)',
 
   // 'red-darkest': '#3b0d0c',
   // 'red-darker': '#621b18',

@@ -37,7 +37,7 @@
 
 <script>
 const SocialNetworks = () => import('~/components/images/social-networks')
-const TheLogo = () => import('~/components/images/logo.vue')
+const TheLogo = () => import('~/components/images/logo')
 const ExternalLink = () => import('~/components/base-texts/external-link')
 
 export default {

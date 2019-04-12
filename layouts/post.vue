@@ -13,8 +13,8 @@
 </template>
 
 <script>
-const TheHeader = () => import('~/components/main-presentation/head-nav.vue')
-const TheFooter = () => import('~/components/main-presentation/the-footer.vue')
+const TheHeader = () => import('~/components/main-presentation/head-nav')
+const TheFooter = () => import('~/components/main-presentation/the-footer')
 export default {
   components: {
     TheHeader,
