@@ -20,14 +20,6 @@
           {{ link.name }}
         </nuxt-link>
       </li>
-      <li
-        class="inline-block"
-      >
-        <external-link
-          href="https://paulmelero.netlify.com"
-          class="my-0 text-sm text-white hover:text-action disable-hover mr-4"
-        ><abbr title="Curriculum Vitae">CV</abbr></external-link>
-      </li>
     </ul>
     <div class="hidden sm:flex">
       <social-networks class="sm:flex"></social-networks>
