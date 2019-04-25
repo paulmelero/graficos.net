@@ -136,7 +136,7 @@ export default {
   ** @nuxt/pwa module configuration
   */
   workbox: {
-    offlineAssets: ['/logo/graficos.svg', '/avatar.jpg']
+    offlineAssets: ['/logo/graficos.svg', '/avatar.jpg', '/images/valves/v2.svg']
   },
   manifest: {
     start_url: "/",
