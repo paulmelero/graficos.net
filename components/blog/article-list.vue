@@ -9,6 +9,7 @@
       :title="article.title"
       :url="article._path"
       :extract="getExtract(article.body)"
+      class="mb-8"
     ></article-card>
   </section>
 </template>
