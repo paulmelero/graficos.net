@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>form</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <form
+      name="contact"
+      method="POST"
+      action="/thank-you"
+      hidden
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      data-netlify-honeypot="bot-field"
+    >
+      <p aria-hidden="true" class="hidden">
+        <label>Don’t fill this out if you're human: <input name="bot-field" type="text"/></label>
+      </p>
+      <input type="hidden" name="contact" value="ask-question" />
+      <label
+        >Name <input type="text" name="name" autocomplete="name" placeholder="Your name..." required="required"
+      /></label>
+
+      <label
+        >Email <input type="email" name="email" autocomplete="email" placeholder="Your email..." required="required"
+      /></label>
+
+      <label
+        >Message:
+        <textarea name="message" placeholder="Your message..." required="required" minlength="4" rows="4"></textarea
+      ></label>
+      <div class="row flex justify-end"><button type="submit" class="button">Send</button></div>
+    </form>
+  </body>
+</html>
