@@ -4,12 +4,13 @@
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
     <form
-      name="contact"
+      :name="formName"
       method="POST"
       action="/thank-you"
       data-netlify="true"
       netlify-honeypot="bot-field"
-      @submit.prevent=""
+      data-netlify-honeypot="bot-field"
+      @submit.prevent="onSubmit"
     >
       <p class="hidden" aria-hidden="true">
         <label>Don’t fill this out if you're human: <input name="bot-field" type="text" /></label>
@@ -20,6 +21,7 @@
           name="name"
           autocomplete="name"
           placeholder="Your name..."
+          v-model="name"
           required
           class="
             mb-3 mt-2
@@ -34,6 +36,7 @@
         <input
           type="email"
           name="email"
+          v-model="email"
           autocomplete="email"
           placeholder="Your email..."
           required
@@ -49,6 +52,7 @@
       <label>Message:
         <textarea
           name="message"
+          v-model="message"
           placeholder="Your message..."
           required
           minlength="4"
@@ -65,7 +69,6 @@
       <div class="row flex justify-end">
         <button
           type="submit" class="button"
-          @click="onSubmit"
         >Send</button>
       </div>
     </form>
@@ -90,13 +93,37 @@ export default {
   },
   data() {
     return {
-      title
+      title,
+      formName: 'contact',
+      name: '',
+      email: '',
+      message: '',
     }
   },
   methods: {
-    onSubmit() {
-      this.$router.push('/thank-you')
+    encode (data) {
+      return Object.keys(data)
+        .map(
+          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+        )
+        .join("&");
     },
+    onSubmit() {
+      const axiosConfig = {
+        header: { "Content-Type": "application/x-www-form-urlencoded" }
+      };
+      const payload = this.encode({
+          "form-name": this.formName,
+          name: this.name,
+          email: this.email,
+          message: this.message,
+      })
+      this.$axios.post('/', payload).then(() => {
+        this.$router.push('/thank-you')
+      }).catch(() => {
+        this.$router.push('404')
+      })
+    }
   },
   components: {
     TheTitle,
