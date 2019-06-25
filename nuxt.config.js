@@ -1,4 +1,3 @@
-
 import path from 'path'
 import globAll from 'glob-all'
 
@@ -13,34 +12,29 @@ import { getTagsFromPosts } from './core/posts'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
-const APP_COVER_IMG = '/cover.png';
+const APP_COVER_IMG = '/cover.png'
 const THEME_COLOR = tailwindConfig.colors['teal-light']
 
 const FEED_FILE_NAME = 'feed.xml'
 const AUTHOR = '@paul_melero'
 const AUTHOR_EMAIL = 'paul' + '@graficos' + '.' + 'net'
 
-const blogPostRoutes  = getRoutesFromPosts({
-  '/blog': 'blog/posts/*.json'
-});
-
-const tagsRoutes = getRoutesFromPostTags({
-  '/blog': 'blog/posts/*.json'
+const blogPostRoutes = getRoutesFromPosts({
+  '/blog': 'blog/posts/*.json',
 })
 
-const isProd = process.env.NODE_ENV === 'production';
+const tagsRoutes = getRoutesFromPostTags({
+  '/blog': 'blog/posts/*.json',
+})
 
-const envDependantModules =
-  isProd ?
-    [
-      ['@nuxtjs/pwa', { oneSignal: false }]
-    ] :
-      [];
+const isProd = process.env.NODE_ENV === 'production'
+
+const envDependantModules = isProd ? [['@nuxtjs/pwa', { oneSignal: false }]] : []
 
 export default {
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     titleTemplate: titleChunk => {
       return titleChunk ? `${titleChunk} - Graficos.net` : `Graficos.net`
@@ -78,34 +72,31 @@ export default {
       { hid: 'itemprop-description', itemprop: 'description', content: pkg.description },
       { hid: 'itemprop-image', itemprop: 'image', content: APP_URL + APP_COVER_IMG },
       // Google
-      { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' }
+      { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=1' },
       { hid: 'publisher', rel: 'publisher', href: APP_URL },
-    ]
+    ],
   },
   /*
-  ** Load global CSS
-  */
-  css: [
-    '@/assets/css/tailwind.css',
-    '@/assets/css/main.css',
-  ],
+   ** Load global CSS
+   */
+  css: ['@/assets/css/tailwind.css', '@/assets/css/main.css'],
   /*
-  ** This option is given directly to the vue-router Router constructor
-  */
+   ** This option is given directly to the vue-router Router constructor
+   */
   router: {
     base: '',
-    linkActiveClass: 'is-active'
+    linkActiveClass: 'is-active',
   },
   /*
-  ** Customize the progress bar color
-  */
+   ** Customize the progress bar color
+   */
   loading: { color: THEME_COLOR },
   /*
-    ** Build configuration
-    */
+   ** Build configuration
+   */
   plugins: [
     // '~/plugins/prism',
   ],
@@ -114,37 +105,39 @@ export default {
     'nuxt-purgecss',
     '@nuxtjs/feed',
     '@nuxtjs/sitemap',
+    '@bazzite/nuxt-netlify',
     ...envDependantModules,
   ],
   /*
-  ** @nuxt/axios module configuration
-  */
- axios: {
+   ** @nuxt/axios module configuration
+   */
+  axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
   /*
-  ** nuxt-purgecss module configuration
-  */
+   ** nuxt-purgecss module configuration
+   */
   purgeCSS: {
     // See https://github.com/Developmint/nuxt-purgecss
     mode: 'postcss',
     // https://github.com/FullHuman/purgecss/issues/67
     // https://github.com/Developmint/nuxt-purgecss/issues/14
-    whitelistPatterns: [/^(lang)/, /token/gm]
+    whitelistPatterns: [/^(lang)/, /token/gm],
   },
   /*
-  ** @nuxt/pwa module configuration
-  */
+   ** @nuxt/pwa module configuration
+   */
   workbox: {
-    offlineAssets: ['/logo/graficos.svg', '/avatar.jpg', '/images/valves/v2.svg']
+    offlineAssets: ['/logo/graficos.svg', '/avatar.jpg', '/images/valves/v2.svg'],
   },
   manifest: {
-    start_url: "/",
+    start_url: '/',
   },
   /*
-  ** @nuxt/feed module configuration
-  */
-  feed: [ {
+   ** @nuxt/feed module configuration
+   */
+  feed: [
+    {
       path: '/' + FEED_FILE_NAME, // The route to your feed.
       cacheTime: 1000 * 60 * 15, // How long should the feed be cached
       async create(feed) {
@@ -159,21 +152,27 @@ export default {
             APP_NAME,
             pkg.description,
             APP_URL + APP_COVER_IMG,
-            APP_NAME,
+            APP_NAME
           )
         )
       },
       type: 'rss2', // Can be: rss2, atom1, json1
-    }
+    },
   ],
+  /*
+   ** @nuxt/sitemap module configuration
+   */
   sitemap: {
     hostname: APP_URL,
-    exclude: [
-      '/admin/**',
-      '/thank-you'
-    ],
+    exclude: ['/admin/**', '/thank-you'],
     generate: true,
   },
+  /*
+   ** @bazzite/nuxt-netlify module configuration
+   * Dynamically generate _headers and _redirects files for
+   * Netlify in your Nuxt.js projects.
+   */
+  netlify: {},
   build: {
     analyze: !isProd,
     extractCSS: true,
@@ -182,24 +181,24 @@ export default {
       plugins: [
         require('postcss-import'),
         require('postcss-preset-env')({
-          stage: 0
+          stage: 0,
         }),
         require('postcss-url'),
         require('tailwindcss')(tailwindJS),
         require('autoprefixer')({
           cascade: false,
-          grid: true
+          grid: true,
         }),
         require('cssnano')({
           preset: 'default',
           discardComments: { removeAll: true },
-          zindex: false
+          zindex: false,
         }),
       ],
     },
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
@@ -207,30 +206,24 @@ export default {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
         })
       }
-    }
+    },
   },
-  watch: [
-    '~/tailwind.config.js',
-    'core'
-  ],
+  watch: ['~/tailwind.config.js', 'core'],
   env: {
     APP_NAME,
     APP_URL,
     social: {
-      ...socialLinks
-    }
+      ...socialLinks,
+    },
   },
   /*
-  ** Dynamic Routes added
-  */
+   ** Dynamic Routes added
+   */
   generate: {
-    routes: [
-      ...blogPostRoutes,
-      ...tagsRoutes,
-    ]
+    routes: [...blogPostRoutes, ...tagsRoutes],
   },
 }
 /**
@@ -240,27 +233,24 @@ export default {
 function getPathFromGlob(urlFilepathTable) {
   return [].concat(
     ...Object.keys(urlFilepathTable).map(url => {
-      var filepathGlob = urlFilepathTable[url];
-      return globAll
-        .sync(filepathGlob, { cwd: 'content' })
+      var filepathGlob = urlFilepathTable[url]
+      return globAll.sync(filepathGlob, { cwd: 'content' })
     })
-  );
+  )
 }
 /**
  * Create an array of URLs from a list of files
  * @param {*} urlFilepathTable
  */
 function getRoutesFromPosts(urlFilepathTable) {
-  return getPathFromGlob(urlFilepathTable)
-        .map(articlePath => `/blog/${path.basename(articlePath, '.json')}`);
+  return getPathFromGlob(urlFilepathTable).map(articlePath => `/blog/${path.basename(articlePath, '.json')}`)
 }
-
 
 function getRoutesFromPostTags(urlFilepathTable) {
   const tags = getPathFromGlob(urlFilepathTable)
-      .map(articlePath => require(`./content/${articlePath}`))
-      .map(article => getTagsFromPosts([article]))
-      .map(Object.keys)
-      .reduce((acc, arr) => [...acc, ...arr], []) // flatten
+    .map(articlePath => require(`./content/${articlePath}`))
+    .map(article => getTagsFromPosts([article]))
+    .map(Object.keys)
+    .reduce((acc, arr) => [...acc, ...arr], []) // flatten
   return tags.map(tagName => `/blog/tag/${tagName}`)
 }

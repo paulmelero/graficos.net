@@ -13,6 +13,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@bazzite/nuxt-netlify": "^0.1.1",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/feed": "^1.1.0",
     "@nuxtjs/pwa": "^2.6.0",

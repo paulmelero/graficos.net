@@ -5,23 +5,22 @@
     </the-title>
     <form
       :name="formName"
-      method="POST"
+      method="post"
       action="/thank-you"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      data-netlify-honeypot="bot-field"
+      netlify
+      netlify-honeypot="b"
       @submit.prevent="onSubmit"
     >
       <p class="hidden" aria-hidden="true">
-        <label>Don’t fill this out if you're human: <input name="bot-field" type="text" /></label>
+        <label>Don’t fill this out if you're human: <input name="b" type="text" /></label>
       </p>
+      <input type="hidden" name="form-name" :value="formName" />
       <label>Name
         <input
           type="text"
           name="name"
           autocomplete="name"
           placeholder="Your name..."
-          v-model="name"
           required
           class="
             mb-3 mt-2
@@ -36,7 +35,6 @@
         <input
           type="email"
           name="email"
-          v-model="email"
           autocomplete="email"
           placeholder="Your email..."
           required
@@ -52,7 +50,6 @@
       <label>Message:
         <textarea
           name="message"
-          v-model="message"
           placeholder="Your message..."
           required
           minlength="4"
@@ -95,34 +92,6 @@ export default {
     return {
       title,
       formName: 'contact',
-      name: '',
-      email: '',
-      message: '',
-    }
-  },
-  methods: {
-    encode (data) {
-      return Object.keys(data)
-        .map(
-          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-        )
-        .join("&");
-    },
-    onSubmit() {
-      const axiosConfig = {
-        header: { "Content-Type": "application/x-www-form-urlencoded" }
-      };
-      const payload = this.encode({
-          "form-name": this.formName,
-          name: this.name,
-          email: this.email,
-          message: this.message,
-      })
-      this.$axios.post('/', payload).then(() => {
-        this.$router.push('/thank-you')
-      }).catch(() => {
-        this.$router.push('404')
-      })
     }
   },
   components: {
