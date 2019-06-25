@@ -21,9 +21,6 @@ export default {
       this.$router.push('/')
     }
   },
-  components: {
-    ExternalLink
-  },
   mounted() {
     // eslint-disable-next-line no-console
     console.log(this.error)
