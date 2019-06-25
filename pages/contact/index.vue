@@ -9,7 +9,6 @@
       action="/thank-you"
       netlify
       netlify-honeypot="b"
-      @submit.prevent="onSubmit"
     >
       <p class="hidden" aria-hidden="true">
         <label>Don’t fill this out if you're human: <input name="b" type="text" /></label>
