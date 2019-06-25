@@ -9,6 +9,7 @@
       action="/thank-you"
       data-netlify="true"
       netlify-honeypot="bot-field"
+      @submit.prevent=""
     >
       <p class="hidden" aria-hidden="true">
         <label>Don’t fill this out if you're human: <input name="bot-field" type="text" /></label>
@@ -89,13 +90,12 @@ export default {
   },
   data() {
     return {
-      sent: false,
       title
     }
   },
   methods: {
     onSubmit() {
-      this.sent = true
+      this.$router.push('/thank-you')
     },
   },
   components: {
