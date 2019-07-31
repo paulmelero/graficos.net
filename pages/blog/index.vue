@@ -35,21 +35,28 @@ export default {
     ]
   },
   data() {
-    const posts = webapackGetPosts()
     return {
       title,
-      posts
     }
   },
   computed: {
     tags() {
       return getTagsFromPosts(this.posts)
+    },
+    posts() {
+      const postsFromWebpackContext = webapackGetPosts()
+      return [...(postsFromWebpackContext || [])].sort(this.orderDatesComparator)
     }
   },
   components: {
     TheTitle,
     ArticleList,
     TagCloud,
+  },
+  methods: {
+    orderDatesComparator(objectA, objectB) {
+      return new Date(objectB.date) - new Date(objectA.date);
+    }
   }
 }
 </script>
