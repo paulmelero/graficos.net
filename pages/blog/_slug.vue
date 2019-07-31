@@ -9,7 +9,7 @@
         <p class="text-white">
           <the-time :date="post.date" class="block sm:inline-block sm:text-2xl"></the-time>
           <span class="hidden sm:inline-block">·</span>
-          <span class="block sm:inline-block">{{ cupsWhileReading }}️ {{ minutesToRead }} mins read</span>
+          <span class="block sm:inline-block">{{ cupsWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
       </div>
     </header>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Prism from 'prismjs';
+/* import Prism from 'prismjs';
 // Themes
 import 'prismjs/themes/prism.css';
 // Plugins
@@ -36,7 +36,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.min.js';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 // Extra Languages
-import 'prismjs/components/prism-yaml.min.js';
+import 'prismjs/components/prism-yaml.min.js'; */
 
 import { mdToHTML } from '@/core/posts'
 const TheTime = () => import('@/components/base-texts/the-time')
@@ -98,14 +98,36 @@ export default {
       return (this.post.description + '').slice(0, 300)
     },
     minutesToRead() {
-      return Math.floor(this.post.body.split(' ').length  * .99 / 150);
+      const minutes = Math.floor(this.post.body.split(' ').length / 150) || 1;
+      return minutes
     },
+    formattedMinutesToRead() {
+      const nativePluralRules = new Intl.PluralRules()
+      const options = new Map([
+        ['zero', 'zero time to'],
+        ['one', 'min'],
+        ['two', 'mins'],
+        ['few', 'mins'],
+        ['many', 'mins'],
+        ['other', 'mins'],
+      ])
+      const formatTime = n => {
+        const rule = nativePluralRules.select(n)
+        const suffix = options.get(rule)
+        // eslint-disable-next-line no-console
+        console.log(suffix)
+        return `${n} ${suffix}`
+      }
+      const formattedTime = formatTime(this.minutesToRead)
+      return formattedTime
+    },
+
     cupsWhileReading() {
-      return this.minutesToRead && new Array(Math.floor(this.minutesToRead / 3)).fill('☕️').join('');
+      return this.minutesToRead && new Array(Math.floor(this.minutesToRead / 3)).fill('☕️').join('') || '🌸';
     },
   },
   mounted() {
-    Prism.highlightAll(false)
+    // Prism.highlightAll(false)
   },
   components: {
     TheTime,
