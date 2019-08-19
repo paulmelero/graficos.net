@@ -9,7 +9,13 @@ article img {
 }
 
 article pre {
-  @apply text-base;
+  @apply text-base max-w-full overflow-scroll pb-4;
+}
+
+@screen sm {
+  article pre {
+    @apply overflow-auto;
+  }
 }
 
 article ul,

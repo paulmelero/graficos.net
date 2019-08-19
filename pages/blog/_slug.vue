@@ -24,20 +24,6 @@
 </template>
 
 <script>
-/* import Prism from 'prismjs';
-// Themes
-import 'prismjs/themes/prism.css';
-// Plugins
-import 'prismjs/plugins/toolbar/prism-toolbar.min.js';
-import 'prismjs/plugins/toolbar/prism-toolbar.css';
-import 'prismjs/plugins/show-language/prism-show-language.min.js';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.min.js';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-import 'prismjs/plugins/line-highlight/prism-line-highlight.min.js';
-import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
-// Extra Languages
-import 'prismjs/components/prism-yaml.min.js'; */
-
 import { mdToHTML } from '@/core/posts'
 const TheTime = () => import('@/components/base-texts/the-time')
 const GoBack = () => import('@/components/base-texts/go-back')
@@ -127,7 +113,20 @@ export default {
     },
   },
   mounted() {
-    // Prism.highlightAll(false)
+    const Prism = require ('prismjs')
+    // Themes
+    require('prismjs/themes/prism.css')
+    // Plugins
+    require('prismjs/plugins/toolbar/prism-toolbar.min.js')
+    require('prismjs/plugins/toolbar/prism-toolbar.css')
+    require('prismjs/plugins/show-language/prism-show-language.min.js')
+    require('prismjs/plugins/line-numbers/prism-line-numbers.min.js')
+    require('prismjs/plugins/line-numbers/prism-line-numbers.css')
+    require('prismjs/plugins/line-highlight/prism-line-highlight.min.js')
+    require('prismjs/plugins/line-highlight/prism-line-highlight.css')
+    // Extra Languages
+    require('prismjs/components/prism-yaml.min.js')
+    Prism.highlightAll(false)
   },
   components: {
     TheTime,
