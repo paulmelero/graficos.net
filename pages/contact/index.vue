@@ -2,6 +2,13 @@
   <section>
     <the-title>
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
+      <p slot="subtitle">Or drop me a line at:
+        <a
+          :href="
+            'mai' + 'lto:paulmelero' + '@' + 'g' + 'mai' + 'l' + '.' + 'com'
+          "
+        >{{ 'paulmelero' + '(at)gm' + 'ail(dot)com' }}</a>
+      </p>
     </the-title>
     <form
       :name="formName"
