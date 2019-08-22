@@ -12,8 +12,10 @@
 <script>
 export default {
   props: {
-    dense: Boolean,
-    default: false
+    dense: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>
