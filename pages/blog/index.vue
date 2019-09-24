@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { webapackGetPosts, getTagsFromPosts } from '~/core/posts'
+import { webpackGetPosts, getTagsFromPosts } from '~/core/posts'
 
 const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
@@ -44,7 +44,7 @@ export default {
       return getTagsFromPosts(this.posts)
     },
     posts() {
-      return webapackGetPosts()
+      return webpackGetPosts()
     }
   },
   components: {

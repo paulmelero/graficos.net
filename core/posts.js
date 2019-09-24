@@ -12,7 +12,7 @@ const orderDatesComparator = (objectA, objectB) => {
   return new Date(objectB.date) - new Date(objectA.date)
 }
 
-export const webapackGetPosts = ({ ordered = true, callback = null } = { ordered: true }) => {
+export const webpackGetPosts = ({ ordered = true, callback = null } = { ordered: true }) => {
   // Using webpacks context to gather all files from a folder
   // https://webpack.js.org/guides/dependency-management/#require-context
   const context = require.context('~/content/blog/posts/', false, /\.json$/)

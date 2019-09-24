@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { webapackGetPosts, getTagsFromPosts } from '~/core/posts'
+import { webpackGetPosts, getTagsFromPosts } from '~/core/posts'
 
 const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
@@ -42,7 +42,7 @@ export default {
   },
   asyncData({ params }) {
     const filterPosts = posts => posts.filter(post => [...post.tags].includes(params.tag))
-    const posts = webapackGetPosts({ callback: filterPosts })
+    const posts = webpackGetPosts({ callback: filterPosts })
     return {
       title: params.tag,
       posts: posts
