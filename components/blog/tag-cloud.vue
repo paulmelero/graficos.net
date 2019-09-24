@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3>Tags</h3>
+    <h3>{{ sectionTitle }}</h3>
     <ul
       class="list-reset"
       v-if="Object.keys(tags).length"
@@ -34,6 +34,10 @@ export default {
     tags: {
       type: Object,
       default: () => {}
+    },
+    sectionTitle: {
+      type: String,
+      default: 'Tags'
     }
   },
   components: {

@@ -44,8 +44,7 @@ export default {
       return getTagsFromPosts(this.posts)
     },
     posts() {
-      const postsFromWebpackContext = webapackGetPosts()
-      return [...(postsFromWebpackContext || [])].sort(this.orderDatesComparator)
+      return webapackGetPosts()
     }
   },
   components: {
@@ -54,9 +53,7 @@ export default {
     TagCloud,
   },
   methods: {
-    orderDatesComparator(objectA, objectB) {
-      return new Date(objectB.date) - new Date(objectA.date);
-    }
+
   }
 }
 </script>

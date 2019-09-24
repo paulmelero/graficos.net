@@ -8,6 +8,7 @@
       <article-list class="max-w-lg" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
         <tag-cloud
+          sectionTitle="Related Tags"
           :tags="tags"
         ></tag-cloud>
       </aside>
@@ -40,10 +41,11 @@ export default {
     }
   },
   asyncData({ params }) {
-    const posts = webapackGetPosts()
+    const filterPosts = posts => posts.filter(post => [...post.tags].includes(params.tag))
+    const posts = webapackGetPosts({ callback: filterPosts })
     return {
       title: params.tag,
-      posts: posts.filter(post => [...post.tags].includes(params.tag))
+      posts: posts
     }
   },
   computed: {

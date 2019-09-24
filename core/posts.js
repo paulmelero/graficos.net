@@ -8,14 +8,26 @@ export const getURIFromFileName = (fileName, parentCategory = 'blog') => {
   return `${parentCategory ? '/' + parentCategory : ''}/${fileName.replace('.json', '').replace('./', '')}`
 }
 
-export const webapackGetPosts = () => {
+const orderDatesComparator = (objectA, objectB) => {
+  return new Date(objectB.date) - new Date(objectA.date)
+}
+
+export const webapackGetPosts = ({ ordered = true, callback = null } = { ordered: true }) => {
   // Using webpacks context to gather all files from a folder
   // https://webpack.js.org/guides/dependency-management/#require-context
   const context = require.context('~/content/blog/posts/', false, /\.json$/)
-  const posts = context.keys().map(key => ({
+  let posts = context.keys().map(key => ({
     ...context(key),
     _path: getURIFromFileName(key),
   }))
+
+  if (ordered) {
+    posts = posts.sort(orderDatesComparator)
+  }
+
+  if (callback) {
+    posts = callback(posts)
+  }
 
   return posts
 }
