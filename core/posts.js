@@ -11,19 +11,18 @@ export const getURIFromFileName = (fileName, parentCategory = 'blog') => {
 export const webapackGetPosts = () => {
   // Using webpacks context to gather all files from a folder
   // https://webpack.js.org/guides/dependency-management/#require-context
-  const context = require.context('~/content/blog/posts/', false, /\.json$/);
+  const context = require.context('~/content/blog/posts/', false, /\.json$/)
   const posts = context.keys().map(key => ({
     ...context(key),
-    _path: getURIFromFileName(key)
-  }));
+    _path: getURIFromFileName(key),
+  }))
 
   return posts
 }
 
 export const mdToHTML = (string, options = {}) => {
-
   const renderer = new md.Renderer()
-  renderer.codespan = (text) => `<code class="language-markup">${text}</code>`
+  renderer.codespan = text => `<code class="language-markup">${text}</code>`
 
   return md(string, {
     renderer,
@@ -35,7 +34,7 @@ export const mdToHTML = (string, options = {}) => {
 export const mdToText = (string, options = {}) => {
   const renderer = new md.Renderer()
   renderer.link = (_href, _title, text) => text + ''
-  renderer.paragraph = (text) => text + ' '
+  renderer.paragraph = text => text + ' '
   renderer.heading = renderer.paragraph
   renderer.blockquote = renderer.paragraph
   renderer.br = renderer.paragraph
@@ -53,17 +52,17 @@ export const mdToText = (string, options = {}) => {
   })
 }
 
-export const getTagsFromPosts = (posts) => {
-  return posts
+export const getTagsFromPosts = posts => {
+  return [...posts]
     .map(post => post.tags)
     .reduce((acc, arr) => [...acc, ...arr], [])
     .reduce((acc, tag, i, arr) => {
       if (!tag) return acc
-      tag.toLowerCase();
+      tag.toLowerCase()
       if (acc[tag]) {
         acc[tag]++
       } else {
-          acc[tag] = 1
+        acc[tag] = 1
       }
       return acc
     }, {})
