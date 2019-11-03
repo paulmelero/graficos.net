@@ -1,0 +1,14 @@
+{
+  "lang": "EN",
+  "title": "How to Make Vuetify available in Nuxt's context",
+  "date": "2019-11-03T10:38:48.295Z",
+  "thumbnail": "/images/uploads/vuetify-in-nuxt-context.png",
+  "tags": [
+    "js",
+    "vuetify",
+    "nuxt",
+    "vue"
+  ],
+  "body": "You'll probably are importing Vuetify.js in a plugin like:\n\n<pre class=\"line-numbers language-js\">\n<code>// plugins/vuetify.js\n\nVue.use(Vuetify, {...options})\n\n</code></pre>\n\n> Thanks to using `Vue.use`, you have `$vuetify` available in your components instances. You can access to it with `this.$vuetify` (in the JS part of your component).\n\nBut, what if we want to access to the Vuetify object in our context? Say in [`asyncData`, `fetch`, `plugins`, `middleware`s and `nuxtServerInit`](https://nuxtjs.org/api/context).\n\nYou only need to add a few lines to your plugin:\n\n<pre data-line=\"5-8\" class=\"line-numbers language-js\">\n<code>// plugins/vuetify.js\n\nVue.use(Vuetify, {...options})\n\nexport default function(_, inject) {\n  // make \\`$vuetify\\` available in Nuxt context\n  inject('vuetify', Vue.prototype.$vuetify)\n}\n</code></pre>\n\n🖖🏾",
+  "description": "How to  make `$vuetify` available in Nuxt context to make it accessible from a plugin, or asyncData or fetch methods and/or middlewares and nuxtServerInit vuex action."
+}
