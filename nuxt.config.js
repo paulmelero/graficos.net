@@ -36,11 +36,7 @@ const envDependantModules = isProd
         'nuxt-netlify-http2-server-push',
         {
           // Specify relative path to the dist directory and its content type
-          resources: [
-            { path: 'images/valves/v2.svg', as: 'image' },
-            { path: '_nuxt/*.js', as: 'script' },
-            { path: '_nuxt/*.css', as: 'stylesheet' },
-          ],
+          resources: [{ path: 'images/valves/v2.svg', as: 'image' }, { path: '_nuxt/*.css', as: 'style' }],
         },
       ],
     ]
