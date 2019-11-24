@@ -29,7 +29,22 @@ const tagsRoutes = getRoutesFromPostTags({
 
 const isProd = process.env.NODE_ENV === 'production'
 
-const envDependantModules = isProd ? [['@nuxtjs/pwa', { oneSignal: false }]] : []
+const envDependantModules = isProd
+  ? [
+      ['@nuxtjs/pwa', { oneSignal: false }],
+      [
+        'nuxt-netlify-http2-server-push',
+        {
+          // Specify relative path to the dist directory and its content type
+          resources: [
+            { path: 'images/valves/v2.svg', as: 'image' },
+            { path: '_nuxt/*.js', as: 'script' },
+            { path: '_nuxt/*.css', as: 'stylesheet' },
+          ],
+        },
+      ],
+    ]
+  : []
 
 export default {
   /*
