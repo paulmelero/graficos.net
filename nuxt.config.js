@@ -1,5 +1,6 @@
 import path from 'path'
 import globAll from 'glob-all'
+import PurgecssPlugin from 'purgecss-webpack-plugin'
 
 import pkg from './package'
 import tailwindConfig from './tailwind.config'
@@ -9,6 +10,8 @@ import tailwindJS from './tailwind.config'
 
 import createRSSFeed from './core/createRSSFeed'
 import { getTagsFromPosts } from './core/posts'
+
+const isProd = process.env.NODE_ENV === 'production'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
@@ -26,8 +29,6 @@ const blogPostRoutes = getRoutesFromPosts({
 const tagsRoutes = getRoutesFromPostTags({
   '/blog': 'blog/posts/*.json',
 })
-
-const isProd = process.env.NODE_ENV === 'production'
 
 const envDependantModules = isProd
   ? [
@@ -104,36 +105,22 @@ export default {
   /*
    ** Customize the progress bar color
    */
-  loading: { color: THEME_COLOR },
+  loading: {
+    color: THEME_COLOR,
+    height: '4px',
+  },
   /*
    ** Build configuration
    */
   plugins: [
     // '~/plugins/prism',
   ],
-  modules: [
-    '@nuxtjs/axios',
-    'nuxt-purgecss',
-    '@nuxtjs/feed',
-    '@nuxtjs/sitemap',
-    '@bazzite/nuxt-netlify',
-    ...envDependantModules,
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/feed', '@nuxtjs/sitemap', '@bazzite/nuxt-netlify', ...envDependantModules],
   /*
    ** @nuxt/axios module configuration
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-  },
-  /*
-   ** nuxt-purgecss module configuration
-   */
-  purgeCSS: {
-    // See https://github.com/Developmint/nuxt-purgecss
-    mode: 'postcss',
-    // https://github.com/FullHuman/purgecss/issues/67
-    // https://github.com/Developmint/nuxt-purgecss/issues/14
-    whitelistPatterns: [/^(lang)/, /token/gm],
   },
   /*
    ** @nuxt/pwa module configuration
@@ -187,6 +174,25 @@ export default {
   build: {
     analyze: !isProd,
     extractCSS: true,
+    splitChunks: {
+      layouts: true,
+    },
+    parallel: true,
+    optimization: {
+      // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegroupreuseexistingchunk
+      runtimeChunk: true,
+      // https://webpack.js.org/plugins/split-chunks-plugin
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegroupreuseexistingchunk
+            reuseExistingChunk: true,
+            // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegroupenforce
+            enforce: true,
+          },
+        },
+      },
+    },
     postcss: {
       // order of requires is important!
       plugins: [
@@ -221,7 +227,47 @@ export default {
           exclude: /(node_modules)/,
         })
       }
+      // Run PurgeCSS
+      if (!ctx.isDev || isProd) {
+        // Remove unused CSS using purgecss.
+        // See https://github.com/FullHuman/purgecss
+        // for more information about purgecss.
+        config.plugins.push(
+          new PurgecssPlugin({
+            paths: globAll.sync([
+              path.join(__dirname, './pages/**/*.vue'),
+              path.join(__dirname, './layouts/**/*.vue'),
+              path.join(__dirname, './components/**/*.vue'),
+            ]),
+            whitelist: ['html', 'body', 'line-numbers', 'code-toolbar', 'nuxt-link-exact-active', 'is-active'],
+            whitelistPatterns: [
+              // tailwind
+              /^max-w/,
+              /^sm:/,
+              /^md:/,
+              /^lg:/,
+              /^xl:/,
+              // prismjs
+              /^(lang)/,
+              /^\.language\-/,
+              /^token/,
+              /^pre/,
+              /^code/,
+              /^svg/,
+              /^img/,
+              /^label/,
+              /^input/,
+              /^textarea/,
+              /^button/,
+            ],
+          })
+        )
+      }
     },
+  },
+  server: {
+    port: 4000,
+    timing: false,
   },
   watch: ['~/tailwind.config.js', 'core'],
   env: {

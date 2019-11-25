@@ -16,7 +16,7 @@
         >
       </li>
     </ul>
-    <div class="hidden sm:flex">
+    <div class="hidden sm:flex mr-2">
       <social-networks class="sm:flex"></social-networks>
     </div>
   </nav>
