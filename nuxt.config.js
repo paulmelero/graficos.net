@@ -266,7 +266,6 @@ export default {
     },
   },
   server: {
-    port: 4000,
     timing: false,
   },
   watch: ['~/tailwind.config.js', 'core'],
