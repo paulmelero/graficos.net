@@ -177,7 +177,6 @@ export default {
     splitChunks: {
       layouts: true,
     },
-    parallel: true,
     optimization: {
       // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegroupreuseexistingchunk
       runtimeChunk: true,
