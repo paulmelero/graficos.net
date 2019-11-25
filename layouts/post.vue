@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col content-around h-screen">
+  <div class="flex flex-col content-around min-h-screen">
     <header role="banner">
       <the-header></the-header>
     </header>
     <main class=" flex-grow" role="main">
-      <nuxt/>
+      <nuxt />
     </main>
     <footer role="contentinfo">
       <the-footer></the-footer>
@@ -18,8 +18,8 @@ const TheFooter = () => import('~/components/main-presentation/the-footer')
 export default {
   components: {
     TheHeader,
-    TheFooter
-  }
+    TheFooter,
+  },
 }
 </script>
 

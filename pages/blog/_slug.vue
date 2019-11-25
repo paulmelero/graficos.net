@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="article-post">
     <header
       class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
       :style="`background-image: url( ${ post.thumbnail } )`"

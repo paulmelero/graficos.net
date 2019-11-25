@@ -2,7 +2,7 @@
   <section>
     <div class="flex flex-col items-center py-4">
       <img
-        src="images/paper-plane.svg"
+        src="~/assets/images/paper-plane.svg"
         class="block w-24 mb-8"
         alt="Image of a paper plane flying."
       >

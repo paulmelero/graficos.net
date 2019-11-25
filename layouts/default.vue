@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col content-around h-screen">
+  <div class="flex flex-col content-around min-h-screen">
     <header role="banner">
       <the-header></the-header>
     </header>
     <main class="container mx-auto p-4 flex-grow" role="main">
-      <nuxt/>
+      <nuxt />
       <div class="bg-container" aria-hidden="true"></div>
     </main>
     <footer role="contentinfo">
@@ -25,11 +25,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="postcss">
 .bg-container {
   @apply absolute pin w-full h-full;
   z-index: -1;
-  background-image: url('/images/valves/v2.svg');
+  background-image: url('~assets/images/valves/v2.svg');
   background-size: 100vw;
   background-repeat: no-repeat;
   pointer-events: none;

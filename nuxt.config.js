@@ -36,7 +36,7 @@ const envDependantModules = isProd
         'nuxt-netlify-http2-server-push',
         {
           // Specify relative path to the dist directory and its content type
-          resources: [{ path: 'images/valves/v2.svg', as: 'image' }, { path: '_nuxt/*.css', as: 'style' }],
+          resources: [{ path: '_nuxt/*.css', as: 'style' }],
         },
       ],
     ]
@@ -138,11 +138,11 @@ export default {
   /*
    ** @nuxt/pwa module configuration
    */
-  workbox: {
-    offlineAssets: ['/logo/graficos.svg', '/avatar.jpg', '/images/valves/v2.svg'],
-  },
+  workbox: {},
   manifest: {
+    name: APP_NAME,
     start_url: '/',
+    background_color: tailwindConfig.colors['grey-lightest'],
   },
   /*
    ** @nuxt/feed module configuration
@@ -194,6 +194,7 @@ export default {
         require('postcss-preset-env')({
           stage: 0,
         }),
+        require('postcss-nested'),
         require('postcss-url'),
         require('tailwindcss')(tailwindJS),
         require('autoprefixer')({

@@ -6,19 +6,14 @@
     >
       <the-logo class="h-8 transition:color hover:text-action disable-hover"></the-logo>
     </nuxt-link>
-    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center mb-0">
-      <li
-        v-for="(link, i) in sections"
-        :key="i"
-        class="block inline-block"
-      >
+    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 flex sm:justify-start justify-end">
+      <li v-for="(link, i) in sections" :key="i" class="block inline-block">
         <nuxt-link
           :to="link.href"
           :title="link.title"
           class="my-0 text-sm text-white hover:text-action disable-hover mr-4"
+          >{{ link.name }}</nuxt-link
         >
-          {{ link.name }}
-        </nuxt-link>
       </li>
     </ul>
     <div class="hidden sm:flex">
@@ -36,29 +31,24 @@ export default {
   data() {
     return {
       sections: [
-        /* {
-          href: '/',
-          name: 'Home',
-          title: 'Home'
-        }, */
         {
           href: '/blog',
           name: 'Blog',
-          title: 'Blog'
+          title: 'Blog',
         },
         {
           href: '/contact',
           name: 'Contact',
-          title: 'Contact'
+          title: 'Contact',
         },
-      ]
+      ],
     }
   },
   components: {
     SocialNetworks,
     TheLogo,
-    ExternalLink
-  }
+    ExternalLink,
+  },
 }
 </script>
 
