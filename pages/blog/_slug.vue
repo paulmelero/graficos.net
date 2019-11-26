@@ -24,7 +24,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import { mdToHTML } from '@/core/posts'
+
 const TheTime = () => import('@/components/base-texts/the-time')
 const GoBack = () => import('@/components/base-texts/go-back')
 
@@ -32,6 +35,7 @@ export default {
   name: 'Post',
   layout: 'post',
   transition: 'page-left',
+  middleware: 'webmention',
   head() {
     return {
       title: `${(this.post && this.post.title) || 'Post'}`,
@@ -75,6 +79,7 @@ export default {
     return { post, siteUrl, siteName }
   },
   computed: {
+    ...mapGetters('webmention', ['webmentions']),
     parsedBody() {
       return mdToHTML(this.post.body)
     },
@@ -95,12 +100,10 @@ export default {
         ['many', 'mins'],
         ['other', 'mins'],
       ])
-      const formatTime = n => {
-        const rule = nativePluralRules.select(n)
+      const formatTime = minutes => {
+        const rule = nativePluralRules.select(minutes)
         const suffix = options.get(rule)
-        // eslint-disable-next-line no-console
-        console.log(suffix)
-        return `${n} ${suffix}`
+        return `${minutes} ${suffix}`
       }
       const formattedTime = formatTime(this.minutesToRead)
       return formattedTime
@@ -133,7 +136,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .bg-image {
   @apply z-1 relative;
   &:after {

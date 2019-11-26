@@ -1,2 +1,4 @@
-admin
-thank-you
+User-agent: *
+
+Disallow: /admin
+Disallow: /thank-you

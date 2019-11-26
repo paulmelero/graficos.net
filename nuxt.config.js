@@ -45,6 +45,10 @@ const envDependantModules = isProd
 
 export default {
   /*
+   ** Nuxt mode. Universal for SSR
+   */
+  mode: 'universal',
+  /*
    ** Headers of the page
    */
   head: {
@@ -87,8 +91,9 @@ export default {
       { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=1' },
       { hid: 'publisher', rel: 'publisher', href: APP_URL },
+      { hid: 'webmention', rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
+      { hid: 'pingback', rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
     ],
   },
   /*
@@ -115,13 +120,11 @@ export default {
   plugins: [
     // '~/plugins/prism',
   ],
-  modules: ['@nuxtjs/axios', '@nuxtjs/feed', '@nuxtjs/sitemap', '@bazzite/nuxt-netlify', ...envDependantModules],
+  modules: ['@nuxtjs/feed', '@nuxtjs/sitemap', '@bazzite/nuxt-netlify', '@nuxtjs/axios', ...envDependantModules],
   /*
    ** @nuxt/axios module configuration
    */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
+  axios: {},
   /*
    ** @nuxt/pwa module configuration
    */
@@ -271,6 +274,7 @@ export default {
   env: {
     APP_NAME,
     APP_URL,
+    WEBMENTIONS_TOKEN: 'iNlunTkDd9uJ93CWoVrhYw',
     social: {
       ...socialLinks,
     },
