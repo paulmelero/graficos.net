@@ -132,7 +132,7 @@ colors = {
   ...colors,
   primary: colors['teal'],
   secondary: colors['teal-darker'],
-  accent: colors['pink-dark'],
+  accent: '#c31b54',
   action: colors['purple-darker'],
 }
 
@@ -305,7 +305,7 @@ module.exports = {
 
   /*
   |-----------------------------------------------------------------------------
-  | Tracking (letter spacing)       https://tailwindcss.com/docs/letter-spacing
+  | Tracking (letter spacing)       https://tailwindcss.rscom/docs/letter-spacing
   |-----------------------------------------------------------------------------
   |
   | Here is where you define your letter spacing values, or as we call
