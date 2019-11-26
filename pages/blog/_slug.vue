@@ -35,7 +35,6 @@ export default {
   name: 'Post',
   layout: 'post',
   transition: 'page-left',
-  middleware: 'webmention',
   head() {
     return {
       title: `${(this.post && this.post.title) || 'Post'}`,
