@@ -94,6 +94,8 @@ export default {
       { hid: 'publisher', rel: 'publisher', href: APP_URL },
       { hid: 'webmention', rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
       { hid: 'pingback', rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
+      // preconnect
+      { rel: 'preconnect', href: 'https://storage.googleapis.com/', crossorigin: 'crossorigin' },
     ],
   },
   /*
@@ -261,6 +263,8 @@ export default {
               /^input/,
               /^textarea/,
               /^button/,
+              // carbonads
+              /carbonads/,
             ],
           })
         )
