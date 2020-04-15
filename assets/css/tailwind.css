@@ -1,7 +1,7 @@
 /** ------------------------------------------------------------
-  ##  TAILWIND CSS
+  ##  TAILWIND
   --------------------------------------------------------- */
 
-@import '_tailwind-preflight';
-@import '_tailwind-components';
-@import '_tailwind-utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

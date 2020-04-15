@@ -1,5 +1,6 @@
 import path from 'path'
 import globAll from 'glob-all'
+import PurgecssPlugin from 'purgecss-webpack-plugin'
 
 import pkg from './package'
 import tailwindConfig from './tailwind.config'
@@ -9,6 +10,8 @@ import tailwindJS from './tailwind.config'
 
 import createRSSFeed from './core/createRSSFeed'
 import { getTagsFromPosts } from './core/posts'
+
+const isProd = process.env.NODE_ENV === 'production'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
@@ -27,11 +30,24 @@ const tagsRoutes = getRoutesFromPostTags({
   '/blog': 'blog/posts/*.json',
 })
 
-const isProd = process.env.NODE_ENV === 'production'
-
-const envDependantModules = isProd ? [['@nuxtjs/pwa', { oneSignal: false }]] : []
+const envDependantModules = isProd
+  ? [
+      ['@nuxtjs/pwa', { oneSignal: false }],
+      [
+        'nuxt-netlify-http2-server-push',
+        {
+          // Specify relative path to the dist directory and its content type
+          resources: [{ path: '_nuxt/*.css', as: 'style' }],
+        },
+      ],
+    ]
+  : []
 
 export default {
+  /*
+   ** Nuxt mode. Universal for SSR
+   */
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -75,8 +91,9 @@ export default {
       { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v=1' },
       { hid: 'publisher', rel: 'publisher', href: APP_URL },
+      { hid: 'webmention', rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
+      { hid: 'pingback', rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
     ],
   },
   /*
@@ -93,45 +110,29 @@ export default {
   /*
    ** Customize the progress bar color
    */
-  loading: { color: THEME_COLOR },
+  loading: {
+    color: THEME_COLOR,
+    height: '4px',
+  },
   /*
    ** Build configuration
    */
   plugins: [
     // '~/plugins/prism',
   ],
-  modules: [
-    '@nuxtjs/axios',
-    'nuxt-purgecss',
-    '@nuxtjs/feed',
-    '@nuxtjs/sitemap',
-    '@bazzite/nuxt-netlify',
-    ...envDependantModules,
-  ],
+  modules: ['@nuxtjs/feed', '@nuxtjs/sitemap', '@bazzite/nuxt-netlify', '@nuxtjs/axios', ...envDependantModules],
   /*
    ** @nuxt/axios module configuration
    */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
-  /*
-   ** nuxt-purgecss module configuration
-   */
-  purgeCSS: {
-    // See https://github.com/Developmint/nuxt-purgecss
-    mode: 'postcss',
-    // https://github.com/FullHuman/purgecss/issues/67
-    // https://github.com/Developmint/nuxt-purgecss/issues/14
-    whitelistPatterns: [/^(lang)/, /token/gm],
-  },
+  axios: {},
   /*
    ** @nuxt/pwa module configuration
    */
-  workbox: {
-    offlineAssets: ['/logo/graficos.svg', '/avatar.jpg', '/images/valves/v2.svg'],
-  },
+  workbox: {},
   manifest: {
+    name: APP_NAME,
     start_url: '/',
+    background_color: tailwindConfig.colors['grey-lightest'],
   },
   /*
    ** @nuxt/feed module configuration
@@ -176,6 +177,24 @@ export default {
   build: {
     analyze: !isProd,
     extractCSS: true,
+    splitChunks: {
+      layouts: true,
+    },
+    optimization: {
+      // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegroupreuseexistingchunk
+      runtimeChunk: true,
+      // https://webpack.js.org/plugins/split-chunks-plugin
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegroupreuseexistingchunk
+            reuseExistingChunk: true,
+            // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegroupenforce
+            enforce: true,
+          },
+        },
+      },
+    },
     postcss: {
       // order of requires is important!
       plugins: [
@@ -183,6 +202,7 @@ export default {
         require('postcss-preset-env')({
           stage: 0,
         }),
+        require('postcss-nested'),
         require('postcss-url'),
         require('tailwindcss')(tailwindJS),
         require('autoprefixer')({
@@ -209,12 +229,52 @@ export default {
           exclude: /(node_modules)/,
         })
       }
+      // Run PurgeCSS
+      if (!ctx.isDev || isProd) {
+        // Remove unused CSS using purgecss.
+        // See https://github.com/FullHuman/purgecss
+        // for more information about purgecss.
+        config.plugins.push(
+          new PurgecssPlugin({
+            paths: globAll.sync([
+              path.join(__dirname, './pages/**/*.vue'),
+              path.join(__dirname, './layouts/**/*.vue'),
+              path.join(__dirname, './components/**/*.vue'),
+            ]),
+            whitelist: ['html', 'body', 'line-numbers', 'code-toolbar', 'nuxt-link-exact-active', 'is-active'],
+            whitelistPatterns: [
+              // tailwind
+              /^max-w/,
+              /^sm:/,
+              /^md:/,
+              /^lg:/,
+              /^xl:/,
+              // prismjs
+              /^(lang)/,
+              /^\.language\-/,
+              /^token/,
+              /^pre/,
+              /^code/,
+              /^svg/,
+              /^img/,
+              /^label/,
+              /^input/,
+              /^textarea/,
+              /^button/,
+            ],
+          })
+        )
+      }
     },
+  },
+  server: {
+    timing: false,
   },
   watch: ['~/tailwind.config.js', 'core'],
   env: {
     APP_NAME,
     APP_URL,
+    WEBMENTIONS_TOKEN: 'iNlunTkDd9uJ93CWoVrhYw',
     social: {
       ...socialLinks,
     },

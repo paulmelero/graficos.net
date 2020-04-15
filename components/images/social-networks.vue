@@ -1,6 +1,6 @@
 <template>
   <div> <!-- accepts display classes -->
-    <ul class="flex mb-0 pl-0">
+    <ul class="flex my-0 pl-0">
       <li
         v-for="(network, i) in socialNetworks"
         :key="i"

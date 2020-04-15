@@ -1,24 +1,23 @@
 html {
   font-size: 16px;
   overflow-x: hidden;
+  background-color: config('colors.primary');
 }
 
 body {
   background-color: config('colors.grey-lightest');
   font-family: config('fonts.sans');
+  margin: 0;
 }
 
-p code {
+code {
   white-space: pre-wrap;
+  max-width: 100%;
+  word-break: break-word !important;
 }
 
 pre {
   @apply mx-8;
-}
-
-code {
-  max-width: 100%;
-  word-break: break-word !important;
 }
 
 svg,
@@ -32,9 +31,16 @@ label textarea {
   @apply block;
 }
 
-input:not([type="radio"]):not([type="checkbox"]),
+input:not([type='radio']):not([type='checkbox']),
 textarea {
   @apply font-mono;
+}
+
+input,
+textarea,
+button {
+  border: none;
+  font-size: 100%;
 }
 
 button {

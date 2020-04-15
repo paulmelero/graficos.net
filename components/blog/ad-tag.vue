@@ -4,10 +4,10 @@
       v-if="!dismissed"
       type="button"
       @click="dismissAd"
-      class="dismiss-button shadow-md bg-false-white rounded-full p-3"
+      class="dismiss-button shadow-md bg-false-white rounded-full p-3 cursor-pointer"
       aria-label="Dismiss Add"
     >
-      <i role="presentation" aria-label="Close Icon">✖</i>
+      <i role="presentation" aria-hidden>✖</i>
     </button>
     <script
       async
@@ -55,7 +55,7 @@ export default {
   bottom: 0;
   z-index: 3;
   width: 300px;
-  height: 192px;
+  max-height: 192px;
   @apply border rounded shadow-md p-6 bg-false-white;
 }
 #carbonads {

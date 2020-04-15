@@ -1,26 +1,11 @@
 <template>
   <div class="card">
     <h3>{{ sectionTitle }}</h3>
-    <ul
-      class="list-reset"
-      v-if="Object.keys(tags).length"
-    >
-      <li
-        v-for="(tag, i) in Object.keys(tags)"
-        :key="i"
-        class="inline"
-      >
-        <nuxt-link
-          :to="`/blog/tag/${tag}`"
-        >
-          <tag-media
-            :name="tag"
-            :size="tags[tag]"
-            class="capitalize"
-          ></tag-media>
-        </nuxt-link>{{
-          (i + 1) !== Object.keys(tags).length ? ', ' : ''
-        }}
+    <ul class="list-reset" v-if="Object.keys(tags).length">
+      <li v-for="(tag, i) in Object.keys(tags)" :key="i" class="inline">
+        <nuxt-link :to="`/blog/tag/${tag}`">
+          <tag-media :name="tag" :size="tags[tag]" class="capitalize"></tag-media>
+        </nuxt-link>
       </li>
     </ul>
   </div>
@@ -33,15 +18,15 @@ export default {
   props: {
     tags: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     sectionTitle: {
       type: String,
-      default: 'Tags'
-    }
+      default: 'Tags',
+    },
   },
   components: {
-    TagMedia
-  }
+    TagMedia,
+  },
 }
 </script>

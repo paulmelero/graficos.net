@@ -1,11 +1,11 @@
 <template>
-  <article>
+  <article class="article-post relative z-1">
     <header
       class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
       :style="`background-image: url( ${post.thumbnail} )`"
     >
       <div class="max-w-3/4 sm:max-w-1/2 my-auto mx-auto">
-        <h1 class="mb-8 text-white sm:text-5xl">{{ post.title }}</h1>
+        <h1 class="mb-8 text-white sm:text-5xl text-3xl">{{ post.title }}</h1>
         <p class="text-white">
           <the-time :date="post.date" class="block sm:inline-block sm:text-2xl"></the-time>
           <span class="hidden sm:inline-block">·</span>
@@ -25,7 +25,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import { mdToHTML } from '@/core/posts'
+
 const TheTime = () => import('@/components/base-texts/the-time')
 const GoBack = () => import('@/components/base-texts/go-back')
 const AdTag = () => import('~/components/blog/ad-tag')
@@ -77,6 +80,7 @@ export default {
     return { post, siteUrl, siteName }
   },
   computed: {
+    ...mapGetters('webmention', ['webmentions']),
     parsedBody() {
       return mdToHTML(this.post.body)
     },
@@ -97,12 +101,10 @@ export default {
         ['many', 'mins'],
         ['other', 'mins'],
       ])
-      const formatTime = n => {
-        const rule = nativePluralRules.select(n)
+      const formatTime = minutes => {
+        const rule = nativePluralRules.select(minutes)
         const suffix = options.get(rule)
-        // eslint-disable-next-line no-console
-        console.log(suffix)
-        return `${n} ${suffix}`
+        return `${minutes} ${suffix}`
       }
       const formattedTime = formatTime(this.minutesToRead)
       return formattedTime
@@ -136,7 +138,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .bg-image {
   @apply z-1 relative;
   &:after {
