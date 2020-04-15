@@ -6,9 +6,8 @@
     <section class="sm:flex sm:justify-between">
       <article-list class="max-w-lg" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
-        <tag-cloud
-          :tags="tags"
-        ></tag-cloud>
+        <tag-cloud :tags="tags" />
+        <ad-tag />
       </aside>
     </section>
   </div>
@@ -20,6 +19,7 @@ import { webpackGetPosts, getTagsFromPosts } from '~/core/posts'
 const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
+const AdTag = () => import('~/components/blog/ad-tag')
 
 const title = 'Blog'
 
@@ -29,10 +29,12 @@ export default {
   head: {
     title,
     meta: [
-      { hid: 'description', name: 'description',
-        content: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.'
-      }
-    ]
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.',
+      },
+    ],
   },
   data() {
     return {
@@ -45,15 +47,14 @@ export default {
     },
     posts() {
       return webpackGetPosts()
-    }
+    },
   },
   components: {
     TheTitle,
     ArticleList,
     TagCloud,
+    AdTag,
   },
-  methods: {
-
-  }
+  methods: {},
 }
 </script>

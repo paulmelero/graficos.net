@@ -1,10 +1,11 @@
 <template>
   <div class="flex flex-col content-around h-screen">
+    <resize-observer />
     <header role="banner">
       <the-header></the-header>
     </header>
     <main class="container mx-auto p-4 flex-grow" role="main">
-      <nuxt/>
+      <nuxt />
       <div class="bg-container" aria-hidden="true"></div>
     </main>
     <footer role="contentinfo">
@@ -14,11 +15,13 @@
 </template>
 
 <script>
+const ResizeObserver = () => import('~/components/renderless/ResizeObserver')
 const TheHeader = () => import('~/components/main-presentation/head-nav')
 const TheFooter = () => import('~/components/main-presentation/the-footer')
 
 export default {
   components: {
+    ResizeObserver,
     TheHeader,
     TheFooter,
   },
