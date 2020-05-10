@@ -334,5 +334,7 @@ function getRoutesFromPostTags(articlePaths) {
  */
 function getBlogPagesRoutes(articlePaths) {
   const numberofPagesNeeded = Math.ceil(articlePaths.length / POSTS_PER_PAGE)
-  return [...Array(numberofPagesNeeded).keys()].map(number => `/blog/page/${number}`)
+  return [...Array(numberofPagesNeeded).keys()]
+    .map(number => number !== 0 && `/blog/page/${number + 1}`)
+    .filter(Boolean)
 }
