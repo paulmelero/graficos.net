@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { webpackGetPosts, getTagsFromPosts } from '~/core/posts'
+import { webpackGetPosts, getTagsFromPosts, filterBypage } from '~/core/posts'
 
 const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
@@ -39,14 +39,16 @@ export default {
   data() {
     return {
       title,
+      page: 1,
     }
+  },
+  asyncData() {
+    const { posts, total } = webpackGetPosts({ callback: filterBypage })
+    return { posts: Object.freeze(posts), total }
   },
   computed: {
     tags() {
       return getTagsFromPosts(this.posts)
-    },
-    posts() {
-      return webpackGetPosts()
     },
   },
   components: {
@@ -55,6 +57,5 @@ export default {
     TagCloud,
     AdTag,
   },
-  methods: {},
 }
 </script>

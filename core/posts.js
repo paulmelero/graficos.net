@@ -4,6 +4,8 @@ const defaultMDOptions = {
   headerIds: true,
 }
 
+export const POSTS_PER_PAGE = 5
+
 export const getURIFromFileName = (fileName, parentCategory = 'blog') => {
   return `${parentCategory ? '/' + parentCategory : ''}/${fileName.replace('.json', '').replace('./', '')}`
 }
@@ -12,7 +14,11 @@ const orderDatesComparator = (objectA, objectB) => {
   return new Date(objectB.date) - new Date(objectA.date)
 }
 
-export const webpackGetPosts = ({ ordered = true, callback = null } = { ordered: true }) => {
+export const filterBypage = (posts, pageNumber = 1) => {
+  return posts.slice((pageNumber - 1) * POSTS_PER_PAGE, POSTS_PER_PAGE + 1)
+}
+
+export const webpackGetPosts = ({ callback = null } = {}) => {
   // Using webpacks context to gather all files from a folder
   // https://webpack.js.org/guides/dependency-management/#require-context
   const context = require.context('~/content/blog/posts/', false, /\.json$/)
@@ -21,15 +27,16 @@ export const webpackGetPosts = ({ ordered = true, callback = null } = { ordered:
     _path: getURIFromFileName(key),
   }))
 
-  if (ordered) {
-    posts = posts.sort(orderDatesComparator)
-  }
+  const total = posts.length
+
+  // always sort, because we depend on pagination now
+  posts = posts.sort(orderDatesComparator)
 
   if (callback) {
     posts = callback(posts)
   }
 
-  return posts
+  return { posts, total }
 }
 
 export const mdToHTML = (string, options = {}) => {

@@ -46,7 +46,7 @@ export default {
   },
   asyncData({ params }) {
     const filterPosts = posts => posts.filter(post => [...post.tags].includes(params.tag))
-    const posts = webpackGetPosts({ callback: filterPosts })
+    const { posts } = webpackGetPosts({ callback: filterPosts })
     return {
       title: params.tag,
       posts: posts,

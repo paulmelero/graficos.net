@@ -9,7 +9,7 @@ import socialLinks from './assets/social-links'
 import tailwindJS from './tailwind.config'
 
 import createRSSFeed from './core/createRSSFeed'
-import { getTagsFromPosts } from './core/posts'
+import { getTagsFromPosts, POSTS_PER_PAGE } from './core/posts'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -22,13 +22,15 @@ const FEED_FILE_NAME = 'feed.xml'
 const AUTHOR = '@paul_melero'
 const AUTHOR_EMAIL = 'paul' + '@graficos' + '.' + 'net'
 
-const blogPostRoutes = getRoutesFromPosts({
+const blogPaths = getPathFromGlob({
   '/blog': 'blog/posts/*.json',
 })
 
-const tagsRoutes = getRoutesFromPostTags({
-  '/blog': 'blog/posts/*.json',
-})
+const blogPostRoutes = getRoutesFromPosts(blogPaths)
+
+const tagsRoutes = getRoutesFromPostTags(blogPaths)
+
+const pagesRoutes = getBlogPagesRoutes(blogPaths)
 
 const envDependantModules = isProd
   ? [
@@ -44,9 +46,6 @@ const envDependantModules = isProd
   : []
 
 export default {
-  /*
-   ** Nuxt mode. Universal for SSR
-   */
   mode: 'universal',
   /*
    ** Headers of the page
@@ -274,7 +273,6 @@ export default {
   server: {
     timing: false,
   },
-  watch: ['~/tailwind.config.js', 'core'],
   env: {
     APP_NAME,
     APP_URL,
@@ -287,7 +285,8 @@ export default {
    ** Dynamic Routes added
    */
   generate: {
-    routes: [...blogPostRoutes, ...tagsRoutes],
+    routes: [...blogPostRoutes, ...tagsRoutes, pagesRoutes],
+    fallback: true,
   },
 }
 /**
@@ -303,18 +302,37 @@ function getPathFromGlob(urlFilepathTable) {
   )
 }
 /**
- * Create an array of URLs from a list of files
- * @param {*} urlFilepathTable
+ * Create an array of URLs from a list of file names (they are the slugs)
+ * @param {String[]} articlePaths
+ * @return  {String[]}  the routes to generate
  */
-function getRoutesFromPosts(urlFilepathTable) {
-  return getPathFromGlob(urlFilepathTable).map(articlePath => `/blog/${path.basename(articlePath, '.json')}`)
+function getRoutesFromPosts(articlePaths) {
+  return articlePaths.map(articlePath => `/blog/${path.basename(articlePath, '.json')}`)
 }
 
-function getRoutesFromPostTags(urlFilepathTable) {
-  const tags = getPathFromGlob(urlFilepathTable)
+/**
+ * Get tags and related tags from a group of posts.
+ * Generate URLs with all the used tags.
+ *
+ * @param {String[]} articlePaths
+ *
+ * @return  {String[]}  the routes to generate
+ */
+function getRoutesFromPostTags(articlePaths) {
+  const tags = articlePaths
     .map(articlePath => require(`./content/${articlePath}`))
     .map(article => getTagsFromPosts([article]))
     .map(Object.keys)
     .reduce((acc, arr) => [...acc, ...arr], []) // flatten
   return tags.map(tagName => `/blog/tag/${tagName}`)
+}
+
+/**
+ * Create an array of for the needed amount of `/blog/page/`s
+ * @param {String[]} articlePaths
+ * @return  {String[]}  the routes to generate
+ */
+function getBlogPagesRoutes(articlePaths) {
+  const numberofPagesNeeded = Math.ceil(articlePaths.length / POSTS_PER_PAGE)
+  return [...Array(numberofPagesNeeded).keys()].map(number => `/blog/page/${number}`)
 }

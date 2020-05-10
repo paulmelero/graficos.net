@@ -72,8 +72,13 @@ export default {
       },
     }
   },
-  async asyncData({ params, env }) {
-    const post = await import('~/content/blog/posts/' + params.slug + '.json')
+  async asyncData({ params, env, error }) {
+    let post
+    try {
+      post = await import('~/content/blog/posts/' + params.slug + '.json')
+    } catch (_e) {
+      error({ statusCode: 404, message: 'Post not found' })
+    }
     const siteUrl = env.APP_URL
     const siteName = env.APP_NAME
 
