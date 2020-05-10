@@ -14,7 +14,7 @@ const orderDatesComparator = (objectA, objectB) => {
   return new Date(objectB.date) - new Date(objectA.date)
 }
 
-export const filterBypage = (posts, pageNumber = 1) => {
+export const filterByPage = (posts, pageNumber = 1) => {
   return posts.slice((pageNumber - 1) * POSTS_PER_PAGE, POSTS_PER_PAGE + 1)
 }
 

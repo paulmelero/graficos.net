@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { webpackGetPosts, getTagsFromPosts, filterBypage } from '~/core/posts'
+import { webpackGetPosts, getTagsFromPosts, filterByPage } from '~/core/posts'
 
 const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
@@ -26,7 +26,7 @@ export default {
     if (page === 1) {
       redirect('/blog')
     }
-    const callbackFunction = posts => filterBypage(posts, page)
+    const callbackFunction = posts => filterByPage(posts, page)
     const { posts, total } = webpackGetPosts({ callback: callbackFunction })
     return { posts: Object.freeze(posts), total }
   },
