@@ -285,7 +285,7 @@ export default {
    ** Dynamic Routes added
    */
   generate: {
-    routes: [...blogPostRoutes, ...tagsRoutes, pagesRoutes],
+    routes: [...blogPostRoutes, ...tagsRoutes, ...pagesRoutes],
     fallback: true,
   },
 }
