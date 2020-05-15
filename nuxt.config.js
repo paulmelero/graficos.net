@@ -274,6 +274,7 @@ export default {
     timing: false,
   },
   env: {
+    isDev: !isProd,
     APP_NAME,
     APP_URL,
     WEBMENTIONS_TOKEN: 'iNlunTkDd9uJ93CWoVrhYw',
@@ -330,7 +331,7 @@ function getRoutesFromPostTags(articlePaths) {
 /**
  * Create an array of for the needed amount of `/blog/page/`s
  * @param {String[]} articlePaths
- * @return  {String[]}  the routes to generate
+ * @return  {String[]} the routes to generate
  */
 function getBlogPagesRoutes(articlePaths) {
   const numberofPagesNeeded = Math.ceil(articlePaths.length / POSTS_PER_PAGE)

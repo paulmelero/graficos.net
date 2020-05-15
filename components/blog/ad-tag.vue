@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!dismissed" class="carbon-wrapper">
+  <div v-if="!dismissed && !isDev" class="carbon-wrapper">
     <button
       v-if="!dismissed"
       type="button"
@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       dismissed: false,
+      isDev: process.env.isDev,
     }
   },
   methods: {
