@@ -10,6 +10,7 @@
         <ad-tag />
       </aside>
     </section>
+    <the-pagination :totalPosts="totalPosts" class="mb-8"></the-pagination>
   </div>
 </template>
 
@@ -20,6 +21,7 @@ const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
 const AdTag = () => import('~/components/blog/ad-tag')
+const ThePagination = () => import('~/components/blog/the-pagination')
 
 const title = 'Blog'
 
@@ -43,8 +45,8 @@ export default {
     }
   },
   asyncData() {
-    const { posts, total } = webpackGetPosts({ callback: filterByPage })
-    return { posts: Object.freeze(posts), total }
+    const { posts, totalPosts } = webpackGetPosts({ callback: filterByPage })
+    return { posts: Object.freeze(posts), totalPosts }
   },
   computed: {
     tags() {
@@ -56,6 +58,7 @@ export default {
     ArticleList,
     TagCloud,
     AdTag,
+    ThePagination,
   },
 }
 </script>

@@ -27,7 +27,7 @@ export const webpackGetPosts = ({ callback = null } = {}) => {
     _path: getURIFromFileName(key),
   }))
 
-  const total = posts.length
+  const totalPosts = posts.length
 
   // always sort, because we depend on pagination now
   posts = posts.sort(orderDatesComparator)
@@ -36,7 +36,7 @@ export const webpackGetPosts = ({ callback = null } = {}) => {
     posts = callback(posts)
   }
 
-  return { posts, total }
+  return { posts, totalPosts }
 }
 
 export const mdToHTML = (string, options = {}) => {

@@ -27,8 +27,8 @@ export default {
       redirect('/blog')
     }
     const callbackFunction = posts => filterByPage(posts, page)
-    const { posts, total } = webpackGetPosts({ callback: callbackFunction })
-    return { posts: Object.freeze(posts), total }
+    const { posts, totalPosts } = webpackGetPosts({ callback: callbackFunction })
+    return { posts: Object.freeze(posts), totalPosts }
   },
   components: {
     ArticleList,
