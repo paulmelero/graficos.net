@@ -5,7 +5,7 @@
     </the-title>
     <section class="sm:flex sm:justify-between">
       <article-list class="max-w-lg" :articles="posts"></article-list>
-      <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
+      <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6 sm:sticky top-2 self-start">
         <tag-cloud :tags="tags" />
         <ad-tag />
       </aside>
@@ -59,3 +59,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.top-2 {
+  top: 2em;
+}
+</style>

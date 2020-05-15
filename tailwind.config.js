@@ -888,7 +888,7 @@ module.exports = {
     overflow: [],
     padding: ['responsive'],
     pointerEvents: [],
-    position: [],
+    position: ['responsive'],
     resize: [],
     shadows: ['responsive', 'hover', 'focus'],
     svgFill: ['hover'],
