@@ -10,7 +10,7 @@
         <ad-tag />
       </aside>
     </section>
-    <the-pagination :totalPosts="totalPosts" class="mb-8"></the-pagination>
+    <the-pagination :totalPosts="totalPosts" />
   </div>
 </template>
 

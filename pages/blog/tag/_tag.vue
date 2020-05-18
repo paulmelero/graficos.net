@@ -5,7 +5,7 @@
         Blog posts on <span class="capitalize">"{{ title }}"</span>
       </h1>
     </the-title>
-    <p class="mb-10"><nuxt-link :to="'/blog'">&lt; Come back to blog</nuxt-link></p>
+    <go-back />
     <section class="sm:flex sm:justify-between">
       <article-list class="max-w-lg" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
@@ -24,6 +24,7 @@ const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
 const AdTag = () => import('~/components/blog/ad-tag')
+const GoBack = () => import('@/components/base-texts/go-back')
 
 export default {
   name: 'Tag',
@@ -62,6 +63,7 @@ export default {
     ArticleList,
     TagCloud,
     AdTag,
+    GoBack,
   },
 }
 </script>

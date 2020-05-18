@@ -13,13 +13,13 @@
         </p>
       </div>
     </header>
-    <div class="max-w-3/4 sm:max-w-1/2 mx-auto py-8 sm:text-lg">
-      <go-back></go-back>
+    <div class="max-w-3/4 sm:max-w-1/2 mx-auto ">
+      <go-back class="pt-8" />
     </div>
     <ad-tag />
     <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-10 sm:text-lg"></div>
     <div class="max-w-3/4 sm:max-w-1/2 mx-auto pb-10 sm:text-lg">
-      <go-back></go-back>
+      <go-back />
     </div>
   </article>
 </template>
