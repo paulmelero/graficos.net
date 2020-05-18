@@ -2,5 +2,6 @@
   publish = "dist"
   command = "npm run generate"
 [build.environment]
-  NODE_VERSION = "10"
   YARN_FLAGS = "--no-ignore-optional"
+[context.production]
+  environment = { NODE_VERSION = "12.16.2" }

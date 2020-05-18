@@ -1,12 +1,12 @@
 <template>
-  <div class="relative z-1">
+  <div>
     <the-title>
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
     <section class="sm:flex sm:justify-between">
       <article-list class="max-w-lg" :articles="posts"></article-list>
-      <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6 sm:sticky top-2 self-start">
-        <tag-cloud :tags="tags" />
+      <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
+        <tag-cloud v-if="tags" :tags="tags" />
         <ad-tag />
       </aside>
     </section>
@@ -22,36 +22,37 @@ const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
 const AdTag = () => import('~/components/blog/ad-tag')
 const ThePagination = () => import('~/components/blog/the-pagination')
+const GoBack = () => import('@/components/base-texts/go-back')
 
 const title = 'Blog'
 
 export default {
-  name: title,
-  transition: 'page-opacity',
+  computed: {
+    tags() {
+      return this.posts && this.posts.length && getTagsFromPosts(this.posts)
+    },
+    title() {
+      return `Blog (Page ${this.page})`
+    },
+  },
   head: {
-    title,
+    title: (this && this.title) || title,
     meta: [
       {
         hid: 'description',
         name: 'description',
-        content: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.',
+        content: `- Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.`,
       },
     ],
   },
-  data() {
-    return {
-      title,
-      page: 1,
+  asyncData({ params, redirect }) {
+    const page = +params.page
+    if (page === 1) {
+      redirect('/blog')
     }
-  },
-  asyncData() {
-    const { posts, totalPosts } = webpackGetPosts({ callback: filterByPage })
-    return { posts: Object.freeze(posts), totalPosts }
-  },
-  computed: {
-    tags() {
-      return getTagsFromPosts(this.posts)
-    },
+    const callbackFunction = posts => filterByPage(posts, page)
+    const { posts, totalPosts } = webpackGetPosts({ callback: callbackFunction })
+    return { posts: Object.freeze(posts), totalPosts, page }
   },
   components: {
     TheTitle,
@@ -59,12 +60,7 @@ export default {
     TagCloud,
     AdTag,
     ThePagination,
+    GoBack,
   },
 }
 </script>
-
-<style scoped>
-.top-2 {
-  top: 2em;
-}
-</style>
