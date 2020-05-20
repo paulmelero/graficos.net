@@ -1,8 +1,10 @@
 <template>
-  <header :class="{
-    'pb-8': !dense
-  }">
-    <div class="mb-2">
+  <header
+    :class="{
+      'pb-8': !dense,
+    }"
+  >
+    <div class="mb-2 title-bold">
       <slot name="title"></slot>
     </div>
     <slot name="subtitle"></slot>
@@ -14,8 +16,8 @@ export default {
   props: {
     dense: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 }
 </script>

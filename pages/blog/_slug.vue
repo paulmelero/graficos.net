@@ -5,7 +5,7 @@
       :style="`background-image: url( ${post.thumbnail} )`"
     >
       <div class="max-w-3/4 sm:max-w-1/2 my-auto mx-auto">
-        <h1 class="mb-8 text-white sm:text-5xl text-3xl">{{ post.title }}</h1>
+        <h1 class="mb-8 text-white sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
         <p class="text-white">
           <the-time :date="post.date" class="block sm:inline-block sm:text-2xl"></the-time>
           <span class="hidden sm:inline-block">·</span>
@@ -148,7 +148,8 @@ export default {
   @apply z-1 relative;
   &:after {
     content: '';
-    @apply pin absolute bg-black opacity-50;
+    @apply pin absolute bg-black;
+    opacity: 0.85;
     z-index: -1;
   }
 }

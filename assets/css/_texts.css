@@ -51,3 +51,12 @@ p {
 :--headings {
   @apply leading-tight text-grey-darkest mb-2-em;
 }
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.title-bold {
+  font-family: 'Montserrat', sans-serif;
+  @apply font-black italic;
+}

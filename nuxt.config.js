@@ -45,6 +45,8 @@ const envDependantModules = isProd
     ]
   : []
 
+const fonts = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;1,900&display=swap'
+
 export default {
   mode: 'universal',
   /*
@@ -93,8 +95,15 @@ export default {
       { hid: 'publisher', rel: 'publisher', href: APP_URL },
       { hid: 'webmention', rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
       { hid: 'pingback', rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
+      {
+        rel: 'stylesheet',
+        href: fonts,
+      },
       // preconnect
       { rel: 'preconnect', href: 'https://storage.googleapis.com/', crossorigin: 'crossorigin' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'crossorigin' },
+      // preload
+      { rel: 'preload', href: fonts, as: 'style' },
     ],
   },
   /*
@@ -129,7 +138,22 @@ export default {
   /*
    ** @nuxt/pwa module configuration
    */
-  workbox: {},
+  workbox: {
+    runtimeCaching: [
+      {
+        // https://developers.google.com/web/tools/workbox/guides/common-recipes#google_fonts
+        urlPattern: 'https://fonts.googleapis.com/.*',
+        handler: 'cacheFirst',
+        strategyOptions: {
+          cacheName: 'google-fonts-webfonts',
+          cacheExpiration: {
+            maxEntries: 30,
+            maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+          },
+        },
+      },
+    ],
+  },
   manifest: {
     name: APP_NAME,
     start_url: '/',

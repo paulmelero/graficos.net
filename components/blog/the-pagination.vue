@@ -1,7 +1,7 @@
 <template>
-  <div class="py-8 flex my-8">
+  <div class="py-8 flex my-8 title font-thin">
     <div v-for="page of numberofPagesNeeded" :key="page">
-      <nuxt-link title="Go to blog's first page" v-if="page !== 1" class="card disable-underline" to="/blog"
+      <nuxt-link title="Go to blog's first page" v-if="page !== 1" class="card disable-underline " to="/blog"
         >1</nuxt-link
       >
       <nuxt-link
