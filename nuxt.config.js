@@ -1,13 +1,9 @@
-import path from 'path'
-import globAll from 'glob-all'
-
 import pkg from './package'
 import { theme } from './tailwind.config'
 
 import socialLinks from './config/social-links'
 
 import createRSSFeed from './core/createRSSFeed'
-import { getTagsFromPosts, POSTS_PER_PAGE } from './core/posts'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -19,16 +15,6 @@ const THEME_COLOR = theme.colors['teal-light']
 const FEED_FILE_NAME = 'feed.xml'
 const AUTHOR = '@paul_melero'
 const AUTHOR_EMAIL = 'paul' + '@graficos' + '.' + 'net'
-
-const blogPaths = getPathFromGlob({
-  '/blog': 'blog/posts/*.json',
-})
-
-const blogPostRoutes = getRoutesFromPosts(blogPaths)
-
-const tagsRoutes = getRoutesFromPostTags(blogPaths)
-
-const pagesRoutes = getBlogPagesRoutes(blogPaths)
 
 const envDependantModules = isProd
   ? [
@@ -270,56 +256,6 @@ export default {
    ** Dynamic Routes added
    */
   generate: {
-    routes: [...blogPostRoutes, ...tagsRoutes, ...pagesRoutes],
     fallback: true,
   },
-}
-/**
- * Return a path from glob
- * @param {*} urlFilepathTable
- */
-function getPathFromGlob(urlFilepathTable) {
-  return [].concat(
-    ...Object.keys(urlFilepathTable).map(url => {
-      var filepathGlob = urlFilepathTable[url]
-      return globAll.sync(filepathGlob, { cwd: 'content' })
-    })
-  )
-}
-/**
- * Create an array of URLs from a list of file names (they are the slugs)
- * @param {String[]} articlePaths
- * @return  {String[]}  the routes to generate
- */
-function getRoutesFromPosts(articlePaths) {
-  return articlePaths.map(articlePath => `/blog/${path.basename(articlePath, '.json')}`)
-}
-
-/**
- * Get tags and related tags from a group of posts.
- * Generate URLs with all the used tags.
- *
- * @param {String[]} articlePaths
- *
- * @return  {String[]}  the routes to generate
- */
-function getRoutesFromPostTags(articlePaths) {
-  const tags = articlePaths
-    .map(articlePath => require(`./content/${articlePath}`))
-    .map(article => getTagsFromPosts([article]))
-    .map(Object.keys)
-    .reduce((acc, arr) => [...acc, ...arr], []) // flatten
-  return tags.map(tagName => `/blog/tag/${tagName}`)
-}
-
-/**
- * Create an array of for the needed amount of `/blog/page/`s
- * @param {String[]} articlePaths
- * @return  {String[]} the routes to generate
- */
-function getBlogPagesRoutes(articlePaths) {
-  const numberofPagesNeeded = Math.ceil(articlePaths.length / POSTS_PER_PAGE)
-  return [...Array(numberofPagesNeeded).keys()]
-    .map(number => number !== 0 && `/blog/page/${number + 1}`)
-    .filter(Boolean)
 }
