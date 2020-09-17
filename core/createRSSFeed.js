@@ -1,5 +1,5 @@
-import { sync } from 'glob-all';
-import { getURIFromFileName, mdToHTML } from './posts';
+import { sync } from 'glob-all'
+import { getURIFromFileName, mdToHTML } from './posts'
 
 const createRSSFeed = (
   feed,
@@ -11,9 +11,8 @@ const createRSSFeed = (
   siteName,
   siteDescription,
   image,
-  generator,
+  generator
 ) => {
-
   feed.options = {
     title: siteName,
     link: feedPath,
@@ -23,13 +22,10 @@ const createRSSFeed = (
   }
 
   const cwd = 'content/blog/posts'
-  const posts = sync([cwd + '/*.json'])
-    .map(file => ({
-      ...require(`../${file}`),
-      _path: (
-        siteUrl + getURIFromFileName(file, 'blog').replace(cwd + '/', '')
-      )
-    }))
+  const posts = sync([cwd + '/*.json']).map(file => ({
+    ...require(`../${file}`),
+    _path: siteUrl + getURIFromFileName(file, 'blog').replace(cwd + '/', ''),
+  }))
 
   posts.forEach(post => {
     feed.addItem({
@@ -37,14 +33,14 @@ const createRSSFeed = (
       id: post.date,
       link: post._path,
       description: post.description,
-      content: mdToHTML(post.body)
+      content: mdToHTML(post.body),
     })
   })
 
   feed.addContributor({
     name: authorName,
     email: authorMail,
-    link: authorLink
+    link: authorLink,
   })
 }
 

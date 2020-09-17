@@ -7,7 +7,7 @@
       <the-logo class="h-8 transition:color hover:text-action disable-hover"></the-logo>
     </nuxt-link>
     <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 flex sm:justify-start justify-end">
-      <li v-for="(link, i) in sections" :key="i" class="block inline-block">
+      <li v-for="(link, i) in sections" :key="i" class="inline-block">
         <nuxt-link
           :to="link.href"
           :title="link.title"
@@ -25,7 +25,6 @@
 <script>
 const SocialNetworks = () => import('~/components/images/social-networks')
 const TheLogo = () => import('~/components/images/logo')
-const ExternalLink = () => import('~/components/base-texts/external-link')
 
 export default {
   data() {
@@ -47,7 +46,6 @@ export default {
   components: {
     SocialNetworks,
     TheLogo,
-    ExternalLink,
   },
 }
 </script>
