@@ -4,7 +4,7 @@ import globAll from 'glob-all'
 import pkg from './package'
 import { theme } from './tailwind.config'
 
-import socialLinks from './assets/social-links'
+import socialLinks from './config/social-links'
 
 import createRSSFeed from './core/createRSSFeed'
 import { getTagsFromPosts, POSTS_PER_PAGE } from './core/posts'

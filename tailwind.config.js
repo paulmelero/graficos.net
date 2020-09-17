@@ -2,25 +2,25 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 // upgrading docs https://tailwindcss.com/docs/upgrading-to-v1#1-update-any-usage-of-text-bg-border-color-classes
 const colors = {
+  currentColor: defaultTheme.colors.currentColor,
   transparent: defaultTheme.colors.transparent,
   black: defaultTheme.colors.black,
+  white: defaultTheme.colors.white,
+  fwhite: 'hsl(0, 0%, 98%)',
   'gray-darkest': defaultTheme.colors.gray['800'],
   'gray-darker': defaultTheme.colors.gray['700'],
   'gray-dark': defaultTheme.colors.gray['600'],
-  gray: defaultTheme.colors.gray,
+  gray: defaultTheme.colors.gray['500'],
   'gray-light': defaultTheme.colors.gray['400'],
   'gray-lightest': defaultTheme.colors.gray['100'],
-  white: defaultTheme.colors.white,
-  fwhite: 'hsl(0, 0%, 98%)',
   'teal-dark': defaultTheme.colors.teal['600'],
-  teal: defaultTheme.colors.teal,
+  teal: defaultTheme.colors.teal['500'],
   'teal-darker': defaultTheme.colors.teal['700'],
   'teal-light': defaultTheme.colors.teal['400'],
   'purple-darker': defaultTheme.colors.purple['700'],
 }
 
 const themeColors = {
-  ...colors,
   primary: colors['teal'],
   secondary: colors['teal-darker'],
   accent: '#c31b54',
@@ -63,8 +63,9 @@ module.exports = {
     },
   },
   theme: {
-    colors: themeColors,
+    colors,
     extend: {
+      colors: themeColors,
       screens: {
         xs: '320px',
         sm: '576px',
