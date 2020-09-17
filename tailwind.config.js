@@ -119,6 +119,11 @@ module.exports = {
       minHeight: {
         50: '50vh',
       },
+      fill: theme => ({
+        current: 'currentColor',
+        white: theme('colors.white'),
+        primary: theme('colors.primary'),
+      }),
       container: {
         center: true,
       },
