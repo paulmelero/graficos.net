@@ -1,36 +1,20 @@
-import path from 'path'
-import globAll from 'glob-all'
-import PurgecssPlugin from 'purgecss-webpack-plugin'
-
 import pkg from './package'
-import tailwindConfig from './tailwind.config'
+import { theme } from './tailwind.config'
 
-import socialLinks from './assets/social-links'
-import tailwindJS from './tailwind.config'
+import socialLinks from './config/social-links'
 
 import createRSSFeed from './core/createRSSFeed'
-import { getTagsFromPosts, POSTS_PER_PAGE } from './core/posts'
 
 const isProd = process.env.NODE_ENV === 'production'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png'
-const THEME_COLOR = tailwindConfig.colors['teal-light']
+const THEME_COLOR = theme.colors['teal-light']
 
 const FEED_FILE_NAME = 'feed.xml'
 const AUTHOR = '@paul_melero'
 const AUTHOR_EMAIL = 'paul' + '@graficos' + '.' + 'net'
-
-const blogPaths = getPathFromGlob({
-  '/blog': 'blog/posts/*.json',
-})
-
-const blogPostRoutes = getRoutesFromPosts(blogPaths)
-
-const tagsRoutes = getRoutesFromPostTags(blogPaths)
-
-const pagesRoutes = getBlogPagesRoutes(blogPaths)
 
 const envDependantModules = isProd
   ? [
@@ -48,7 +32,7 @@ const envDependantModules = isProd
 const fonts = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;1,900&display=swap'
 
 export default {
-  mode: 'universal',
+  target: 'static',
   /*
    ** Headers of the page
    */
@@ -157,7 +141,7 @@ export default {
   manifest: {
     name: APP_NAME,
     start_url: '/',
-    background_color: tailwindConfig.colors['grey-lightest'],
+    background_color: theme.colors['gray-lightest'],
   },
   /*
    ** @nuxt/feed module configuration
@@ -229,7 +213,7 @@ export default {
         }),
         require('postcss-nested'),
         require('postcss-url'),
-        require('tailwindcss')(tailwindJS),
+        require('tailwindcss'),
         require('autoprefixer')({
           cascade: false,
           grid: true,
@@ -254,44 +238,6 @@ export default {
           exclude: /(node_modules)/,
         })
       }
-      // Run PurgeCSS
-      if (!ctx.isDev || isProd) {
-        // Remove unused CSS using purgecss.
-        // See https://github.com/FullHuman/purgecss
-        // for more information about purgecss.
-        config.plugins.push(
-          new PurgecssPlugin({
-            paths: globAll.sync([
-              path.join(__dirname, './pages/**/*.vue'),
-              path.join(__dirname, './layouts/**/*.vue'),
-              path.join(__dirname, './components/**/*.vue'),
-            ]),
-            whitelist: ['html', 'body', 'line-numbers', 'code-toolbar', 'nuxt-link-exact-active', 'is-active'],
-            whitelistPatterns: [
-              // tailwind
-              /^max-w/,
-              /^sm:/,
-              /^md:/,
-              /^lg:/,
-              /^xl:/,
-              // prismjs
-              /^(lang)/,
-              /^\.language\-/,
-              /^token/,
-              /^pre/,
-              /^code/,
-              /^svg/,
-              /^img/,
-              /^label/,
-              /^input/,
-              /^textarea/,
-              /^button/,
-              // carbonads
-              /carbonads/,
-            ],
-          })
-        )
-      }
     },
   },
   server: {
@@ -310,56 +256,6 @@ export default {
    ** Dynamic Routes added
    */
   generate: {
-    routes: [...blogPostRoutes, ...tagsRoutes, ...pagesRoutes],
     fallback: true,
   },
-}
-/**
- * Return a path from glob
- * @param {*} urlFilepathTable
- */
-function getPathFromGlob(urlFilepathTable) {
-  return [].concat(
-    ...Object.keys(urlFilepathTable).map(url => {
-      var filepathGlob = urlFilepathTable[url]
-      return globAll.sync(filepathGlob, { cwd: 'content' })
-    })
-  )
-}
-/**
- * Create an array of URLs from a list of file names (they are the slugs)
- * @param {String[]} articlePaths
- * @return  {String[]}  the routes to generate
- */
-function getRoutesFromPosts(articlePaths) {
-  return articlePaths.map(articlePath => `/blog/${path.basename(articlePath, '.json')}`)
-}
-
-/**
- * Get tags and related tags from a group of posts.
- * Generate URLs with all the used tags.
- *
- * @param {String[]} articlePaths
- *
- * @return  {String[]}  the routes to generate
- */
-function getRoutesFromPostTags(articlePaths) {
-  const tags = articlePaths
-    .map(articlePath => require(`./content/${articlePath}`))
-    .map(article => getTagsFromPosts([article]))
-    .map(Object.keys)
-    .reduce((acc, arr) => [...acc, ...arr], []) // flatten
-  return tags.map(tagName => `/blog/tag/${tagName}`)
-}
-
-/**
- * Create an array of for the needed amount of `/blog/page/`s
- * @param {String[]} articlePaths
- * @return  {String[]} the routes to generate
- */
-function getBlogPagesRoutes(articlePaths) {
-  const numberofPagesNeeded = Math.ceil(articlePaths.length / POSTS_PER_PAGE)
-  return [...Array(numberofPagesNeeded).keys()]
-    .map(number => number !== 0 && `/blog/page/${number + 1}`)
-    .filter(Boolean)
 }

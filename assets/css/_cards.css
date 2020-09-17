@@ -1,6 +1,6 @@
 .card {
-  @apply overflow-hidden border rounded shadow-md py-4 px-6 transition:box-shadow bg-false-white;
+  @apply text-fwhite overflow-hidden rounded shadow-lg shadow-md py-4 px-6 transition-shadow;
   &:hover {
-    @apply shadow-lg;
+    @apply shadow-xl;
   }
 }

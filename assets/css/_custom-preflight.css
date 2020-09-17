@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  background-color: config('colors.grey-lightest');
+  background-color: config('colors.gray-lightest');
   font-family: config('fonts.sans');
   margin: 0;
 }
@@ -44,7 +44,7 @@ button {
 }
 
 button {
-  @apply text-accent font-bold p-2 bg-grey-light rounded;
+  @apply text-accent font-bold p-2 bg-gray-light rounded;
 }
 
 button.button {

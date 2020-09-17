@@ -4,7 +4,7 @@
       v-if="!dismissed"
       type="button"
       @click="dismissAd"
-      class="dismiss-button shadow-md bg-false-white rounded-full p-3 cursor-pointer"
+      class="dismiss-button shadow-lg bg-fwhite rounded-full p-3 cursor-pointer"
       aria-label="Dismiss Add"
     >
       <i role="presentation" aria-hidden>✖</i>
@@ -57,7 +57,7 @@ export default {
   z-index: 3;
   width: 300px;
   max-height: 192px;
-  @apply border rounded shadow-md p-6 bg-false-white;
+  @apply border rounded shadow-md p-6 bg-fwhite;
 }
 #carbonads {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',

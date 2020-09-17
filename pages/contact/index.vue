@@ -27,7 +27,7 @@
             mb-3 mt-2
             p-2
             rounded
-            bg-grey-light
+            bg-gray-light
             w-full
           "
         />
@@ -44,7 +44,7 @@
             mb-3 mt-2
             p-2
             rounded
-            bg-grey-light
+            bg-gray-light
             w-full
           "
         />
@@ -61,7 +61,7 @@
             mb-3 mt-2
             p-2
             rounded
-            bg-grey-light
+            bg-gray-light
             w-full max-w-full
           "
         ></textarea>

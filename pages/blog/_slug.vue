@@ -4,7 +4,7 @@
       class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
       :style="`background-image: url( ${post.thumbnail} )`"
     >
-      <div class="max-w-3/4 sm:max-w-1/2 my-auto mx-auto">
+      <div class="w-3/4 sm:w-1/2 my-auto mx-auto">
         <h1 class="mb-8 text-white sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
         <p class="text-white">
           <the-time :date="post.date" class="block sm:inline-block sm:text-2xl"></the-time>
@@ -13,12 +13,12 @@
         </p>
       </div>
     </header>
-    <div class="max-w-3/4 sm:max-w-1/2 mx-auto ">
+    <div class="w-3/4 sm:w-1/2 mx-auto ">
       <go-back class="pt-8" />
     </div>
     <ad-tag />
-    <div v-html="parsedBody" class="max-w-3/4 sm:max-w-1/2 mx-auto py-10 sm:text-lg"></div>
-    <div class="max-w-3/4 sm:max-w-1/2 mx-auto pb-10 sm:text-lg">
+    <div v-html="parsedBody" class="w-3/4 sm:w-1/2 mx-auto py-10 sm:text-lg"></div>
+    <div class="w-3/4 sm:w-1/2 mx-auto pb-10 sm:text-lg">
       <go-back />
     </div>
   </article>
@@ -148,7 +148,7 @@ export default {
   @apply z-1 relative;
   &:after {
     content: '';
-    @apply pin absolute bg-black;
+    @apply inset-0 absolute bg-black;
     opacity: 0.85;
     z-index: -1;
   }

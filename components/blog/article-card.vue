@@ -3,7 +3,7 @@
     <h2 class="text-2xl mb-6">
       <span
         v-if="lang"
-        class="bg-grey-light rounded p-1 align-middle inline-block text-sm title font-thin leading-tight"
+        class="bg-gray-light rounded p-1 align-middle inline-block text-sm title font-thin leading-tight"
         :title="language"
         :aria-label="language"
         >{{ langClean }}</span
@@ -13,7 +13,7 @@
         title
       }}</nuxt-link>
     </h2>
-    <p class="text-grey-darker overflow-hidden leading-loose" v-html="extract"></p>
+    <p class="text-gray-darker overflow-hidden leading-loose" v-html="extract"></p>
   </article>
 </template>
 

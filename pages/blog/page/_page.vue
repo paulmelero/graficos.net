@@ -4,7 +4,7 @@
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
     </the-title>
     <section class="sm:flex sm:justify-between">
-      <article-list class="max-w-lg" :articles="posts"></article-list>
+      <article-list class="max-w-3xl" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
         <tag-cloud v-if="tags" :tags="tags" />
         <ad-tag />

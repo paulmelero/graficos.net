@@ -32,7 +32,7 @@ export default {
 .bg-container {
   &:after {
     content: '';
-    @apply absolute pin w-full h-full;
+    @apply absolute inset-0 w-full h-full;
     background-image: url('~assets/images/valves/v2.svg');
     background-size: 100vw;
     background-repeat: no-repeat;
