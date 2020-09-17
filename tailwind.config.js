@@ -113,23 +113,12 @@ module.exports = {
         '4xl': '2.25rem', // 36px
         '5xl': '3rem', // 48px
       },
-      fontWeight: {
-        'extra-light': 200,
-        light: 300,
-        normal: 400,
-        medium: 500,
-        bold: 700,
-        black: 900,
-      },
-      backgroundColor: theme => theme('colors'),
       borderColor: theme => ({
-        ...theme('colors'),
         default: theme("colors['gray-light']", 'currentColor'),
       }),
-      fill: theme => ({
-        ...theme('colors'),
-        current: 'currentColor',
-      }),
+      minHeight: {
+        50: '50vh',
+      },
       container: {
         center: true,
       },

@@ -49,7 +49,7 @@ p {
 }
 
 :--headings {
-  @apply leading-tight text-gray-darkest mb-2;
+  @apply leading-tight text-gray-darkest mb-2 font-bold;
 }
 
 .title {

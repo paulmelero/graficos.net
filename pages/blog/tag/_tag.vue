@@ -7,7 +7,7 @@
     </the-title>
     <go-back />
     <section class="sm:flex sm:justify-between">
-      <article-list class="max-w-lg" :articles="posts"></article-list>
+      <article-list class="max-w-3xl" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
         <tag-cloud sectionTitle="Related Tags" :tags="tags" class="mb-8" />
         <ad-tag />

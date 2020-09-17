@@ -4,7 +4,7 @@
       v-if="!dismissed"
       type="button"
       @click="dismissAd"
-      class="dismiss-button shadow-md bg-fwhite rounded-full p-3 cursor-pointer"
+      class="dismiss-button shadow-lg bg-fwhite rounded-full p-3 cursor-pointer"
       aria-label="Dismiss Add"
     >
       <i role="presentation" aria-hidden>✖</i>
