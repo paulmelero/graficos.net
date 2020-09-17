@@ -1,6 +1,6 @@
 .card {
   @apply text-fwhite overflow-hidden rounded shadow-lg shadow-md py-4 px-6 transition-shadow;
   &:hover {
-    @apply shadow-lg shadow-xl;
+    @apply shadow-xl;
   }
 }
