@@ -1,12 +1,10 @@
 import path from 'path'
 import globAll from 'glob-all'
-import PurgecssPlugin from 'purgecss-webpack-plugin'
 
 import pkg from './package'
-import tailwindConfig from './tailwind.config'
+import { theme } from './tailwind.config'
 
 import socialLinks from './assets/social-links'
-import tailwindJS from './tailwind.config'
 
 import createRSSFeed from './core/createRSSFeed'
 import { getTagsFromPosts, POSTS_PER_PAGE } from './core/posts'
@@ -16,7 +14,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png'
-const THEME_COLOR = tailwindConfig.colors['teal-light']
+const THEME_COLOR = theme.colors['teal-light']
 
 const FEED_FILE_NAME = 'feed.xml'
 const AUTHOR = '@paul_melero'
@@ -48,7 +46,7 @@ const envDependantModules = isProd
 const fonts = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;1,900&display=swap'
 
 export default {
-  mode: 'universal',
+  target: 'static',
   /*
    ** Headers of the page
    */
@@ -157,7 +155,7 @@ export default {
   manifest: {
     name: APP_NAME,
     start_url: '/',
-    background_color: tailwindConfig.colors['grey-lightest'],
+    background_color: theme.colors['gray-lightest'],
   },
   /*
    ** @nuxt/feed module configuration
@@ -229,7 +227,7 @@ export default {
         }),
         require('postcss-nested'),
         require('postcss-url'),
-        require('tailwindcss')(tailwindJS),
+        require('tailwindcss'),
         require('autoprefixer')({
           cascade: false,
           grid: true,
@@ -253,44 +251,6 @@ export default {
           loader: 'eslint-loader',
           exclude: /(node_modules)/,
         })
-      }
-      // Run PurgeCSS
-      if (!ctx.isDev || isProd) {
-        // Remove unused CSS using purgecss.
-        // See https://github.com/FullHuman/purgecss
-        // for more information about purgecss.
-        config.plugins.push(
-          new PurgecssPlugin({
-            paths: globAll.sync([
-              path.join(__dirname, './pages/**/*.vue'),
-              path.join(__dirname, './layouts/**/*.vue'),
-              path.join(__dirname, './components/**/*.vue'),
-            ]),
-            whitelist: ['html', 'body', 'line-numbers', 'code-toolbar', 'nuxt-link-exact-active', 'is-active'],
-            whitelistPatterns: [
-              // tailwind
-              /^max-w/,
-              /^sm:/,
-              /^md:/,
-              /^lg:/,
-              /^xl:/,
-              // prismjs
-              /^(lang)/,
-              /^\.language\-/,
-              /^token/,
-              /^pre/,
-              /^code/,
-              /^svg/,
-              /^img/,
-              /^label/,
-              /^input/,
-              /^textarea/,
-              /^button/,
-              // carbonads
-              /carbonads/,
-            ],
-          })
-        )
       }
     },
   },

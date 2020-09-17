@@ -1,6 +1,6 @@
 <template>
   <div
-    class="footer text-center text-grey-darker pt-10 sm:flex sm:items-center sm:justify-center media"
+    class="footer text-center text-gray-darker pt-10 sm:flex sm:items-center sm:justify-center media"
     aria-label="Footer content"
   >
     <img
@@ -10,7 +10,7 @@
     />
     <div class="sm:ml-5 sm:text-left">
       <p class="text-xl leading-tight mb-0 title font-thin">Paul melero</p>
-      <p class="text-sm leading-tight text-grey-darker mt-0">Web Developer</p>
+      <p class="text-sm leading-tight text-gray-darker mt-0">Web Developer</p>
       <social-networks :dark="false" class="flex justify-center sm:justify-start mx-auto"></social-networks>
     </div>
   </div>

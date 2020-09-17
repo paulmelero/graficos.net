@@ -148,7 +148,7 @@ export default {
   @apply z-1 relative;
   &:after {
     content: '';
-    @apply pin absolute bg-black;
+    @apply inset-0 absolute bg-black;
     opacity: 0.85;
     z-index: -1;
   }

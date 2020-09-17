@@ -1,9 +1,9 @@
-import { screens } from '~/tailwind.config'
+import { theme } from '~/tailwind.config'
 
-const screensInt = Object.keys(screens).reduce((obj, key) => {
+const screensInt = Object.keys(theme.extend.screens).reduce((obj, key) => {
   return {
     ...obj,
-    [key]: parseInt(screens[key]),
+    [key]: parseInt(theme.extend.screens[key]),
   }
 }, {})
 
