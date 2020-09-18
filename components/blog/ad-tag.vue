@@ -1,5 +1,6 @@
 <template>
-  <div v-if="!dismissed && !isDev" class="carbon-wrapper">
+  <div v-if="!dismissed" class="carbon-wrapper">
+    <!-- && !isDev -->
     <button
       v-if="!dismissed"
       type="button"
@@ -9,11 +10,6 @@
     >
       <i role="presentation" aria-hidden>✖</i>
     </button>
-    <script
-      async
-      src="https://cdn.carbonads.com/carbon.js?serve=CE7DEK3N&placement=graficosnet"
-      id="_carbonads_js"
-    ></script>
   </div>
 </template>
 
@@ -35,6 +31,14 @@ export default {
         this.dismissed = true
       }
     },
+  },
+  mounted() {
+    const wrapper = document.getElementsByClassName('carbon-wrapper')[0]
+    const carbonScript = document.createElement('script')
+    carbonScript.setAttribute('async', 'async')
+    carbonScript.setAttribute('src', 'https://cdn.carbonads.com/carbon.js?serve=CE7DEK3N&placement=graficosnet')
+    carbonScript.setAttribute('id', '_carbonads_js')
+    wrapper.appendChild(carbonScript)
   },
 }
 </script>

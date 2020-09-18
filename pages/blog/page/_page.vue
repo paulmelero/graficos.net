@@ -22,7 +22,6 @@ const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
 const AdTag = () => import('~/components/blog/ad-tag')
 const ThePagination = () => import('~/components/blog/the-pagination')
-const GoBack = () => import('@/components/base-texts/go-back')
 
 const title = 'Blog'
 
@@ -60,7 +59,6 @@ export default {
     TagCloud,
     AdTag,
     ThePagination,
-    GoBack,
   },
 }
 </script>
