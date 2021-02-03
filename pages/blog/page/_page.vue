@@ -7,7 +7,6 @@
       <article-list class="max-w-3xl" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
         <tag-cloud v-if="tags" :tags="tags" />
-        <ad-tag />
       </aside>
     </section>
     <the-pagination :totalPosts="totalPosts" />
@@ -20,7 +19,6 @@ import { webpackGetPosts, getTagsFromPosts, filterByPage } from '~/core/posts'
 const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
-const AdTag = () => import('~/components/blog/ad-tag')
 const ThePagination = () => import('~/components/blog/the-pagination')
 
 const title = 'Blog'
@@ -57,7 +55,6 @@ export default {
     TheTitle,
     ArticleList,
     TagCloud,
-    AdTag,
     ThePagination,
   },
 }

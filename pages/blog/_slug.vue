@@ -16,7 +16,6 @@
     <div class="w-3/4 sm:w-1/2 mx-auto ">
       <go-back class="pt-8" />
     </div>
-    <ad-tag />
     <div v-html="parsedBody" class="w-3/4 sm:w-1/2 mx-auto py-10 sm:text-lg"></div>
     <div class="w-3/4 sm:w-1/2 mx-auto pb-10 sm:text-lg">
       <go-back />
@@ -31,7 +30,6 @@ import { mdToHTML } from '@/core/posts'
 
 const TheTime = () => import('@/components/base-texts/the-time')
 const GoBack = () => import('@/components/base-texts/go-back')
-const AdTag = () => import('~/components/blog/ad-tag')
 
 export default {
   name: 'Post',
@@ -138,7 +136,6 @@ export default {
   components: {
     TheTime,
     GoBack,
-    AdTag,
   },
 }
 </script>

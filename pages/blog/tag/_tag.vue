@@ -10,7 +10,6 @@
       <article-list class="max-w-3xl" :articles="posts"></article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
         <tag-cloud sectionTitle="Related Tags" :tags="tags" class="mb-8" />
-        <ad-tag />
       </aside>
     </section>
   </div>
@@ -23,7 +22,6 @@ import { webpackGetPosts, getTagsFromPosts } from '~/core/posts'
 const TheTitle = () => import('~/components/base-texts/the-title')
 const ArticleList = () => import('~/components/blog/article-list')
 const TagCloud = () => import('~/components/blog/tag-cloud')
-const AdTag = () => import('~/components/blog/ad-tag')
 const GoBack = () => import('@/components/base-texts/go-back')
 
 export default {
@@ -62,7 +60,6 @@ export default {
     TheTitle,
     ArticleList,
     TagCloud,
-    AdTag,
     GoBack,
   },
 }
