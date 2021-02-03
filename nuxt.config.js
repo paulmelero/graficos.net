@@ -114,11 +114,8 @@ export default {
   plugins: [
     // '~/plugins/prism',
   ],
-  modules: ['@nuxtjs/feed', '@nuxtjs/sitemap', '@bazzite/nuxt-netlify', '@nuxtjs/axios', ...envDependantModules],
-  /*
-   ** @nuxt/axios module configuration
-   */
-  axios: {},
+  modules: ['@nuxtjs/feed', '@nuxtjs/sitemap', '@bazzite/nuxt-netlify', ...envDependantModules],
+
   /*
    ** @nuxt/pwa module configuration
    */

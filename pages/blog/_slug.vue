@@ -11,6 +11,12 @@
           <span class="hidden sm:inline-block">·</span>
           <span class="block sm:inline-block">{{ cupsWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
+        <p v-if="mentions" class="text-white">
+          <i
+            >Indieweb! This article has been mentioned: <code>{{ mentions }} {{ mentions > 1 ? 'times' : 'time' }}</code
+            >!</i
+          >
+        </p>
       </div>
     </header>
     <div class="w-3/4 sm:w-1/2 mx-auto ">
@@ -35,6 +41,7 @@ export default {
   name: 'Post',
   layout: 'post',
   transition: 'page-left',
+  middleware: 'webmention',
   head() {
     return {
       title: `${(this.post && this.post.title) || 'Post'}`,
@@ -84,6 +91,9 @@ export default {
   },
   computed: {
     ...mapGetters('webmention', ['webmentions']),
+    mentions() {
+      return this.webmentions ? this.webmentions.children.length : 0
+    },
     parsedBody() {
       return mdToHTML(this.post.body)
     },
