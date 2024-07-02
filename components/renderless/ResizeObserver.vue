@@ -1,36 +1,14 @@
-<script>
-import { mapActions } from 'vuex'
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
 
-import simpleDebounce from '~/mixins/simple-debounce-vue-mixin'
+let observer: ResizeObserver | null = null
 
-export default {
-  name: 'resize-observer',
-  mixins: [simpleDebounce],
-  mounted() {
-    if (process.browser) {
-      this.handleResize()
-      window.addEventListener('resize', this.handleResize, {
-        passive: true,
-      })
+onMounted(() => {
+  observer = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      console.log(entry.target.clientWidth, entry.target.clientHeight)
     }
-  },
-  beforeDestroy() {
-    if (process.browser) {
-      window.removeEventListener('resize', this.handleResize, { passive: true })
-    }
-  },
-  methods: {
-    ...mapActions('layout', ['setSize']),
-    handleResize() {
-      if (process.browser) {
-        this.simpleDebounce(() => {
-          this.setSize(window.innerWidth)
-        }, 100)
-      }
-    },
-  },
-  render() {
-    return {}
-  },
-}
+  })
+  observer.observe($el)
+})
 </script>

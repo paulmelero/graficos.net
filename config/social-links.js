@@ -8,7 +8,7 @@ module.exports = {
     link: 'https://twitter.com/paul_melero',
   },
   cv: {
-    name: 'Paul Melero\'s CV',
-    link: 'https://paulmelero.netlify.com',
-  }
+    name: "Paul Melero's CV",
+    link: 'https://paulmelero.netlify.app/',
+  },
 }

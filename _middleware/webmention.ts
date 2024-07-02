@@ -1,7 +1,7 @@
 // https://github.com/aaronpk/webmention.io#find-links-of-a-specific-type-to-a-specific-page
 
-export default function({ route, store, env }) {
-  if (process.client) {
+export default defineNuxtRouteMiddleware(to) {
+  if (import.meta.client) {
     const path = String(route.fullPath).replace('localhost:3000', 'graficos.net')
     fetch(
       `https://webmention.io/api/mentions.jf2?target=https://${env.APP_NAME + route.fullPath}&token=${

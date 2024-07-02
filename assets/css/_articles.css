@@ -9,13 +9,22 @@
   }
 
   pre {
-    @apply text-base max-w-full overflow-scroll pb-4;
+    @apply text-base max-w-full overflow-scroll sm:overflow-auto pb-4;
+    &.shiki.language-js,
+    &.shiki.language-ts {
+      .line {
+        counter-increment: codeblock-line;
+
+        &::before {
+          content: counter(codeblock-line);
+          @apply text-gray-light dark:text-gray-darker z-1 mr-2;
+        }
+      }
+    }
   }
 
-  @screen sm {
-    pre {
-      @apply overflow-auto;
-    }
+  ul {
+    @apply list-disc;
   }
 
   ul,

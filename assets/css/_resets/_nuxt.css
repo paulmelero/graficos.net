@@ -3,5 +3,5 @@
 }
 
 .nuxt-link-exact-active.is-active {
-  @apply text-secondary;
+  @apply text-secondary dark:text-secondaryDark;
 }

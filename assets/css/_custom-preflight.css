@@ -1,23 +1,17 @@
 html {
   font-size: 16px;
   overflow-x: hidden;
-  background-color: config('colors.primary');
+  @apply bg-primary dark:bg-primaryDark dark:text-fwhite;
 }
 
 body {
-  background-color: config('colors.gray-lightest');
-  font-family: config('fonts.sans');
-  margin: 0;
+  @apply bg-gray-lightest dark:bg-gray-darkest dark:text-fwhite font-sans m-0;
 }
 
 code {
   white-space: pre-wrap;
   max-width: 100%;
   word-break: break-word !important;
-}
-
-pre {
-  @apply mx-8;
 }
 
 svg,
@@ -44,12 +38,9 @@ button {
 }
 
 button {
-  @apply text-accent font-bold p-2 bg-gray-light rounded;
+  @apply font-bold p-2 text-black hover:text-action dark:text-fwhite dark:hover:text-actionDark rounded;
 }
 
 button.button {
   @apply rounded px-8 py-3 mt-2 transition;
-  &:hover {
-    @apply bg-teal-light text-purple-darker;
-  }
 }

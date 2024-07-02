@@ -1,63 +1,50 @@
 <template>
   <div class="relative z-1">
-    <the-title>
+    <base-texts-the-title>
       <h1 slot="title" class="text-3xl">{{ title }}</h1>
-    </the-title>
+    </base-texts-the-title>
     <section class="sm:flex sm:justify-between">
-      <article-list class="max-w-3xl" :articles="posts"></article-list>
-      <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6 sm:sticky top-2 self-start">
-        <tag-cloud :tags="tags" />
+      <blog-article-list :articles="posts" />
+      <aside class="sm:mt-0 mt-6 sm:ml-6 sm:sticky top-2 sm:max-w-56">
+        <blog-tag-cloud :tags="tags" />
       </aside>
     </section>
-    <the-pagination :totalPosts="totalPosts" />
   </div>
 </template>
 
-<script>
-import { webpackGetPosts, getTagsFromPosts, filterByPage } from '~/core/posts'
-
-const TheTitle = () => import('~/components/base-texts/the-title')
-const ArticleList = () => import('~/components/blog/article-list')
-const TagCloud = () => import('~/components/blog/tag-cloud')
-const ThePagination = () => import('~/components/blog/the-pagination')
+<script setup lang="ts">
+import type { PostInList } from '~/types'
 
 const title = 'Blog'
 
-export default {
-  name: title,
-  transition: 'page-opacity',
-  head: {
-    title,
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.',
-      },
-    ],
-  },
-  data() {
-    return {
-      title,
-      page: 1,
-    }
-  },
-  asyncData() {
-    const { posts, totalPosts } = webpackGetPosts({ callback: filterByPage })
-    return { posts: Object.freeze(posts), totalPosts }
-  },
-  computed: {
-    tags() {
-      return getTagsFromPosts(this.posts)
-    },
-  },
-  components: {
-    TheTitle,
-    ArticleList,
-    TagCloud,
-    ThePagination,
-  },
+useSeoMeta({
+  title,
+  description: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.',
+})
+
+const getTagsFromPosts = (posts: PostInList[]) => {
+  return posts
+    .map((post) => post.tags)
+    .reduce((acc, tags) => [...acc, ...(tags || [])])
+    .reduce((acc, tag, i) => {
+      if (!tag) return acc
+      tag.toLowerCase()
+      if (acc[tag]) {
+        acc[tag]++
+      } else {
+        acc[tag] = 1
+      }
+      return acc
+    }, {} as Record<string, number>)
 }
+
+const { data } = await useAsyncData('blog', () =>
+  queryContent('blog')
+    .only(<(keyof PostInList)[]>['_path', 'title', 'lang', 'summary', 'tags'])
+    .find()
+)
+const posts = computed(() => data.value as PostInList[])
+const tags = getTagsFromPosts(posts.value)
 </script>
 
 <style scoped>

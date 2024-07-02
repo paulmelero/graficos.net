@@ -1,6 +1,6 @@
 <template>
   <div
-    class="footer text-center text-gray-darker pt-10 sm:flex sm:items-center sm:justify-center media"
+    class="footer text-center text-gray-darker dark:text-gray-lightest pt-10 sm:flex sm:items-center sm:justify-center media"
     aria-label="Footer content"
   >
     <img
@@ -10,19 +10,16 @@
     />
     <div class="sm:ml-5 sm:text-left">
       <p class="text-xl leading-tight mb-0 title font-thin">Paul melero</p>
-      <p class="text-sm leading-tight text-gray-darker mt-0">Web Developer</p>
-      <social-networks :dark="false" class="flex justify-center sm:justify-start mx-auto"></social-networks>
+      <p class="text-sm leading-tight mt-0 text-gray-dark dark:text-gray-light">Web Developer</p>
+      <social-networks class="flex justify-center sm:justify-start mx-auto"></social-networks>
     </div>
   </div>
 </template>
 
-<script>
-const SocialNetworks = () => import('~/components/images/social-networks')
-export default {
-  components: {
-    SocialNetworks,
-  },
-}
+<script setup>
+import { tw } from '~/core/tw'
+
+const SocialNetworks = defineAsyncComponent(() => import('~/components/images/social-networks.vue'))
 </script>
 
 <style scoped>

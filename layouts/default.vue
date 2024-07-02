@@ -1,31 +1,26 @@
 <template>
   <div class="flex flex-col content-around min-h-screen bg-container relative">
-    <resize-observer />
     <header role="banner" class="relative z-1">
-      <the-header></the-header>
+      <main-presentation-head-nav />
     </header>
     <main class="container mx-auto p-4 flex-grow" role="main">
-      <nuxt />
+      <slot />
       <div class="bg-container" aria-hidden="true"></div>
     </main>
     <footer role="contentinfo">
-      <the-footer></the-footer>
+      <main-presentation-the-footer />
     </footer>
   </div>
 </template>
 
-<script>
-const ResizeObserver = () => import('~/components/renderless/ResizeObserver')
-const TheHeader = () => import('~/components/main-presentation/head-nav')
-const TheFooter = () => import('~/components/main-presentation/the-footer')
+<script setup lang="ts">
+const colorMode = useColorMode()
 
-export default {
-  components: {
-    ResizeObserver,
-    TheHeader,
-    TheFooter,
+useHead({
+  htmlAttrs: {
+    class: colorMode.value,
   },
-}
+})
 </script>
 
 <style lang="postcss">
@@ -33,12 +28,15 @@ export default {
   &:after {
     content: '';
     @apply absolute inset-0 w-full h-full;
-    background-image: url('~assets/images/valves/v2.svg');
+    background-image: url('~/assets/images/valves/v2.svg');
     background-size: 100vw;
     background-repeat: no-repeat;
     pointer-events: none;
     background-position: 80vw -30vw;
   }
+}
+.dark .bg-container:after {
+  filter: opacity(0.1);
 }
 @screen md {
   .bg-container:after {

@@ -3,8 +3,8 @@
     <header role="banner">
       <the-header></the-header>
     </header>
-    <main class=" flex-grow" role="main">
-      <nuxt />
+    <main class="flex-grow" role="main">
+      <slot />
     </main>
     <footer role="contentinfo">
       <the-footer></the-footer>
@@ -12,20 +12,7 @@
   </div>
 </template>
 
-<script>
-const TheHeader = () => import('~/components/main-presentation/head-nav')
-const TheFooter = () => import('~/components/main-presentation/the-footer')
-export default {
-  components: {
-    TheHeader,
-    TheFooter,
-  },
-}
+<script setup lang="ts">
+const TheHeader = defineAsyncComponent(() => import('~/components/main-presentation/head-nav.vue'))
+const TheFooter = defineAsyncComponent(() => import('~/components/main-presentation/the-footer.vue'))
 </script>
-
-<style>
-body {
-  background-color: config('colors.gray-lightest');
-  font-family: config('fonts.sans');
-}
-</style>

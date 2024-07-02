@@ -1,19 +1,22 @@
 <template>
   <article class="card">
-    <h2 class="text-2xl mb-6">
+    <h2 class="text-2xl mb-6 flex flex-row flex-wrap gap-1 items-center">
       <span
         v-if="lang"
-        class="bg-gray-light rounded p-1 align-middle inline-block text-sm title font-thin leading-tight"
+        class="mt-2 bg-gray-light dark:bg-gray-darkest rounded p-1 text-sm title font-thin leading-tight flex-grow-0 flex-shrink basis-0 self-start"
         :title="language"
         :aria-label="language"
         >{{ langClean }}</span
       >
-      <span v-if="!url">{{ title }}</span>
-      <nuxt-link v-else :to="url" class="no-underline disable-underline transition:color leading-normal">{{
-        title
-      }}</nuxt-link>
+      <span v-if="!url" class="">{{ title }}</span>
+      <nuxt-link
+        v-else
+        :to="url"
+        class="ml-3 no-underline disable-underline transition:color leading-normal flex-grow flex-shrink-0 basis-0 self-start"
+        >{{ title }}</nuxt-link
+      >
     </h2>
-    <p class="text-gray-darker overflow-hidden leading-loose" v-html="extract"></p>
+    <p class="text-gray-darker dark:text-gray-lightest overflow-hidden leading-loose pl-11" v-html="extract"></p>
   </article>
 </template>
 

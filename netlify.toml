@@ -1,7 +1,3 @@
 [build]
   publish = "dist"
-  command = "npm run generate"
-[build.environment]
-  YARN_FLAGS = "--no-ignore-optional"
-[context.production]
-  environment = { NODE_VERSION = "12.16.2" }
+  command = "pnpm run generate"

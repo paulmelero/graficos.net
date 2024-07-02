@@ -1,41 +1,7 @@
 @custom-selector :--headings h1, h2, h3, h4, h5, h6;
 
 a {
-  @apply text-accent no-underline;
-  &:not(.disable-underline):not(.carbon-poweredby) {
-    position: relative;
-    &:before {
-      content: '';
-      speak: none;
-      position: absolute;
-      margin: 0 auto;
-      bottom: -0.17em;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: currentColor;
-      opacity: 0.2;
-      filter: alpha 20;
-      transform: scaleX(0.8);
-      transition-property: transform, opacity;
-      transition-duration: 0.2s;
-      pointer-events: none;
-    }
-    &.big-underline:before {
-      transform: scaleX(0.9);
-    }
-    &:hover {
-      &:before {
-        opacity: 1;
-        transform: scaleX(1);
-      }
-    }
-  }
-  &:hover {
-    &:not(.disable-hover) {
-      @apply text-accent;
-    }
-  }
+  @apply text-accent dark:text-actionDark underline underline-offset-1;
 }
 
 ul,
@@ -48,8 +14,8 @@ p {
   @apply leading-normal;
 }
 
-:--headings {
-  @apply leading-tight text-gray-darkest mb-2 font-bold;
+:state(headings) {
+  @apply leading-tight text-gray-darkest dark:text-gray-lightest mb-2 font-bold;
 }
 
 .title {
