@@ -39,6 +39,9 @@ export default defineNuxtConfig({
   },
   icon: {
     mode: 'svg',
+    serverBundle: {
+      collections: ['octicons'],
+    },
   },
   content: {
     highlight: {
