@@ -1,22 +1,18 @@
-# graficos
+# graficos.net
 
 > Graficos.net
 
+Built and statically generated with [Nuxt](https://nuxt.com).
+
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
-$ npm install # Or yarn install
+$ pnpm install
 
 # serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm start
+$ pnpm run dev
 
 # generate static project
-$ npm run generate
+$ pnpm run generate
 ```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
