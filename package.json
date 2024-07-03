@@ -27,9 +27,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@vite-pwa/nuxt": "^0.8.1",
     "nuxt": "^3.12.2",
-    "pinia": "^2.1.7"
-  },
-  "devDependencies": {
+    "pinia": "^2.1.7",
     "@iconify-json/octicon": "^1.1.55",
     "@nuxt/kit": "3.12.2",
     "@nuxt/schema": "^3.12.2",
