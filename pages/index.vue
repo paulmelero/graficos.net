@@ -49,4 +49,14 @@
 <script setup lang="ts">
 const publicConfig = useRuntimeConfig().public
 const social = publicConfig.socialLinks
+
+useHead({
+  title: 'Home',
+  meta: [
+    {
+      name: 'description',
+      content: 'Paul Melero, Engineer, Web Developer and Visual Artist.',
+    },
+  ],
+})
 </script>
