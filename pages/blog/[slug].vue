@@ -5,16 +5,16 @@
       class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
       :style="`background-image: url( ${post.thumbnail} )`"
     >
-      <div class="w-3/4 sm:w-1/2 my-auto mx-auto">
-        <h1 class="mb-8 text-white sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
-        <p class="text-white">
-          <the-time :date="post.date" class="block sm:inline-block sm:text-2xl"></the-time>
-          <span class="hidden sm:inline-block">·</span>
+      <div class="w-3/4 sm:w-1/2 my-auto mx-auto text-white">
+        <h1 class="mb-8 sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
+        <p class="">
+          <base-texts-the-time :date="post.date" class="block sm:inline-block" />
+          <span class="hidden sm:inline-block sm:mx-2">·</span>
           <span class="block sm:inline-block">{{ cupsWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
-        <p v-if="mentions" class="text-white">
+        <p v-if="mentions" class="">
           <i
-            >Indieweb! This article has been mentioned: <code>{{ mentions }} {{ mentions > 1 ? 'times' : 'time' }}</code
+            >Indieweb! This article has been mentioned: <em>{{ mentions }} {{ mentions > 1 ? 'times' : 'time' }}</em
             >!</i
           >
         </p>
@@ -29,23 +29,50 @@
 <script setup lang="ts">
 import type { Post } from '~/types'
 
-const TheTime = defineAsyncComponent(() => import('~/components/base-texts/the-time.vue'))
-
 definePageMeta({
   layout: 'post',
 })
 
 const publicConfig = useRuntimeConfig().public
-const siteUrl = publicConfig.APP_URL
 const siteName = publicConfig.APP_NAME
 
 const route = useRoute()
+
+// Post
 const { data } = await useAsyncData('post', () =>
   queryContent('blog')
     .where({ _path: { $match: route.path } })
     .findOne()
 )
 const post = computed(() => data.value as Post)
+
+// Head - SEO
+useContentHead(post)
+
+// Minutes to read
+const calculateMinutes = (textLength: number) => {
+  return Math.floor(textLength / 7 / 60)
+}
+
+const minutesToRead = ref(1)
+let lengthOfPost = ref(0)
+
+const calculateLengthOfPost = (postBodyNode: Post['body']) => {
+  if (postBodyNode && postBodyNode.children) {
+    postBodyNode.children.forEach((child: any) => {
+      if (child.type === 'text') {
+        lengthOfPost.value += child.value.length
+      }
+      calculateLengthOfPost(child)
+    })
+  }
+}
+
+watchEffect(() => {
+  if (!post.value || !post.value.body) return
+  calculateLengthOfPost(post.value.body)
+  minutesToRead.value = calculateMinutes(lengthOfPost.value)
+})
 
 const formattedMinutesToRead = computed(() => {
   const nativePluralRules = new Intl.PluralRules()
@@ -62,16 +89,26 @@ const formattedMinutesToRead = computed(() => {
     const suffix = options.get(rule)
     return `${minutes} ${suffix}`
   }
-  return formatTime(Math.floor(900000 / 150) || 1)
+  return formatTime(minutesToRead.value || 1)
 })
-const minutesToRead = computed(() => 1)
+
 const cupsWhileReading = computed(() => {
-  return (minutesToRead.value && new Array(Math.floor(minutesToRead.value / 3)).fill('☕️').join('')) || '🌸'
+  return (minutesToRead.value && new Array(Math.floor(minutesToRead.value / 4)).fill('☕️').join('')) || '🌸'
 })
 
-const mentions = /* useWebmentionStore().webmentions */ 1
-
-useContentHead(post)
+// Webmentions
+const { data: mentions } = useAsyncData(
+  'mentions',
+  () =>
+    $fetch(
+      `https://webmention.io/api/mentions.jf2?target=https://${siteName + route.fullPath}&token=${
+        publicConfig.WEBMENTIONS_TOKEN
+      }&sort-by=updated&&wm-property[]=in-reply-to&wm-property[]=like-of&wm-property[]=repost-of&wm-property[]=mention-of`
+    ),
+  {
+    transform: (data: any) => data.children.length,
+  }
+)
 </script>
 
 <style lang="postcss" scoped>

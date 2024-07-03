@@ -43,9 +43,7 @@ export default defineNuxtConfig({
   content: {
     highlight: {
       theme: {
-        // Default theme (same as single string)
-        default: 'github-light',
-        // Theme used if `html.dark`
+        default: 'min-light',
         dark: 'github-dark',
       },
       langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'bash', 'ps1'],
