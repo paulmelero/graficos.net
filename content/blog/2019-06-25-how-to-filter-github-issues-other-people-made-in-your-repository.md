@@ -15,7 +15,7 @@ Actually, there are a lot of keywords and special [syntax](https://help.github.c
 And here it is: (Notice the - sign, which [means "exclusion"](https://help.github.com/en/articles/understanding-the-search-syntax#exclude-certain-results))
 
 ```plain
-is:issue is:open -author:&lt;YOUR_GITHUB_USER&gt;
+is:issue is:open -author:<YOUR_GITHUB_USER>
 ```
 
 It is also "case insensitive", which means `-author:josh` is the same as `-author:Josh`.
@@ -28,4 +28,4 @@ This is one of the references for filtering issues and PRs:
 
 - https://help.github.com/en/articles/using-search-to-filter-issues-and-pull-requests
 
-Thanks to [Tania](https://twitter.com/taniarascia/status/1143372344028815360?s=20) for bringing the topic up on Twitter.
+I hope this helps you to filter your issues and PRs on GitHub.
