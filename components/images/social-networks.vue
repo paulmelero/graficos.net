@@ -4,7 +4,7 @@
     <ul class="flex my-0 pl-0">
       <li v-for="(network, i) in socialNetworks" :key="i" class="flex">
         <base-texts-external-link :href="network.link" class="disable-underline grid items-center">
-          <svg class="w-6 mx-2 transition:fill" :class="iconsClass" viewBox="0 0 33 33">
+          <svg class="w-6 mx-2 transition:fill" :class="iconsClassNames" viewBox="0 0 33 33">
             <title>{{ network.name }}</title>
             <g>
               <path :d="network.iconPath"></path>
@@ -21,10 +21,10 @@ import { tw } from '~/core/tw'
 const ExternalLink = defineAsyncComponent(() => import('~/components/base-texts/external-link.vue'))
 withDefaults(
   defineProps<{
-    iconsClass?: string
+    iconsClassNames?: string
   }>(),
   {
-    iconsClass: tw`fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark`,
+    iconsClassNames: tw`fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark`,
   }
 )
 

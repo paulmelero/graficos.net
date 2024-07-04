@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col content-around min-h-screen">
-    <header role="banner">
+    <header role="banner" class="isolate z-1">
       <the-header></the-header>
     </header>
-    <main class="flex-grow" role="main">
+    <main class="flex-grow z-0" role="main">
       <slot />
     </main>
     <footer role="contentinfo">

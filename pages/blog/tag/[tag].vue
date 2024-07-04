@@ -1,5 +1,5 @@
 <template>
-  <div class="relative z-1">
+  <div class="">
     <base-texts-the-title dense>
       <h1 class="text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>

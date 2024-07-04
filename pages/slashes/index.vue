@@ -4,7 +4,7 @@
     <template #subtitle>
       <p>
         Slash pages list of Graficos.NET. See
-        <BaseTextsExternalLink href="https://slashpages.net/">Slash Pages</BaseTextsExternalLink>.
+        <BaseTextsExternalLink href="https://slashpages.net/">https://slashpages.net/</BaseTextsExternalLink>.
       </p>
     </template>
   </base-texts-the-title>

@@ -1,5 +1,5 @@
 <template>
-  <section class="relative z-1">
+  <section>
     <base-texts-the-title class="text-center logo-placeholder">
       <svg
         xmlns="http://www.w3.org/2000/svg"

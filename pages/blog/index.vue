@@ -1,5 +1,5 @@
 <template>
-  <div class="relative z-1">
+  <div class="">
     <base-texts-the-title>
       <h1 class="text-3xl">{{ title }}</h1>
     </base-texts-the-title>

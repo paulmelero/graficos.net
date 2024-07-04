@@ -1,5 +1,5 @@
 <template>
-  <article class="article-post relative z-1">
+  <article class="article-post">
     <header
       v-if="post && post.thumbnail"
       class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
