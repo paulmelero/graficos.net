@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col content-around min-h-screen relative">
-    <header role="banner" class="isolate z-1">
+    <header role="banner" class="isolate z-10">
       <main-presentation-head-nav />
     </header>
     <main class="container mx-auto p-4 flex-grow" role="main">

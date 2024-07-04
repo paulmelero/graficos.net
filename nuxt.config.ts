@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
     '@nuxt/icon',
+    'nuxt-svgo',
   ],
   colorMode: {
     classSuffix: '',
@@ -51,5 +52,8 @@ export default defineNuxtConfig({
       },
       langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'bash', 'ps1'],
     },
+  },
+  svgo: {
+    svgo: false,
   },
 })
