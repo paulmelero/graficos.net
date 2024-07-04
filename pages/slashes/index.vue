@@ -8,7 +8,7 @@
       </p>
     </template>
   </base-texts-the-title>
-  <section class="sm:flex sm:justify-between">
+  <section>
     <ContentList path="/slashes" v-slot="{ list }">
       <li v-for="article in list" :key="article._path">
         <NuxtLink :to="article._path" class="text-xl font-semibold">
