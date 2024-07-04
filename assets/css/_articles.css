@@ -8,6 +8,14 @@
     @apply block mx-auto;
   }
 
+  :is(h1, h2, h3, h4, h5, h6):has(a) {
+    @apply mb-[0.8em];
+  }
+  :is(h1, h2, h3, h4, h5, h6):has(a):before {
+    content: '# ';
+    @apply text-accent dark:text-primary;
+  }
+
   ul {
     @apply list-disc;
   }

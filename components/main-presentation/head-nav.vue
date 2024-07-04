@@ -22,7 +22,7 @@
     </ul>
     <div class="hidden sm:flex mr-2">
       <images-social-networks class="sm:flex"></images-social-networks>
-      <ColorScheme placeholder="...">
+      <ColorScheme placeholder="💬">
         <button
           @click="onColorModeToggle"
           class="flex items-center justify-center w-8 rounded-full p-0 ml-3 relative before:content-[''] before:pointer-events-none before:w-1 before:h-full before:absolute before:-left-2 before:bg-secondary before:dark:hover:bg-actionDark"
