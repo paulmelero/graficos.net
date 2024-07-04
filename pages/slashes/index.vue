@@ -11,8 +11,8 @@
   <section class="sm:flex sm:justify-between">
     <ContentList path="/slashes" v-slot="{ list }">
       <li v-for="article in list" :key="article._path">
-        <NuxtLink :to="article._path">
-          <p class="text-xl font-semibold inline">{{ article.title }}</p>
+        <NuxtLink :to="article._path" class="text-xl font-semibold">
+          {{ article.title }}
         </NuxtLink>
       </li>
     </ContentList>

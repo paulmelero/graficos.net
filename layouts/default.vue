@@ -18,7 +18,7 @@ const colorMode = useColorMode()
 
 useHead({
   htmlAttrs: {
-    class: colorMode.value,
+    class: colorMode.preference || 'dark',
   },
 })
 </script>

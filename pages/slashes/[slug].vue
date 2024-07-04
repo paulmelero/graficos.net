@@ -1,5 +1,5 @@
 <template>
-  <section class="w-3/4 sm:w-1/2 mx-auto py-4">
+  <section class="container mx-auto py-4">
     <base-texts-the-title>
       <h1 class="text-3xl">{{ page.title }}</h1>
     </base-texts-the-title>
