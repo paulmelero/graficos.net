@@ -1,7 +1,7 @@
 <template>
   <div class="relative z-1">
     <base-texts-the-title>
-      <h1 slot="title" class="text-3xl">{{ title }}</h1>
+      <h1 class="text-3xl">{{ title }}</h1>
     </base-texts-the-title>
     <section class="sm:flex sm:justify-between">
       <blog-article-list :articles="posts" />

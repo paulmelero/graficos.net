@@ -51,6 +51,7 @@ const sections = [
     name: 'Blog',
     title: 'Blog',
   },
+  { href: '/slashes', name: 'Slash Pages', title: 'Slashes' },
 ]
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="relative z-1">
     <base-texts-the-title dense>
-      <h1 slot="title" class="text-3xl">
+      <h1 class="text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>
       </h1>
     </base-texts-the-title>

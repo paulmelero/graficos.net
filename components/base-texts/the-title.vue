@@ -5,7 +5,7 @@
     }"
   >
     <div class="mb-2 title-bold">
-      <slot name="title"></slot>
+      <slot></slot>
     </div>
     <slot name="subtitle"></slot>
   </header>
