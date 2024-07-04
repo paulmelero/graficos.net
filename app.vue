@@ -24,6 +24,19 @@ useHead({
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { hid: 'description', name: 'description', content: pkg.description },
+    // Favicons
+    // @ts-ignore
+    { hid: 'favicon', rel: 'favicon', href: '/favicon.ico' },
+    // @ts-ignore
+    { hid: 'apple-touch-icon', rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
+    // @ts-ignore
+    { hid: 'icon-32x32', rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    // @ts-ignore
+    { hid: 'icon-16x16', rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+    // @ts-ignore
+    { hid: 'manifest', rel: 'manifest', href: '/site.webmanifest' },
+    // @ts-ignore
+    { hid: 'mask-icon', rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
     // Social OG
     { hid: 'og:type', property: 'og:type', content: 'profile' },
     { hid: 'og:title', property: 'og:title', content: APP_NAME },

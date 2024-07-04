@@ -19,3 +19,7 @@ sw.*
 /static/sitemap.xml
 .env
 .output
+
+# DS_Store
+.DS_Store
+**/.DS_Store
