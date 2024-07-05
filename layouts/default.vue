@@ -3,7 +3,7 @@
     <header role="banner" class="isolate z-10">
       <main-presentation-head-nav />
     </header>
-    <main class="container mx-auto p-4 flex-grow" role="main">
+    <main class="container mx-auto py-4 flex-grow" role="main">
       <div class="relative z-[2]"><slot /></div>
       <div class="isolate"><div class="bg-container" aria-hidden="true"></div></div>
     </main>

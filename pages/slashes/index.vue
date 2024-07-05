@@ -10,7 +10,7 @@
   </base-texts-the-title>
   <section>
     <ContentList path="/slashes" v-slot="{ list }">
-      <li v-for="article in list" :key="article._path">
+      <li v-for="article in list" :key="article._path" class="mb-5">
         <NuxtLink :to="article._path" class="text-xl font-semibold">
           {{ article.title }}
         </NuxtLink>

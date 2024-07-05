@@ -2,16 +2,8 @@
 
 import socialLinks from './config/social-links'
 
-// import createRSSFeed from './core/createRSSFeed'
-
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
-// const APP_COVER_IMG = '/cover.png'
-// const THEME_COLOR = theme.colors['teal-light']
-
-// const FEED_FILE_NAME = 'feed.xml'
-// const AUTHOR = '@paul_melero'
-// const AUTHOR_EMAIL = 'paul' + '@graficos' + '.' + 'net'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({

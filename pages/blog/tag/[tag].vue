@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <base-texts-the-title dense>
+    <base-texts-the-title>
       <h1 class="text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>
       </h1>
