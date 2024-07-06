@@ -12,7 +12,7 @@
       <images-logo class="h-8 transition:color disable-hover" />
     </nuxt-link>
     <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 hidden sm:flex justify-start">
-      <li v-for="(link, i) in sections" :key="i" class="inline-block">
+      <li v-for="(link, i) in links" :key="i" class="inline-block">
         <nuxt-link
           :to="link.href"
           :title="link.title"
@@ -30,15 +30,7 @@
 
 <script setup lang="ts">
 import type BurgerMenu from './burger-menu.vue'
-
-const sections = [
-  {
-    href: '/blog',
-    name: 'Blog',
-    title: 'Blog',
-  },
-  { href: '/slashes', name: 'Slash Pages', title: 'Slashes' },
-]
+import { links } from './pages'
 
 const burgerMenu = ref<InstanceType<typeof BurgerMenu> | null>(null)
 const closeBurgerMenu = () => {

@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/icon',
     'nuxt-svgo',
+    '@vueuse/nuxt',
   ],
   colorMode: {
     classSuffix: '',

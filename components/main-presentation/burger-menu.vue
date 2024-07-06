@@ -30,23 +30,9 @@
 </template>
 
 <script setup lang="ts">
+import { linksWithHome as links } from './pages'
+
 const isOpen = ref(false)
 
 defineExpose({ isOpen })
-
-// links
-const links = [
-  {
-    href: '/',
-    name: 'Home',
-  },
-  {
-    href: '/blog',
-    name: 'Blog',
-  },
-  {
-    href: '/slashes',
-    name: 'Slash Pages',
-  },
-]
 </script>

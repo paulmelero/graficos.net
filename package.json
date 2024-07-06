@@ -34,5 +34,9 @@
     "pinia": "^2.1.7",
     "tailwindcss": "^3.4.4",
     "vue": "^3.4.31"
+  },
+  "devDependencies": {
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.11.0"
   }
 }

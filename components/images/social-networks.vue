@@ -1,22 +1,21 @@
 <template>
-  <div>
-    <!-- accepts display classes -->
-    <ul class="flex my-0 pl-0">
-      <li v-for="(network, i) in socialNetworks" :key="i" class="flex">
-        <base-texts-external-link :href="network.link" class="disable-underline grid items-center">
-          <component
-            :is="network.iconFile"
-            :font-controlled="false"
-            :filled="true"
-            width="24"
-            height="24"
-            class="w-6 mx-2 transition:fill"
-            :class="iconsClassNames"
-          />
-        </base-texts-external-link>
-      </li>
-    </ul>
-  </div>
+  <!-- accepts display classes -->
+  <ul class="flex my-0 pl-0 list-none">
+    <li v-for="(network, i) in socialNetworks" :key="i" class="flex">
+      <base-texts-external-link :href="network.link" class="no-underline flex items-center">
+        <component
+          :is="network.iconFile"
+          :font-controlled="false"
+          :filled="!shouldDisplayNames"
+          width="24"
+          height="24"
+          class="w-6 mx-2 transition:fill fill-currentColor"
+          :class="iconsClassNames"
+        />
+        <span v-if="shouldDisplayNames">{{ network.name }}</span>
+      </base-texts-external-link>
+    </li>
+  </ul>
 </template>
 
 <script setup lang="ts">
@@ -28,9 +27,11 @@ import IconLinkedin from '~/assets/images/logos/linkedin.svg'
 withDefaults(
   defineProps<{
     iconsClassNames?: string
+    shouldDisplayNames?: boolean
   }>(),
   {
     iconsClassNames: tw`fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark`,
+    shouldDisplayNames: false,
   }
 )
 

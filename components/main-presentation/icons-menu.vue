@@ -4,7 +4,7 @@
     <ColorScheme placeholder="💬">
       <button
         @click="onColorModeToggle"
-        class="flex items-center justify-center w-8 rounded-full p-0 ml-3 relative before:content-[''] before:pointer-events-none before:w-1 before:h-full before:absolute before:-left-2 before:bg-secondary"
+        class="unstyled flex items-center justify-center w-8 rounded-full p-0 ml-3 relative before:content-[''] before:pointer-events-none before:w-1 before:h-full before:absolute before:-left-2 before:bg-secondary"
         aria-label="Toggle color mode"
         type="button"
       >

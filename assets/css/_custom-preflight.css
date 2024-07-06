@@ -46,3 +46,7 @@ button {
 button.button {
   @apply rounded px-8 py-3 mt-2 transition;
 }
+
+.pill-button {
+  @apply bg-accent text-fwhite dark:text-white hover:bg-accentDark hover:text-fwhite dark:hover:text-fwhite dark:bg-actionDark dark:hover:bg-primary rounded px-8 py-3 transition;
+}
