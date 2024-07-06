@@ -9,8 +9,7 @@
           :filled="!shouldDisplayNames"
           width="24"
           height="24"
-          class="w-6 mx-2 transition:fill fill-currentColor"
-          :class="iconsClassNames"
+          class="w-6 mx-2 transition:fill fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark"
         />
         <span v-if="shouldDisplayNames">{{ network.name }}</span>
       </base-texts-external-link>
@@ -19,18 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import { tw } from '~/core/tw'
 import IconTwitter from '~/assets/images/logos/twitter.svg'
 import IconGithub from '~/assets/images/logos/github.svg'
 import IconLinkedin from '~/assets/images/logos/linkedin.svg'
 
 withDefaults(
   defineProps<{
-    iconsClassNames?: string
     shouldDisplayNames?: boolean
   }>(),
   {
-    iconsClassNames: tw`fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark`,
     shouldDisplayNames: false,
   }
 )

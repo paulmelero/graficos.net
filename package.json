@@ -29,12 +29,12 @@
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@pinia/nuxt": "^0.5.1",
     "@vite-pwa/nuxt": "^0.8.1",
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.11.0",
     "nuxt": "^3.12.2",
     "nuxt-svgo": "^4.0.1",
     "pinia": "^2.1.7",
     "tailwindcss": "^3.4.4",
-    "vue": "^3.4.31",
-    "@vueuse/core": "^10.11.0",
-    "@vueuse/nuxt": "^10.11.0"
+    "vue": "^3.4.31"
   }
 }

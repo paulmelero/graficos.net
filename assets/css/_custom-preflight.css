@@ -1,13 +1,13 @@
 html {
-  @apply bg-primary dark:bg-primaryDark dark:text-fwhite;
+  @apply bg-primary dark:text-fwhite;
 }
 
 body {
-  @apply bg-gray-lightest dark:bg-gray-darkest dark:text-fwhite font-sans m-0;
+  @apply bg-gray-lightest dark:bg-primaryDark dark:text-fwhite font-sans m-0;
 }
 
 pre {
-  @apply text-base max-w-full overflow-scroll sm:overflow-auto mb-4 bg-fwhite dark:bg-primaryDark p-3;
+  @apply text-base max-w-full overflow-scroll sm:overflow-auto mb-4 bg-fwhite dark:bg-gray-darkest p-3;
 }
 
 code {
@@ -37,16 +37,4 @@ textarea,
 button {
   border: none;
   font-size: 100%;
-}
-
-button {
-  @apply font-bold p-2 text-black hover:text-action dark:text-fwhite dark:hover:text-actionDark rounded;
-}
-
-button.button {
-  @apply rounded px-8 py-3 mt-2 transition;
-}
-
-.pill-button {
-  @apply bg-accent text-fwhite dark:text-white hover:bg-accentDark hover:text-fwhite dark:hover:text-fwhite dark:bg-actionDark dark:hover:bg-primary rounded px-8 py-3 transition;
 }

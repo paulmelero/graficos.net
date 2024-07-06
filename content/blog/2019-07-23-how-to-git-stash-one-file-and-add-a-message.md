@@ -36,10 +36,8 @@ git stash list
 It gives you a _zero-based indexed list_. Something like:
 
 ```bash
-
 stash@{0}: On branch-blah-blah 8675765 something
 stash@{1}: On branch-blah-blah 8675123 something
-
 ```
 
 With `pop` and `apply` (the command we've just seen: "`git stash pop` or `git stash apply`") you can also get a specific "stash" from the list with `stash@{n}`, being `n` the item index in the list.
@@ -65,15 +63,15 @@ Since Git version ~2.13.2, there's a new option: `git stash push`
 From the docs, [git push](https://git-scm.com/docs/git-stash#_options) has several options; for adding one file it could be something like:
 
 ```bash
-git stash push -- nuxt.config.js
+git stash push -- nuxt.config.ts
 ```
 
-Being `nuxt.config.js` the file I want to save, preceded with `--`.
+Being `nuxt.config.ts` the file I want to save, preceded with `--`.
 
 And for adding a message, the full command would be: 🥁🥁🥁
 
 ```bash
-git stash push -m 'some message' -- nuxt.config.js
+git stash push -m 'some message' -- nuxt.config.ts
 ```
 
 That's the command to stash one file with a message. 😉

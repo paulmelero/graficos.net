@@ -32,6 +32,6 @@
   }
 
   p code {
-    @apply bg-fwhite dark:bg-primaryDark p-2 rounded-md text-sm font-mono;
+    @apply bg-fwhite dark:bg-gray-darkest text-gray-darker dark:text-gray-light p-1 rounded-md text-sm font-mono;
   }
 }
