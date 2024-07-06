@@ -33,9 +33,7 @@
     "nuxt-svgo": "^4.0.1",
     "pinia": "^2.1.7",
     "tailwindcss": "^3.4.4",
-    "vue": "^3.4.31"
-  },
-  "devDependencies": {
+    "vue": "^3.4.31",
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^10.11.0"
   }
