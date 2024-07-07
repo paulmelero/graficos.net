@@ -1,0 +1,36 @@
+name: Create issues for posts
+
+on:
+  push:
+    paths:
+      - 'content/blog/**.md'
+
+permissions:
+  issues: write
+
+jobs:
+  create_post_issue:
+    name: Create issue if there are new posts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # https://github.com/tj-actions/changed-files
+      - name: Get all changed markdown files
+        id: changed-markdown-files
+        uses: tj-actions/changed-files@v44
+        with:
+          # Avoid using single or double quotes for multiline patterns
+          files: |
+            **.md
+      - name: Create issue if there are new posts
+        id: create_issue
+        if: steps.changed-markdown-files.outputs.added_files
+        env:
+          NEW_FILES: ${{ steps.changed-markdown-files.outputs.added_files }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for post in ${NEW_FILES}; do
+            gh issue create \
+            --title "[Post] $(post)" \
+            --label="Post Comments"
+          done
