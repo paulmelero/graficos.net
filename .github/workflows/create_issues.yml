@@ -23,7 +23,6 @@ jobs:
           files: |
             **.md
       - name: Create issue if there are new posts
-        id: create_issue
         if: steps.changed-markdown-files.outputs.added_files
         env:
           NEW_FILES: ${{ steps.changed-markdown-files.outputs.added_files }}
@@ -32,5 +31,35 @@ jobs:
           for post in ${NEW_FILES}; do
             gh issue create \
             --title "[Post] $(post)" \
-            --label="Post Comments"
+            --template "post-comments-template" \
+            --label "Post Comments"
+          done
+  close_issue_when_deleting_posts:
+    name: Close issue when deleting the post
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # https://github.com/tj-actions/changed-files
+      - name: Get all changed markdown files
+        id: removed-markdown-files
+        uses: tj-actions/changed-files@v44
+        with:
+          # Avoid using single or double quotes for multiline patterns
+          files: |
+            **.md
+      - name: Close issue if the post is deleted
+        if: steps.removed-markdown-files.outputs.deleted_files
+        env:
+          DELETED_FILES: ${{ steps.removed-markdown-files.outputs.deleted_files }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          deleted_issue_url=$(gh issue list \
+            --label "Post Comments" \
+            --json url \
+            --jq ".[] | any(.url | test($DELETED_FILES[]; contains)) | .url")
+          )
+
+          for issue_url in "$deleted_issue_url"; do
+              gh issue close "$issue_url" \
+              --comment "Automatically closed after post was deleted"
           done
