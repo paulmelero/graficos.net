@@ -3,7 +3,7 @@ name: Create issues for posts
 on:
   push:
     paths:
-      - 'content/blog/**.md'
+      - 'content/blog/**'
 
 permissions:
   issues: write
@@ -59,7 +59,6 @@ jobs:
             --jq ".[] | any(.url | test($DELETED_FILES[]; contains)) | .url")
           )
 
-          for issue_url in "$deleted_issue_url"; do
-              gh issue close "$issue_url" \
-              --comment "Automatically closed after post was deleted"
+          for issue_url in $(echo "$deleted_issues"); do
+            gh issue close $issue_url --comment "Automatically closed after post was deleted"
           done
