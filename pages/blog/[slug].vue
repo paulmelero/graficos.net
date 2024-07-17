@@ -47,7 +47,17 @@ const { data } = await useAsyncData('post', () =>
 const post = computed(() => data.value as Post)
 
 // Head - SEO
-useContentHead(post)
+useSeoMeta({
+  title: post.value.title,
+  ogTitle: post.value.title,
+  description: post.value.description,
+  ogImage: post.value.thumbnail,
+  ogLocale: post.value.lang,
+  ogSiteName: siteName,
+  twitterTitle: post.value.title,
+  twitterImage: post.value.thumbnail,
+  twitterCreator: `@${publicConfig.TWITTER_USERNAME}`,
+})
 
 // Minutes to read
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
