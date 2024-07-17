@@ -8,6 +8,7 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
+
   runtimeConfig: {
     public: {
       APP_NAME,
@@ -17,6 +18,7 @@ export default defineNuxtConfig({
       TWITTER_USERNAME: 'paul_melero',
     },
   },
+
   modules: [
     '@nuxt/eslint',
     'nuxt-content-twoslash', // this needs to be before `@nuxt/content`
@@ -30,15 +32,18 @@ export default defineNuxtConfig({
     'nuxt-svgo',
     '@vueuse/nuxt',
   ],
+
   colorMode: {
     classSuffix: '',
   },
+
   icon: {
     mode: 'svg',
     serverBundle: {
       collections: ['octicons'],
     },
   },
+
   content: {
     highlight: {
       theme: {
@@ -48,8 +53,11 @@ export default defineNuxtConfig({
       langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'bash', 'ps1'],
     },
   },
+
   svgo: {
     svgo: false,
     defaultImport: 'component',
   },
+
+  compatibilityDate: '2024-07-17',
 })
