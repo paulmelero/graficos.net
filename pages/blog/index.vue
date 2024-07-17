@@ -40,7 +40,8 @@ const getTagsFromPosts = (posts: PostInList[]) => {
 
 const { data } = await useAsyncData('blog', () =>
   queryContent('blog')
-    .only(<(keyof PostInList)[]>['_path', 'title', 'lang', 'summary', 'tags'])
+    .only(<(keyof PostInList)[]>['_path', 'title', 'lang', 'summary', 'tags', 'date'])
+    .sort({ date: -1 })
     .find()
 )
 const posts = computed(() => data.value as PostInList[])

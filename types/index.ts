@@ -6,11 +6,11 @@ export type PostInList = {
   title: string
   summary: string
   tags: string[]
+  date: string
 }
 
 export type Post = ParsedContent &
   PostInList & {
     thumbnail: string
-    date: string
     description: string
   }
