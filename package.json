@@ -38,6 +38,7 @@
     "vue": "^3.4.31"
   },
   "devDependencies": {
+    "@nuxtjs/sitemap": "^5.3.5",
     "nuxt": "^3.12.3"
   }
 }

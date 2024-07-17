@@ -9,6 +9,8 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
+  compatibilityDate: '2024-07-17',
+
   runtimeConfig: {
     public: {
       APP_NAME,
@@ -20,8 +22,8 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxt/eslint',
-    'nuxt-content-twoslash', // this needs to be before `@nuxt/content`
+    '@nuxt/eslint', // this needs to be before `@nuxt/content`
+    'nuxt-content-twoslash',
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
@@ -31,6 +33,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     'nuxt-svgo',
     '@vueuse/nuxt',
+    '@nuxtjs/sitemap',
   ],
 
   colorMode: {
@@ -59,5 +62,8 @@ export default defineNuxtConfig({
     defaultImport: 'component',
   },
 
-  compatibilityDate: '2024-07-17',
+  // sitemap
+  site: {
+    url: APP_URL,
+  },
 })
