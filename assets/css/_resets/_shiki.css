@@ -1,19 +1,6 @@
-.twoslash-popup-code.twoslash-popup-code.twoslash-popup-code {
-  padding: 0;
-}
-
-pre code .line {
-  @apply px-4;
-}
-pre code .line:first-of-type {
-  @apply pt-4;
-}
-pre code .line:last-of-type {
-  @apply pb-4;
-}
-
-.v-popper__inner.v-popper__inner {
-  @apply px-2 bg-fwhite dark:bg-gray-darkest;
+.twoslash-popup-code,
+html .shiki.shiki span {
+  @apply bg-fwhite dark:bg-gray-darkest;
 }
 
 .v-popper__popper[data-popper-placement^='bottom'] .v-popper__arrow-inner.v-popper__arrow-inner {
