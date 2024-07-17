@@ -3,6 +3,7 @@
   --------------------------------------------------------- */
 @import '_custom-preflight';
 @import '_resets/_nuxt';
+@import '_resets/_shiki';
 @import '_texts';
 @import '_articles';
 @import '_transitions';

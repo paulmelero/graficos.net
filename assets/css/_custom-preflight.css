@@ -6,7 +6,7 @@ body {
   @apply bg-gray-lightest dark:bg-primaryDark dark:text-fwhite font-sans m-0;
 }
 
-pre {
+pre:not(:is(.twoslash-popup-container *)) {
   @apply text-base max-w-full overflow-scroll sm:overflow-auto mb-4 bg-fwhite dark:bg-gray-darkest p-3;
 }
 

@@ -18,7 +18,8 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxt/eslint',
-    '@nuxt/content' /* "@vite-pwa/nuxt" */,
+    'nuxt-content-twoslash', // this needs to be before `@nuxt/content`
+    '@nuxt/content',
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxt/devtools',
@@ -48,5 +49,6 @@ export default defineNuxtConfig({
   },
   svgo: {
     svgo: false,
+    defaultImport: 'component',
   },
 })
