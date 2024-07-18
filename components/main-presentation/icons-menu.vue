@@ -1,11 +1,12 @@
 <template>
-  <div class="flex items-center">
+  <div class="flex items-center justify-between">
     <images-social-networks :class="iconsClassNames" />
     <ColorScheme placeholder="💬">
       <button
         @click="onColorModeToggle"
-        class="unstyled flex items-center justify-center w-8 rounded-full p-0 ml-3 relative before:content-[''] before:pointer-events-none before:w-1 before:h-full before:absolute before:-left-2 before:bg-secondary"
+        class="unstyled flex items-center justify-center w-8 rounded-full p-0 ml-3 relative"
         aria-label="Toggle color mode"
+        title="Toggle color mode"
         type="button"
       >
         <Icon size="24" v-if="colorMode.preference === 'dark'" name="octicon:moon-16" />

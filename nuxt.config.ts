@@ -9,8 +9,6 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
-  compatibilityDate: '2024-07-17',
-
   runtimeConfig: {
     public: {
       APP_NAME,
@@ -22,6 +20,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxt/test-utils/module',
     '@nuxt/eslint', // this needs to be before `@nuxt/content`
     'nuxt-content-twoslash',
     '@nuxt/content',
@@ -66,4 +65,6 @@ export default defineNuxtConfig({
   site: {
     url: APP_URL,
   },
+
+  compatibilityDate: '2024-07-17',
 })

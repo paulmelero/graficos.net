@@ -1,6 +1,6 @@
 import type { Post } from '~/types'
 
-export const useMinutesToRead = ({ post }: { post: Post }) => {
+export const useMinutesToRead = ({ post }: { post: ComputedRef<Post> }) => {
   const minutesToRead = ref(1)
   let lengthOfPost = ref(0)
 

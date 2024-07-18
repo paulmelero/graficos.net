@@ -14,16 +14,18 @@
         id="top-menu"
         class="card absolute z-10 top-full right-0 w-[300px]"
       >
-        <ul>
-          <li v-for="(link, index) of links" :key="link.href" class="mb-3">
-            <nuxt-link :to="link.href" class="no-underline hover:underline" @click="isOpen = false">{{
-              link.name
-            }}</nuxt-link>
-            <hr v-if="index !== links.length - 1" class="opacity-10 my-2" />
+        <ul class="divide-y dark:divide-gray-dark mb-0">
+          <li v-for="link of links" :key="link.href" class="relative h-[3rem]">
+            <nuxt-link
+              :to="link.href"
+              class="no-underline hover:underline absolute inset-0 leading-[3rem]"
+              @click="isOpen = false"
+              >{{ link.name }}</nuxt-link
+            >
           </li>
         </ul>
-        <hr class="opacity-50 my-2" />
-        <MainPresentationIconsMenu class="mt-4" />
+        <hr class="dark:text-gray-dark" />
+        <MainPresentationIconsMenu class="mt-6" />
       </section>
     </transition>
   </div>
