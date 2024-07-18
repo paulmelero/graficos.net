@@ -25,7 +25,7 @@
           </li>
         </ul>
         <hr class="dark:text-gray-dark" />
-        <MainPresentationIconsMenu class="mt-6" />
+        <MainPresentationIconsMenu class="mt-6 justify-between" />
       </section>
     </transition>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between">
+  <div class="flex items-center">
     <images-social-networks :class="iconsClassNames" />
     <ColorScheme placeholder="💬">
       <button
