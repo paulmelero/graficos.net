@@ -32,7 +32,6 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     'nuxt-svgo',
     '@vueuse/nuxt',
-    '@nuxtjs/sitemap',
   ],
 
   colorMode: {
@@ -59,11 +58,6 @@ export default defineNuxtConfig({
   svgo: {
     svgo: false,
     defaultImport: 'component',
-  },
-
-  // sitemap
-  site: {
-    url: APP_URL,
   },
 
   compatibilityDate: '2024-07-17',
