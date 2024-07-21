@@ -1,7 +1,7 @@
 ---
 lang: EN
 title: 'How to git stash one file and add a message'
-date: 2019-07-23T06:43:06.277Z
+date: 2019-07-23
 thumbnail: /images/uploads/gitstash.png
 tags:
   - git

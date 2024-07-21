@@ -1,7 +1,7 @@
 ---
 lang: EN
 title: 'How to Set Aliases in PowerShell'
-date: 2019-10-28T07:12:52.828Z
+date: 2022-02-16
 thumbnail: /images/uploads/my-post-1-.png
 tags:
   - windows

@@ -1,7 +1,7 @@
 ---
 lang: EN
 title: 'How to filter GitHub issues other people made in your repository'
-date: 2019-06-25T07:37:54.909Z
+date: 2019-06-25
 thumbnail: /images/uploads/carbon.png
 tags:
   - tip

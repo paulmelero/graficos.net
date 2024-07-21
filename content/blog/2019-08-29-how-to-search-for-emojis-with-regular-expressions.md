@@ -1,7 +1,7 @@
 ---
 lang: EN
 title: 'How to Search for Emojis with Regular Expressions'
-date: 2019-08-29T08:19:54.795Z
+date: 2019-08-29
 thumbnail: /images/uploads/my-post.png
 tags:
   - js
