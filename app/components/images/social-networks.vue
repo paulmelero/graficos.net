@@ -17,7 +17,7 @@
   </ul>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import IconTwitter from '~/assets/images/logos/twitter.svg'
 import IconGithub from '~/assets/images/logos/github.svg'
 import IconLinkedin from '~/assets/images/logos/linkedin.svg'

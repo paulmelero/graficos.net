@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 withDefaults(
   defineProps<{
     tags: Record<string, number>

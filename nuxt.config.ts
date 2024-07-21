@@ -1,6 +1,4 @@
-// import { theme } from './tailwind.config'
-
-import socialLinks from './config/social-links'
+import socialLinks from './app/config/social-links'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
@@ -61,4 +59,7 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-17',
+  future: {
+    compatibilityVersion: 4,
+  },
 })

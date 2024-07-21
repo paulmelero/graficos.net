@@ -1,12 +1,12 @@
 <template>
   <article class="card">
-    <h2 class="text-2xl mb-6 flex flex-row flex-wrap gap-1 items-center">
+    <h2 class="text-2xl flex mb-2 flex-row flex-wrap gap-1 items-center">
       <span
         v-if="lang"
-        class="mt-2 bg-gray-light dark:bg-gray-darker rounded p-1 text-sm title font-thin leading-tight flex-grow-0 flex-shrink basis-0 self-start"
+        class="mt-2 bg-gray-light dark:bg-gray-darker rounded p-1 text-sm title font-thin leading-tight flex-grow-0 flex-shrink basis-0 self-start uppercase"
         :title="language"
         :aria-label="language"
-        >{{ langClean }}</span
+        >{{ lang }}</span
       >
       <nuxt-link
         :to="url"
@@ -14,7 +14,11 @@
         >{{ title }}</nuxt-link
       >
     </h2>
-    <p class="text-gray-darker dark:text-gray-lightest overflow-hidden leading-loose pl-11" v-html="extract"></p>
+    <base-texts-the-time
+      :date="date"
+      class="text-gray-darker dark:text-gray-dark leading-tight text-sm pl-12 mb-4 block"
+    />
+    <p class="text-gray-darker dark:text-gray-lightest overflow-hidden leading-loose pl-12" v-html="extract"></p>
   </article>
 </template>
 
@@ -42,13 +46,15 @@ export default {
       required: true,
       default: () => 'EN',
     },
+    date: {
+      type: String,
+      required: true,
+      default: () => '',
+    },
   },
   computed: {
     language() {
       return ((this.lang + '').toLowerCase() === 'en' && 'English') || 'Spanish'
-    },
-    langClean() {
-      return (this.language + '').slice(0, 2).toUpperCase()
     },
   },
 }

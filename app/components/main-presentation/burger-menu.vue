@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { linksWithHome as links } from './pages'
 
 const isOpen = ref(false)

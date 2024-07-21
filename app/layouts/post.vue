@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 const TheHeader = defineAsyncComponent(() => import('~/components/main-presentation/head-nav.vue'))
 const TheFooter = defineAsyncComponent(() => import('~/components/main-presentation/the-footer.vue'))
 </script>

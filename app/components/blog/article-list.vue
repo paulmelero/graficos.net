@@ -8,13 +8,14 @@
         :title="article.title"
         :url="article._path"
         :extract="article.summary"
+        :date="article.date"
         class="mb-8"
       ></blog-article-card>
     </div>
   </ContentList>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { PostInList } from '~/types'
 
 defineProps<{

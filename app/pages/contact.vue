@@ -62,7 +62,7 @@
   <images-social-networks class="flex-col gap-4" :shouldDisplayNames="true" />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useClipboard } from '@vueuse/core'
 
 import BaseTextsEmail from '~/components/base-texts/email.vue'

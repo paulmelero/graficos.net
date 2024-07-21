@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 withDefaults(
   defineProps<{
     iconsClassNames?: string

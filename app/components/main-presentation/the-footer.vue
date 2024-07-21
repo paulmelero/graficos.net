@@ -15,8 +15,6 @@
   </div>
 </template>
 
-<script setup></script>
-
 <style lang="postcss" scoped>
 .footer {
   padding-bottom: calc(192px + 3rem);

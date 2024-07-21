@@ -28,7 +28,7 @@
   </nav>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import type BurgerMenu from './burger-menu.vue'
 import { links } from './pages'
 

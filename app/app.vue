@@ -4,8 +4,8 @@
   </NuxtLayout>
 </template>
 
-<script setup lang="ts">
-import pkg from '~/package.json'
+<script lang="ts" setup>
+import pkg from '../package.json'
 
 const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
