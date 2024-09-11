@@ -1,0 +1,4 @@
+This is a Brave Creators publisher verification file.
+
+Domain: graficos.net
+Token: dcb21450e9ed42d936803e9f916e8980f75d08d956d45b58574b1749dbbb3856
