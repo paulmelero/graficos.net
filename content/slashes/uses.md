@@ -16,4 +16,4 @@ iTerm2
 
 ## Browser
 
-Chrome (but also test manually in Firefox and Safari)
+Brave (but also test manually in Chrome, Firefox, and Safari)
