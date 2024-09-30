@@ -2,6 +2,8 @@ compatibility_date = "2024-09-30"
 
 name = "graficos-net"
 
+pages_build_output_dir = ".output"
+
 main = ".output/server/index.mjs"
 
 assets = { directory = ".output/public"}
