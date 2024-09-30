@@ -6,4 +6,4 @@ pages_build_output_dir = "."
 
 main = ".output/server/index.mjs"
 
-assets = { directory = ".output/public"}
+assets = { bucket = ".output/public"}
