@@ -9,9 +9,21 @@
         title="Toggle color mode"
         type="button"
       >
-        <Icon size="24" v-if="colorMode.preference === 'dark'" name="octicon:moon-16" />
-        <Icon size="24" v-if="colorMode.preference === 'system'" name="octicon:codespaces-24" />
-        <Icon size="24" v-if="colorMode.preference === 'light'" name="octicon:sun-16" />
+        <GIcon
+          :size="24"
+          v-if="colorMode.preference === 'dark'"
+          name="octicon:moon-16"
+        />
+        <GIcon
+          :size="24"
+          v-if="colorMode.preference === 'system'"
+          name="octicon:codespaces-24"
+        />
+        <GIcon
+          :size="24"
+          v-if="colorMode.preference === 'light'"
+          name="octicon:sun-16"
+        />
       </button>
     </ColorScheme>
   </div>

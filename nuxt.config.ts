@@ -5,6 +5,8 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
+
   css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
@@ -27,20 +29,12 @@ export default defineNuxtConfig({
     '@nuxt/devtools',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
-    '@nuxt/icon',
     'nuxt-svgo',
     '@vueuse/nuxt',
   ],
 
   colorMode: {
     classSuffix: '',
-  },
-
-  icon: {
-    mode: 'svg',
-    serverBundle: {
-      collections: ['octicons'],
-    },
   },
 
   content: {
