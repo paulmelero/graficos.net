@@ -1,0 +1,11 @@
+compatibility_date = "2024-09-30"
+
+[site]
+bucket = ".output/public"
+
+main = "./.output/server/index.mjs"
+workers_dev = true
+
+rules = [
+  { type = "ESModule", globs = ["**/*.js", "**/*.mjs"]},
+]

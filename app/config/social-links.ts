@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   github: {
     name: 'gangsthub',
     link: 'https://github.com/gangsthub/',
