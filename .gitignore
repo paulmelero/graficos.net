@@ -23,4 +23,6 @@ sw.*
 # DS_Store
 .DS_Store
 **/.DS_Store
-.wrangler
+
+# Cloudflare
+.wrangler/
