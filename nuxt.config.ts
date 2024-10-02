@@ -25,9 +25,9 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  nitro: {
-    preset: 'cloudflare-module',
-  },
+  // nitro: {
+  //   preset: 'cloudflare-module',
+  // },
 
   vite: {
     plugins: [wasm()],
