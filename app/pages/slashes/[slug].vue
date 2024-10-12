@@ -4,8 +4,14 @@
       <h1 class="text-3xl">{{ page.title }}</h1>
     </base-texts-the-title>
     <article class="article-post">
-      <div v-if="page" class="sm:text-lg">
-        <ContentRenderer :value="page" class="py-10" />
+      <div
+        v-if="page"
+        class="sm:text-lg"
+      >
+        <ContentRenderer
+          :value="page"
+          class="py-10"
+        />
       </div>
     </article>
   </section>
@@ -21,7 +27,7 @@ definePageMeta({
 const route = useRoute()
 
 // Page
-const { data } = await useAsyncData('post', () =>
+const { data } = await useAsyncData('slash', () =>
   queryContent('slashes')
     .where({ _path: { $match: route.path } })
     .findOne()
