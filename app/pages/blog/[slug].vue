@@ -8,20 +8,30 @@
       <div class="w-3/4 xl:w-1/2 my-auto mx-auto text-white">
         <h1 class="mb-8 sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
         <p class="">
-          <base-texts-the-time :date="post.date" class="block sm:inline-block" />
+          <base-texts-the-time
+            :date="post.date"
+            class="block sm:inline-block"
+          />
           <span class="hidden sm:inline-block sm:mx-2">·</span>
           <span class="block sm:inline-block">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
-        <p v-if="mentions" class="">
-          <i
-            >Indieweb! This article has been mentioned: <em>{{ mentions }} {{ mentions > 1 ? 'times' : 'time' }}</em
-            >!</i
-          >
+        <p
+          v-if="mentions"
+          class=""
+        >
+          <i>Indieweb! This article has been mentioned: <em>{{ mentions }} {{ mentions > 1 ? 'times' : 'time'
+              }}</em>!</i>
         </p>
       </div>
     </header>
-    <div v-if="post" class="w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg">
-      <ContentRenderer :value="post" class="py-10" />
+    <div
+      v-if="post"
+      class="w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg"
+    >
+      <ContentRenderer
+        :value="post"
+        class="py-10"
+      />
     </div>
   </article>
 </template>
@@ -67,8 +77,7 @@ const { data: mentions } = useAsyncData(
   'mentions',
   () =>
     $fetch(
-      `https://webmention.io/api/mentions.jf2?target=https://${siteName + route.fullPath}&token=${
-        publicConfig.WEBMENTIONS_TOKEN
+      `https://webmention.io/api/mentions.jf2?target=https://${siteName + route.fullPath}&token=${publicConfig.WEBMENTIONS_TOKEN
       }&sort-by=updated&&wm-property[]=in-reply-to&wm-property[]=like-of&wm-property[]=repost-of&wm-property[]=mention-of`
     ),
   {
@@ -80,6 +89,7 @@ const { data: mentions } = useAsyncData(
 <style lang="postcss" scoped>
 .bg-image {
   @apply z-1 relative;
+
   &:after {
     content: '';
     @apply inset-0 absolute bg-black;
