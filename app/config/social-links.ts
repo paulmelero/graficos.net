@@ -4,8 +4,12 @@ export default {
     link: 'https://github.com/gangsthub/',
   },
   twitter: {
-    name: 'paul_melero',
+    name: '@paul_melero',
     link: 'https://twitter.com/paul_melero',
+  },
+  bsky: {
+    name: '@gnet.click',
+    link: 'https://bsky.app/profile/gnet.click',
   },
   linkedin: {
     name: 'Paul Melero',
@@ -13,6 +17,6 @@ export default {
   },
   cv: {
     name: "Paul Melero's CV",
-    link: 'https://paulmelero.netlify.app/',
+    link: 'https://cv.graficos.net/',
   },
 }
