@@ -1,7 +1,7 @@
 <template>
   <section>
     <base-texts-the-title class="text-center logo-placeholder">
-      <h1 class="sr-only" id="main-title">Graficos.net</h1>
+      <h1 id="main-title" class="sr-only">Graficos.net</h1>
       <BrandTheLogo />
     </base-texts-the-title>
     <section class="container mx-auto sm:mt-8 px-4" aria-label="Main section.">

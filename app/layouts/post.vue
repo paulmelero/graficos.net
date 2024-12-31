@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col content-around min-h-screen">
     <header role="banner" class="isolate z-1">
-      <the-header></the-header>
+      <the-header/>
     </header>
     <main class="flex-grow z-0" role="main">
       <slot />
     </main>
     <footer role="contentinfo">
-      <the-footer></the-footer>
+      <the-footer/>
     </footer>
   </div>
 </template>

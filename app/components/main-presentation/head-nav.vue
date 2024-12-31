@@ -22,7 +22,7 @@
       </li>
     </ul>
     <div class="mr-2 justify-self-end">
-      <main-presentation-burger-menu class="flex sm:hidden" ref="burgerMenu" />
+      <main-presentation-burger-menu ref="burgerMenu" class="flex sm:hidden" />
       <main-presentation-icons-menu class="hidden sm:flex" />
     </div>
   </nav>

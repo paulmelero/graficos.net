@@ -1,5 +1,6 @@
 <template>
-  <span v-html="mail"></span>
+  <!-- eslint-disable-next-line vue/no-v-html -->
+  <span v-html="mail" />
 </template>
 
 <script lang="ts" setup>

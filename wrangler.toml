@@ -4,7 +4,7 @@ name = "graficos-net"
 
 main = ".output/server/index.mjs"
 
-assets = { directory = ".output/public"}
+assets = { directory = ".output/public", binding = "ASSETS" }
 
 [observability]
 enabled = false

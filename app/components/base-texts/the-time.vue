@@ -7,6 +7,7 @@ export default {
   props: {
     date: {
       type: String,
+      default: '',
     },
   },
   computed: {
@@ -23,8 +24,11 @@ export default {
           month: 'long',
           day: 'numeric',
         }).format(date)
-      } finally {
+
         return `${intlDate}`
+      } catch (error) {
+        console.error('Error formatting date', error)
+        return ''
       }
     },
   },

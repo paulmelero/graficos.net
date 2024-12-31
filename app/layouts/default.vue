@@ -5,7 +5,7 @@
     </header>
     <main class="container mx-auto py-4 flex-grow" role="main">
       <div class="relative z-[2]"><slot /></div>
-      <div class="isolate"><div class="bg-container" aria-hidden="true"></div></div>
+      <div class="isolate"><div class="bg-container" aria-hidden="true"/></div>
     </main>
     <footer role="contentinfo">
       <main-presentation-the-footer />

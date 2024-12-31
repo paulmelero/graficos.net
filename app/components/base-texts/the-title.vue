@@ -5,9 +5,9 @@
     }"
   >
     <div class="mb-2 title-bold">
-      <slot></slot>
+      <slot/>
     </div>
-    <slot name="subtitle"></slot>
+    <slot name="subtitle"/>
   </header>
 </template>
 

@@ -3,7 +3,8 @@
   <ul class="flex my-0 pl-0 list-none">
     <li v-for="(network, i) in socialNetworks" :key="i" class="flex">
       <base-texts-external-link :href="network.link" class="no-underline flex items-center">
-        <component :is="network.iconFile" :font-controlled="false" :filled="!shouldDisplayNames" width="24" height="24"
+        <component
+:is="network.iconFile" :font-controlled="false" :filled="!shouldDisplayNames" width="24" height="24"
           class="w-6 mx-2 transition:fill fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark" />
         <span v-if="shouldDisplayNames">{{ network.name }}</span>
       </base-texts-external-link>

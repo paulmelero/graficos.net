@@ -19,15 +19,15 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2024-07-17',
+  compatibilityDate: '2024-09-19',
 
   future: {
     compatibilityVersion: 4,
   },
 
-  // nitro: {
-  //   preset: 'cloudflare-module',
-  // },
+  nitro: {
+    preset: 'cloudflare-module',
+  },
 
   vite: {
     plugins: [wasm()],

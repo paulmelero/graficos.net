@@ -3,25 +3,25 @@
     <images-social-networks :class="iconsClassNames" />
     <ColorScheme placeholder="💬">
       <button
-        @click="onColorModeToggle"
         class="unstyled flex items-center justify-center w-8 rounded-full p-0 ml-3 relative"
         aria-label="Toggle color mode"
         title="Toggle color mode"
         type="button"
+        @click="onColorModeToggle"
       >
         <GIcon
-          :size="24"
           v-if="colorMode.preference === 'dark'"
+          :size="24"
           name="octicon:moon-16"
         />
         <GIcon
-          :size="24"
           v-if="colorMode.preference === 'system'"
+          :size="24"
           name="octicon:codespaces-24"
         />
         <GIcon
-          :size="24"
           v-if="colorMode.preference === 'light'"
+          :size="24"
           name="octicon:sun-16"
         />
       </button>

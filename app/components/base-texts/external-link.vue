@@ -1,6 +1,6 @@
 <template>
   <a :href="href" :title="href" target="_blank" rel="me noopener noreferer">
-    <slot></slot>
+    <slot/>
   </a>
 </template>
 

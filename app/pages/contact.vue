@@ -22,7 +22,7 @@
     </button>
   </form>
 
-  <hr class="my-8" />
+  <hr class="my-8" >
 
   <p>Or open with...</p>
 
@@ -80,13 +80,13 @@
 
   <p class="mt-8">And I will be in contact with you shortly.</p>
 
-  <hr class="my-8" />
+  <hr class="my-8" >
 
   <p>Of course, you can also contact me on my social media accounts:</p>
 
   <images-social-networks
     class="flex-col gap-4"
-    :shouldDisplayNames="true"
+    :should-display-names="true"
   />
 </template>
 

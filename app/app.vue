@@ -25,16 +25,22 @@ useHead({
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { hid: 'description', name: 'description', content: pkg.description },
     // Favicons
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { hid: 'favicon', rel: 'favicon', href: '/favicon.ico' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { hid: 'apple-touch-icon', rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { hid: 'icon-32x32', rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { hid: 'icon-16x16', rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { hid: 'manifest', rel: 'manifest', href: '/site.webmanifest' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { hid: 'mask-icon', rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
     // Social OG
@@ -67,8 +73,10 @@ useHead({
       href: fonts,
     },
     // preconnect
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { rel: 'preconnect', href: 'https://storage.googleapis.com/', crossorigin: 'crossorigin' },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'crossorigin' },
     // preload

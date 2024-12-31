@@ -10,7 +10,7 @@
         :extract="article.summary"
         :date="article.date"
         class="mb-8"
-      ></blog-article-card>
+      />
     </div>
   </ContentList>
 </template>

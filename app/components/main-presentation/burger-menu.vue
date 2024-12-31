@@ -1,17 +1,17 @@
 <template>
   <div class="relative">
-    <button @click="isOpen = !isOpen" aria-controls="top-menu">
+    <button aria-controls="top-menu" @click="isOpen = !isOpen">
       <span class="sr-only"> Toggle Menu </span>
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
       </svg>
     </button>
     <transition appear>
       <section
         v-if="isOpen"
+        id="top-menu"
         :aria-expanded="isOpen"
         aria-live="polite"
-        id="top-menu"
         class="card absolute z-10 top-full right-0 w-[300px]"
       >
         <ul class="divide-y dark:divide-gray-dark mb-0">
@@ -24,7 +24,7 @@
             >
           </li>
         </ul>
-        <hr class="dark:text-gray-dark" />
+        <hr class="dark:text-gray-dark" >
         <MainPresentationIconsMenu class="mt-6 justify-between" />
       </section>
     </transition>

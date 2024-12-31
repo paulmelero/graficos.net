@@ -1,16 +1,17 @@
+import type { MarkdownNode } from '@nuxt/content'
 import type { Post } from '~/types'
 
 export const useMinutesToRead = ({ post }: { post: ComputedRef<Post> }) => {
   const minutesToRead = ref(1)
-  let lengthOfPost = ref(0)
+  const lengthOfPost = ref(0)
 
   const calculateLengthOfPost = (postBodyNode: Post['body']) => {
     if (postBodyNode && postBodyNode.children) {
-      postBodyNode.children.forEach((child: any) => {
+      postBodyNode.children.forEach((child: MarkdownNode) => {
         if (child.type === 'text') {
-          lengthOfPost.value += child.value.length
+          lengthOfPost.value += child.value?.length || 0
         }
-        calculateLengthOfPost(child)
+        calculateLengthOfPost(child as unknown as Post['body'])
       })
     }
   }
