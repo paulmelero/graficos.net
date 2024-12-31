@@ -12,7 +12,7 @@ IntelOne Mono
 
 ## Terminal
 
-iTerm2
+Ghostty
 
 ## Browser
 
