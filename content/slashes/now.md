@@ -1,6 +1,4 @@
-# Now
-
-As of now, this is the current state of things.
+As of February 2025, this is the current state of things.
 
 - **Side projects**: are going well, I want to finish 2 of them by the end of the year. I will be sharing more about them soon.
 - **Writing**: I'm writing about statistics in one of the side projects. I'm love learning new things.
