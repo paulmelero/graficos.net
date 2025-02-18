@@ -1,4 +1,6 @@
 User-agent: *
-
 Disallow: /admin
 Disallow: /thank-you
+
+User-agent: GPTBot
+Disallow: /
