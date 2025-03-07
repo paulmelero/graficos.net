@@ -1,7 +1,7 @@
 export default {
   github: {
-    name: 'gangsthub',
-    link: 'https://github.com/gangsthub/',
+    name: 'paulmelero',
+    link: 'https://github.com/paulmelero/',
   },
   bsky: {
     name: '@gnet.click',
