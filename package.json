@@ -38,7 +38,7 @@
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^10.11.0",
     "happy-dom": "^15.10.2",
-    "nuxt": "^3.15.0",
+    "nuxt": "^3.16.0",
     "nuxt-content-twoslash": "^0.1.0",
     "nuxt-svgo": "^4.0.1",
     "pinia": "^2.1.7",
