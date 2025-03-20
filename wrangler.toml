@@ -6,5 +6,8 @@ main = ".output/server/index.mjs"
 
 assets = { directory = ".output/public", binding = "ASSETS" }
 
+[build]
+command = "pnpm build"
+
 [observability]
 enabled = false
