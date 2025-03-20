@@ -17,7 +17,7 @@ jobs:
       # https://github.com/tj-actions/changed-files
       - name: Get all changed markdown files
         id: changed-markdown-files
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v46
         with:
           # Avoid using single or double quotes for multiline patterns
           files: |
@@ -42,7 +42,7 @@ jobs:
       # https://github.com/tj-actions/changed-files
       - name: Get all changed markdown files
         id: removed-markdown-files
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v46
         with:
           # Avoid using single or double quotes for multiline patterns
           files: |
