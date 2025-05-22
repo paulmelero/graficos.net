@@ -7,8 +7,8 @@ tags:
   - TypeScript
   - Vitest
   - Testing
-description: Mocking "ghost" methods in Vitest is a powerful technique that allows you to create virtual methods for testing purposes. This article explores how to implement this concept effectively.
-summary: Mocking "ghost" methods in Vitest is a powerful technique that allows you to create virtual methods for testing purposes. This article explores how to implement this concept effectively.
+description: Mocking "ghost" methods in Vitest is hack I discovered while mocking with Vitest. It allows you to create virtual methods for testing purposes. This article explores how to implement this concept effectively.
+summary: Mocking "ghost" methods in Vitest is hack I discovered while mocking with Vitest. It allows you to create virtual methods for testing purposes. This article explores how to implement this concept effectively.
 ---
 
 Vitest's powerful mocking system even lets you mock _non-existent_ exports —we'll call these "_ghost methods._" In other words, you can tell Vitest to pretend that a module has additional functions that don't really exist in the original source. This trick, using `vi.mock(path, factory)`, can be handy for modifying internal state or forcing code paths that are otherwise hard to reach.

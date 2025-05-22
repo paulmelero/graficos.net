@@ -1,18 +1,18 @@
-import type { MarkdownNode } from '@nuxt/content'
 import type { Post } from '~/types'
 
-export const useMinutesToRead = ({ post }: { post: ComputedRef<Post> }) => {
+export const useMinutesToRead = ({ post }: { post: Ref<Post | undefined | null> }) => {
   const minutesToRead = ref(1)
   const lengthOfPost = ref(0)
 
   const calculateLengthOfPost = (postBodyNode: Post['body']) => {
-    if (postBodyNode && postBodyNode.children) {
-      postBodyNode.children.forEach((child: MarkdownNode) => {
-        if (child.type === 'text') {
-          lengthOfPost.value += child.value?.length || 0
-        }
-        calculateLengthOfPost(child as unknown as Post['body'])
-      })
+    if (postBodyNode && postBodyNode.value) {
+      // postBodyNode.value.forEach((child: MinimalNode) => {
+      //   if (child.type === 'text') {
+      //     lengthOfPost.value += child.value?.length || 0
+      //   }
+      //   calculateLengthOfPost(child as unknown as Post['body'])
+      // })
+      console.log('postBodyNode.value', postBodyNode.value)
     }
   }
 
@@ -54,7 +54,7 @@ export const useMinutesToRead = ({ post }: { post: ComputedRef<Post> }) => {
   })
 
   watchEffect(() => {
-    if (!post.value || !post.value.body) return
+    if (!post || !post.value || !post.value.body) return
     calculateLengthOfPost(post.value.body)
     minutesToRead.value = calculateMinutes(lengthOfPost.value)
   })

@@ -1,16 +1,8 @@
-import type { ParsedContent } from '@nuxt/content'
+import type { BlogCollectionItem } from '@nuxt/content'
 
-export type PostInList = {
-  _path: string
-  lang: string
-  title: string
-  summary: string
-  tags: string[]
-  date: string
-}
+export type Post = Pick<
+  BlogCollectionItem,
+  'title' | 'summary' | 'description' | 'tags' | 'lang' | 'date' | 'thumbnail' | 'body'
+>
 
-export type Post = ParsedContent &
-  PostInList & {
-    thumbnail: string
-    description: string
-  }
+export type PostInList = Pick<BlogCollectionItem, 'path' | 'title' | 'summary' | 'tags' | 'lang' | 'date'>

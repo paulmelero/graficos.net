@@ -1,17 +1,16 @@
-compatibility_date = "2024-09-30"
-compatibility_flags = [ "nodejs_compat" ]
+compatibility_date = "2025-01-01"
+compatibility_flags = [ "nodejs_compat", "nodejs_compat_esm" ]
 
 name = "graficos-net"
 
 main = ".output/server/index.mjs"
 
+base_dir = "."
+
 assets = { directory = ".output/public", binding = "ASSETS" }
 
 [build]
 command = "pnpm build"
-
-[observability]
-enabled = false
 
 [observability.logs]
 enabled = true

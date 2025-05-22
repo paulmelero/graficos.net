@@ -10,13 +10,13 @@
         <TypedText>About Graficos.NET and me</TypedText>
         <Cursor />
       </h3>
-      <ContentDoc path="/" />
+      <ContentRenderer v-if="page" :value="page" />
     </section>
   </section>
 </template>
 
 <script lang="ts" setup>
-import { tw } from '~~/core/tw';
+import { tw } from '~/core/tw'
 import { useIntervalFn } from '@vueuse/core'
 
 useHead({
@@ -29,6 +29,12 @@ useHead({
   ],
 })
 
+const { data: page } = await useAsyncData('home', async () => {
+  const content = await queryCollection('pages').path('/pages').first()
+
+  return content
+})
+
 const Cursor = defineComponent({
   setup() {
     return () => h('span', { class: tw`animate-blink` }, '|')
@@ -37,12 +43,17 @@ const Cursor = defineComponent({
 
 const TypedText = defineComponent({
   setup(_, { slots }) {
-    const originalText = slots.default?.()[0].children as string
+    const originalText = String(slots.default?.()[0]?.children || '')
 
     const updatedText = ref('')
 
     const i = ref(0)
     useIntervalFn(() => {
+      if (originalText.length === 0) {
+        updatedText.value = ''
+        return
+      }
+
       if (import.meta.server) {
         updatedText.value = originalText
         return
@@ -52,11 +63,9 @@ const TypedText = defineComponent({
         updatedText.value += originalText[i.value]
         i.value++
       }
-
     }, 100)
 
     return () => h('span', updatedText.value)
-
   },
 })
 </script>

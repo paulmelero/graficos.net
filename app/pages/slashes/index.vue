@@ -9,13 +9,13 @@
     </template>
   </base-texts-the-title>
   <section>
-    <ContentList v-slot="{ list }" path="/slashes">
-      <li v-for="article in list" :key="article._path" class="mb-5">
-        <NuxtLink :to="article._path" class="text-xl font-semibold">
+    <ul>
+      <li v-for="article in list" :key="article.path" class="mb-5">
+        <NuxtLink :to="article.path" class="text-xl font-semibold">
           {{ article.title }}
         </NuxtLink>
       </li>
-    </ContentList>
+    </ul>
   </section>
 </template>
 
@@ -29,4 +29,6 @@ useHead({
     },
   ],
 })
+
+const { data: list } = await useAsyncData('slashes', () => queryCollection('slashes').select('path', 'title').all())
 </script>
