@@ -8,6 +8,8 @@
         </nuxt-link>
       </li>
     </ul>
+    <p v-else class="text-sm text-gray-500">No tags found</p>
+    <p v-if="!shouldHide">Go back to <nuxt-link to="/blog">Blog</nuxt-link> to see all posts.</p>
   </div>
 </template>
 
@@ -16,9 +18,11 @@ withDefaults(
   defineProps<{
     tags: Record<string, number>
     sectionTitle?: string
+    shouldHide?: boolean
   }>(),
   {
     sectionTitle: 'Tags',
+    shouldHide: false,
   }
 )
 </script>
