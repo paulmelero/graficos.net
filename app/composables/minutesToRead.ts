@@ -1,19 +1,45 @@
+import type { MarkdownRoot, MinimalNode } from '@nuxt/content'
 import type { Post } from '~/types'
 
 export const useMinutesToRead = ({ post }: { post: Ref<Post | undefined | null> }) => {
   const minutesToRead = ref(1)
   const lengthOfPost = ref(0)
 
-  const calculateLengthOfPost = (postBodyNode: Post['body']) => {
-    if (postBodyNode && postBodyNode.value) {
-      // postBodyNode.value.forEach((child: MinimalNode) => {
-      //   if (child.type === 'text') {
-      //     lengthOfPost.value += child.value?.length || 0
-      //   }
-      //   calculateLengthOfPost(child as unknown as Post['body'])
-      // })
-      console.log('postBodyNode.value', postBodyNode.value)
+  const calculateLengthOfPost = (data: MarkdownRoot): number => {
+    if (!data || !data.value) return 0
+
+    const calculateLengthOfItems = (items: MinimalNode[] | MinimalNode): number => {
+      if (!Array.isArray(items)) return 0
+
+      const [tag, , ...children] = items
+
+      if (tag === 'style') return 0
+      if (!children || !children.length) return 0
+
+      return children.reduce((_acc, child: MinimalNode | Record<string, unknown>): number => {
+        if (typeof child === 'string') {
+          return _acc + child.length
+        }
+
+        if (Array.isArray(child)) {
+          return _acc + calculateLengthOfItems(child)
+        }
+
+        return _acc
+      }, 0)
     }
+
+    return data.value.reduce((acc, item) => {
+      if (Array.isArray(item)) {
+        return acc + calculateLengthOfItems(item)
+      }
+
+      if (typeof item === 'string') {
+        return acc + item.length
+      }
+
+      return acc
+    }, 0)
   }
 
   const formattedMinutesToRead = computed(() => {
@@ -41,21 +67,23 @@ export const useMinutesToRead = ({ post }: { post: Ref<Post | undefined | null> 
   const emojisWhileReading = computed(() => {
     if (!minutesToRead.value) return '🌸'
 
-    if (minutesToRead.value > 10 && minutesToRead.value < 20) {
-      return new Array(Math.floor(minutesToRead.value / 10)).fill('🥪🧃').join('')
+    if (minutesToRead.value < 10) {
+      return '☕️'
+    }
+
+    if (minutesToRead.value >= 10 && minutesToRead.value <= 20) {
+      return new Array(Math.floor(minutesToRead.value / 10)).fill('☕').join('')
     }
 
     if (minutesToRead.value > 20) {
-      return ['🧘🍹']
+      return '🧘🍹'
     }
-
-    // using `ceil` to get at least 1 cup of coffee
-    return new Array(Math.ceil(minutesToRead.value / 4)).fill('☕️').join('')
   })
 
+  // using `ceil` to get at least 1 cup of coffee
   watchEffect(() => {
     if (!post || !post.value || !post.value.body) return
-    calculateLengthOfPost(post.value.body)
+    lengthOfPost.value = calculateLengthOfPost(post.value.body)
     minutesToRead.value = calculateMinutes(lengthOfPost.value)
   })
 

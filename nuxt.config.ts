@@ -7,7 +7,11 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
+
   css: ['~/assets/css/main.css'],
+
+  devtools: { enabled: true },
 
   runtimeConfig: {
     public: {
@@ -26,7 +30,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'cloudflare-module',
+    preset: 'cloudflare-pages',
+    cloudflare: {
+      deployConfig: true,
+    },
   },
 
   vite: {
@@ -34,13 +41,13 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    'nitro-cloudflare-dev',
     '@nuxt/test-utils/module',
     '@nuxt/eslint', // this needs to be before `@nuxt/content`
     'nuxt-content-twoslash',
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
-    '@nuxt/devtools',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
     'nuxt-svgo',
@@ -52,6 +59,7 @@ export default defineNuxtConfig({
   },
 
   content: {
+    database: { bindingName: 'graficos_net_content', type: 'd1' },
     build: {
       markdown: {
         highlight: {

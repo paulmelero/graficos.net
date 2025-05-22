@@ -21,8 +21,12 @@ const tag = computed(() => route.params.tag as string)
 const { data: posts } = await useAsyncData(`posts-${tag.value}`, () => {
   return queryCollection('blog')
     .select('path', 'title', 'lang', 'summary', 'tags')
-    .where('tags', 'LIKE', tag.value)
     .all()
+    .then((res) => {
+      return res.filter((post) => {
+        return (post.tags || []).includes(tag.value)
+      })
+    })
 })
 
 const tags = (posts.value || []).reduce((acc, post) => {
