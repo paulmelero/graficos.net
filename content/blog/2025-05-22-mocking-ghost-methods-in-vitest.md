@@ -7,6 +7,7 @@ tags:
   - TypeScript
   - Vitest
   - Testing
+  - Tip
 description: Mocking "ghost" methods in Vitest is hack I discovered while mocking with Vitest. It allows you to create virtual methods for testing purposes. This article explores how to implement this concept effectively.
 summary: Mocking "ghost" methods in Vitest is hack I discovered while mocking with Vitest. It allows you to create virtual methods for testing purposes. This article explores how to implement this concept effectively.
 ---

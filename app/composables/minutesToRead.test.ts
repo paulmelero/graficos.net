@@ -42,11 +42,12 @@ describe('Minutes to read', () => {
     [0, 0, { emojisWhileReading: '🌸', formattedMinutesToRead: '1 min' }],
     [10, 0, { emojisWhileReading: '🌸', formattedMinutesToRead: '1 min' }],
     [10, 1, { emojisWhileReading: '☕️', formattedMinutesToRead: '2 mins' }],
-    [10, 2, { emojisWhileReading: '☕️☕️', formattedMinutesToRead: '5 mins' }],
-    [10, 3, { emojisWhileReading: '☕️☕️', formattedMinutesToRead: '7 mins' }],
-    [10, 4, { emojisWhileReading: '☕️☕️☕️', formattedMinutesToRead: '10 mins' }],
-    [9, 5, { emojisWhileReading: '🥪🧃', formattedMinutesToRead: '11 mins' }],
-    [20, 4, { emojisWhileReading: '🥪🧃🥪🧃', formattedMinutesToRead: '20 mins' }],
+    [10, 2, { emojisWhileReading: '☕️', formattedMinutesToRead: '5 mins' }],
+    [10, 3, { emojisWhileReading: '☕️', formattedMinutesToRead: '7 mins' }],
+    [10, 4, { emojisWhileReading: '☕️', formattedMinutesToRead: '10 mins' }],
+    [9, 5, { emojisWhileReading: '☕️', formattedMinutesToRead: '11 mins' }],
+    [20, 4, { emojisWhileReading: '☕️☕️', formattedMinutesToRead: '20 mins' }],
+    [22, 5, { emojisWhileReading: '🧘🍹', formattedMinutesToRead: '22 mins' }],
   ])('should return the correct value for %s children and %s levels deep', (children, levels, result) => {
     const post = computed(() => fakePostFactory(children, levels))
 

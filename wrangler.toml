@@ -1,17 +1,12 @@
 compatibility_date = "2025-01-01"
-compatibility_flags = [ "nodejs_compat", "nodejs_compat_esm" ]
+compatibility_flags = [ "nodejs_compat" ]
 
 name = "graficos-net"
 
-main = ".output/server/index.mjs"
-
-base_dir = "."
-
-assets = { directory = ".output/public", binding = "ASSETS" }
-
-[build]
-command = "pnpm build"
-
-[observability.logs]
+[observability]
 enabled = true
-head_sampling_rate = 0.8
+
+[[d1_databases]]
+binding = "D1"
+database_name = "graficos_net_content"
+database_id = "faee6a30-19c0-4808-8d89-aee0c61f41ca"

@@ -72,6 +72,9 @@ importers:
       happy-dom:
         specifier: ^15.10.2
         version: 15.10.2
+      nitro-cloudflare-dev:
+        specifier: ^0.2.2
+        version: 0.2.2
       nuxt-content-twoslash:
         specifier: ^0.1.0
         version: 0.1.2(@nuxtjs/mdc@0.17.0(magicast@0.3.5))(magicast@0.3.5)
@@ -4724,6 +4727,9 @@ packages:
   negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
+
+  nitro-cloudflare-dev@0.2.2:
+    resolution: {integrity: sha512-aZfNTVdgXPQeAmXW0Tw8hm3usAHr4qVG4Bg3WhHBGeZYuXr9OyT04Ztb+STkMzhyaXvfMHViAaPUPg06iAYqag==}
 
   nitropack@2.11.7:
     resolution: {integrity: sha512-ghqLa3Q4X9qaQiUyspWxxoU1fY2nwfSJqhOH+COqyCp7Vgj4oM1EM1L0YNSQUF16T2tAoOWg8woXGq0EH5Y6wQ==}
@@ -12507,6 +12513,12 @@ snapshots:
   natural-compare@1.4.0: {}
 
   negotiator@0.6.3: {}
+
+  nitro-cloudflare-dev@0.2.2:
+    dependencies:
+      consola: 3.4.2
+      mlly: 1.7.4
+      pkg-types: 2.1.0
 
   nitropack@2.11.7(better-sqlite3@11.10.0)(typescript@5.7.2):
     dependencies:
