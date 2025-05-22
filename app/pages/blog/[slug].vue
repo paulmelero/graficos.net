@@ -47,18 +47,17 @@ const { data: post } = await useAsyncData(`post-${route.path}`, async () => {
 })
 
 // Head - SEO
-post.value &&
-  useSeoMeta({
-    title: post.value.title,
-    ogTitle: post.value.title,
-    description: post.value.description,
-    ogImage: post.value.thumbnail,
-    ogLocale: post.value.lang,
-    ogSiteName: siteName,
-    twitterTitle: post.value.title,
-    twitterImage: post.value.thumbnail,
-    twitterCreator: `@${publicConfig.TWITTER_USERNAME}`,
-  })
+useSeoMeta({
+  title: post.value?.title,
+  ogTitle: post.value?.title,
+  description: post.value?.description,
+  ogImage: post.value?.thumbnail,
+  ogLocale: post.value?.lang,
+  ogSiteName: siteName,
+  twitterTitle: post.value?.title,
+  twitterImage: post.value?.thumbnail,
+  twitterCreator: `@${publicConfig.TWITTER_USERNAME}`,
+})
 
 // Minutes to read
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })

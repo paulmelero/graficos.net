@@ -7,7 +7,7 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: false, // otherwise Nuxt Content only works in SPA mode
 
   css: ['~/assets/css/main.css'],
 

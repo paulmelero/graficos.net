@@ -24,15 +24,15 @@ useSeoMeta({
 
 const getTagsFromPosts = (posts: PostInList[]) => {
   return posts
-    .map((post) => post.tags)
-    .reduce((acc, tags) => [...acc, ...(tags || [])])
-    .reduce((acc, tag, i) => {
+    .map((post) => post.tags ?? [])
+    .reduce((acc, tags) => [...acc, ...tags], [] as string[])
+    .reduce((acc, tag) => {
       if (!tag) return acc
-      tag.toLowerCase()
-      if (acc[tag]) {
-        acc[tag]++
+      const lowerCaseTag = tag.toLowerCase()
+      if (acc[lowerCaseTag]) {
+        acc[lowerCaseTag]++
       } else {
-        acc[tag] = 1
+        acc[lowerCaseTag] = 1
       }
       return acc
     }, {} as Record<string, number>)

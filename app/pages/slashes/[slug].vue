@@ -24,13 +24,12 @@ const { data: page } = await useAsyncData(`slash-${route.path}`, () =>
 )
 
 // Head - SEO
-page.value &&
-  useSeoMeta({
-    title: page.value.title,
-    ogTitle: page.value.title,
-    description: page.value.description,
-    ogSiteName: 'Graficos.NET',
-    twitterTitle: page.value.title,
-    twitterCreator: '@paulmelero',
-  })
+useSeoMeta({
+  title: page.value?.title,
+  ogTitle: page.value?.title,
+  description: page.value?.description,
+  ogSiteName: 'Graficos.NET',
+  twitterTitle: page.value?.title,
+  twitterCreator: '@paulmelero',
+})
 </script>
