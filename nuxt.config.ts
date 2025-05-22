@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2024-09-19',
+  compatibilityDate: '2025-01-01',
 
   future: {
     compatibilityVersion: 4,
@@ -52,12 +52,16 @@ export default defineNuxtConfig({
   },
 
   content: {
-    highlight: {
-      theme: {
-        default: 'min-light',
-        dark: 'github-dark',
+    build: {
+      markdown: {
+        highlight: {
+          theme: {
+            default: 'min-light',
+            dark: 'github-dark',
+          },
+          langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'bash', 'ps1'],
+        },
       },
-      langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'bash', 'ps1'],
     },
   },
 

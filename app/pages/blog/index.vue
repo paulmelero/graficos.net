@@ -38,14 +38,16 @@ const getTagsFromPosts = (posts: PostInList[]) => {
     }, {} as Record<string, number>)
 }
 
-const { data } = await useAsyncData('blog', () =>
-  queryContent('blog')
-    .only(<(keyof PostInList)[]>['_path', 'title', 'lang', 'summary', 'tags', 'date'])
-    .sort({ date: -1 })
-    .find()
-)
-const posts = computed(() => data.value as PostInList[])
-const tags = getTagsFromPosts(posts.value)
+const { data: posts } = await useAsyncData<PostInList[]>('blog', async () => {
+  const content = await queryCollection('blog')
+    .select('path', 'title', 'lang', 'summary', 'tags', 'date')
+    .order('path', 'DESC')
+    .all()
+
+  return content as PostInList[]
+})
+
+const tags = computed(() => (posts.value ? getTagsFromPosts(posts.value) : {}))
 </script>
 
 <style scoped>

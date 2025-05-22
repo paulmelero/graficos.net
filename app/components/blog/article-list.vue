@@ -1,18 +1,17 @@
 <template>
-  <ContentList class="w-full mb-4" path="/blog">
-    <div class="flex flex-col">
+  <ul class="w-full mb-4 flex flex-col">
+    <li v-for="(article, i) in articles">
       <blog-article-card
-        v-for="(article, i) in articles"
         :key="i"
         :lang="article.lang"
         :title="article.title"
-        :url="article._path"
+        :url="article.path"
         :extract="article.summary"
         :date="article.date"
         class="mb-8"
       />
-    </div>
-  </ContentList>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts" setup>

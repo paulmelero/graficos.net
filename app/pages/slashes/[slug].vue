@@ -1,6 +1,6 @@
 <template>
   <section class="container mx-auto py-4">
-    <base-texts-the-title>
+    <base-texts-the-title v-if="page">
       <h1 class="text-3xl">{{ page.title }}</h1>
     </base-texts-the-title>
     <article class="article-post">
@@ -12,8 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { Post } from '~/types'
-
 definePageMeta({
   layout: 'post',
 })
@@ -21,13 +19,18 @@ definePageMeta({
 const route = useRoute()
 
 // Page
-const { data } = await useAsyncData(`slash-${route.path}`, () =>
-  queryContent('slashes')
-    .where({ _path: { $match: route.path } })
-    .findOne()
+const { data: page } = await useAsyncData(`slash-${route.path}`, () =>
+  queryCollection('slashes').where('path', '=', route.path).first()
 )
-const page = computed(() => data.value as Post)
 
 // Head - SEO
-useContentHead(page)
+page.value &&
+  useSeoMeta({
+    title: page.value.title,
+    ogTitle: page.value.title,
+    description: page.value.description,
+    ogSiteName: 'Graficos.NET',
+    twitterTitle: page.value.title,
+    twitterCreator: '@paulmelero',
+  })
 </script>

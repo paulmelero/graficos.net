@@ -15,21 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import type { PostInList } from '~/types'
-
 const route = useRoute()
 const tag = computed(() => route.params.tag as string)
 
-const { data } = await useAsyncData(`posts-${tag.value}`, () => {
-  return queryContent('blog')
-    .only(<(keyof PostInList)[]>['_path', 'title', 'lang', 'summary', 'tags'])
-    .where({ tags: { $contains: tag.value } })
-    .find()
+const { data: posts } = await useAsyncData(`posts-${tag.value}`, () => {
+  return queryCollection('blog')
+    .select('path', 'title', 'lang', 'summary', 'tags')
+    .where('tags', 'LIKE', tag.value)
+    .all()
 })
 
-const posts = computed(() => data.value as PostInList[])
 const tags = (posts.value || []).reduce((acc, post) => {
-  return post.tags.reduce((acc, tag) => {
+  return (post.tags || []).reduce((acc, tag) => {
     if (!acc[tag]) {
       acc[tag] = 1
     } else {

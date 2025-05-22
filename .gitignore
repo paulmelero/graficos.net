@@ -26,3 +26,4 @@ sw.*
 
 # Cloudflare
 .wrangler/
+.data

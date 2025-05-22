@@ -39,25 +39,26 @@ const siteName = publicConfig.APP_NAME
 const route = useRoute()
 
 // Post
-const { data } = await useAsyncData(`post-${route.path}`, () =>
-  queryContent('blog')
-    .where({ _path: { $match: route.path } })
-    .findOne()
-)
-const post = computed(() => data.value as Post)
+const { data: post } = await useAsyncData(`post-${route.path}`, async () => {
+  return queryCollection('blog')
+    .where('path', '=', route.path)
+    .select('title', 'lang', 'summary', 'tags', 'date', 'thumbnail', 'body', 'description')
+    .first()
+})
 
 // Head - SEO
-useSeoMeta({
-  title: post.value.title,
-  ogTitle: post.value.title,
-  description: post.value.description,
-  ogImage: post.value.thumbnail,
-  ogLocale: post.value.lang,
-  ogSiteName: siteName,
-  twitterTitle: post.value.title,
-  twitterImage: post.value.thumbnail,
-  twitterCreator: `@${publicConfig.TWITTER_USERNAME}`,
-})
+post.value &&
+  useSeoMeta({
+    title: post.value.title,
+    ogTitle: post.value.title,
+    description: post.value.description,
+    ogImage: post.value.thumbnail,
+    ogLocale: post.value.lang,
+    ogSiteName: siteName,
+    twitterTitle: post.value.title,
+    twitterImage: post.value.thumbnail,
+    twitterCreator: `@${publicConfig.TWITTER_USERNAME}`,
+  })
 
 // Minutes to read
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
