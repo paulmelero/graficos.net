@@ -40,6 +40,15 @@ export default defineNuxtConfig({
     plugins: [wasm()],
   },
 
+  routeRules: {
+    '/': { prerender: true },
+    '/blog': { prerender: true },
+    '/blog/**': { prerender: true },
+    '/contact': { prerender: true },
+    '/slashes': { prerender: true },
+    '/slashes/**': { prerender: true },
+  },
+
   modules: [
     'nitro-cloudflare-dev',
     '@nuxt/test-utils/module',
