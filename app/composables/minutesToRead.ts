@@ -41,8 +41,12 @@ export const useMinutesToRead = ({ post }: { post: ComputedRef<Post> }) => {
   const emojisWhileReading = computed(() => {
     if (!minutesToRead.value) return '🌸'
 
-    if (minutesToRead.value > 10) {
+    if (minutesToRead.value > 10 && minutesToRead.value < 20) {
       return new Array(Math.floor(minutesToRead.value / 10)).fill('🥪🧃').join('')
+    }
+
+    if (minutesToRead.value > 20) {
+      return ['🧘🍹']
     }
 
     // using `ceil` to get at least 1 cup of coffee
