@@ -12,3 +12,7 @@ command = "pnpm build"
 
 [observability]
 enabled = false
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 0.8
