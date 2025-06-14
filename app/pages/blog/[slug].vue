@@ -33,42 +33,54 @@ definePageMeta({
   layout: 'post',
 })
 
-const publicConfig = useRuntimeConfig().public
-const siteName = publicConfig.APP_NAME
+defineRouteRules({
+  prerender: true,
+})
+
+const { APP_NAME, WEBMENTIONS_TOKEN, TWITTER_USERNAME } = useRuntimeConfig().public
 
 const route = useRoute()
 
 // Post
-const { data: post } = await useAsyncData(`post-${route.path}`, async () => {
-  return queryCollection('blog')
-    .where('path', '=', route.path)
-    .select('title', 'lang', 'summary', 'tags', 'date', 'thumbnail', 'body', 'description')
-    .first()
-})
+const { data: post } = await useAsyncData(
+  () => {
+    return queryCollection('blog')
+      .where('path', '=', route.path)
+      .select('title', 'lang', 'summary', 'tags', 'date', 'thumbnail', 'body', 'description')
+      .first()
+  },
+  {
+    getCachedData(key, nuxtApp) {
+      return nuxtApp.isHydrating ? nuxtApp.payload.data[key] : nuxtApp.static.data[key]
+    },
+  }
+)
 
 // Head - SEO
 useSeoMeta({
   title: post.value?.title,
   ogTitle: post.value?.title,
   description: post.value?.description,
+  ogDescription: post.value?.description,
   ogImage: post.value?.thumbnail,
   ogLocale: post.value?.lang,
-  ogSiteName: siteName,
+  ogSiteName: APP_NAME,
   twitterTitle: post.value?.title,
+  twitterDescription: post.value?.description,
   twitterImage: post.value?.thumbnail,
-  twitterCreator: `@${publicConfig.TWITTER_USERNAME}`,
+  twitterCreator: `@${TWITTER_USERNAME}`,
 })
 
 // Minutes to read
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
 
 // Webmentions
-const { data: mentions } = useAsyncData(
+const { data: mentions } = await useAsyncData(
   'mentions',
   () =>
     $fetch(
-      `https://webmention.io/api/mentions.jf2?target=https://${siteName + route.fullPath}&token=${
-        publicConfig.WEBMENTIONS_TOKEN
+      `https://webmention.io/api/mentions.jf2?target=https://${APP_NAME + route.fullPath}&token=${
+        WEBMENTIONS_TOKEN
       }&sort-by=updated&&wm-property[]=in-reply-to&wm-property[]=like-of&wm-property[]=repost-of&wm-property[]=mention-of`
     ),
   {

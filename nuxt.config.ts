@@ -7,11 +7,10 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false, // otherwise Nuxt Content only works in SPA mode
+  compatibilityDate: '2025-01-01',
+  devtools: { enabled: true },
 
   css: ['~/assets/css/main.css'],
-
-  devtools: { enabled: true },
 
   runtimeConfig: {
     public: {
@@ -23,13 +22,20 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2025-01-01',
-
   future: {
     compatibilityVersion: 4,
   },
 
+  experimental: {
+    inlineRouteRules: true,
+    payloadExtraction: true,
+    granularCachedData: true,
+  },
+
   nitro: {
+    prerender: {
+      autoSubfolderIndex: false,
+    },
     preset: 'cloudflare-pages',
     cloudflare: {
       deployConfig: true,
@@ -68,7 +74,7 @@ export default defineNuxtConfig({
   },
 
   content: {
-    database: { bindingName: 'graficos_net_content', type: 'd1' },
+    database: { bindingName: 'D1', type: 'd1' },
     build: {
       markdown: {
         highlight: {
