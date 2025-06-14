@@ -12,6 +12,10 @@ description: Did you know you can already use Container Queries in production to
 summary: Did you know you can already use Container Queries in production today? Little catch — as long as you do it with a "Progressive Enhancement" approach! I'm going to share with you a real-world example to allow you to use container queries to build responsive typography, with progressive enhancement in mind.
 ---
 
+If you, like me, are still stuck with Tailwind 3 and wondered how to opt-in for using Container Queries safely in production, let me share with you how I am doing it. There is only 1 catch: as long as you do it with a "Progressive Enhancement" approach!
+
+I'm going to show you a real-world example to allow you to use Container Queries to build Responsive Typography, with progressive enhancement in mind.
+
 ## :heartpulse: What is "Progressive Enhancement"?
 
 Think of Progressive Enhancement like building a cake: 🍰
