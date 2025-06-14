@@ -28,7 +28,6 @@ export default defineNuxtConfig({
 
   experimental: {
     inlineRouteRules: true,
-    payloadExtraction: true,
     granularCachedData: true,
   },
 
