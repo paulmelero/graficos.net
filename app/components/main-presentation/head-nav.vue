@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import type BurgerMenu from './burger-menu.vue'
-import { links } from './pages'
+import { links } from '../../config/pages'
 
 const burgerMenu = ref<InstanceType<typeof BurgerMenu> | null>(null)
 const closeBurgerMenu = () => {

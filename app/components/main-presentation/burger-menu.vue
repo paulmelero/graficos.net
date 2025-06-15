@@ -3,7 +3,7 @@
     <button aria-controls="top-menu" @click="isOpen = !isOpen">
       <span class="sr-only"> Toggle Menu </span>
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
       </svg>
     </button>
     <transition appear>
@@ -24,7 +24,7 @@
             >
           </li>
         </ul>
-        <hr class="dark:text-gray-dark" >
+        <hr class="dark:text-gray-dark" />
         <MainPresentationIconsMenu class="mt-6 justify-between" />
       </section>
     </transition>
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { linksWithHome as links } from './pages'
+import { linksWithHome as links } from '../../config/pages'
 
 const isOpen = ref(false)
 

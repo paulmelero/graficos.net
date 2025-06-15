@@ -8,12 +8,28 @@
     @apply block mx-auto;
   }
 
-  :is(h1, h2, h3, h4, h5, h6):has(a) {
-    @apply mb-[0.8em];
+  :where(h1, h2, h3, h4, h5, h6):has(a) {
+    @apply mb-[1em] font-black italic;
+    font-family: 'Montserrat', sans-serif;
   }
-  :is(h1, h2, h3, h4, h5, h6):has(a):before {
-    content: '# ';
-    @apply text-accent dark:text-primary;
+  :is(h1, h2, h3, h4, h5, h6) a {
+    @apply no-underline hover:underline;
+  }
+  :is(h1, h2, h3, h4, h5, h6) a:before {
+    content: '## ';
+    @apply text-gray dark:text-gray-light;
+  }
+  :is(h3) a:before {
+    content: '### ';
+  }
+  :is(h4) a:before {
+    content: '#### ';
+  }
+  :is(h5) a:before {
+    content: '##### ';
+  }
+  :is(h6) a:before {
+    content: '###### ';
   }
 
   ul {
@@ -22,8 +38,13 @@
 
   ul,
   ol,
-  p {
+  p,
+  hr {
     margin-bottom: 1.45em;
+  }
+
+  li > ul {
+    @apply my-2;
   }
 
   ul,
