@@ -5,7 +5,7 @@
     s
   >
     <div
-      class="avatar grid items-center rounded-full sm:mb-0 sm:mx-0 mx-auto overflow-hidden size-16 sm:size-24 bg-cover bg-center bg-no-repeat"
+      class="avatar grid items-center rounded-full mb-4 sm:mb-0 sm:mx-0 mx-auto overflow-hidden size-16 sm:size-24 bg-cover bg-center bg-no-repeat"
     />
     <div class="sm:ml-5 sm:text-left">
       <p class="text-xl leading-tight mb-0 title font-thin">Paul Melero</p>
@@ -17,7 +17,7 @@
 
 <style lang="postcss" scoped>
 .footer {
-  padding-bottom: calc(192px + 3rem);
+  padding-bottom: calc(150px + 3rem);
 }
 .avatar {
   background-image: url('~/assets/images/av.avif');
