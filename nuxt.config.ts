@@ -81,7 +81,7 @@ export default defineNuxtConfig({
             default: 'min-light',
             dark: 'github-dark',
           },
-          langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'bash', 'ps1'],
+          langs: ['diff', 'json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'bash', 'ps1'],
         },
       },
     },

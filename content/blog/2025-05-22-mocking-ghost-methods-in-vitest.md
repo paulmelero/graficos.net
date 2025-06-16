@@ -20,10 +20,11 @@ Below we'll explore how it works, with examples and explain its caveats.
 
 Suppose you have a module `@some/lib` that exports a function `add(x)` but no way to reset its internal total. You can mock a ghost method like `__setTotal()` by writing a mock factory. For example:
 
+- Before tests: mock the entire module with a factory
+
 ```ts
 import { add } from '@some/lib'
 
-// Before tests: mock the entire module with a factory
 vi.mock('@some/lib', () => {
   // Internal state within the mock
   let total = 0
@@ -39,10 +40,18 @@ vi.mock('@some/lib', () => {
     },
   }
 })
+```
 
-// In tests we can now import the ghost method:
-import { add, __setTotal } from '@some/lib'
+- In tests, we can now import the ghost method
 
+```diff
+- import { add } from '@some/lib'
++ import { add, __setTotal } from '@some/lib'
+```
+
+- Later, we can use this ghost method to manipulate the internal state of the mocked module:
+
+```ts
 test('drives internal total via ghost method', () => {
   __setTotal(10) // use the ghost method to set state
   expect(add(5)).toBe(15) // test behavior after manipulating state
@@ -51,7 +60,7 @@ test('drives internal total via ghost method', () => {
 
 In this example, the mock factory (passed to `vi.mock`) returns an object with the original add function _and_ a new `__setTotal` function. Vitest will use this object as the module when tests run.
 
-The "ghost" method `__setTotal` doesn't exist in the real `@some/lib`, but we can still import and call it in our tests. As Vitest's docs show, a mock factory can override or extend module exports at will <sup>1</sup>.
+The "ghost" method `__setTotal` doesn't exist in the real `@some/lib`, but we can still import and call it in our tests. As Vitest's docs show, a mock factory can override or extend module exports at will [^vitest-mocking].
 
 ## How It Works Under the Hood
 
@@ -165,7 +174,6 @@ Vitest's `vi.mock(factory)` can do more than override existing exports – it ca
 
 **References:**
 
-Vitest's official docs and guides demonstrate using mock factories to override or extend exports<sup>1</sup>, and caution that heavy mocking can indicate code structure problems <sup>1</sup>.
-
-<sup>1</sup> Mocking Guide Vitest
-https://vitest.dev/guide/mocking
+[^vitest-mocking]:
+    **Mocking Guide Vitest** – Vitest's official docs and guides demonstrate using mock factories to override or extend exports, and caution that heavy mocking can indicate code structure problems.
+    https://vitest.dev/guide/mocking
