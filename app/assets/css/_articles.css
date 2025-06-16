@@ -59,3 +59,7 @@
     @apply bg-fwhite dark:bg-gray-darkest p-1 rounded-md font-mono;
   }
 }
+
+.post-container {
+  @apply w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg max-w-3xl;
+}

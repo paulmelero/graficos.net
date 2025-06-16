@@ -4,7 +4,7 @@
       <h1 class="text-3xl">{{ page.title }}</h1>
     </base-texts-the-title>
     <article class="article-post">
-      <div v-if="page" class="sm:text-lg">
+      <div v-if="page" class="post-container">
         <ContentRenderer :value="page" class="py-10" />
       </div>
     </article>

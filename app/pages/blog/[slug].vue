@@ -20,7 +20,7 @@
         </p>
       </div>
     </header>
-    <div v-if="post" class="w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg max-w-3xl">
+    <div v-if="post" class="post-container">
       <ContentRenderer :value="post" class="py-10" />
     </div>
   </article>

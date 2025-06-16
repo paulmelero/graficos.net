@@ -24,19 +24,22 @@ const { data: posts } = await useAsyncData(`posts-${tag.value}`, () => {
     .all()
     .then((res) => {
       return res.filter((post) => {
-        return (post.tags || []).includes(tag.value)
+        return (post.tags || []).map((s) => s.toLowerCase()).includes(tag.value.toLowerCase())
       })
     })
 })
 
-const tags = (posts.value || []).reduce((acc, post) => {
-  return (post.tags || []).reduce((acc, tag) => {
-    if (!acc[tag]) {
-      acc[tag] = 1
-    } else {
-      acc[tag]++
-    }
-    return acc
-  }, acc)
-}, {} as Record<string, number>)
+const tags = (posts.value || []).reduce(
+  (acc, post) => {
+    return (post.tags || []).reduce((acc, tag) => {
+      if (!acc[tag]) {
+        acc[tag] = 1
+      } else {
+        acc[tag]++
+      }
+      return acc
+    }, acc)
+  },
+  {} as Record<string, number>
+)
 </script>
