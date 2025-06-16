@@ -5,13 +5,18 @@
       <template #subtitle>
         <p>
           Since I started Graficos.NET, I have been committed to open source. Here you can find a non-thorough list of
-          my open source projects, including the source code of this website. If you want to contribute, please do so!
+          my open source projects, including the source code of this website.
         </p>
+        <p>If you want to contribute, please do so!</p>
       </template>
     </base-texts-the-title>
     <section>
       <ol class="pl-5 list-decimal">
-        <li v-for="project in projects" :key="project.path" class="mb-5">
+        <li
+          v-for="project in projects"
+          :key="project.path"
+          class="mb-5 first:border-b first:border-gray-light first:pb-5"
+        >
           <NuxtLink :to="project.path" class="text-xl font-semibold">
             {{ project.title }}
           </NuxtLink>
