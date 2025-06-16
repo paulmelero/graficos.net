@@ -23,6 +23,6 @@ The API expects a GET request to an odds endpoint, and it returns a JSON respons
 curl https://odds-api.graficos-net.workers.dev/1/5
 ```
 
-I don't plan to add many features to this API, but I will keep it updated with new odds facts as I find them. The API is open source, and you can contribute to it by adding new odds facts or improving the existing ones.
+I don't plan to add many features to this API, but I will keep it updated with new probability facts as I find them. The API is open source, and you can contribute to it by adding new odds or improving the existing ones.
 
-It will stay a small and fun project, making a wordplay on the phrase ["odds and ends"](https://dictionary.cambridge.org/dictionary/english/odds-and-ends)—which refers to various small, unimportant, or miscellaneous items. The API is a collection of odds facts that are fun to read and share and will stay small and unimportant.
+It will stay a small and fun project, making a wordplay on the phrase ["odds and ends"](https://dictionary.cambridge.org/dictionary/english/odds-and-ends)—which refers to various small, unimportant, or miscellaneous items. The API is a collection of facts that are fun to read and share and will stay small and unimportant.
