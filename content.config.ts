@@ -40,7 +40,7 @@ export default defineContentConfig({
         description: z.string().default(''),
         tags: z.array(z.string()).default([]),
         yearCreated: z.number().default(new Date().getFullYear()),
-        thumbnail: z.string().default(''),
+        thumbnail: z.string().default('').optional(),
         url: z.string().default(''),
         repositoryUrl: z.string().default(''),
         license: z.string().default('').optional(),
