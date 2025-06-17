@@ -7,7 +7,7 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-01-01',
+  compatibilityDate: '2025-06-14',
   devtools: { enabled: true },
 
   css: ['~/assets/css/main.css'],
@@ -35,9 +35,10 @@ export default defineNuxtConfig({
     prerender: {
       autoSubfolderIndex: false,
     },
-    preset: 'cloudflare-pages',
+    preset: 'cloudflare_module',
     cloudflare: {
       deployConfig: true,
+      nodeCompat: true,
     },
   },
 

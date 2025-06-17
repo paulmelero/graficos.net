@@ -11,7 +11,7 @@
     "lint:fix": "eslint --ignore-pattern .gitignore . --fix",
     "precommit": "pnpm run lint:fix",
     "postinstall": "nuxt prepare",
-    "preview": "pnpm build && pnpm dlx wrangler pages dev",
+    "preview": "pnpm build && pnpm dlx wrangler dev",
     "test": "vitest"
   },
   "engines": {
