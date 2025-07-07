@@ -1,6 +1,6 @@
 ## IDE
 
-VS Code
+VS Code, but I am giving Cursor a try!
 
 ### Editor's Theme
 
