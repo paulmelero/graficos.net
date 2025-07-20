@@ -6,7 +6,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "graficos-net",
   "main": "./.output/server/index.mjs",
-  "compatibility_date": "2025-06-14",
+  "compatibility_date": "2025-07-20",
 
   "observability": {
     "enabled": true,
