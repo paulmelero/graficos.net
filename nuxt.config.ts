@@ -7,7 +7,7 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-06-14',
+  compatibilityDate: '2025-07-20',
   devtools: { enabled: true },
 
   css: ['~/assets/css/main.css'],
@@ -20,10 +20,6 @@ export default defineNuxtConfig({
       socialLinks,
       TWITTER_USERNAME: 'paul_melero',
     },
-  },
-
-  future: {
-    compatibilityVersion: 4,
   },
 
   experimental: {
