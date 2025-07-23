@@ -2,7 +2,6 @@
   <div
     class="footer text-center text-gray-darker dark:text-gray-lightest pt-10 sm:flex sm:items-center sm:justify-center media"
     aria-label="Footer content"
-    s
   >
     <div
       class="avatar grid items-center rounded-full mb-4 sm:mb-0 sm:mx-0 mx-auto overflow-hidden size-16 sm:size-24 bg-cover bg-center bg-no-repeat"
