@@ -51,7 +51,7 @@
     "@vite-pwa/nuxt": "^0.8.1",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.14.0",
-    "happy-dom": "^15.10.2",
+    "happy-dom": "^20.0.0",
     "nitro-cloudflare-dev": "^0.2.2",
     "nuxt-content-twoslash": "^0.1.0",
     "nuxt-svgo": "^4.0.1",
