@@ -41,7 +41,7 @@
     "@iconify-json/octicon": "^1.2.6",
     "@iconify/vue": "^5.0.0",
     "@nuxt/content": "^3.6.0",
-    "@nuxt/devtools": "^2.5.0",
+    "@nuxt/devtools": "^2.6.4",
     "@nuxt/eslint": "^1.4.1",
     "@nuxt/image": "^1.10.0",
     "@nuxt/kit": "4.0.0",
