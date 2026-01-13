@@ -19,23 +19,26 @@ const title = 'Blog'
 
 useSeoMeta({
   title,
-  description: 'Blog - Web development related posts by Paul Melero. FrontEnd developer located in Barcelona.',
+  description: 'Blog - Web development related posts by Paul Melero. Web Engineer located in Spain.',
 })
 
 const getTagsFromPosts = (posts: PostInList[]) => {
   return posts
     .map((post) => post.tags ?? [])
     .reduce((acc, tags) => [...acc, ...tags], [] as string[])
-    .reduce((acc, tag) => {
-      if (!tag) return acc
-      const lowerCaseTag = tag.toLowerCase()
-      if (acc[lowerCaseTag]) {
-        acc[lowerCaseTag]++
-      } else {
-        acc[lowerCaseTag] = 1
-      }
-      return acc
-    }, {} as Record<string, number>)
+    .reduce(
+      (acc, tag) => {
+        if (!tag) return acc
+        const lowerCaseTag = tag.toLowerCase()
+        if (acc[lowerCaseTag]) {
+          acc[lowerCaseTag]++
+        } else {
+          acc[lowerCaseTag] = 1
+        }
+        return acc
+      },
+      {} as Record<string, number>
+    )
 }
 
 const { data: posts } = await useAsyncData<PostInList[]>('blog', async () => {

@@ -24,7 +24,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Paul Melero, Engineer, Web Developer and Visual Artist.',
+      content: 'Paul Melero, Web Engineer.',
     },
   ],
 })
