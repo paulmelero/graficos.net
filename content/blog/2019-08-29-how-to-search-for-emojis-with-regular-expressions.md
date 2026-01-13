@@ -18,7 +18,7 @@ I said it wasn't really complete because you need to pass the Unicode flag (`u`)
 Here's the code snippet.
 
 ```js
-'Hey, there! 🌸'.match(/\\p{Emoji}/u)
+'Hey, there! 🌸'.match(/\p{Emoji}/u)
 ```
 
 (Notice the `u` at the end.)
@@ -34,7 +34,7 @@ The first element in the Array is the actual "match".
 There are special cases, tho. **Skin tones** for example, as you may know, are a sum (or "ligature") of two characters [according to the unicode spec](https://www.unicode.org/reports/tr51/#Diversity): the **original emoji** plus a [modifier](https://en.wikipedia.org/wiki/Miscellaneous_Symbols_and_Pictographs#Emoji_modifiers):
 
 ```bash
-> '👍🏾'.match(/\\p{Emoji}/ug)
+> '👍🏾'.match(/\p{Emoji}/ug)
 < (2) ["👍", "🏾"]
 ```
 
