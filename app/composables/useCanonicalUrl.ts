@@ -1,12 +1,12 @@
 import { useHead } from '#imports'
 
-export const useCanonicalUrl = (route: string) => {
+export const useCanonicalUrl = (routeFullPath: string) => {
   const { APP_URL } = useRuntimeConfig().public
   useHead({
     link: [
       {
         rel: 'canonical',
-        href: new URL(route, APP_URL).href,
+        href: new URL(routeFullPath, APP_URL).href,
       },
     ],
   })
