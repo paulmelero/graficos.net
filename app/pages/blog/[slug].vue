@@ -27,8 +27,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { Post } from '~/types'
-
 definePageMeta({
   layout: 'post',
 })
@@ -36,8 +34,6 @@ definePageMeta({
 defineRouteRules({
   prerender: true,
 })
-
-const { APP_NAME, WEBMENTIONS_TOKEN, TWITTER_USERNAME } = useRuntimeConfig().public
 
 const route = useRoute()
 
@@ -56,6 +52,8 @@ const { data: post } = await useAsyncData(
   }
 )
 
+const { APP_NAME, WEBMENTIONS_TOKEN, TWITTER_USERNAME } = useRuntimeConfig().public
+
 // Head - SEO
 useSeoMeta({
   title: post.value?.title,
@@ -70,6 +68,8 @@ useSeoMeta({
   twitterImage: post.value?.thumbnail,
   twitterCreator: `@${TWITTER_USERNAME}`,
 })
+
+useCanonicalUrl(route.fullPath)
 
 // Minutes to read
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
