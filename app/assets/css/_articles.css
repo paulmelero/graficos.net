@@ -71,3 +71,34 @@
 .post-container {
   @apply w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg max-w-3xl;
 }
+
+/* Foot notes */
+a[aria-describedby='footnote-label'] {
+  @apply scroll-mt-24;
+}
+
+/* Blockquotes */
+
+blockquote {
+  @apply px-4;
+}
+
+blockquote p {
+  @apply italic relative;
+}
+
+blockquote p:before,
+blockquote p:after {
+  text-box: trim-both cap alphabetic;
+  @apply absolute leading-none opacity-25 z-0 text-gray-darker dark:text-gray-light text-5xl font-bold;
+}
+
+blockquote p:before {
+  content: ' «';
+  @apply -left-4 top-0;
+}
+
+blockquote p:after {
+  content: '»';
+  @apply right-0 bottom-0;
+}

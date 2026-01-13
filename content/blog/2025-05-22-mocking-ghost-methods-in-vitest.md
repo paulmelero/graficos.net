@@ -166,7 +166,7 @@ test('handles offline status via ghost', () => {
 
 In this contrived example, `__setNetworkStatus` is a "ghost" that lets us pretend the browser went offline. We override `isOnline` to return a ref based on our fake flag. This kind of pattern can help when testing components or hooks that depend on environment conditions.
 
-> Note: This VueUse example is illustrative. In real tests you might stub `window.navigator.onLine` or use `vi.stubGlobal`, but it shows the idea of adding a ghost method to a third-party hook to simulate internal behavior.
+> **Note**: This VueUse example is illustrative. In real tests you might stub `window.navigator.onLine` or use `vi.stubGlobal`, but it shows the idea of adding a ghost method to a third-party hook to simulate internal behavior.
 
 ## Conclusion
 
