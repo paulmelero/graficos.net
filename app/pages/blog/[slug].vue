@@ -7,17 +7,12 @@
     >
       <div class="w-3/4 xl:w-1/2 my-auto mx-auto text-white max-w-3xl">
         <h1 class="mb-8 sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
-        <p class="">
+        <p>
           <base-texts-the-time :date="post.date" class="block sm:inline-block" />
           <span class="hidden sm:inline-block sm:mx-2">·</span>
           <span class="block sm:inline-block">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
-        <p v-if="mentions" class="">
-          <i
-            >Indieweb! This article has been mentioned: <em>{{ mentions }} {{ mentions > 1 ? 'times' : 'time' }}</em
-            >!</i
-          >
-        </p>
+        <BlogWebMentions :lang="post.lang" />
       </div>
     </header>
     <div v-if="post" class="post-container">
@@ -52,7 +47,7 @@ const { data: post } = await useAsyncData(
   }
 )
 
-const { APP_NAME, WEBMENTIONS_TOKEN, TWITTER_USERNAME } = useRuntimeConfig().public
+const { APP_NAME, TWITTER_USERNAME } = useRuntimeConfig().public
 
 // Head - SEO
 useSeoMeta({
@@ -71,22 +66,7 @@ useSeoMeta({
 
 useCanonicalUrl(route.fullPath)
 
-// Minutes to read
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
-
-// Webmentions
-const { data: mentions } = await useAsyncData(
-  'mentions',
-  () =>
-    $fetch(
-      `https://webmention.io/api/mentions.jf2?target=https://${APP_NAME + route.fullPath}&token=${
-        WEBMENTIONS_TOKEN
-      }&sort-by=updated&&wm-property[]=in-reply-to&wm-property[]=like-of&wm-property[]=repost-of&wm-property[]=mention-of`
-    ),
-  {
-    transform: (data: any) => data.children.length,
-  }
-)
 </script>
 
 <style lang="postcss" scoped>
