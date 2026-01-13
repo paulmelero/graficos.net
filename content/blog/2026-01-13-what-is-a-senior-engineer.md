@@ -47,6 +47,9 @@ Finally, remember that software development is very rarely a **1-person job**:
 
 - Invest time learning how to work as a team member. Coding is a social practice. Read about **pair programming** and try practising it with someone else. It will make you a better engineer and a better team member.
 - In a remote team, learn how to communicate effectively with your colleagues. Use tools like **Slack**, **Teams**, **Zoom**, **Microsoft Teams**, etc. to stay connected with your team and make your work visible to your colleagues.
+- Being mindful about the impact of your work on your colleagues is also something that I try to keep in the back of my mind. You're already conscious of your own work, on the impact it has on users, on your life, etc. But as you progress in your career, you start having a broader vision of the impact of your work. Working on a medium/big company gives you lots of opportunities to help others and to be helped by others. More importantly, never create knowledge silos. Share what you know and make information available to others. But be mindful also about how you say things: are you being inclusive with your actions? Do you consider other people's perspectives? Do you consider other people's feelings?
+
+One of the best ways to learn from others is to ask. When you ask, try to do it to understand the other person's perspective, not to judge them or to impose your own perspective. This links to something I always try to keep in mind: **Egoless communication**. Keep your ego out of the way and focus on the problem and the solution while trying to include others.
 
 ---
 
