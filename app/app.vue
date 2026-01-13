@@ -23,51 +23,51 @@ useHead({
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { hid: 'description', name: 'description', content: pkg.description },
+    { name: 'description', content: pkg.description },
     // Favicons
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    { hid: 'favicon', rel: 'favicon', href: '/favicon.ico' },
+    { rel: 'favicon', href: '/favicon.ico' },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    { hid: 'apple-touch-icon', rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
+    { rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    { hid: 'icon-32x32', rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    { hid: 'icon-16x16', rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    { hid: 'manifest', rel: 'manifest', href: '/site.webmanifest' },
+    { rel: 'manifest', href: '/site.webmanifest' },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    { hid: 'mask-icon', rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
+    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
     // Social OG
-    { hid: 'og:type', property: 'og:type', content: 'profile' },
-    { hid: 'og:title', property: 'og:title', content: APP_NAME },
-    { hid: 'og:site_name', property: 'og:site_name', content: APP_NAME },
-    { hid: 'og:url', property: 'og:url', content: APP_URL },
-    { hid: 'og:image', property: 'og:image', content: APP_URL + APP_COVER_IMG },
-    { hid: 'profile:first_name', property: 'profile:first_name', content: 'Paul' },
-    { hid: 'profile:last_name', property: 'profile:last_name', content: 'Melero' },
+    { property: 'og:type', content: 'profile' },
+    { property: 'og:title', content: APP_NAME },
+    { property: 'og:site_name', content: APP_NAME },
+    { property: 'og:url', content: APP_URL },
+    { property: 'og:image', content: APP_URL + APP_COVER_IMG },
+    { property: 'profile:first_name', content: 'Paul' },
+    { property: 'profile:last_name', content: 'Melero' },
     // Twitter
-    { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
-    { hid: 'twitter:site', name: 'twitter:site', content: '@paul_melero' },
-    { hid: 'twitter:creator', name: 'twitter:creator', content: '@paul_melero' },
-    { hid: 'twitter:title', name: 'twitter:title', content: APP_NAME },
-    { hid: 'twitter:description', name: 'twitter:description', content: pkg.description },
-    { hid: 'twitter:image', name: 'twitter:image', content: APP_URL + APP_COVER_IMG },
-    { hid: 'twitter:image:src', name: 'twitter:image:src', content: APP_URL + APP_COVER_IMG },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:site', content: '@paul_melero' },
+    { name: 'twitter:creator', content: '@paul_melero' },
+    { name: 'twitter:title', content: APP_NAME },
+    { name: 'twitter:description', content: pkg.description },
+    { name: 'twitter:image', content: APP_URL + APP_COVER_IMG },
+    { name: 'twitter:image:src', content: APP_URL + APP_COVER_IMG },
     // Search engines
-    { hid: 'image', name: 'image', content: APP_URL + APP_COVER_IMG },
+    { name: 'image', content: APP_URL + APP_COVER_IMG },
     // Google
     { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' },
   ],
   link: [
-    { hid: 'publisher', rel: 'publisher', href: APP_URL },
-    { hid: 'webmention', rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
-    { hid: 'pingback', rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
+    { rel: 'publisher', href: APP_URL },
+    { rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
+    { rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
     {
       rel: 'stylesheet',
       href: fonts,
