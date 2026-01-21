@@ -11,7 +11,7 @@
     >
       <images-logo class="h-8 transition:color disable-hover" />
     </nuxt-link>
-    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 hidden sm:flex justify-start">
+    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 hidden md:flex justify-start">
       <li v-for="(link, i) in links" :key="i" class="inline-block">
         <nuxt-link
           :to="link.href"

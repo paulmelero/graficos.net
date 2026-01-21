@@ -8,7 +8,7 @@
     />
     <div class="sm:ml-5 sm:text-left">
       <p class="text-xl leading-tight mb-0 title font-thin">Paul Melero</p>
-      <p class="text-sm leading-tight mt-0 text-gray-dark dark:text-gray-light">Web Engineer</p>
+      <p class="text-sm leading-tight mt-0 text-gray-dark dark:text-primary">Web Engineer</p>
       <lazy-main-presentation-icons-menu class="justify-center sm:justify-start" />
     </div>
   </div>

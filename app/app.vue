@@ -11,8 +11,6 @@ const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png'
 
-const fonts = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;1,900&display=swap'
-
 useHead({
   htmlAttrs: {
     lang: 'en',
@@ -68,10 +66,6 @@ useHead({
     { rel: 'publisher', href: APP_URL },
     { rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
     { rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
-    {
-      rel: 'stylesheet',
-      href: fonts,
-    },
     // preconnect
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -79,8 +73,6 @@ useHead({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'crossorigin' },
-    // preload
-    { rel: 'preload', href: fonts, as: 'style' },
   ],
 })
 </script>

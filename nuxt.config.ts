@@ -10,6 +10,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-20',
   devtools: { enabled: true },
 
+  devServer: {
+    port: 1337,
+  },
+
   css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
@@ -60,8 +64,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxtjs/color-mode',
-    '@pinia/nuxt',
     'nuxt-svgo',
+    '@nuxt/fonts',
     '@vueuse/nuxt',
   ],
 
@@ -87,5 +91,14 @@ export default defineNuxtConfig({
   svgo: {
     svgo: false,
     defaultImport: 'component',
+  },
+
+  fonts: {
+    provider: 'google',
+    defaults: {
+      weights: [100, 400, 600, 700, 900],
+      styles: ['italic', 'normal'],
+      subsets: ['latin'],
+    },
   },
 })

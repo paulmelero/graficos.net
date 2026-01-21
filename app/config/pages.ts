@@ -4,6 +4,11 @@ export const links = [
     name: 'Blog',
     title: 'Blog',
   },
+  {
+    href: '/opensource/graficos-net',
+    name: 'About',
+    title: 'About Graficos.net',
+  },
   { href: '/contact', name: 'Contact', title: 'Contact' },
   { href: '/slashes', name: 'Slash Pages', title: 'Slashes' },
   {
