@@ -1,7 +1,12 @@
 <template>
-  <section>
-    <main-presentation-split-sections-home-jumbo />
-  </section>
+  <div>
+    <section>
+      <main-presentation-split-sections-home-jumbo />
+    </section>
+    <section class="w-screen h-screen flex items-center justify-center">
+      <HomeIsometricScene />
+    </section>
+  </div>
 </template>
 
 <script lang="ts" setup>
