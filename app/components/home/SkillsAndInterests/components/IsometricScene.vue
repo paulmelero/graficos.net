@@ -1,29 +1,29 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import * as THREE from 'three'
-// @ts-ignore
+import { clamp } from 'three/src/math/MathUtils.js'
+
 import artUrl from '@/assets/video/art.mp4'
-// @ts-ignore
 import natureUrl from '@/assets/video/nature.mp4'
-// @ts-ignore
 import programmingUrl from '@/assets/video/programming.mp4'
+import { easeInOutCubic } from './utils/easeInOutCubic'
+
+const props = defineProps<{
+  scrollProgress: number
+}>()
 
 const container = ref<HTMLElement | null>(null)
 let renderer: THREE.WebGLRenderer | null = null
 let animationId: number | null = null
 let camera: THREE.OrthographicCamera | null = null
+let scene: THREE.Scene | null = null
+let structureGroup: THREE.Group | null = null
 
 // Interaction State
 const activeVideoSrc = ref<string | null>(null)
 const videos = [artUrl, natureUrl, programmingUrl]
 const textureMap = new Map<string, THREE.VideoTexture>()
-
-// Colors based on Tailwind config (Zinc 500, Amber 600)
-const COLORS = {
-  primary: 0x71717a, // gray-500
-  accent: 0xd97706, // amber-600
-  bg: 0xf4f4f5, // gray-100 (light background)
-}
+const isMobile = ref(false)
 
 // Scene config
 const SCENE_SIZE = 12
@@ -32,12 +32,63 @@ const PILLAR_WIDTH = 3
 const PILLAR_DEPTH = 3
 const frustumSize = 30
 
+// Camera & Group Positions
+const INITIAL_CAMERA_POSITION = new THREE.Vector3(20, 20, 20)
+const TOP_CAMERA_POSITION = new THREE.Vector3(0, 38, 0.0001)
+const INITIAL_GROUP_POSITION = new THREE.Vector3(0, 0, 0)
+const TARGET_GROUP_POSITION = new THREE.Vector3(-SCENE_SIZE * 0.3, 0, SCENE_SIZE)
+const TARGET_GROUP_ROTATION = Math.PI / 4
+const tempVector = new THREE.Vector3()
+let storyProgress = 0
+
+// Colors based on Tailwind config (Zinc 500, Amber 600)
+const COLORS = {
+  primary: 0x71717a, // gray-500
+  accent: 0xd97706, // amber-600
+  bg: 0xf4f4f5, // gray-100 (light background)
+}
+
 // Shader Uniforms
 const customUniforms = {
   uVideoTexture: { value: null as THREE.Texture | null },
   uResolution: { value: new THREE.Vector2() },
   uMixFactor: { value: 0.0 },
   uVideoAspect: { value: 16 / 9 },
+}
+
+const clampProgress = (value: number) => clamp(value, 0, 1)
+
+const applyStoryState = (progress: number) => {
+  storyProgress = clampProgress(progress)
+
+  if (!camera || !structureGroup) {
+    return
+  }
+
+  // Scale progress to complete animation by the 95% mark
+  const animationProgress = Math.min(storyProgress / 0.95, 0.9)
+  // Apply easing ONCE to the scaled progress
+  const easedAnimation = easeInOutCubic(animationProgress)
+
+  // Apply the single eased value to all animations
+  tempVector.copy(INITIAL_CAMERA_POSITION).lerp(TOP_CAMERA_POSITION, easedAnimation)
+  camera.position.copy(tempVector)
+  camera.lookAt(0, 0, 0)
+
+  const targetPosition = isMobile.value ? INITIAL_GROUP_POSITION : TARGET_GROUP_POSITION
+  tempVector.copy(INITIAL_GROUP_POSITION).lerp(targetPosition, easedAnimation)
+  structureGroup.position.copy(tempVector)
+
+  const targetRotation = isMobile.value ? 0 : TARGET_GROUP_ROTATION
+  structureGroup.rotation.y = THREE.MathUtils.lerp(0, targetRotation, easedAnimation)
+}
+
+const updateIsMobile = () => {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  isMobile.value = window.innerWidth < 768
 }
 
 function onResize() {
@@ -62,7 +113,7 @@ onMounted(() => {
   if (!container.value) return
 
   // 1. Setup Scene
-  const scene = new THREE.Scene()
+  scene = new THREE.Scene()
 
   // 2. Camera
   const aspect = container.value.clientWidth / container.value.clientHeight
@@ -89,6 +140,7 @@ onMounted(() => {
 
   // Initial Resize to set uniforms
   onResize()
+  updateIsMobile()
 
   // 4. Load Video Textures
   videos.forEach((url) => {
@@ -179,7 +231,7 @@ onMounted(() => {
 
   // 6. Build Geometry
   const geometry = new THREE.BoxGeometry(PILLAR_WIDTH, PILLAR_HEIGHT, PILLAR_DEPTH)
-  const structureGroup = new THREE.Group()
+  structureGroup = new THREE.Group()
   scene.add(structureGroup)
 
   const offset = SCENE_SIZE / 2 - PILLAR_WIDTH / 2
@@ -196,6 +248,7 @@ onMounted(() => {
     mesh.position.set(pos.x, 0, pos.z)
     mesh.castShadow = true
     mesh.receiveShadow = true
+    // FIXME: TypeScript issue with nullability
     structureGroup.add(mesh)
   })
 
@@ -256,12 +309,29 @@ onMounted(() => {
   // 8. Animation Loop
   const animate = () => {
     animationId = requestAnimationFrame(animate)
-    renderer!.render(scene, camera!)
+    if (renderer && scene && camera) {
+      renderer.render(scene, camera)
+    }
   }
   animate()
 
   // Resize Listener
   window.addEventListener('resize', onResize)
+  window.addEventListener('resize', updateIsMobile)
+
+  applyStoryState(storyProgress)
+})
+
+watch(
+  () => props.scrollProgress,
+  (progress) => {
+    applyStoryState(progress ?? 0)
+  },
+  { immediate: true }
+)
+
+watch(isMobile, () => {
+  applyStoryState(storyProgress)
 })
 
 // Video Playback Watcher
@@ -302,18 +372,19 @@ watch(activeVideoSrc, (newSrc, oldSrc) => {
 
 onUnmounted(() => {
   window.removeEventListener('resize', onResize)
+  window.removeEventListener('resize', updateIsMobile)
   if (animationId) cancelAnimationFrame(animationId)
   if (renderer) renderer.dispose()
 })
 </script>
 
 <template>
-  <div class="relative isolate w-full h-full min-h-[500px]">
+  <div class="relative w-full h-full" :data-scroll-progress="scrollProgress">
     <!-- Three.js Container -->
-    <div ref="container" class="absolute inset-0 z-0"></div>
+    <div ref="container" class="h-[200vh] z-0"></div>
 
     <!-- Interaction Zones (Invisible) -->
-    <div class="absolute inset-0 z-20 flex">
+    <div class="absolute inset-0 z-10 flex">
       <div
         v-for="(vid, index) in videos"
         :key="index"
