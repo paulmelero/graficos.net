@@ -1,10 +1,10 @@
 <template>
   <section class="w-screen min-h-[50vh] flex flex-col group">
-    <div class="container py-4">
+    <div class="container py-4 px-10">
       <h2 class="text-3xl ibm font-thin">What is Graficos.net?</h2>
     </div>
 
-    <div v-if="section" class="container pt-32">
+    <div v-if="section" class="container pt-32 px-10">
       <div class="sm:grid grid-cols-3 place-items-center flex flex-col gap-10">
         <div class="media flex justify-center items-start">
           <BrandTheLogo class="opacity-20 group-hover:opacity-100 transition-opacity duration-300" />

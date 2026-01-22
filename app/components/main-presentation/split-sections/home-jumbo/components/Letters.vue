@@ -13,10 +13,15 @@
         :y="baseline"
         text-anchor="middle"
         dominant-baseline="middle"
-        :class="{
-          'text-primary': index === 0,
-        }"
-        :font-size="FONT_SIZE"
+        class="text-[400px] sm:text-[72px]"
+        :class="[
+          `sm:[--tw-translate-x:0]`,
+          {
+            'text-primary translate-x-[--custom-translate-x] sm:translate-x-0': index === 0,
+            'hidden sm:block': index !== 0,
+          },
+        ]"
+        :style="`--custom-translate-x:${width / 2 - shape.x}px`"
         :data-order="shape.letter.o"
         :data-ascii="shape.letter.a"
       >
@@ -53,7 +58,7 @@
       :x2="firstEightLine.x2"
       :y1="baselineLine"
       :y2="baselineLine"
-      class="text-gray-dark dark:text-fwhite opacity-20"
+      class="text-gray-dark dark:text-fwhite opacity-20 hidden sm:block"
       stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
@@ -64,7 +69,7 @@
       :x2="lastThreeLine.x2"
       :y1="baselineLine"
       :y2="baselineLine"
-      class="text-gray-dark dark:text-fwhite opacity-20"
+      class="text-gray-dark dark:text-fwhite opacity-20 hidden sm:block"
       stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
@@ -125,9 +130,9 @@ const props = defineProps<{
   >
 }>()
 
+const width = computed(() => LETTER_BOX * props.letters.length)
 const svgViewBox = computed(() => {
-  const width = Math.max(props.letters.length * LETTER_BOX, LETTER_BOX)
-  return `0 0 ${width} ${VIEWBOX_HEIGHT}`
+  return `0 0 ${width.value} ${VIEWBOX_HEIGHT}`
 })
 
 const baseline = VIEWBOX_HEIGHT / 2
