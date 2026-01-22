@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="space-y-24">
     <section>
       <main-presentation-split-sections-home-jumbo />
     </section>
-    <section class="w-screen h-screen flex items-center justify-center">
-      <HomeIsometricScene />
-    </section>
+    <HomeWhatIsGraficosNet />
+    <HomeWhoAmI />
+    <HomeSkillsAndInterests />
   </div>
 </template>
 

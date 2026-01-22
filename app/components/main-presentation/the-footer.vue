@@ -1,6 +1,6 @@
 <template>
   <div
-    class="footer text-center text-gray-darker dark:text-gray-lightest pt-10 sm:flex sm:items-center sm:justify-center media"
+    class="footer text-center text-gray-darker dark:text-gray-lightest sm:flex sm:items-center sm:justify-center"
     aria-label="Footer content"
   >
     <div
@@ -15,9 +15,6 @@
 </template>
 
 <style lang="postcss" scoped>
-.footer {
-  padding-bottom: calc(150px + 3rem);
-}
 .avatar {
   background-image: url('~/assets/images/av.avif');
 }

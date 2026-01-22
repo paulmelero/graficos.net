@@ -1,0 +1,27 @@
+<template>
+  <section class="w-screen min-h-screen flex flex-col group">
+    <div class="container py-4">
+      <h2 class="text-3xl ibm font-thin">Who am I?</h2>
+    </div>
+
+    <div v-if="section" class="container pt-32">
+      <div class="sm:grid grid-cols-3 place-items-center flex flex-col-reverse gap-10">
+        <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post" />
+        <div
+          class="media flex justify-center items-start opacity-20 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <GIcon name="mdi:account-circle" :size="150" />
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script lang="ts" setup>
+import GIcon from '../GIcon.vue'
+
+const SECTION = 'who-am-i'
+const { data: section } = useAsyncData(SECTION, () =>
+  queryCollection('homeSections').where('stem', '=', 'homeSections/who-am-i').first()
+)
+</script>

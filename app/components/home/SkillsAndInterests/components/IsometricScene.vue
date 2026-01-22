@@ -127,11 +127,11 @@ onMounted(() => {
       uniform vec2 uResolution;
       uniform float uMixFactor;
       uniform float uVideoAspect;
-      
+
       float blendOverlay(float base, float blend) {
         return base < 0.5 ? (2.0 * base * blend) : (1.0 - 2.0 * (1.0 - base) * (1.0 - blend));
       }
-      
+
       vec3 blendOverlay(vec3 base, vec3 blend) {
         return vec3(
           blendOverlay(base.r, blend.r),
@@ -145,14 +145,14 @@ onMounted(() => {
       '#include <map_fragment>',
       `
       #include <map_fragment>
-      
+
       if (uMixFactor > 0.0) {
         vec2 screenUV = gl_FragCoord.xy / uResolution;
-        
+
         // Aspect Correction (Cover)
         float screenAspect = uResolution.x / uResolution.y;
         vec2 uv = screenUV;
-        
+
         if (screenAspect > uVideoAspect) {
           // Screen is wider than video (crop top/bottom)
           float scale = screenAspect / uVideoAspect;
@@ -162,14 +162,14 @@ onMounted(() => {
           float scale = uVideoAspect / screenAspect;
           uv.x = (uv.x - 0.5) / scale + 0.5;
         }
-        
+
         vec4 videoColor = texture2D(uVideoTexture, uv);
         // Correct sRGB texture to Linear space for blending
         videoColor.rgb = pow(videoColor.rgb, vec3(2.2));
 
         // Apply Overlay Blend
         vec3 blended = blendOverlay(diffuseColor.rgb, videoColor.rgb);
-        
+
         // Mix based on factor
         diffuseColor.rgb = mix(diffuseColor.rgb, blended, uMixFactor);
       }
@@ -318,7 +318,7 @@ onUnmounted(() => {
         v-for="(vid, index) in videos"
         :key="index"
         class="flex-1 h-full cursor-col-resize"
-        @mouseenter="activeVideoSrc = vid"
+        @mouseenter="((activeVideoSrc = vid), $emit('video-hover', index))"
       ></div>
     </div>
   </div>
