@@ -1,10 +1,10 @@
 <template>
-  <section class="w-screen h-screen flex flex-col">
+  <section class="w-screen min-h-screen flex flex-col">
     <div class="container py-4">
       <h2 class="ibm text-3xl ibm font-thin">Personal Interests</h2>
     </div>
 
-    <div class="relative w-full h-full min-h-[400px]">
+    <div class="relative w-full h-full min-h-[500px] mb-32">
       <HomeSkillsAndInterestsComponentsIsometricScene @video-hover="handleVideoHover" />
       <!-- Words cloud -->
       <svg

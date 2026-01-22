@@ -8,4 +8,4 @@ Away from screens, I’m a proud parent and a family-first person. I try to stay
 
 Graficos.net is my personal corner of the web, it exists to share what matters to me right now, knowing that it will keep changing — just like we all do.
 
-I hope you enjoy it, dear visitor.
+I hope you enjoy it, **dear visitor**.

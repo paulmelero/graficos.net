@@ -308,7 +308,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full h-full min-h-[400px]">
+  <div class="relative isolate w-full h-full min-h-[500px]">
     <!-- Three.js Container -->
     <div ref="container" class="absolute inset-0 z-0"></div>
 

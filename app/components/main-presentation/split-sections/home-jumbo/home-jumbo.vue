@@ -2,7 +2,7 @@
   <div class="relative p-12 dark:bg-gray-darkest">
     <MainPresentationPatternEdges :thickness="20" class="opacity-20" />
 
-    <div class="">
+    <div>
       <h1 class="sr-only">Graficos.net</h1>
       <MainPresentationSplitSectionsHomeJumboComponentsLetters :letters class="xl:max-w-5xl mx-auto md:min-h-[30vh]" />
     </div>

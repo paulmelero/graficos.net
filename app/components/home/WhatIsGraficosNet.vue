@@ -9,7 +9,7 @@
         <div class="media flex justify-center items-start">
           <BrandTheLogo class="opacity-20 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-        <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post" />
+        <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post ibm" />
       </div>
     </div>
   </section>
