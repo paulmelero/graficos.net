@@ -1,5 +1,5 @@
 <template>
-  <section class="w-screen min-h-screen flex flex-col group relative">
+  <section class="w-screen min-h-screen flex flex-col relative bg-primaryDark">
     <div class="container py-4">
       <h2 class="text-3xl ibm font-thin">Who am I?</h2>
     </div>
@@ -8,10 +8,8 @@
     <div v-if="section" class="container pt-32">
       <div class="sm:grid grid-cols-3 place-items-center flex flex-col-reverse gap-10">
         <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post ibm" />
-        <div
-          class="media flex justify-center items-start opacity-20 group-hover:opacity-100 transition-opacity duration-300"
-        >
-          <GIcon name="mdi:account-circle" :size="150" />
+        <div class="media flex justify-center items-start">
+          <NuxtImg src="/images/sticker.webp" alt="colourful explosion around smiling man" />
         </div>
       </div>
     </div>
