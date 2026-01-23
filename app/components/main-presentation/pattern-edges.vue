@@ -1,5 +1,5 @@
 <template>
-  <div class="pointer-events-none absolute inset-0">
+  <div class="pointer-events-none absolute isolate inset-0 z-1">
     <!-- top -->
     <div
       class="absolute top-0 left-0 right-0 bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:theme(colors.black/5)] dark:[--pattern-fg:theme(colors.white/1)]"

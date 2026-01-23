@@ -19,6 +19,7 @@
           :view-box="{ width: 800, height: 600 }"
           :active-topic
         />
+        <HomeSkillsAndInterestsComponentsRecentProjects />
       </div>
     </div>
   </section>

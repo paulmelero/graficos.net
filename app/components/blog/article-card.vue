@@ -1,15 +1,23 @@
 <template>
   <article class="card">
-    <h2 class="text-2xl flex mb-2 flex-row flex-wrap gap-1 items-center">
-      <span v-if="lang"
+    <h2 class="text-2xl title-bold flex mb-2 flex-row flex-wrap gap-1 items-center">
+      <span
+        v-if="lang"
         class="mt-2 bg-gray-light dark:bg-gray-darker rounded p-1 text-sm title font-thin leading-tight flex-grow-0 flex-shrink basis-0 self-start uppercase"
-        :title="language" :aria-label="language">{{ lang }}</span>
-      <nuxt-link :to="url"
-        class="ml-3 no-underline disable-underline transition:color leading-normal flex-grow flex-shrink-0 basis-0 self-start">{{
-          title }}</nuxt-link>
+        :title="language"
+        :aria-label="language"
+        >{{ lang }}</span
+      >
+      <nuxt-link
+        :to="url"
+        class="ml-3 no-underline disable-underline transition:color leading-normal flex-grow flex-shrink-0 basis-0 self-start"
+        >{{ title }}</nuxt-link
+      >
     </h2>
-    <base-texts-the-time :date="date"
-      class="text-gray-darker dark:text-gray-dark leading-tight text-sm pl-12 mb-4 block" />
+    <base-texts-the-time
+      :date="date"
+      class="text-gray-darker dark:text-gray-light font-bold leading-tight text-sm pl-12 mb-4 block"
+    />
     <!-- eslint-disable-next-line vue/no-v-html -->
     <p class="text-gray-darker dark:text-gray-lightest overflow-hidden leading-loose pl-12" v-html="extract" />
   </article>

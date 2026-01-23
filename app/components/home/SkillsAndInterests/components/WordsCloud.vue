@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="absolute inset-x-0 top-0 w-full h-screen z-20 pointer-events-none"
+    class="absolute inset-x-0 top-[5vh] w-full h-screen z-20 pointer-events-none"
     viewBox="0 0 800 600"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid meet"

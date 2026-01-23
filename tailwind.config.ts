@@ -16,10 +16,10 @@ const customColors = {
 }
 
 const themeColors = {
-  primary: colors.amber['600'],
+  primary: 'oklch(0.71 0.2 53.96)', // outside of the sRGB gamut!!
   primaryDark: colors.zinc['900'],
   secondary: colors.amber['700'],
-  secondaryDark: colors.amber['800'],
+  secondaryDark: 'oklch(0.68 0.22 42.54)',
   accent: '#c31b54',
   accentDark: colors.orange['300'],
   action: colors.purple['700'],
