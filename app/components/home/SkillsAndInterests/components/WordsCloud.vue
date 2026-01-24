@@ -1,7 +1,7 @@
 <template>
   <svg
-    class="absolute inset-x-0 top-[5vh] w-full h-screen z-20 pointer-events-none"
-    viewBox="0 0 800 600"
+    class="absolute inset-x-0 top-[8vh] w-full h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none"
+    :viewBox="svgViewBox"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid meet"
   >
@@ -37,7 +37,7 @@
       <text
         :x="skill.x"
         :y="skill.y"
-        :font-size="14"
+        :font-size="fontSize"
         class="font-ibm font-thin text-gray-dark dark:text-white transition-[opacity,color] duration-300 ease-in-out"
         :class="{
           'opacity-100': isSkillOrInterestActive(skill.label),
@@ -53,12 +53,17 @@
 </template>
 
 <script lang="ts" setup generic="T extends Record<string, any>">
-import { computed } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+import { computed, onMounted, ref, watch } from 'vue'
 import { RELATED_TO, skillsAndInterestsPerCategory } from '../SkillsAndInterests.constants'
 import { clamp } from 'three/src/math/MathUtils.js'
 
-const { activeTopic } = defineProps<{
+const props = defineProps<{
   activeTopic: number | null
+  viewBox?: {
+    width: number
+    height: number
+  }
 }>()
 
 const flatSkillsAndInterests = new Set([
@@ -87,29 +92,144 @@ type SkillShape = PositionedSkillOrInterest & {
   }
 }
 
-const VIEWBOX = {
+type LayoutMetrics = {
+  horizontalOffset: number
+  averageCharWidth: number
+  extraLineWidth: number
+  minLineWidth: number
+  diagonalLineLength: number
+  fontSize: number
+}
+
+// https://en.wikipedia.org/wiki/Linear_congruential_generator
+const LCG_MODULUS = 2147483647
+const LCG_MULTIPLIER = 16807
+
+const DEFAULT_VIEWBOX = {
   width: 800,
   height: 600,
 } as const
 
-const CENTER = {
-  x: VIEWBOX.width / 2,
-  y: VIEWBOX.height / 2,
-} as const
+// Boolean result of the media query
+const isCompactLayout = ref(false)
 
-const HORIZONTAL_OFFSET = 10
-const AVERAGE_CHAR_WIDTH = 7
-const EXTRA_LINE_WIDTH = 10
-const MIN_LINE_WIDTH = 40
-const DIAGONAL_LINE_LENGTH = 60
-const LCG_MODULUS = 2147483647
-const LCG_MULTIPLIER = 16807
+const layoutKey = computed(() => (isCompactLayout.value ? 'compact' : 'default'))
 
-const positionedSkillsAndInterests = useState<PositionedSkillOrInterest[]>('skills-and-interests-cloud-positions', () =>
-  createPositions(Array.from(flatSkillsAndInterests), VIEWBOX)
-)
+const baseViewBox = computed(() => {
+  if (!props.viewBox) {
+    return { ...DEFAULT_VIEWBOX }
+  }
 
-function createPositions(labels: string[], viewBox: { width: number; height: number }): PositionedSkillOrInterest[] {
+  return {
+    width: props.viewBox.width,
+    height: props.viewBox.height,
+  }
+})
+
+const currentViewBox = computed(() => {
+  const base = baseViewBox.value
+
+  if (layoutKey.value === 'compact') {
+    return {
+      width: base.width,
+      height: Math.round(base.height * 0.85),
+    }
+  }
+
+  return {
+    width: base.width,
+    height: base.height,
+  }
+})
+
+const layoutMetrics = computed(() => {
+  if (layoutKey.value === 'compact') {
+    return {
+      horizontalOffset: 10,
+      averageCharWidth: 7,
+      extraLineWidth: 12,
+      minLineWidth: 44,
+      diagonalLineLength: 56,
+      fontSize: 22,
+    }
+  }
+
+  return {
+    horizontalOffset: 10,
+    averageCharWidth: 7,
+    extraLineWidth: 10,
+    minLineWidth: 40,
+    diagonalLineLength: 60,
+    fontSize: 14,
+  }
+})
+
+const svgViewBox = computed(() => {
+  const viewBox = currentViewBox.value
+  return `0 0 ${viewBox.width} ${viewBox.height}`
+})
+
+const fontSize = computed(() => layoutMetrics.value.fontSize)
+
+const positionsCache = useState<
+  Record<
+    string,
+    {
+      viewBox: {
+        width: number
+        height: number
+      }
+      items: PositionedSkillOrInterest[]
+    }
+  >
+>('skills-and-interests-cloud-positions', () => ({}))
+
+const ensurePositions = () => {
+  const key = layoutKey.value
+  const viewBox = currentViewBox.value
+  const metrics = layoutMetrics.value
+  const cached = positionsCache.value[key]
+
+  if (!cached || cached.viewBox.width !== viewBox.width || cached.viewBox.height !== viewBox.height) {
+    positionsCache.value = {
+      ...positionsCache.value,
+      [key]: {
+        viewBox,
+        items: createPositions(Array.from(flatSkillsAndInterests), viewBox, metrics),
+      },
+    }
+  }
+}
+
+ensurePositions()
+
+if (import.meta.client) {
+  const compactQuery = useMediaQuery('(max-width: 768px)')
+
+  onMounted(() => {
+    isCompactLayout.value = compactQuery.value
+    ensurePositions()
+
+    watch(compactQuery, (value) => {
+      isCompactLayout.value = value
+      ensurePositions()
+    })
+
+    watch(currentViewBox, ensurePositions)
+    watch(layoutKey, ensurePositions)
+  })
+}
+
+const positionedSkillsAndInterests = computed(() => {
+  const key = layoutKey.value
+  return positionsCache.value[key]?.items ?? []
+})
+
+function createPositions(
+  labels: string[],
+  viewBox: { width: number; height: number },
+  metrics: LayoutMetrics
+): PositionedSkillOrInterest[] {
   const total = labels.length
 
   if (!total) {
@@ -135,21 +255,63 @@ function createPositions(labels: string[], viewBox: { width: number; height: num
   const rng = createSeededGenerator(Math.random())
   shuffleWithRng(gridCells, rng)
 
-  return labels.map((label, index) => {
-    const cell = gridCells[index]!
-    const offsetX = (rng() - 0.5) * cellWidth * 0.4
-    const offsetY = (rng() - 0.5) * cellHeight * 0.4
+  const placed: Array<{ x: number; y: number; halfWidth: number; halfHeight: number }> = []
+  const positions: PositionedSkillOrInterest[] = []
 
-    return {
-      label,
-      x: clamp(cell.x + offsetX, 0, viewBox.width),
-      y: clamp(cell.y + offsetY, 0, viewBox.height),
+  labels.forEach((label, index) => {
+    const cell = gridCells[index]!
+    const approxWidth = Math.max(label.length * metrics.averageCharWidth, metrics.minLineWidth * 0.6)
+    const halfWidth = approxWidth / 2 + Math.max(4, metrics.fontSize * 0.15)
+    const halfHeight = metrics.fontSize / 2 + Math.max(2, metrics.fontSize * 0.1)
+    const maxAttempts = 12
+
+    let attempt = 0
+    let position: PositionedSkillOrInterest | null = null
+
+    // Try to find a non-overlapping position within the cell
+    // up to maxAttempts times
+    while (attempt < maxAttempts && !position) {
+      const offsetX = (rng() - 0.5) * cellWidth * 0.4
+      const offsetY = (rng() - 0.5) * cellHeight * 0.4
+      const x = clamp(cell.x + offsetX, halfWidth, viewBox.width - halfWidth)
+      const y = clamp(cell.y + offsetY, halfHeight, viewBox.height - halfHeight)
+
+      const overlaps = placed.some((item) => checkBoxOverlap(item, { x, y, halfWidth, halfHeight }))
+
+      if (!overlaps) {
+        position = { label, x, y }
+        placed.push({ x, y, halfWidth, halfHeight })
+        positions.push(position)
+      }
+
+      attempt += 1
+    }
+
+    if (!position) {
+      const fallbackX = clamp(cell.x, halfWidth, viewBox.width - halfWidth)
+      const fallbackY = clamp(cell.y, halfHeight, viewBox.height - halfHeight)
+      const overlaps = placed.some((item) =>
+        checkBoxOverlap(item, { x: fallbackX, y: fallbackY, halfWidth, halfHeight })
+      )
+
+      if (!overlaps) {
+        placed.push({ x: fallbackX, y: fallbackY, halfWidth, halfHeight })
+      }
+
+      positions.push({ label, x: fallbackX, y: fallbackY })
     }
   })
+
+  return positions
 }
 
 const skillShapes = computed<SkillShape[]>(() => {
   const skills = positionedSkillsAndInterests.value ?? []
+  const { diagonalLineLength, horizontalOffset } = layoutMetrics.value
+  const center = {
+    x: currentViewBox.value.width / 2,
+    y: currentViewBox.value.height / 2,
+  }
 
   return skills.map((skill) => {
     const baseWidth = calculateLineWidth(skill.label)
@@ -157,27 +319,27 @@ const skillShapes = computed<SkillShape[]>(() => {
 
     let lineStartX = skill.x - halfWidth
     let lineEndX = skill.x + halfWidth
-    let lineY = skill.y + HORIZONTAL_OFFSET
+    let lineY = skill.y + horizontalOffset
 
     if (lineStartX < 0) {
-      lineEndX = Math.min(lineEndX - lineStartX, VIEWBOX.width)
+      lineEndX = Math.min(lineEndX - lineStartX, currentViewBox.value.width)
       lineStartX = 0
     }
 
-    if (lineEndX > VIEWBOX.width) {
-      const overflow = lineEndX - VIEWBOX.width
+    if (lineEndX > currentViewBox.value.width) {
+      const overflow = lineEndX - currentViewBox.value.width
       lineStartX = Math.max(0, lineStartX - overflow)
-      lineEndX = VIEWBOX.width
+      lineEndX = currentViewBox.value.width
     }
 
-    lineStartX = clamp(lineStartX, 0, VIEWBOX.width)
-    lineEndX = clamp(lineEndX, 0, VIEWBOX.width)
-    lineY = clamp(lineY, 0, VIEWBOX.height)
+    lineStartX = clamp(lineStartX, 0, currentViewBox.value.width)
+    lineEndX = clamp(lineEndX, 0, currentViewBox.value.width)
+    lineY = clamp(lineY, 0, currentViewBox.value.height)
 
-    const connectorBaseX = CENTER.x >= skill.x ? lineEndX : lineStartX
+    const connectorBaseX = center.x >= skill.x ? lineEndX : lineStartX
     const connectorBaseY = lineY
-    const vectorX = CENTER.x - connectorBaseX
-    const vectorY = CENTER.y - connectorBaseY
+    const vectorX = center.x - connectorBaseX
+    const vectorY = center.y - connectorBaseY
     const distance = Math.hypot(vectorX, vectorY)
 
     if (distance === 0) {
@@ -197,7 +359,7 @@ const skillShapes = computed<SkillShape[]>(() => {
       }
     }
 
-    const connectorLength = Math.min(DIAGONAL_LINE_LENGTH, distance)
+    const connectorLength = Math.min(diagonalLineLength, distance)
     const scale = connectorLength / distance
 
     return {
@@ -218,6 +380,8 @@ const skillShapes = computed<SkillShape[]>(() => {
 })
 
 const isSkillOrInterestActive = (skillOrInterest: string) => {
+  const activeTopic = props.activeTopic
+
   if (activeTopic === null) {
     return true
   }
@@ -228,7 +392,8 @@ const isSkillOrInterestActive = (skillOrInterest: string) => {
 }
 
 function calculateLineWidth(label: string) {
-  return Math.max(MIN_LINE_WIDTH, label.length * AVERAGE_CHAR_WIDTH + EXTRA_LINE_WIDTH)
+  const { averageCharWidth, extraLineWidth, minLineWidth } = layoutMetrics.value
+  return Math.max(minLineWidth, label.length * averageCharWidth + extraLineWidth)
 }
 
 function createSeededGenerator(seed: number) {
@@ -247,5 +412,17 @@ function shuffleWithRng<T>(items: T[], rng: () => number) {
     items[index] = items[swapIndex]!
     items[swapIndex] = temp
   }
+}
+/**
+ * Preventing collisions between two boxes
+ */
+function checkBoxOverlap(
+  a: { x: number; y: number; halfWidth: number; halfHeight: number },
+  b: { x: number; y: number; halfWidth: number; halfHeight: number }
+) {
+  const overlapX = Math.abs(a.x - b.x) < a.halfWidth + b.halfWidth
+  const overlapY = Math.abs(a.y - b.y) < a.halfHeight + b.halfHeight
+
+  return overlapX && overlapY
 }
 </script>

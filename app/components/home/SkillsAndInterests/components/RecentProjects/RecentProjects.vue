@@ -1,8 +1,12 @@
 <template>
   <div class="absolute inset-x-0 top-[calc(105vh+96px)] h-[calc(95vh-96px*2)] z-20">
-    <div class="container py-4">
-      <h2 class="font-ibm text-3xl font-thin">Recent projects</h2>
-      <p>These are some of my recent projects.</p>
+    <div class="grid lg:grid-cols-3 container py-4">
+      <BaseTextsTheTitle class="mb-16 lg:col-span-2 lg:col-start-2">
+        <h2 class="font-ibm text-3xl font-thin">Recent projects</h2>
+        <template #subtitle>
+          <p>These are some of my recent projects.</p>
+        </template>
+      </BaseTextsTheTitle>
     </div>
     <div class="grid lg:grid-cols-3 container pb-4 mx-auto">
       <div class="lg:col-span-2 lg:col-start-2 grid gap-4 lg:grid-cols-3">
