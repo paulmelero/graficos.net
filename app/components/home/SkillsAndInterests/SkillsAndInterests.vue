@@ -40,13 +40,47 @@ const handleVideoHover = (index: number) => {
 }
 const { isScrolling } = useWindowScroll()
 const { y, height, update } = useElementBounding(sectionRef)
-const scrollProgress = computed(() => {
-  if (!sectionRef.value) {
+const scrollProgressTarget = computed(() => {
+  if (!sectionRef.value || height.value <= 0) {
     return 0
   }
 
-  return lerp(0, 1, clamp((-y.value * 2) / height.value, 0, 1))
+  return clamp((-y.value * 2) / height.value, 0, 1)
 })
+
+const scrollProgress = ref(scrollProgressTarget.value)
+
+// Smooth scroll progress updates to avoid abrupt jumps that cause render jitter.
+const { pause: pauseSmoothing, resume: resumeSmoothing } = useRafFn(() => {
+  const target = scrollProgressTarget.value
+  const next = lerp(scrollProgress.value, target, 0.16)
+
+  if (Math.abs(next - target) < 0.001) {
+    scrollProgress.value = target
+    pauseSmoothing()
+    return
+  }
+
+  scrollProgress.value = clamp(next, 0, 1)
+})
+
+watch(
+  scrollProgressTarget,
+  (target) => {
+    if (!import.meta.client) {
+      scrollProgress.value = target
+      return
+    }
+
+    if (Math.abs(scrollProgress.value - target) < 0.001) {
+      scrollProgress.value = target
+      return
+    }
+
+    resumeSmoothing()
+  },
+  { immediate: true }
+)
 
 watch(isScrolling, update)
 </script>
