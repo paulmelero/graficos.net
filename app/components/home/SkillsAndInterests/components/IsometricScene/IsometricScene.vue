@@ -20,22 +20,20 @@ let scene: THREE.Scene | null = null
 let structureGroup: THREE.Group | null = null
 
 // Interaction State
-const activeVideoSrc = ref<string | null>(artUrl)
+const activeVideoSrc = ref<string | null>(null)
 const videos = [artUrl, natureUrl, programmingUrl]
 const textureMap = new Map<string, THREE.VideoTexture>()
 const isMobile = ref(false)
 
 // Scene config
 const SCENE_SIZE = 12
-const PILLAR_HEIGHT = 12
-const PILLAR_WIDTH = 3
-const PILLAR_DEPTH = 3
 const frustumSize = 30
+const MOBILE_BREAKPOINT = 1024
 
 // Camera & Group Positions
 const INITIAL_CAMERA_POSITION = new THREE.Vector3(20, 20, 20)
 const TOP_CAMERA_POSITION = new THREE.Vector3(0, 38, 0.0001)
-const INITIAL_GROUP_POSITION = new THREE.Vector3(0, 0, 0)
+const INITIAL_GROUP_POSITION = new THREE.Vector3(0, SCENE_SIZE * 0.75, 0)
 const TARGET_GROUP_POSITION = new THREE.Vector3(-SCENE_SIZE * 0.3, 0, SCENE_SIZE)
 const TARGET_GROUP_ROTATION = Math.PI / 4
 const tempVector = new THREE.Vector3()
@@ -88,7 +86,7 @@ const updateIsMobile = () => {
     return
   }
 
-  isMobile.value = window.innerWidth < 768
+  isMobile.value = window.innerWidth < MOBILE_BREAKPOINT
 }
 
 function onResize() {
@@ -229,64 +227,119 @@ onMounted(() => {
     )
   }
 
-  // 6. Build Geometry
-  const geometry = new THREE.BoxGeometry(PILLAR_WIDTH, PILLAR_HEIGHT, PILLAR_DEPTH)
+  // 6. Build Dodecahedron Geometry
+
   structureGroup = new THREE.Group()
   scene.add(structureGroup)
 
-  const offset = SCENE_SIZE / 2 - PILLAR_WIDTH / 2
-  const positions = [
-    { x: -offset, z: offset },
-    { x: offset, z: offset },
-    { x: offset, z: -offset },
-    { x: -offset, z: -offset },
+  // Dodecahedron vertices using golden ratio
+  const phi = (1 + Math.sqrt(5)) / 2 // Golden ratio
+  const scale = SCENE_SIZE / 4 // Scale to fit our scene
+
+  // Create dodecahedron vertices
+  const vertices = [
+    // Cube vertices (±1, ±1, ±1)
+    new THREE.Vector3(1, 1, 1).multiplyScalar(scale),
+    new THREE.Vector3(1, 1, -1).multiplyScalar(scale),
+    new THREE.Vector3(1, -1, 1).multiplyScalar(scale),
+    new THREE.Vector3(1, -1, -1).multiplyScalar(scale),
+    new THREE.Vector3(-1, 1, 1).multiplyScalar(scale),
+    new THREE.Vector3(-1, 1, -1).multiplyScalar(scale),
+    new THREE.Vector3(-1, -1, 1).multiplyScalar(scale),
+    new THREE.Vector3(-1, -1, -1).multiplyScalar(scale),
+
+    // Face centers of cube (0, ±1/φ, ±φ) and cyclic permutations
+    new THREE.Vector3(0, 1 / phi, phi).multiplyScalar(scale),
+    new THREE.Vector3(0, 1 / phi, -phi).multiplyScalar(scale),
+    new THREE.Vector3(0, -1 / phi, phi).multiplyScalar(scale),
+    new THREE.Vector3(0, -1 / phi, -phi).multiplyScalar(scale),
+
+    new THREE.Vector3(1 / phi, phi, 0).multiplyScalar(scale),
+    new THREE.Vector3(1 / phi, -phi, 0).multiplyScalar(scale),
+    new THREE.Vector3(-1 / phi, phi, 0).multiplyScalar(scale),
+    new THREE.Vector3(-1 / phi, -phi, 0).multiplyScalar(scale),
+
+    new THREE.Vector3(phi, 0, 1 / phi).multiplyScalar(scale),
+    new THREE.Vector3(phi, 0, -1 / phi).multiplyScalar(scale),
+    new THREE.Vector3(-phi, 0, 1 / phi).multiplyScalar(scale),
+    new THREE.Vector3(-phi, 0, -1 / phi).multiplyScalar(scale),
   ]
 
-  // Pillars
-  positions.forEach((pos) => {
-    const mesh = new THREE.Mesh(geometry, materialMain)
-    mesh.position.set(pos.x, 0, pos.z)
-    mesh.castShadow = true
-    mesh.receiveShadow = true
-    // FIXME: TypeScript issue with nullability
-    structureGroup.add(mesh)
+  // Dodecahedron edges (connecting vertices)
+  const edges = [
+    [0, 12],
+    [0, 16],
+    [0, 8],
+    [1, 12],
+    [1, 17],
+    [1, 9],
+    [2, 13],
+    [2, 16],
+    [2, 10],
+    [3, 13],
+    [3, 17],
+    [3, 11],
+    [4, 14],
+    [4, 18],
+    [4, 8],
+    [5, 14],
+    [5, 19],
+    [5, 9],
+    [6, 15],
+    [6, 18],
+    [6, 10],
+    [7, 15],
+    [7, 19],
+    [7, 11],
+    [8, 10],
+    [9, 11],
+    [12, 14],
+    [13, 15],
+    [16, 17],
+    [18, 19],
+    [8, 4],
+    [9, 5],
+    [10, 6],
+    [11, 7],
+    [12, 1],
+    [13, 3],
+    [14, 5],
+    [15, 7],
+    [16, 2],
+    [17, 3],
+    [18, 6],
+    [19, 7],
+  ]
+
+  // Create cylinder geometry for edges
+  const cylinderRadius = 0.33
+  const cylinderGeometry = new THREE.CylinderGeometry(cylinderRadius, cylinderRadius, 1, 8)
+
+  // Create cylinders for each edge
+  edges.forEach((edge) => {
+    const [startIdx, endIdx] = edge as [number, number]
+    const start = vertices[startIdx]!
+    const end = vertices[endIdx]!
+
+    // Calculate edge properties
+    const direction = new THREE.Vector3().subVectors(end, start)
+    const length = direction.length()
+    const center = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5)
+
+    // Create cylinder mesh
+    const cylinder = new THREE.Mesh(cylinderGeometry.clone(), materialMain)
+    cylinder.scale.y = length
+    cylinder.position.copy(center)
+
+    // Orient cylinder along edge direction
+    cylinder.lookAt(end)
+    cylinder.rotateX(Math.PI / 2)
+
+    cylinder.castShadow = true
+    cylinder.receiveShadow = true
+
+    structureGroup!.add(cylinder)
   })
-
-  // "V" Shapes
-  const vShape = new THREE.Shape()
-  const vW = PILLAR_HEIGHT
-  const vH = PILLAR_HEIGHT * 0.6
-  const vThickness = PILLAR_DEPTH
-
-  vShape.moveTo(-vW / 2, vH)
-  vShape.lineTo(0, 0)
-  vShape.lineTo(vW / 2, vH)
-  vShape.lineTo(vW / 2 - vThickness, vH)
-  vShape.lineTo(0, vThickness * 1.2)
-  vShape.lineTo(-vW / 2 + vThickness, vH)
-  vShape.lineTo(-vW / 2, vH)
-
-  const vGeo = new THREE.ExtrudeGeometry(vShape, {
-    steps: 1,
-    depth: PILLAR_DEPTH - 0.08,
-    bevelEnabled: true,
-    bevelThickness: 0.02,
-    bevelSize: 0.02,
-  })
-  vGeo.center()
-
-  for (let i = 0; i < 4; i++) {
-    const vMesh = new THREE.Mesh(vGeo, materialMain)
-    vMesh.castShadow = true
-    vMesh.receiveShadow = true
-    vMesh.position.y = PILLAR_HEIGHT / 2 - vH / 2
-
-    const vPivot = new THREE.Group()
-    vMesh.position.z = offset
-    vPivot.add(vMesh)
-    vPivot.rotation.y = i * (Math.PI / 2)
-    structureGroup.add(vPivot)
-  }
 
   // 7. Lighting
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)

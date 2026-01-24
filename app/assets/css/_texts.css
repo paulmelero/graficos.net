@@ -22,11 +22,9 @@ p {
   @apply leading-tight text-gray-darkest dark:text-gray-lightest mb-2 font-bold;
 }
 
-.title {
-  font-family: var(--bold-titles), sans-serif;
-}
-
-.title-bold {
-  font-family: var(--bold-titles), sans-serif;
+.title,
+.font-title {
   @apply font-black italic;
+  font-optical-sizing: auto;
+  font-style: normal;
 }

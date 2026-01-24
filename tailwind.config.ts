@@ -46,6 +46,7 @@ export default {
         xl: '1200px',
       },
       fontFamily: {
+        title: ['Montserrat', 'sans-serif'],
         ibm: ['IBM Plex Mono', 'monospace'],
         'ibm-sans': ['IBM Plex Sans', 'sans-serif'],
       },

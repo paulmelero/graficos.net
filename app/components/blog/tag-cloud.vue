@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3 class="title-bold mb-4">{{ sectionTitle }}</h3>
+    <h3 class="font-title mb-4">{{ sectionTitle }}</h3>
     <ul v-if="Object.keys(tags).length" class="list-reset flex gap-2 flex-wrap">
       <li v-for="(tag, i) in Object.keys(tags)" :key="i">
         <nuxt-link v-if="tag" :to="`/blog/tag/${tag.toLowerCase()}`" class="flex items-center gap-1">

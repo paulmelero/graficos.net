@@ -11,15 +11,17 @@
     >
       <images-logo class="h-8 transition:color disable-hover" />
     </nuxt-link>
-    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 hidden md:flex justify-start font-ibm font-thin">
-      <li v-for="(link, i) in links" :key="i" class="inline-block">
-        <nuxt-link
-          :to="link.href"
-          :title="link.title"
-          class="my-0 text-sm text-black hover:text-action dark:text-fwhite dark:hover:text-actionDark disable-hover mr-4"
-          >{{ link.name }}</nuxt-link
-        >
-      </li>
+    <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 hidden sm:flex justify-start">
+      <template v-for="(link, i) in links" :key="i">
+        <li v-if="link.head" class="inline-block">
+          <nuxt-link
+            :to="link.href"
+            :title="link.title"
+            class="my-0 text-sm text-black hover:text-action dark:text-fwhite dark:hover:text-actionDark disable-hover mr-4"
+            >{{ link.name }}</nuxt-link
+          >
+        </li>
+      </template>
     </ul>
     <div class="mr-2 justify-self-end">
       <main-presentation-burger-menu ref="burgerMenu" class="flex sm:hidden" />

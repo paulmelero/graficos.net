@@ -4,10 +4,10 @@
       'pb-8': !dense,
     }"
   >
-    <div class="mb-2 title-bold">
-      <slot/>
+    <div class="mb-2 font-title">
+      <slot />
     </div>
-    <slot name="subtitle"/>
+    <slot name="subtitle" />
   </header>
 </template>
 

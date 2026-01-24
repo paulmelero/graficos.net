@@ -4,10 +4,10 @@
       <h2 class="font-ibm text-3xl font-thin">Recent projects</h2>
       <p>These are some of my recent projects.</p>
     </div>
-    <div class="grid md:grid-cols-3 container pb-4 mx-auto">
-      <div class="col-span-2 col-start-2 grid gap-4 md:grid-cols-3">
+    <div class="grid lg:grid-cols-3 container pb-4 mx-auto">
+      <div class="lg:col-span-2 lg:col-start-2 grid gap-4 lg:grid-cols-3">
         <NuxtLink :to="project.link" v-for="project in recentProjects" :key="project.link" class="card no-underline">
-          <h3 class="text-lg font-semibold mb-2 text-gray-darker dark:text-gray-lightest">{{ project.title }}</h3>
+          <h3 class="text-lg font-ibm font-thin mb-2 text-gray-darker dark:text-gray-lightest">{{ project.title }}</h3>
           <p class="text-sm text-gray-dark dark:text-gray-light">{{ project.description }}</p>
         </NuxtLink>
       </div>

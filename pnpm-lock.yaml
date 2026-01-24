@@ -87,6 +87,9 @@ importers:
       happy-dom:
         specifier: ^15.11.7
         version: 15.11.7
+      lightningcss:
+        specifier: ^1.31.1
+        version: 1.31.1
       nitro-cloudflare-dev:
         specifier: ^0.2.2
         version: 0.2.2
