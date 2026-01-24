@@ -24,8 +24,11 @@ const PHI = (1 + Math.sqrt(5)) / 2
 
 // Videos State
 const videos = [artUrl, natureUrl, programmingUrl]
+const eagerVideoUrl = artUrl
+const deferredVideoUrls = [natureUrl, programmingUrl]
 const activeVideoSrc = ref<string | null>(null)
 const textureMap = new Map<string, THREE.VideoTexture>()
+const fullyBufferedVideos = new Set<string>()
 
 // Scene config
 const SCENE_SIZE = 12
@@ -61,6 +64,8 @@ const customUniforms = {
   uMixFactor: { value: 0.0 },
   uVideoAspect: { value: 16 / 9 },
 }
+
+let deferredVideosObserver: IntersectionObserver | null = null
 
 const clampProgress = (value: number) => clamp(value, 0, 1)
 
@@ -115,6 +120,65 @@ function onResize() {
   customUniforms.uResolution.value.set(w * pixelRatio, h * pixelRatio)
 }
 
+const createVideoTexture = (url: string) => {
+  const existing = textureMap.get(url)
+
+  if (existing) {
+    const element = existing.image as HTMLVideoElement | undefined
+
+    if (element && !fullyBufferedVideos.has(url)) {
+      element.preload = 'metadata'
+      element.load()
+    }
+
+    return existing
+  }
+
+  const video = document.createElement('video')
+  video.src = url
+  video.crossOrigin = 'anonymous'
+  video.loop = true
+  video.muted = true
+  video.playsInline = true
+  video.preload = 'metadata'
+  video.load()
+
+  const texture = new THREE.VideoTexture(video)
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.minFilter = THREE.LinearFilter
+  texture.magFilter = THREE.LinearFilter
+  textureMap.set(url, texture)
+
+  console.log('[ISO] Loaded video texture:', url)
+
+  return texture
+}
+
+const scheduleVideoPlay = (video: HTMLVideoElement, url: string) => {
+  const startPlayback = () => {
+    fullyBufferedVideos.add(url)
+    void video.play().catch(() => {})
+  }
+
+  if (typeof window === 'undefined') {
+    startPlayback()
+    return
+  }
+
+  const idleScheduler = (window as any).requestIdleCallback as
+    | ((callback: () => void, opts?: { timeout?: number }) => number)
+    | undefined
+
+  if (idleScheduler) {
+    idleScheduler(startPlayback, { timeout: 200 })
+    return
+  } else {
+    // Fallback
+
+    window.setTimeout(startPlayback, 50)
+  }
+}
+
 onMounted(() => {
   if (!container.value) return
 
@@ -149,21 +213,33 @@ onMounted(() => {
   updateIsMobile()
 
   // 4. Load Video Textures
-  videos.forEach((url) => {
-    const video = document.createElement('video')
-    video.src = url
-    video.crossOrigin = 'anonymous'
-    video.loop = true
-    video.muted = true
-    video.playsInline = true
-    video.load()
+  createVideoTexture(eagerVideoUrl)
 
-    const texture = new THREE.VideoTexture(video)
-    texture.colorSpace = THREE.SRGBColorSpace
-    texture.minFilter = THREE.LinearFilter
-    texture.magFilter = THREE.LinearFilter
-    textureMap.set(url, texture)
-  })
+  if (container.value && typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+    deferredVideosObserver = new IntersectionObserver(
+      (entries) => {
+        const isVisible = entries.some((entry) => entry.isIntersecting)
+
+        if (!isVisible) {
+          return
+        }
+
+        deferredVideoUrls.forEach((url) => {
+          createVideoTexture(url)
+        })
+
+        deferredVideosObserver?.disconnect()
+        deferredVideosObserver = null
+      },
+      { rootMargin: '200px 0px' }
+    )
+
+    deferredVideosObserver.observe(container.value)
+  } else {
+    deferredVideoUrls.forEach((url) => {
+      createVideoTexture(url)
+    })
+  }
 
   // We need to initialise it after loading the video texture
   if (!activeVideoSrc.value && videos.length > 0) {
@@ -241,7 +317,7 @@ onMounted(() => {
   }
 
   // 6. Build Dodecahedron Geometry
-
+  console.log('[ISO] Building dodecahedron structure')
   structureGroup = new THREE.Group()
   scene.add(structureGroup)
 
@@ -380,6 +456,7 @@ onMounted(() => {
   scene.add(rimLight)
 
   // 8. Animation Loop
+  console.log('[ISO] Starting animation loop')
   const animate = () => {
     animationId = requestAnimationFrame(animate)
     if (renderer && scene && camera) {
@@ -417,7 +494,7 @@ watch(activeVideoSrc, (newSrc, oldSrc) => {
   }
 
   if (newSrc) {
-    const newTex = textureMap.get(newSrc)
+    const newTex = createVideoTexture(newSrc)
     if (newTex) {
       customUniforms.uVideoTexture.value = newTex
       customUniforms.uMixFactor.value = 1.0
@@ -435,7 +512,12 @@ watch(activeVideoSrc, (newSrc, oldSrc) => {
         vid.addEventListener('loadedmetadata', updateAspect, { once: true })
       }
 
-      newTex.image.play().catch(() => {})
+      if (vid.preload !== 'auto') {
+        vid.preload = 'auto'
+        vid.load()
+      }
+
+      scheduleVideoPlay(vid, newSrc)
     }
   } else {
     customUniforms.uMixFactor.value = 0.0
@@ -448,6 +530,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateIsMobile)
   if (animationId) cancelAnimationFrame(animationId)
   if (renderer) renderer.dispose()
+  if (deferredVideosObserver) deferredVideosObserver.disconnect()
 })
 </script>
 
