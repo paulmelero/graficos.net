@@ -1,6 +1,6 @@
 <template>
   <div class="relative p-12 dark:bg-gray-darkest">
-    <MainPresentationPatternEdges :thickness="20" class="opacity-20" />
+    <MainPresentationPatternEdges thickness="1.5em" class="opacity-20" />
 
     <div>
       <h1 class="sr-only">Graficos.net</h1>

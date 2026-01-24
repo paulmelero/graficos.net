@@ -3,7 +3,7 @@
     <header role="banner" class="isolate z-10">
       <main-presentation-head-nav />
     </header>
-    <main :class="container === 'contained' ? 'container mx-auto  py-10' : 'w-full' + ' flex-grow'" role="main">
+    <main :class="container === 'contained' ? 'container mx-auto py-10' : 'w-full' + ' flex-grow'" role="main">
       <div class="relative z-[2]"><slot /></div>
       <div class="isolate" v-if="container === 'contained'"><div class="bg-container" aria-hidden="true" /></div>
     </main>
@@ -37,7 +37,7 @@ useHead({
   &:after {
     content: '';
     @apply absolute z-0 inset-0 w-full h-full;
-    background-image: url('~/assets/images/valves/v2.svg');
+    background-image: url('~/assets/images/bgs/curves.svg');
     background-size: 100vw;
     background-repeat: no-repeat;
     pointer-events: none;

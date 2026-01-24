@@ -1,6 +1,6 @@
 <template>
-  <section class="container mx-auto py-4">
-    <base-texts-the-title v-if="page">
+  <section class="container mx-auto">
+    <base-texts-the-title class="mb-24" v-if="page">
       <h1 class="text-3xl">{{ page.title }}</h1>
     </base-texts-the-title>
     <article class="article-post">

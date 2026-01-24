@@ -11,6 +11,8 @@ const APP_NAME = 'Graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png'
 
+const boxColours = useBorderColours()
+
 useHead({
   htmlAttrs: {
     lang: 'en',
@@ -73,6 +75,12 @@ useHead({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'crossorigin' },
+  ],
+  style: [
+    `:root {
+      --border-color: ${boxColours[0]};
+      --border-color-dark: ${boxColours[1]};
+    }`,
   ],
 })
 </script>

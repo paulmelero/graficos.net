@@ -1,10 +1,12 @@
 <template>
   <section class="w-screen min-h-screen flex flex-col relative bg-primaryDark">
     <div class="container pt-24 px-10">
-      <h2 class="text-3xl font-ibm font-thin">Who am I?</h2>
+      <base-texts-the-title>
+        <h2 class="text-3xl font-ibm font-thin">Who am I?</h2>
+      </base-texts-the-title>
     </div>
 
-    <MainPresentationPatternEdges :thickness="10" class="opacity-20" />
+    <MainPresentationPatternEdges thickness="1em" class="opacity-20" />
     <div v-if="section" class="container py-24 px-10">
       <div class="sm:grid grid-cols-3 place-items-center flex flex-col-reverse gap-10">
         <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post font-ibm" />

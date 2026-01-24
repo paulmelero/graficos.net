@@ -28,8 +28,7 @@ const themeColors = {
 
 type ThemeContext = { theme: <T = Config['theme']>(path: string, defaultValue?: T) => T }
 
-/** @type {import('tailwindcss').Config} */
-export default {
+const config: Config = {
   darkMode: 'class',
   theme: {
     colors: customColors,
@@ -75,15 +74,9 @@ export default {
       zIndex: {
         '1': '1',
       },
-      animation: {
-        blink: 'blink 1s step-start infinite',
-      },
-      keyframes: {
-        blink: {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0 },
-        },
-      },
     },
   },
+  plugins: [require('./tailwind/plugins/dashed-box')],
 }
+
+export default config

@@ -1,7 +1,9 @@
 <template>
   <section class="w-screen min-h-[50vh] flex flex-col group">
     <div class="container py-4 px-10">
-      <h2 class="text-3xl font-ibm font-thin">What is Graficos.net?</h2>
+      <base-texts-the-title>
+        <h2 class="text-3xl font-ibm font-thin">What is Graficos.net?</h2>
+      </base-texts-the-title>
     </div>
 
     <div v-if="section" class="container sm:pt-32 px-10">
