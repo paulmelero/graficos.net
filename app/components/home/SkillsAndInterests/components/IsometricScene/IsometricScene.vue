@@ -19,15 +19,20 @@ let camera: THREE.OrthographicCamera | null = null
 let scene: THREE.Scene | null = null
 let structureGroup: THREE.Group | null = null
 
-// Interaction State
-const activeVideoSrc = ref<string | null>(null)
+// Golden Ratio
+const PHI = (1 + Math.sqrt(5)) / 2
+
+// Videos State
 const videos = [artUrl, natureUrl, programmingUrl]
+const activeVideoSrc = ref<string | null>(null)
 const textureMap = new Map<string, THREE.VideoTexture>()
-const isMobile = ref(false)
 
 // Scene config
 const SCENE_SIZE = 12
 const frustumSize = 30
+
+// Mobile
+const isMobile = ref(false)
 const MOBILE_BREAKPOINT = 1024
 
 // Camera & Group Positions
@@ -37,6 +42,9 @@ const INITIAL_GROUP_POSITION = new THREE.Vector3(0, SCENE_SIZE * 0.75, 0)
 const TARGET_GROUP_POSITION = new THREE.Vector3(-SCENE_SIZE * 0.3, 0, SCENE_SIZE)
 const TARGET_GROUP_ROTATION = Math.PI / 4
 const tempVector = new THREE.Vector3()
+const edgeDirection = new THREE.Vector3()
+const edgeQuaternion = new THREE.Quaternion()
+const EDGE_UP_AXIS = new THREE.Vector3(0, 1, 0)
 let storyProgress = 0
 
 // Colors based on Tailwind config (Zinc 500, Amber 600)
@@ -157,6 +165,11 @@ onMounted(() => {
     textureMap.set(url, texture)
   })
 
+  // We need to initialise it after loading the video texture
+  if (!activeVideoSrc.value && videos.length > 0) {
+    activeVideoSrc.value = videos[0] ?? null
+  }
+
   // 5. Shared Material with Custom Shader Logic
   const materialMain = new THREE.MeshStandardMaterial({
     color: COLORS.primary,
@@ -233,7 +246,6 @@ onMounted(() => {
   scene.add(structureGroup)
 
   // Dodecahedron vertices using golden ratio
-  const phi = (1 + Math.sqrt(5)) / 2 // Golden ratio
   const scale = SCENE_SIZE / 4 // Scale to fit our scene
 
   // Create dodecahedron vertices
@@ -249,20 +261,20 @@ onMounted(() => {
     new THREE.Vector3(-1, -1, -1).multiplyScalar(scale),
 
     // Face centers of cube (0, ±1/φ, ±φ) and cyclic permutations
-    new THREE.Vector3(0, 1 / phi, phi).multiplyScalar(scale),
-    new THREE.Vector3(0, 1 / phi, -phi).multiplyScalar(scale),
-    new THREE.Vector3(0, -1 / phi, phi).multiplyScalar(scale),
-    new THREE.Vector3(0, -1 / phi, -phi).multiplyScalar(scale),
+    new THREE.Vector3(0, 1 / PHI, PHI).multiplyScalar(scale),
+    new THREE.Vector3(0, 1 / PHI, -PHI).multiplyScalar(scale),
+    new THREE.Vector3(0, -1 / PHI, PHI).multiplyScalar(scale),
+    new THREE.Vector3(0, -1 / PHI, -PHI).multiplyScalar(scale),
 
-    new THREE.Vector3(1 / phi, phi, 0).multiplyScalar(scale),
-    new THREE.Vector3(1 / phi, -phi, 0).multiplyScalar(scale),
-    new THREE.Vector3(-1 / phi, phi, 0).multiplyScalar(scale),
-    new THREE.Vector3(-1 / phi, -phi, 0).multiplyScalar(scale),
+    new THREE.Vector3(1 / PHI, PHI, 0).multiplyScalar(scale),
+    new THREE.Vector3(1 / PHI, -PHI, 0).multiplyScalar(scale),
+    new THREE.Vector3(-1 / PHI, PHI, 0).multiplyScalar(scale),
+    new THREE.Vector3(-1 / PHI, -PHI, 0).multiplyScalar(scale),
 
-    new THREE.Vector3(phi, 0, 1 / phi).multiplyScalar(scale),
-    new THREE.Vector3(phi, 0, -1 / phi).multiplyScalar(scale),
-    new THREE.Vector3(-phi, 0, 1 / phi).multiplyScalar(scale),
-    new THREE.Vector3(-phi, 0, -1 / phi).multiplyScalar(scale),
+    new THREE.Vector3(PHI, 0, 1 / PHI).multiplyScalar(scale),
+    new THREE.Vector3(PHI, 0, -1 / PHI).multiplyScalar(scale),
+    new THREE.Vector3(-PHI, 0, 1 / PHI).multiplyScalar(scale),
+    new THREE.Vector3(-PHI, 0, -1 / PHI).multiplyScalar(scale),
   ]
 
   // Dodecahedron edges (connecting vertices)
@@ -311,34 +323,42 @@ onMounted(() => {
     [19, 7],
   ]
 
-  // Create cylinder geometry for edges
-  const cylinderRadius = 0.33
-  const cylinderGeometry = new THREE.CylinderGeometry(cylinderRadius, cylinderRadius, 1, 8)
+  // Edge geometry config
+  // Radius of the capsule edges and the cyllinders
+  const edgeRadius = 0.33
 
-  // Create cylinders for each edge
+  // Create capsules for each edge
   edges.forEach((edge) => {
     const [startIdx, endIdx] = edge as [number, number]
     const start = vertices[startIdx]!
     const end = vertices[endIdx]!
 
     // Calculate edge properties
-    const direction = new THREE.Vector3().subVectors(end, start)
-    const length = direction.length()
+    edgeDirection.subVectors(end, start)
+    const length = edgeDirection.length()
     const center = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5)
 
-    // Create cylinder mesh
-    const cylinder = new THREE.Mesh(cylinderGeometry.clone(), materialMain)
-    cylinder.scale.y = length
-    cylinder.position.copy(center)
+    const capsuleLength = Math.max(length - edgeRadius * 2, 0)
+    const capsuleGeometry = new THREE.CapsuleGeometry(edgeRadius, capsuleLength, 8, 16)
+    const edgeMesh = new THREE.Mesh(capsuleGeometry, materialMain)
+    edgeMesh.position.copy(center)
 
-    // Orient cylinder along edge direction
-    cylinder.lookAt(end)
-    cylinder.rotateX(Math.PI / 2)
+    edgeQuaternion.setFromUnitVectors(EDGE_UP_AXIS, edgeDirection.normalize())
+    edgeMesh.setRotationFromQuaternion(edgeQuaternion)
 
-    cylinder.castShadow = true
-    cylinder.receiveShadow = true
+    edgeMesh.castShadow = true
+    edgeMesh.receiveShadow = true
 
-    structureGroup!.add(cylinder)
+    structureGroup!.add(edgeMesh)
+  })
+
+  const nodeGeometry = new THREE.SphereGeometry(edgeRadius, 16, 16)
+  vertices.forEach((vertex) => {
+    const node = new THREE.Mesh(nodeGeometry, materialMain)
+    node.position.copy(vertex)
+    node.castShadow = true
+    node.receiveShadow = true
+    structureGroup!.add(node)
   })
 
   // 7. Lighting
