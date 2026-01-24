@@ -6,7 +6,7 @@
     <main class="flex-grow z-0" role="main">
       <slot />
     </main>
-    <footer role="contentinfo">
+    <footer role="contentinfo" class="min-h-[50vh] grid items-center dark:bg-gray-darkest">
       <the-footer />
     </footer>
   </div>
