@@ -8,9 +8,9 @@
       <div class="w-3/4 xl:w-1/2 my-auto mx-auto text-white max-w-3xl">
         <h1 class="mb-8 sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
         <p>
-          <base-texts-the-time :date="post.date" class="ibm block sm:inline-block" />
+          <base-texts-the-time :date="post.date" class="font-ibm block sm:inline-block" />
           <span class="hidden sm:inline-block sm:mx-2">·</span>
-          <span class="block sm:inline-block ibm">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
+          <span class="block sm:inline-block font-ibm">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
         <BlogWebMentions :lang="post.lang" />
       </div>

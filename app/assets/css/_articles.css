@@ -10,7 +10,7 @@
 
   :where(h1, h2, h3, h4, h5, h6):has(a) {
     @apply mb-[1em] font-black italic;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--bold-titles), sans-serif;
   }
   :is(h1, h2, h3, h4, h5, h6) a {
     @apply no-underline hover:underline;

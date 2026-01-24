@@ -38,7 +38,7 @@
         :x="skill.x"
         :y="skill.y"
         :font-size="14"
-        class="ibm font-thin text-gray-dark dark:text-white transition-[opacity,color] duration-300 ease-in-out"
+        class="font-ibm font-thin text-gray-dark dark:text-white transition-[opacity,color] duration-300 ease-in-out"
         :class="{
           'opacity-100': isSkillOrInterestActive(skill.label),
           'opacity-10': !isSkillOrInterestActive(skill.label),

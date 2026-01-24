@@ -20,7 +20,7 @@ let scene: THREE.Scene | null = null
 let structureGroup: THREE.Group | null = null
 
 // Interaction State
-const activeVideoSrc = ref<string | null>(null)
+const activeVideoSrc = ref<string | null>(artUrl)
 const videos = [artUrl, natureUrl, programmingUrl]
 const textureMap = new Map<string, THREE.VideoTexture>()
 const isMobile = ref(false)

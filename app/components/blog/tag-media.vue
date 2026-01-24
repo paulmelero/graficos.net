@@ -1,7 +1,6 @@
 <template>
   <span :class="[tagSize]" class="leading-6">
     {{ name }}
-    <!-- <span class="rounded-full inline-block text-center bg-accent w-4 text-white">{{ size }}</span> -->
   </span>
 </template>
 

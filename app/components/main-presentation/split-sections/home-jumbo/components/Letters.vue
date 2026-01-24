@@ -7,7 +7,12 @@
     aria-hidden="true"
     :viewBox="svgViewBox"
   >
-    <g v-for="(shape, index) in letterShapes" :key="shape.key" class="w-full ibm font-thin group" fill="currentColor">
+    <g
+      v-for="(shape, index) in letterShapes"
+      :key="shape.key"
+      class="w-full font-ibm font-thin group"
+      fill="currentColor"
+    >
       <text
         :x="shape.x"
         :y="baseline"
@@ -79,7 +84,7 @@
       :x="(firstEightLine.x2 - firstEightLine.x1) / 2"
       :y="baselineLine + 16"
       fill="currentColor"
-      class="ibm font-thin text-gray-dark dark:text-fwhite hidden md:block"
+      class="font-ibm font-thin text-gray-dark dark:text-fwhite hidden md:block"
       text-anchor="middle"
       dominant-baseline="middle"
       :font-size="8"
@@ -91,7 +96,7 @@
       :x="lastThreeLine.x1 + (lastThreeLine.x2 - lastThreeLine.x1) / 2"
       :y="baselineLine + 16"
       fill="currentColor"
-      class="ibm font-thin text-gray-dark dark:text-fwhite hidden md:block"
+      class="font-ibm font-thin text-gray-dark dark:text-fwhite hidden md:block"
       text-anchor="middle"
       dominant-baseline="middle"
       :font-size="8"
@@ -103,7 +108,7 @@
       :x="(lastThreeLine.x1 - firstEightLine.x2) / 2 + firstEightLine.x2"
       :y="baselineLine + 16"
       fill="currentColor"
-      class="ibm font-thin text-gray-dark dark:text-fwhite hidden md:block"
+      class="font-ibm font-thin text-gray-dark dark:text-fwhite hidden md:block"
       text-anchor="middle"
       dominant-baseline="middle"
       :font-size="8"

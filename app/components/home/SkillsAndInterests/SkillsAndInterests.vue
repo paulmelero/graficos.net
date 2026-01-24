@@ -2,7 +2,7 @@
   <section ref="sectionRef" class="relative w-screen min-h-[200vh]">
     <div class="sticky top-0 flex min-h-[200vh] flex-col">
       <div class="container py-4">
-        <h2 class="ibm text-3xl ibm font-thin">Personal Interests</h2>
+        <h2 class="font-ibm text-3xl font-thin">Personal Interests</h2>
       </div>
 
       <div class="relative flex-1 h-[200vh] flex items-center justify-start">

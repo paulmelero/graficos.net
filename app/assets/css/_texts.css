@@ -1,7 +1,7 @@
 @custom-selector :--headings h1, h2, h3, h4, h5, h6;
 
 body {
-  @apply ibm;
+  @apply font-ibm-sans;
 }
 
 a {
@@ -23,15 +23,10 @@ p {
 }
 
 .title {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--bold-titles), sans-serif;
 }
 
 .title-bold {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--bold-titles), sans-serif;
   @apply font-black italic;
-}
-
-.ibm {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 100;
 }

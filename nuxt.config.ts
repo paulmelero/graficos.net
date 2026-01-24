@@ -100,5 +100,6 @@ export default defineNuxtConfig({
       styles: ['italic', 'normal'],
       subsets: ['latin'],
     },
+    families: [{ name: 'Montserrat', weights: ['900'] }, { name: 'IBM Plex Mono' }, { name: 'IBM Plex Sans' }],
   },
 })

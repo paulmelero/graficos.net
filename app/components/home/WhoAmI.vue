@@ -1,13 +1,13 @@
 <template>
   <section class="w-screen min-h-screen flex flex-col relative bg-primaryDark">
     <div class="container pt-24 px-10">
-      <h2 class="text-3xl ibm font-thin">Who am I?</h2>
+      <h2 class="text-3xl font-ibm font-thin">Who am I?</h2>
     </div>
 
     <MainPresentationPatternEdges :thickness="10" class="opacity-20" />
     <div v-if="section" class="container py-24 px-10">
       <div class="sm:grid grid-cols-3 place-items-center flex flex-col-reverse gap-10">
-        <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post ibm" />
+        <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post font-ibm" />
         <div class="media flex justify-center items-start">
           <NuxtImg src="/images/sticker.webp" alt="colourful explosion around smiling man" />
         </div>
