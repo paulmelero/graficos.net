@@ -38,11 +38,11 @@
         :x="skill.x"
         :y="skill.y"
         :font-size="fontSize"
-        class="font-ibm font-thin text-gray-dark dark:text-white transition-[opacity,color] duration-300 ease-in-out"
-        :class="{
-          'opacity-100': isSkillOrInterestActive(skill.label),
-          'opacity-10': !isSkillOrInterestActive(skill.label),
-        }"
+        class="font-ibm dark:font-thin text-gray-dark dark:text-white transition-[opacity,color] duration-300 ease-in-out"
+        :class="[
+          isSkillOrInterestActive(skill.label) ? 'opacity-100' : 'opacity-10',
+          ' dark:text-white mix-blend-normal text-primary',
+        ]"
         text-anchor="middle"
         dominant-baseline="middle"
       >

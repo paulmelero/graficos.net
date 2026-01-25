@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col content-around min-h-screen relative">
-    <header role="banner" class="isolate z-10">
+    <header role="banner" class="isolate z-10 sticky top-0">
       <main-presentation-head-nav />
     </header>
 

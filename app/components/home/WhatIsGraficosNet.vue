@@ -2,7 +2,7 @@
   <section class="w-screen min-h-[50vh] flex flex-col group">
     <div class="container py-4 px-10">
       <base-texts-the-title>
-        <h2 class="text-3xl font-ibm font-thin">What is Graficos.net?</h2>
+        <h2 class="text-3xl font-ibm dark:font-thin">What is Graficos.net?</h2>
       </base-texts-the-title>
     </div>
 
@@ -11,7 +11,7 @@
         <div class="media flex justify-center items-start">
           <BrandTheLogo class="opacity-20 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-        <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post ibm" />
+        <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post font-ibm" />
       </div>
     </div>
   </section>

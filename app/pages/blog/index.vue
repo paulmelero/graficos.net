@@ -5,7 +5,7 @@
     </base-texts-the-title>
     <section class="sm:flex sm:justify-between">
       <blog-article-list v-if="posts" :articles="posts" />
-      <aside class="sm:mt-0 mt-6 sm:ml-6 sm:sticky h-max top-2 sm:max-w-56">
+      <aside class="sm:mt-0 mt-6 sm:ml-6 sm:sticky h-max sm:top-24 sm:max-w-56">
         <blog-tag-cloud :tags="tags" :shouldHide="true" />
       </aside>
     </section>

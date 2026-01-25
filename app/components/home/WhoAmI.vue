@@ -1,8 +1,8 @@
 <template>
-  <section class="w-screen min-h-screen flex flex-col relative bg-primaryDark">
+  <section class="w-screen min-h-screen flex flex-col relative bg-gray-lightest dark:bg-primaryDark">
     <div class="container pt-24 px-10">
       <base-texts-the-title>
-        <h2 class="text-3xl font-ibm font-thin">Who am I?</h2>
+        <h2 class="text-3xl font-ibm dark:font-thin">Who am I?</h2>
       </base-texts-the-title>
     </div>
 

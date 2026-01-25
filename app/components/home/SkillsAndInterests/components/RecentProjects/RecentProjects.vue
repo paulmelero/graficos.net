@@ -2,7 +2,7 @@
   <div class="absolute container px-10 lg:pl-0 inset-x-0 top-[calc(105vh+96px)] h-[calc(95vh-96px*2)] z-20">
     <div class="grid lg:grid-cols-3 container py-4">
       <BaseTextsTheTitle class="mb-16 lg:col-span-2 lg:col-start-2">
-        <h2 class="font-ibm text-3xl font-thin">Recent projects</h2>
+        <h2 class="font-ibm text-3xl dark:font-thin">Recent projects</h2>
         <template #subtitle>
           <p>These are some of my recent projects.</p>
         </template>
@@ -10,8 +10,17 @@
     </div>
     <div class="grid lg:grid-cols-3 container pb-4 mx-auto">
       <div class="lg:col-span-2 lg:col-start-2 grid gap-4 lg:grid-cols-3">
-        <NuxtLink :to="project.link" v-for="project in recentProjects" :key="project.link" class="card no-underline">
-          <h3 class="text-lg font-ibm font-thin mb-2 text-gray-darker dark:text-gray-lightest">{{ project.title }}</h3>
+        <NuxtLink
+          :to="project.link"
+          v-for="project in recentProjects"
+          :key="project.link"
+          class="card no-underline group"
+        >
+          <h3
+            class="text-lg font-ibm dark:font-thin mb-2 text-gray-darker dark:text-gray-light group-hover:underline group-hover:text-accent group-hover:dark:text-actionDark"
+          >
+            {{ project.title }}
+          </h3>
           <p class="text-sm text-gray-dark dark:text-gray-light">{{ project.description }}</p>
         </NuxtLink>
       </div>

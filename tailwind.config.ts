@@ -12,7 +12,7 @@ const customColors = {
   'gray-dark': colors.zinc['600'],
   gray: colors.zinc['500'],
   'gray-light': colors.zinc['400'],
-  'gray-lightest': colors.zinc['100'],
+  'gray-lightest': colors.zinc['200'],
 }
 
 const themeColors = {

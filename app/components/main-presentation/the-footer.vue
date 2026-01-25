@@ -31,8 +31,10 @@
         class="mb-4 lg:mb-0 lg:mx-0 mx-auto w-16 lg:w-24 h-auto"
       />
       <div class="lg:ml-5 lg:text-left">
-        <p class="text-xl leading-tight mb-0 font-thin">Paul Melero</p>
-        <p class="text-sm leading-tight mt-0 font-thin text-gray-dark dark:text-primary mb-4">Human | Web Engineer</p>
+        <p class="text-xl leading-tight mb-0 dark:font-thin">Paul Melero</p>
+        <p class="text-sm leading-tight mt-0 dark:font-thin text-gray-dark dark:text-primary mb-4">
+          Human | Web Engineer
+        </p>
         <lazy-main-presentation-icons-menu class="justify-center lg:justify-start" />
       </div>
     </div>
