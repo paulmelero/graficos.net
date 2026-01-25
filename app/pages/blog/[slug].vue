@@ -2,7 +2,7 @@
   <article class="article-post">
     <header
       v-if="post && post.thumbnail"
-      class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
+      class="py-16 bg-image bg-center bg-cover min-h-[50vh] flex-col flex content-center"
       :style="`background-image: url( ${post.thumbnail} )`"
     >
       <div class="w-3/4 xl:w-1/2 my-auto mx-auto text-white max-w-3xl">

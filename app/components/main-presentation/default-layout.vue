@@ -3,13 +3,13 @@
     <header role="banner" class="isolate z-10">
       <main-presentation-head-nav />
     </header>
+
     <main :class="container === 'contained' ? 'container mx-auto py-10' : 'w-full' + ' flex-grow'" role="main">
       <div class="relative z-[2]"><slot /></div>
       <div class="isolate" v-if="container === 'contained'"><div class="bg-container" aria-hidden="true" /></div>
     </main>
-    <footer role="contentinfo" class="min-h-[50vh] grid items-center dark:bg-gray-darkest">
-      <main-presentation-the-footer />
-    </footer>
+
+    <main-presentation-the-footer />
   </div>
 </template>
 

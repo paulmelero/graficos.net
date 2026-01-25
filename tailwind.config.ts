@@ -37,13 +37,6 @@ const config: Config = {
       container: {
         center: true,
       },
-      screens: {
-        xs: '320px',
-        sm: '576px',
-        md: '768px',
-        lg: '992px',
-        xl: '1200px',
-      },
       fontFamily: {
         title: ['Montserrat', 'sans-serif'],
         ibm: ['IBM Plex Mono', 'monospace'],
@@ -59,9 +52,6 @@ const config: Config = {
         '3xl': '1.875rem', // 30px
         '4xl': '2.25rem', // 36px
         '5xl': '3rem', // 48px
-      },
-      minHeight: {
-        50: '50vh',
       },
       fill: ({ theme }: ThemeContext) => ({
         current: 'currentColor',

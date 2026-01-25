@@ -1,10 +1,10 @@
 <template>
-  <section class="container mx-auto">
+  <section class="post-container mx-auto">
     <base-texts-the-title class="mb-24" v-if="page">
       <h1 class="text-3xl">{{ page.title }}</h1>
     </base-texts-the-title>
     <article class="article-post">
-      <div v-if="page" class="post-container">
+      <div v-if="page">
         <ContentRenderer :value="page" class="py-10" />
       </div>
     </article>

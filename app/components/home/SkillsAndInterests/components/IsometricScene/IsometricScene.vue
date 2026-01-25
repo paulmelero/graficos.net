@@ -149,8 +149,6 @@ const createVideoTexture = (url: string) => {
   texture.magFilter = THREE.LinearFilter
   textureMap.set(url, texture)
 
-  console.log('[ISO] Loaded video texture:', url)
-
   return texture
 }
 
@@ -317,7 +315,6 @@ onMounted(() => {
   }
 
   // 6. Build Dodecahedron Geometry
-  console.log('[ISO] Building dodecahedron structure')
   structureGroup = new THREE.Group()
   scene.add(structureGroup)
 
@@ -456,7 +453,6 @@ onMounted(() => {
   scene.add(rimLight)
 
   // 8. Animation Loop
-  console.log('[ISO] Starting animation loop')
   const animate = () => {
     animationId = requestAnimationFrame(animate)
     if (renderer && scene && camera) {
