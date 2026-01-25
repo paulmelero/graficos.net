@@ -24,25 +24,7 @@ useHead({
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { name: 'description', content: pkg.description },
-    // Favicons
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'favicon', href: '/favicon.ico' },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'manifest', href: '/site.webmanifest' },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
+    { name: 'apple-mobile-web-app-title', content: APP_NAME },
     // Social OG
     { property: 'og:type', content: 'profile' },
     { property: 'og:title', content: APP_NAME },
@@ -66,6 +48,22 @@ useHead({
   ],
   link: [
     { rel: 'publisher', href: APP_URL },
+    // Favicons
+    { rel: 'favicon', href: '/favicon.ico' },
+    { rel: 'shortcut icon', href: '/favicon.ico' },
+
+    { rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
+
+    { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon-96x96.png' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+
+    { rel: 'manifest', href: '/site.webmanifest' },
+
+    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
+
+    // Webmention
     { rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
     { rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
     // preconnect
