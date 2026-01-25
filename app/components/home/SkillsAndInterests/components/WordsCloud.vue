@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="absolute inset-x-0 top-[8vh] w-full h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none"
+    class="absolute inset-x-0 top-[8vh] w-[calc(100%-2.5rem)] mx-auto h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none"
     :viewBox="svgViewBox"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid meet"

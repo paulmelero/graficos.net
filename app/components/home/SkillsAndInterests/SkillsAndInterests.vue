@@ -1,7 +1,7 @@
 <template>
   <section ref="sectionRef" class="relative w-screen min-h-[130vh] sm:min-h-[200vh]">
     <div class="sticky top-0 flex min-h-[130vh] sm:min-h-[200vh] flex-col">
-      <div class="container py-4">
+      <div class="container mx-auto py-4 px-10">
         <base-texts-the-title>
           <h2 class="font-ibm text-3xl font-thin">Personal Interests</h2>
           <template #subtitle>

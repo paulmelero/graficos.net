@@ -7,5 +7,5 @@ export function useBorderColours() {
     'oklab(87% 0 0.09)',
   ]
 
-  return colors.sort(() => Math.random() - 0.5)
+  return useState('borderColours', () => colors.sort(() => Math.random() - 0.5))
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute inset-x-0 top-[calc(105vh+96px)] h-[calc(95vh-96px*2)] z-20">
+  <div class="absolute container px-10 lg:pl-0 inset-x-0 top-[calc(105vh+96px)] h-[calc(95vh-96px*2)] z-20">
     <div class="grid lg:grid-cols-3 container py-4">
       <BaseTextsTheTitle class="mb-16 lg:col-span-2 lg:col-start-2">
         <h2 class="font-ibm text-3xl font-thin">Recent projects</h2>

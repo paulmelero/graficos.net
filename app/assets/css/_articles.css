@@ -69,7 +69,7 @@
 }
 
 .post-container {
-  @apply w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg max-w-3xl;
+  @apply w-3/4 xl:w-1/2 mx-auto sm:text-lg max-w-3xl;
 }
 
 /* Foot notes */

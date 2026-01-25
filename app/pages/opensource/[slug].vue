@@ -1,5 +1,5 @@
 <template>
-  <section class="container post-container mx-auto">
+  <section class="post-container mx-auto py-10">
     <base-texts-the-title class="mb-24" v-if="page">
       <h1 class="text-3xl">{{ page.title }}</h1>
     </base-texts-the-title>

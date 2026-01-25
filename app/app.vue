@@ -76,8 +76,8 @@ useHead({
   ],
   style: [
     `:root {
-      --border-color: ${boxColours[0]};
-      --border-color-dark: ${boxColours[1]};
+      --border-color: ${boxColours.value[0]};
+      --border-color-dark: ${boxColours.value[1]};
     }`,
   ],
 })

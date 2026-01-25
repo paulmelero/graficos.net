@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="post-container mx-auto">
     <base-texts-the-title class="mb-24">
       <h1 class="text-3xl">{{ title }}</h1>
     </base-texts-the-title>
