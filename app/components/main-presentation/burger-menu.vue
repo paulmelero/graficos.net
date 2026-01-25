@@ -12,13 +12,13 @@
         id="top-menu"
         :aria-expanded="isOpen"
         aria-live="polite"
-        class="card absolute z-10 top-full right-0 w-[300px]"
+        class="card !bg-primary absolute z-10 top-full right-0 w-[300px] -mr-2"
       >
         <ul class="divide-y dark:divide-gray-dark mb-0">
           <li v-for="link of links" :key="link.href" class="relative h-[3rem]">
             <nuxt-link
               :to="link.href"
-              class="no-underline hover:underline absolute inset-0 leading-[3rem]"
+              class="no-underline hover:underline absolute inset-0 leading-[3rem] text-black hover:text-action dark:text-fwhite dark:hover:text-actionDark"
               @click="isOpen = false"
               >{{ link.name }}</nuxt-link
             >

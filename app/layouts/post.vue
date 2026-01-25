@@ -6,12 +6,6 @@
     <main class="flex-grow z-0" role="main">
       <slot />
     </main>
-    <footer role="contentinfo">
-      <the-footer />
-    </footer>
+    <lazy-main-presentation-the-footer />
   </div>
 </template>
-
-<script lang="ts" setup>
-const TheFooter = defineAsyncComponent(() => import('~/components/main-presentation/the-footer.vue'))
-</script>

@@ -1,6 +1,6 @@
 <template>
   <article class="post-container">
-    <base-texts-the-title>
+    <base-texts-the-title class="mb-24">
       <h1 class="text-3xl">Open Source Software Projects</h1>
       <template #subtitle>
         <p>

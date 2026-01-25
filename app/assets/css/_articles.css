@@ -10,7 +10,7 @@
 
   :where(h1, h2, h3, h4, h5, h6):has(a) {
     @apply mb-[1em] font-black italic;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--bold-titles), sans-serif;
   }
   :is(h1, h2, h3, h4, h5, h6) a {
     @apply no-underline hover:underline;
@@ -69,7 +69,7 @@
 }
 
 .post-container {
-  @apply w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg max-w-3xl;
+  @apply w-3/4 xl:w-1/2 mx-auto sm:text-lg max-w-3xl;
 }
 
 /* Foot notes */

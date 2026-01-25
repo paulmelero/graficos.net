@@ -1,5 +1,9 @@
 @custom-selector :--headings h1, h2, h3, h4, h5, h6;
 
+body {
+  @apply font-ibm-sans;
+}
+
 a {
   @apply text-accent dark:text-actionDark underline underline-offset-1;
 }
@@ -18,11 +22,9 @@ p {
   @apply leading-tight text-gray-darkest dark:text-gray-lightest mb-2 font-bold;
 }
 
-.title {
-  font-family: 'Montserrat', sans-serif;
-}
-
-.title-bold {
-  font-family: 'Montserrat', sans-serif;
+.title,
+.font-title {
   @apply font-black italic;
+  font-optical-sizing: auto;
+  font-style: normal;
 }

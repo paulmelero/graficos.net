@@ -46,5 +46,10 @@ export default defineContentConfig({
         license: z.string().default('').optional(),
       }),
     }),
+    homeSections: defineCollection({
+      // Load every file inside the `content/homeSections` directory
+      source: 'homeSections/*.md',
+      type: 'page',
+    }),
   },
 })

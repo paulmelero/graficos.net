@@ -1,6 +1,6 @@
 <template>
   <div :key="tag">
-    <base-texts-the-title>
+    <base-texts-the-title class="mb-24">
       <h1 class="text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>
       </h1>
