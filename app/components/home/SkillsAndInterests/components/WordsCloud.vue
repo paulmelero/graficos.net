@@ -38,16 +38,23 @@
         :x="skill.x"
         :y="skill.y"
         :font-size="fontSize"
-        class="font-ibm dark:font-thin text-gray-dark dark:text-white transition-[opacity,color] duration-300 ease-in-out"
-        :class="[
-          isSkillOrInterestActive(skill.label) ? 'opacity-100' : 'opacity-10',
-          ' dark:text-white mix-blend-normal text-primary',
-        ]"
+        class="font-ibm dark:font-thin transition-[opacity,color] duration-300 ease-in-out"
+        :class="[isSkillOrInterestActive(skill.label) ? 'opacity-100' : 'opacity-10', ['text-primaryDark']]"
         text-anchor="middle"
         dominant-baseline="middle"
+        filter="url(#text-bg-filter)"
       >
         {{ skill.label }}
       </text>
+      <!-- text background -->
+      <filter x="-.15" y="0" width="1.3" height="1" id="text-bg-filter">
+        <feFlood flood-color="oklch(0.71 0.2 53.96)" result="bg" />
+        <feMerge>
+          <feMergeNode in="bg" />
+          <feMergeNode in="SourceGraphic" />
+          <!-- <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="4" /> -->
+        </feMerge>
+      </filter>
     </g>
   </svg>
 </template>
