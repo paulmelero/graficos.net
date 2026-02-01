@@ -1,9 +1,9 @@
 <template>
   <section class="w-screen min-h-screen flex flex-col relative bg-gray-lightest dark:bg-primaryDark">
     <div class="container pt-24 px-10">
-      <base-texts-the-title>
+      <BaseTextsTheTitle>
         <h2 class="text-3xl font-ibm dark:font-thin">Who am I?</h2>
-      </base-texts-the-title>
+      </BaseTextsTheTitle>
     </div>
 
     <MainPresentationPatternEdges thickness="1em" class="opacity-20" />

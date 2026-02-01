@@ -1,5 +1,5 @@
 <template>
-  <svg class="dashed-box" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <svg class="dashed-box !border-x-0 !border-b-0" width="100%" xmlns="http://www.w3.org/2000/svg">
     <pattern
       id="pattern-checkers"
       x="0"

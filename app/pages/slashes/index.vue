@@ -1,6 +1,6 @@
 <template>
   <article class="post-container">
-    <base-texts-the-title class="mb-24">
+    <BaseTextsTheTitle class="mb-24">
       <h1 class="text-3xl">Slash Pages</h1>
       <template #subtitle>
         <p>
@@ -8,7 +8,7 @@
           <BaseTextsExternalLink href="https://slashpages.net/">https://slashpages.net/</BaseTextsExternalLink>.
         </p>
       </template>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <section>
       <ul class="list-disc pl-5">
         <li v-for="article in list" :key="article.path" class="mb-5">

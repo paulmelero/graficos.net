@@ -2,12 +2,12 @@
   <section ref="sectionRef" class="relative w-screen min-h-[130vh] sm:min-h-[200vh]">
     <div class="sticky top-0 flex min-h-[130vh] sm:min-h-[200vh] flex-col">
       <div class="container mx-auto py-4 px-10">
-        <base-texts-the-title>
+        <BaseTextsTheTitle>
           <h2 class="font-ibm text-3xl dark:font-thin">Personal Interests</h2>
           <template #subtitle>
             <p>I consider myself a multi-faceted individual with a wide range of interests and skills.</p>
           </template>
-        </base-texts-the-title>
+        </BaseTextsTheTitle>
       </div>
 
       <div class="relative flex-1 h-[130vh] sm:h-[200vh] flex items-center justify-start">

@@ -1,8 +1,8 @@
 <template>
   <div class="post-container mx-auto">
-    <base-texts-the-title class="mb-24">
+    <BaseTextsTheTitle class="mb-24">
       <h1 class="text-3xl">{{ title }}</h1>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <section class="sm:flex sm:justify-between">
       <blog-article-list v-if="posts" :articles="posts" />
       <aside class="sm:mt-0 mt-6 sm:ml-6 sm:sticky h-max sm:top-24 sm:max-w-56">

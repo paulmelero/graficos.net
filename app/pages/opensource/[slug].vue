@@ -1,8 +1,8 @@
 <template>
   <section class="post-container mx-auto py-10">
-    <base-texts-the-title class="mb-24" v-if="page">
+    <BaseTextsTheTitle class="mb-24" v-if="page">
       <h1 class="text-3xl">{{ page.title }}</h1>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <table v-if="page" class="mt-4 mb-6 border-collapse w-full table-fixed">
       <tbody>
         <tr>

@@ -1,6 +1,6 @@
 <template>
   <article class="post-container">
-    <base-texts-the-title class="mb-24">
+    <BaseTextsTheTitle class="mb-24">
       <h1 class="text-3xl">Open Source Software Projects</h1>
       <template #subtitle>
         <p>
@@ -9,7 +9,7 @@
         </p>
         <p>If you want to contribute, please do so!</p>
       </template>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <section>
       <ol class="pl-5 list-decimal">
         <li
