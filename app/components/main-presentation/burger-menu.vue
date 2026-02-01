@@ -19,7 +19,7 @@
           <li v-for="link of links" :key="link.href" class="relative h-[3rem]">
             <nuxt-link
               :to="link.href"
-              class="no-underline hover:underline absolute inset-0 leading-[3rem] text-black hover:text-action dark:text-fwhite dark:hover:text-actionDark"
+              class="no-underline hover:underline absolute inset-0 leading-[3rem] text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark"
               @click="isOpen = false"
               >{{ link.name }}</nuxt-link
             >

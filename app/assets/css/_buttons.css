@@ -1,5 +1,5 @@
 button {
-  @apply font-bold p-2 text-black hover:text-action dark:text-fwhite dark:hover:text-actionDark rounded;
+  @apply font-bold p-2 text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark rounded;
 }
 
 button.button {

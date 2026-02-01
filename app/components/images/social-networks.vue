@@ -9,7 +9,7 @@
           :filled="!shouldDisplayNames"
           width="24"
           height="24"
-          class="w-6 mr-2 [&:not(:group-first)]:mx-2 transition:fill fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark"
+          class="w-6 mr-2 [&:not(:group-first)]:mx-2 transition:fill fill-black hover:fill-accent dark:fill-fwhite dark:hover:fill-actionDark"
         />
         <span v-if="shouldDisplayNames">{{ network.name }}</span>
       </base-texts-external-link>

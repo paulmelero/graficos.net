@@ -22,7 +22,6 @@ const themeColors = {
   secondaryDark: 'oklch(0.68 0.22 42.54)',
   accent: '#c31b54',
   accentDark: colors.orange['300'],
-  action: colors.purple['700'],
   actionDark: colors.amber['600'],
 }
 

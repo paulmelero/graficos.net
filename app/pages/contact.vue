@@ -2,9 +2,11 @@
   <div class="post-container">
     <BaseTextsTheTitle class="mb-24">
       <h1 class="text-3xl">{{ title }}</h1>
-    </BaseTextsTheTitle>
 
-    <p>👋🏽 You can drop me a line here:</p>
+      <template #subtitle>
+        <p class="text-lg mt-4">Feel free to reach out to me via email or through my social media accounts.</p>
+      </template>
+    </BaseTextsTheTitle>
 
     <p class="p-4 rounded-md bg-fwhite dark:bg-gray-dark text-gray-darkest dark:text-gray-lightest font-thin">
       <BaseTextsEmail ref="emailComp" />
