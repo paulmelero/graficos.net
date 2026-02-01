@@ -1,11 +1,11 @@
 <template>
   <div class="space-y-24">
-    <section>
+    <section class="hidden sm:block">
       <main-presentation-split-sections-home-jumbo />
     </section>
     <HomeWhatIsGraficosNet />
     <HomeWhoAmI />
-    <HomeSkillsAndInterests />
+    <LazyHydrationHomeSkillsAndInterests />
   </div>
 </template>
 
@@ -23,4 +23,9 @@ useHead({
     },
   ],
 })
+
+const LazyHydrationHomeSkillsAndInterests = defineLazyHydrationComponent(
+  'visible',
+  () => import('../components/home/SkillsAndInterests/SkillsAndInterests.vue')
+)
 </script>

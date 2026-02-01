@@ -9,6 +9,7 @@
     <transition appear>
       <section
         v-if="isOpen"
+        ref="menu"
         id="top-menu"
         :aria-expanded="isOpen"
         aria-live="polite"
@@ -28,13 +29,50 @@
         <MainPresentationIconsMenu class="mt-6 justify-between" />
       </section>
     </transition>
+    <ClientOnly>
+      <Teleport to="body">
+        <transition appear>
+          <buttton
+            v-if="isOpen"
+            type="button"
+            class="fixed inset-0 bg-black/30 dark:bg-black/50 z-[9]"
+            aria-hidden="true"
+            @click.prevent="isOpen = false"
+          ></buttton>
+        </transition>
+      </Teleport>
+    </ClientOnly>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useMagicKeys } from '@vueuse/core'
+
 import { linksWithHome as links } from '../../config/pages'
 
 const isOpen = ref(false)
 
 defineExpose({ isOpen })
+
+const { escape } = useMagicKeys()
+const menuFocusTarget = useTemplateRef('menu')
+const { focused } = useFocusWithin(menuFocusTarget)
+
+watchEffect(() => {
+  if (escape?.value) {
+    isOpen.value = false
+  }
+})
+
+watch(isOpen, (whenOpen) => {
+  if (whenOpen) {
+    menuFocusTarget.value?.focus()
+  }
+})
+
+watch(focused, (isFocused) => {
+  if (!isFocused) {
+    isOpen.value = false
+  }
+})
 </script>
