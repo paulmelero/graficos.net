@@ -1,6 +1,6 @@
 ---
-title: Graficos.NET
-summary: Since I started Graficos.NET, I have been committed to open source. My site has been changing with the technology, and has served as a guide for other folks wanting to learn Vue, Nuxt, Vite, and other related technologies.
+title: graficos.net
+summary: Since I started graficos.net, I have been committed to open source. My site has been changing with the technology, and has served as a guide for other folks wanting to learn Vue, Nuxt, Vite, and other related technologies.
 description: graficos.net is a personal project by Paul Melero, made with Nuxt, deployed in Cloudflare, using Nuxt modules, and always open source.
 tags: [open-source, nuxt, vite, vue, javascript, typescript, cloudflare, netlify]
 yearCreated: 2002
@@ -12,7 +12,7 @@ license: MIT
 
 ## Origins
 
-Graficos.NET has been my personal project since the early 2000s, when I was a kid. When I started working in the industry many years later, I always wanted to revive it. And I did, in 2018.
+graficos.net has been my personal project since the early 2000s, when I was a kid. When I started working in the industry many years later, I always wanted to revive it. And I did, in 2018.
 
 Since then, I have been committed to open source, and my site has been changing with the technology, serving as a guide for other folks wanting to learn Vue, Nuxt, Vite, and other related technologies.
 
@@ -36,7 +36,7 @@ I also publish some public repos in my [GitHub](https://github.com/paulmelero) a
 
 ## Org
 
-Graficos.NET is a personal project by [Paul Melero](https://paulmelero.com). It has become part of my open source portfolio, and even my personal brand.
+graficos.net is a personal project by [Paul Melero](https://paulmelero.com). It has become part of my open source portfolio, and even my personal brand.
 
 ### Related Projects
 

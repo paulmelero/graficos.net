@@ -2,7 +2,7 @@ import wasm from 'vite-plugin-wasm'
 
 import socialLinks from './app/config/social-links'
 
-const APP_NAME = 'Graficos.net'
+const APP_NAME = 'graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config

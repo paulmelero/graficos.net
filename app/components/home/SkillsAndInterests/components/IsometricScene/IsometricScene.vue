@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
 import * as THREE from 'three'
 import { clamp } from 'three/src/math/MathUtils.js'
 
@@ -29,6 +30,8 @@ const deferredVideoUrls = [natureUrl, programmingUrl]
 const activeVideoSrc = ref<string | null>(null)
 const textureMap = new Map<string, THREE.VideoTexture>()
 const fullyBufferedVideos = new Set<string>()
+
+const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
 // Scene config
 const SCENE_SIZE = 12
@@ -70,14 +73,15 @@ let deferredVideosObserver: IntersectionObserver | null = null
 const clampProgress = (value: number) => clamp(value, 0, 1)
 
 const applyStoryState = (progress: number) => {
-  storyProgress = clampProgress(progress)
+  const nextProgress = prefersReducedMotion.value ? 0 : clampProgress(progress)
+  storyProgress = nextProgress
 
   if (!camera || !structureGroup) {
     return
   }
 
   // Scale progress to complete animation by the 95% mark
-  const animationProgress = Math.min(storyProgress / 0.95, 0.9)
+  const animationProgress = Math.min(nextProgress / 0.95, 0.9)
   // Apply easing ONCE to the scaled progress
   const easedAnimation = easeInOutCubic(animationProgress)
 
@@ -478,6 +482,10 @@ watch(
 
 watch(isMobile, () => {
   applyStoryState(storyProgress)
+})
+
+watch(prefersReducedMotion, () => {
+  applyStoryState(prefersReducedMotion.value ? 0 : (props.scrollProgress ?? 0))
 })
 
 // Video Playback Watcher

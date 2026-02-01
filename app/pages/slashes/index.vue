@@ -4,7 +4,7 @@
       <h1 class="text-3xl">Slash Pages</h1>
       <template #subtitle>
         <p>
-          Slash pages list of Graficos.NET. See
+          Slash pages list of graficos.net. See
           <BaseTextsExternalLink href="https://slashpages.net/">https://slashpages.net/</BaseTextsExternalLink>.
         </p>
       </template>
@@ -27,7 +27,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Slash pages list of Graficos.NET.',
+      content: 'Slash pages list of graficos.net.',
     },
   ],
 })

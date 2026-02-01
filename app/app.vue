@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import pkg from '../package.json'
 
-const APP_NAME = 'Graficos.net'
+const APP_NAME = 'graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 const APP_COVER_IMG = '/cover.png'
 
@@ -18,7 +18,7 @@ useHead({
     lang: 'en',
   },
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} - Graficos.NET` : 'Graficos.NET'
+    return titleChunk ? `${titleChunk} - graficos.net` : 'graficos.net'
   },
   meta: [
     { charset: 'utf-8' },

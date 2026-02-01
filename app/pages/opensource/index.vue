@@ -4,7 +4,7 @@
       <h1 class="text-3xl">Open Source Software Projects</h1>
       <template #subtitle>
         <p>
-          Since I started Graficos.NET, I have been committed to open source. Here you can find a non-thorough list of
+          Since I started graficos.net, I have been committed to open source. Here you can find a non-thorough list of
           my open source projects, including the source code of this website.
         </p>
         <p>If you want to contribute, please do so!</p>
@@ -32,7 +32,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Open Source projects of Graficos.NET.',
+      content: 'Open Source projects of graficos.net.',
     },
   ],
 })

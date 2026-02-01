@@ -46,7 +46,7 @@ useSeoMeta({
   title: page.value?.title,
   ogTitle: page.value?.title,
   description: page.value?.description,
-  ogSiteName: 'Graficos.NET',
+  ogSiteName: 'graficos.net',
   twitterTitle: page.value?.title,
   twitterCreator: '@paulmelero',
 })

@@ -3,7 +3,7 @@
     <MainPresentationPatternEdges thickness="1.5em" class="opacity-20" />
 
     <div>
-      <h1 class="sr-only">Graficos.net</h1>
+      <h1 class="sr-only">graficos.net</h1>
       <MainPresentationSplitSectionsHomeJumboComponentsLetters :letters class="xl:max-w-5xl mx-auto md:min-h-[30vh]" />
     </div>
   </div>

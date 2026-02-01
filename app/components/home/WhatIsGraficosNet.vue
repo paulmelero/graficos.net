@@ -2,7 +2,7 @@
   <section class="w-screen min-h-[50vh] flex flex-col group">
     <div class="container py-4 px-10">
       <BaseTextsTheTitle>
-        <h2 class="text-3xl font-ibm dark:font-thin">What is Graficos.net?</h2>
+        <h2 class="text-3xl">What is graficos.net?</h2>
       </BaseTextsTheTitle>
     </div>
 
