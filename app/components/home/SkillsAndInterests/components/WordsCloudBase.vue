@@ -1,10 +1,5 @@
 <template>
-  <svg
-    class="absolute inset-x-0 top-[8vh] w-[calc(100%-2.5rem)] mx-auto h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none"
-    :viewBox="svgViewBox"
-    xmlns="http://www.w3.org/2000/svg"
-    preserveAspectRatio="xMidYMid meet"
-  >
+  <svg :class="svgClass" :viewBox="svgViewBox" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
     <g v-for="skill in skillShapes" :key="skill.label" class="skill-and-interest" fill="currentColor">
       <line
         :x1="skill.line.startX"
@@ -38,40 +33,106 @@
         :x="skill.x"
         :y="skill.y"
         :font-size="fontSize"
-        class="font-ibm dark:font-thin transition-[opacity,color] duration-300 ease-in-out"
-        :class="[isSkillOrInterestActive(skill.label) ? 'opacity-100' : 'opacity-10', ['text-primaryDark']]"
+        class="font-ibm transition-[opacity,color] duration-300 ease-in-out"
+        :class="[isSkillOrInterestActive(skill.label) ? 'opacity-100' : 'opacity-10', 'text-primaryDark']"
         text-anchor="middle"
         dominant-baseline="middle"
-        filter="url(#text-bg-filter)"
+        :filter="filterUrl"
       >
         {{ skill.label }}
       </text>
-      <!-- text background -->
-      <filter x="-.15" y="0" width="1.3" height="1" id="text-bg-filter">
+      <filter x="-.15" y="0" width="1.3" height="1" :id="filterIdValue">
         <feFlood flood-color="oklch(0.71 0.2 53.96)" result="bg" />
         <feMerge>
           <feMergeNode in="bg" />
           <feMergeNode in="SourceGraphic" />
-          <!-- <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="4" /> -->
         </feMerge>
       </filter>
     </g>
   </svg>
 </template>
 
-<script lang="ts" setup generic="T extends Record<string, any>">
+<script lang="ts" setup>
 import { useMediaQuery } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 import { RELATED_TO, skillsAndInterestsPerCategory } from '../SkillsAndInterests.constants'
 import { clamp } from 'three/src/math/MathUtils.js'
 
-const props = defineProps<{
-  activeTopic: number | null
-  viewBox?: {
-    width: number
-    height: number
+type LayoutMetrics = {
+  horizontalOffset: number
+  averageCharWidth: number
+  extraLineWidth: number
+  minLineWidth: number
+  diagonalLineLength: number
+  fontSize: number
+  collisionPaddingX: number
+  collisionPaddingY: number
+}
+
+type LayoutPreset = {
+  heightMultiplier: number
+  metrics: LayoutMetrics
+}
+
+type LayoutPresetOverride = {
+  heightMultiplier?: number
+  metrics?: Partial<LayoutMetrics>
+}
+
+type LayoutConfigOverrides = Partial<Record<'default' | 'compact', LayoutPresetOverride>>
+
+const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
+  compact: {
+    heightMultiplier: 0.85,
+    metrics: {
+      horizontalOffset: 10,
+      averageCharWidth: 7,
+      extraLineWidth: 12,
+      minLineWidth: 44,
+      diagonalLineLength: 56,
+      fontSize: 22,
+      collisionPaddingX: 28,
+      collisionPaddingY: 18,
+    },
+  },
+  default: {
+    heightMultiplier: 1,
+    metrics: {
+      horizontalOffset: 10,
+      averageCharWidth: 7,
+      extraLineWidth: 10,
+      minLineWidth: 40,
+      diagonalLineLength: 60,
+      fontSize: 14,
+      collisionPaddingX: 20,
+      collisionPaddingY: 12,
+    },
+  },
+}
+
+const LCG_MODULUS = 2147483647
+const LCG_MULTIPLIER = 16807
+
+const props = withDefaults(
+  defineProps<{
+    activeTopic: number | null
+    viewBox: {
+      width: number
+      height: number
+    }
+    svgClass?: string
+    filterId?: string
+    cacheKey?: string
+    layoutConfig?: LayoutConfigOverrides
+    forceLayout?: 'default' | 'compact'
+  }>(),
+  {
+    cacheKey: 'skills-and-interests-cloud-positions',
+    svgClass:
+      'absolute inset-x-0 top-[8vh] w-[calc(100%-2.5rem)] mx-auto h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none',
+    viewBox: () => ({ width: 800, height: 600 }),
   }
-}>()
+)
 
 const flatSkillsAndInterests = new Set([
   ...skillsAndInterestsPerCategory[RELATED_TO.ART],
@@ -99,34 +160,38 @@ type SkillShape = PositionedSkillOrInterest & {
   }
 }
 
-type LayoutMetrics = {
-  horizontalOffset: number
-  averageCharWidth: number
-  extraLineWidth: number
-  minLineWidth: number
-  diagonalLineLength: number
-  fontSize: number
-}
+const svgClass = computed(() => props.svgClass)
+const filterIdValue = computed(() => props.filterId ?? 'text-bg-filter')
+const filterUrl = computed(() => `url(#${filterIdValue.value})`)
 
-// https://en.wikipedia.org/wiki/Linear_congruential_generator
-const LCG_MODULUS = 2147483647
-const LCG_MULTIPLIER = 16807
-
-const DEFAULT_VIEWBOX = {
-  width: 800,
-  height: 600,
-} as const
-
-// Boolean result of the media query
 const isCompactLayout = ref(false)
 
-const layoutKey = computed(() => (isCompactLayout.value ? 'compact' : 'default'))
-
-const baseViewBox = computed(() => {
-  if (!props.viewBox) {
-    return { ...DEFAULT_VIEWBOX }
+const layoutKey = computed<'default' | 'compact'>(() => {
+  if (props.forceLayout) {
+    return props.forceLayout
   }
 
+  return isCompactLayout.value ? 'compact' : 'default'
+})
+
+const layoutPreset = computed<LayoutPreset>(() => {
+  const key = layoutKey.value
+  const defaults = DEFAULT_LAYOUT_PRESETS[key]
+  const overrides = props.layoutConfig?.[key] ?? {}
+  const metricsOverrides = overrides.metrics ?? {}
+
+  return {
+    heightMultiplier: overrides.heightMultiplier ?? defaults.heightMultiplier,
+    metrics: {
+      ...defaults.metrics,
+      ...metricsOverrides,
+    },
+  }
+})
+
+const layoutMetrics = computed(() => layoutPreset.value.metrics)
+
+const baseViewBox = computed(() => {
   return {
     width: props.viewBox.width,
     height: props.viewBox.height,
@@ -135,39 +200,11 @@ const baseViewBox = computed(() => {
 
 const currentViewBox = computed(() => {
   const base = baseViewBox.value
-
-  if (layoutKey.value === 'compact') {
-    return {
-      width: base.width,
-      height: Math.round(base.height * 0.85),
-    }
-  }
+  const heightMultiplier = layoutPreset.value.heightMultiplier
 
   return {
     width: base.width,
-    height: base.height,
-  }
-})
-
-const layoutMetrics = computed(() => {
-  if (layoutKey.value === 'compact') {
-    return {
-      horizontalOffset: 10,
-      averageCharWidth: 7,
-      extraLineWidth: 12,
-      minLineWidth: 44,
-      diagonalLineLength: 56,
-      fontSize: 22,
-    }
-  }
-
-  return {
-    horizontalOffset: 10,
-    averageCharWidth: 7,
-    extraLineWidth: 10,
-    minLineWidth: 40,
-    diagonalLineLength: 60,
-    fontSize: 14,
+    height: Math.round(base.height * heightMultiplier),
   }
 })
 
@@ -189,7 +226,7 @@ const positionsCache = useState<
       items: PositionedSkillOrInterest[]
     }
   >
->('skills-and-interests-cloud-positions', () => ({}))
+>(props.cacheKey, () => ({}))
 
 const ensurePositions = () => {
   const key = layoutKey.value
@@ -211,19 +248,27 @@ const ensurePositions = () => {
 ensurePositions()
 
 if (import.meta.client) {
-  const compactQuery = useMediaQuery('(max-width: 768px)')
+  const compactQuery = !props.forceLayout ? useMediaQuery('(max-width: 768px)') : null
 
   onMounted(() => {
-    isCompactLayout.value = compactQuery.value
+    if (compactQuery) {
+      isCompactLayout.value = compactQuery.value
+
+      watch(compactQuery, (value) => {
+        isCompactLayout.value = value
+        ensurePositions()
+      })
+    }
+
     ensurePositions()
 
-    watch(compactQuery, (value) => {
-      isCompactLayout.value = value
-      ensurePositions()
-    })
-
-    watch(currentViewBox, ensurePositions)
+    watch(currentViewBox, ensurePositions, { deep: true })
     watch(layoutKey, ensurePositions)
+    watch(
+      () => props.layoutConfig,
+      () => ensurePositions(),
+      { deep: true }
+    )
   })
 }
 
@@ -231,86 +276,6 @@ const positionedSkillsAndInterests = computed(() => {
   const key = layoutKey.value
   return positionsCache.value[key]?.items ?? []
 })
-
-function createPositions(
-  labels: string[],
-  viewBox: { width: number; height: number },
-  metrics: LayoutMetrics
-): PositionedSkillOrInterest[] {
-  const total = labels.length
-
-  if (!total) {
-    return []
-  }
-
-  const aspectRatio = viewBox.width / viewBox.height
-  const columns = Math.max(1, Math.round(Math.sqrt(total * aspectRatio)))
-  const rows = Math.max(1, Math.ceil(total / columns))
-  const cellWidth = viewBox.width / columns
-  const cellHeight = viewBox.height / rows
-
-  const gridCells = Array.from({ length: rows * columns }, (_, index) => {
-    const column = index % columns
-    const row = Math.floor(index / columns)
-
-    return {
-      x: (column + 0.5) * cellWidth,
-      y: (row + 0.5) * cellHeight,
-    }
-  })
-
-  const rng = createSeededGenerator(Math.random())
-  shuffleWithRng(gridCells, rng)
-
-  const placed: Array<{ x: number; y: number; halfWidth: number; halfHeight: number }> = []
-  const positions: PositionedSkillOrInterest[] = []
-
-  labels.forEach((label, index) => {
-    const cell = gridCells[index]!
-    const approxWidth = Math.max(label.length * metrics.averageCharWidth, metrics.minLineWidth * 0.6)
-    const halfWidth = approxWidth / 2 + Math.max(4, metrics.fontSize * 0.15)
-    const halfHeight = metrics.fontSize / 2 + Math.max(2, metrics.fontSize * 0.1)
-    const maxAttempts = 12
-
-    let attempt = 0
-    let position: PositionedSkillOrInterest | null = null
-
-    // Try to find a non-overlapping position within the cell
-    // up to maxAttempts times
-    while (attempt < maxAttempts && !position) {
-      const offsetX = (rng() - 0.5) * cellWidth * 0.4
-      const offsetY = (rng() - 0.5) * cellHeight * 0.4
-      const x = clamp(cell.x + offsetX, halfWidth, viewBox.width - halfWidth)
-      const y = clamp(cell.y + offsetY, halfHeight, viewBox.height - halfHeight)
-
-      const overlaps = placed.some((item) => checkBoxOverlap(item, { x, y, halfWidth, halfHeight }))
-
-      if (!overlaps) {
-        position = { label, x, y }
-        placed.push({ x, y, halfWidth, halfHeight })
-        positions.push(position)
-      }
-
-      attempt += 1
-    }
-
-    if (!position) {
-      const fallbackX = clamp(cell.x, halfWidth, viewBox.width - halfWidth)
-      const fallbackY = clamp(cell.y, halfHeight, viewBox.height - halfHeight)
-      const overlaps = placed.some((item) =>
-        checkBoxOverlap(item, { x: fallbackX, y: fallbackY, halfWidth, halfHeight })
-      )
-
-      if (!overlaps) {
-        placed.push({ x: fallbackX, y: fallbackY, halfWidth, halfHeight })
-      }
-
-      positions.push({ label, x: fallbackX, y: fallbackY })
-    }
-  })
-
-  return positions
-}
 
 const skillShapes = computed<SkillShape[]>(() => {
   const skills = positionedSkillsAndInterests.value ?? []
@@ -398,6 +363,77 @@ const isSkillOrInterestActive = (skillOrInterest: string) => {
   return relatedSkillsAndInterests.includes(skillOrInterest as any)
 }
 
+function createPositions(
+  labels: string[],
+  viewBox: { width: number; height: number },
+  metrics: LayoutMetrics
+): PositionedSkillOrInterest[] {
+  const total = labels.length
+
+  if (!total) {
+    return []
+  }
+
+  const labelledEntries = labels.map((label, index) => ({ label, index }))
+  const placementOrder = [...labelledEntries].sort((a, b) => b.label.length - a.label.length)
+  const results: PositionedSkillOrInterest[] = new Array(total)
+
+  const areaPerItem = (viewBox.width * viewBox.height) / total
+  const baseSpacing = Math.sqrt(areaPerItem)
+  const jitterRangeX = Math.min((baseSpacing + metrics.collisionPaddingX * 2) * 0.9, viewBox.width * 0.35)
+  const jitterRangeY = Math.min((baseSpacing + metrics.collisionPaddingY * 2) * 0.9, viewBox.height * 0.35)
+
+  const rng = createSeededGenerator(Math.random())
+  const placed: Array<{ x: number; y: number; halfWidth: number; halfHeight: number }> = []
+
+  placementOrder.forEach(({ label, index: originalIndex }, placementIndex) => {
+    const approxWidth = Math.max(metrics.minLineWidth, label.length * metrics.averageCharWidth + metrics.extraLineWidth)
+    const approxHeight = metrics.fontSize
+    const halfWidth = approxWidth / 2 + metrics.collisionPaddingX
+    const halfHeight = approxHeight / 2 + metrics.collisionPaddingY
+    const maxAttempts = 18
+
+    let attempt = 0
+    let position: PositionedSkillOrInterest | null = null
+
+    while (attempt < maxAttempts && !position) {
+      const baseX = halton(placementIndex + 1, 2) * viewBox.width
+      const baseY = halton(placementIndex + 1, 3) * viewBox.height
+      const spreadFactor = 1 + attempt * 0.35
+      const offsetX = (rng() - 0.5) * jitterRangeX * spreadFactor
+      const offsetY = (rng() - 0.5) * jitterRangeY * spreadFactor
+      const x = clamp(baseX + offsetX, halfWidth, viewBox.width - halfWidth)
+      const y = clamp(baseY + offsetY, halfHeight, viewBox.height - halfHeight)
+
+      const overlaps = placed.some((item) => checkBoxOverlap(item, { x, y, halfWidth, halfHeight }))
+
+      if (!overlaps) {
+        position = { label, x, y }
+        placed.push({ x, y, halfWidth, halfHeight })
+        results[originalIndex] = position
+      }
+
+      attempt += 1
+    }
+
+    if (!position) {
+      const fallbackX = clamp(halton(originalIndex + 1, 5) * viewBox.width, halfWidth, viewBox.width - halfWidth)
+      const fallbackY = clamp(halton(originalIndex + 1, 7) * viewBox.height, halfHeight, viewBox.height - halfHeight)
+      const overlaps = placed.some((item) =>
+        checkBoxOverlap(item, { x: fallbackX, y: fallbackY, halfWidth, halfHeight })
+      )
+
+      if (!overlaps) {
+        placed.push({ x: fallbackX, y: fallbackY, halfWidth, halfHeight })
+      }
+
+      results[originalIndex] = { label, x: fallbackX, y: fallbackY }
+    }
+  })
+
+  return results.filter(Boolean) as PositionedSkillOrInterest[]
+}
+
 function calculateLineWidth(label: string) {
   const { averageCharWidth, extraLineWidth, minLineWidth } = layoutMetrics.value
   return Math.max(minLineWidth, label.length * averageCharWidth + extraLineWidth)
@@ -412,17 +448,6 @@ function createSeededGenerator(seed: number) {
   }
 }
 
-function shuffleWithRng<T>(items: T[], rng: () => number) {
-  for (let index = items.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(rng() * (index + 1))
-    const temp = items[index]!
-    items[index] = items[swapIndex]!
-    items[swapIndex] = temp
-  }
-}
-/**
- * Preventing collisions between two boxes
- */
 function checkBoxOverlap(
   a: { x: number; y: number; halfWidth: number; halfHeight: number },
   b: { x: number; y: number; halfWidth: number; halfHeight: number }
@@ -431,5 +456,19 @@ function checkBoxOverlap(
   const overlapY = Math.abs(a.y - b.y) < a.halfHeight + b.halfHeight
 
   return overlapX && overlapY
+}
+
+function halton(index: number, base: number) {
+  let result = 0
+  let f = 1 / base
+  let i = index
+
+  while (i > 0) {
+    result += f * (i % base)
+    i = Math.floor(i / base)
+    f /= base
+  }
+
+  return result
 }
 </script>

@@ -15,14 +15,15 @@
           :scroll-progress="scrollProgress"
           @video-hover="handleVideoHover"
         />
-        <HomeSkillsAndInterestsComponentsWordsCloud
-          :related-to-map="{
-            ART: 0,
-            NATURE: 1,
-            TECHNOLOGY: 2,
-          }"
+        <HomeSkillsAndInterestsComponentsWordsCloudDesktop
+          class="hidden sm:block"
           :view-box="{ width: 800, height: 600 }"
-          :active-topic
+          :active-topic="activeTopic"
+        />
+        <HomeSkillsAndInterestsComponentsWordsCloudMobile
+          class="sm:hidden"
+          :view-box="{ width: 400, height: 800 }"
+          :active-topic="activeTopic"
         />
         <HomeSkillsAndInterestsComponentsRecentProjects />
       </div>
