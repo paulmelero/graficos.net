@@ -21,8 +21,8 @@
           ]"
           :style="`anchor-name:--color-mode-${mode}`"
           :aria-pressed="mode === activeMode"
-          :aria-label="ariaLabels[mode]"
-          :title="ariaLabels[mode]"
+          :aria-label="mode === activeMode ? 'Mode ' + mode : ariaLabels[mode]"
+          :title="mode === activeMode ? 'Mode ' + mode : ariaLabels[mode]"
           @click="setColorMode(mode)"
         >
           <GIcon :size="22" :name="mode === activeMode ? iconsActive[mode] : iconsInactive[mode]" />
@@ -60,9 +60,9 @@ const setColorMode = (mode: ColorMode) => {
 }
 
 const ariaLabels: Record<ColorMode, string> = {
-  dark: 'Switch to Dark Mode',
-  light: 'Switch to Light Mode',
-  system: 'Switch to System Mode',
+  dark: 'Switch to dark mode',
+  light: 'Switch to light mode',
+  system: 'Switch to system mode',
 }
 
 const iconsActive = {

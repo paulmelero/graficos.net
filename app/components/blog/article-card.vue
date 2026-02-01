@@ -3,7 +3,7 @@
     <h2 class="text-2xl font-title flex mb-2 flex-row flex-wrap gap-1 items-center">
       <span
         v-if="lang"
-        class="font-title mt-2 bg-gray-light dark:bg-gray-darker p-1 text-sm leading-tight flex-grow-0 flex-shrink basis-0 self-start uppercase"
+        class="font-title mt-2 bg-gray-lightest dark:bg-gray-darker p-1 text-sm leading-tight flex-grow-0 flex-shrink basis-0 self-start uppercase"
         :title="language"
         :aria-label="language"
         >{{ lang }}</span
