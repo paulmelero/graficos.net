@@ -1,10 +1,10 @@
 <template>
   <div :key="tag">
-    <base-texts-the-title>
+    <BaseTextsTheTitle class="mb-24">
       <h1 class="text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>
       </h1>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <section class="sm:flex sm:justify-between">
       <blog-article-list v-if="posts" class="max-w-3xl" :articles="posts"></blog-article-list>
       <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">

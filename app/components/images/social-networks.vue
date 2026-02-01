@@ -2,14 +2,19 @@
   <!-- accepts display classes -->
   <ul class="flex my-0 pl-0 list-none">
     <li v-for="(network, i) in socialNetworks" :key="i" class="flex group">
-      <base-texts-external-link :href="network.link" class="no-underline flex items-center">
+      <base-texts-external-link
+        @click="$emit('click')"
+        :href="network.link"
+        :title="network.name"
+        class="no-underline flex items-center"
+      >
         <component
           :is="network.iconFile"
           :font-controlled="false"
           :filled="!shouldDisplayNames"
           width="24"
           height="24"
-          class="w-6 mr-2 [&:not(:group-first)]:mx-2 transition:fill fill-black hover:fill-action dark:fill-fwhite dark:hover:fill-actionDark"
+          class="w-6 mr-2 [&:not(:group-first)]:mx-2 transition:fill fill-black hover:fill-accent dark:fill-fwhite dark:hover:fill-actionDark"
         />
         <span v-if="shouldDisplayNames">{{ network.name }}</span>
       </base-texts-external-link>

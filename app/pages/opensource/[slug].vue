@@ -1,8 +1,8 @@
 <template>
-  <section class="container post-container mx-auto py-4">
-    <base-texts-the-title v-if="page">
+  <section class="post-container mx-auto py-10">
+    <BaseTextsTheTitle class="mb-24" v-if="page">
       <h1 class="text-3xl">{{ page.title }}</h1>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <table v-if="page" class="mt-4 mb-6 border-collapse w-full table-fixed">
       <tbody>
         <tr>
@@ -46,7 +46,7 @@ useSeoMeta({
   title: page.value?.title,
   ogTitle: page.value?.title,
   description: page.value?.description,
-  ogSiteName: 'Graficos.NET',
+  ogSiteName: 'graficos.net',
   twitterTitle: page.value?.title,
   twitterCreator: '@paulmelero',
 })

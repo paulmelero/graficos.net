@@ -7,34 +7,27 @@ const customColors = {
   black: colors.black,
   white: colors.white,
   fwhite: 'hsl(0, 0%, 98%)',
-  'gray-darkest': colors.gray['800'],
-  'gray-darker': colors.gray['700'],
-  'gray-dark': colors.gray['600'],
-  gray: colors.gray['500'],
-  'gray-light': colors.gray['400'],
-  'gray-lightest': colors.gray['100'],
-  'teal-dark': colors.teal['600'],
-  teal: colors.teal['500'],
-  'teal-darker': colors.teal['700'],
-  'teal-light': colors.teal['400'],
-  'purple-darker': colors.purple['700'],
+  'gray-darkest': colors.zinc['800'],
+  'gray-darker': colors.zinc['700'],
+  'gray-dark': colors.zinc['600'],
+  gray: colors.zinc['500'],
+  'gray-light': colors.zinc['400'],
+  'gray-lightest': colors.zinc['200'],
 }
 
 const themeColors = {
-  primary: colors.teal['500'],
-  primaryDark: colors.gray['900'],
-  secondary: colors.teal['700'],
-  secondaryDark: colors.teal['800'],
+  primary: 'oklch(0.71 0.2 53.96)', // outside of the sRGB gamut!!
+  primaryDark: colors.zinc['900'],
+  secondary: colors.amber['700'],
+  secondaryDark: 'oklch(0.68 0.22 42.54)',
   accent: '#c31b54',
-  accentDark: colors.pink['700'],
-  action: colors.purple['700'],
-  actionDark: colors.teal['500'],
+  accentDark: colors.orange['300'],
+  actionDark: colors.amber['600'],
 }
 
 type ThemeContext = { theme: <T = Config['theme']>(path: string, defaultValue?: T) => T }
 
-/** @type {import('tailwindcss').Config} */
-export default {
+const config: Config = {
   darkMode: 'class',
   theme: {
     colors: customColors,
@@ -43,41 +36,10 @@ export default {
       container: {
         center: true,
       },
-      screens: {
-        xs: '320px',
-        sm: '576px',
-        md: '768px',
-        lg: '992px',
-        xl: '1200px',
-      },
       fontFamily: {
-        sans: [
-          'system-ui',
-          'BlinkMacSystemFont',
-          '-apple-system',
-          'Segoe UI',
-          'Roboto',
-          'Oxygen',
-          'Ubuntu',
-          'Cantarell',
-          'Fira Sans',
-          'Droid Sans',
-          'Helvetica Neue',
-          'sans-serif',
-        ],
-        serif: [
-          'Constantia',
-          'Lucida Bright',
-          'Lucidabright',
-          'Lucida Serif',
-          'Lucida',
-          'DejaVu Serif',
-          'Bitstream Vera Serif',
-          'Liberation Serif',
-          'Georgia',
-          'serif',
-        ],
-        mono: ['Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+        title: ['Montserrat', 'sans-serif'],
+        ibm: ['IBM Plex Mono', 'monospace'],
+        'ibm-sans': ['IBM Plex Sans', 'sans-serif'],
       },
       fontSize: {
         xs: '.75rem', // 12px
@@ -90,9 +52,6 @@ export default {
         '4xl': '2.25rem', // 36px
         '5xl': '3rem', // 48px
       },
-      minHeight: {
-        50: '50vh',
-      },
       fill: ({ theme }: ThemeContext) => ({
         current: 'currentColor',
         white: theme('colors.white'),
@@ -104,15 +63,9 @@ export default {
       zIndex: {
         '1': '1',
       },
-      animation: {
-        blink: 'blink 1s step-start infinite',
-      },
-      keyframes: {
-        blink: {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0 },
-        },
-      },
     },
   },
+  plugins: [require('./tailwind/plugins/dashed-box')],
 }
+
+export default config

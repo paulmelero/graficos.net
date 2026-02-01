@@ -1,14 +1,14 @@
 <template>
   <article class="post-container">
-    <base-texts-the-title>
+    <BaseTextsTheTitle class="mb-24">
       <h1 class="text-3xl">Slash Pages</h1>
       <template #subtitle>
         <p>
-          Slash pages list of Graficos.NET. See
-          <BaseTextsExternalLink href="https://slashpages.net/">https://slashpages.net/</BaseTextsExternalLink>.
+          Slash pages list of graficos.net. See
+          <BaseTextsExternalLink hasIcon href="https://slashpages.net/">https://slashpages.net/</BaseTextsExternalLink>.
         </p>
       </template>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <section>
       <ul class="list-disc pl-5">
         <li v-for="article in list" :key="article.path" class="mb-5">
@@ -27,7 +27,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Slash pages list of Graficos.NET.',
+      content: 'Slash pages list of graficos.net.',
     },
   ],
 })

@@ -1,6 +1,6 @@
 # graficos.net
 
-> Graficos.net
+> graficos.net
 
 Built with [Nuxt](https://nuxt.com).
 

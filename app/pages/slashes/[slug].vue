@@ -1,10 +1,10 @@
 <template>
-  <section class="container mx-auto py-4">
-    <base-texts-the-title v-if="page">
+  <section class="post-container mx-auto py-10">
+    <BaseTextsTheTitle class="mb-24" v-if="page">
       <h1 class="text-3xl">{{ page.title }}</h1>
-    </base-texts-the-title>
+    </BaseTextsTheTitle>
     <article class="article-post">
-      <div v-if="page" class="post-container">
+      <div v-if="page">
         <ContentRenderer :value="page" class="py-10" />
       </div>
     </article>
@@ -28,7 +28,7 @@ useSeoMeta({
   title: page.value?.title,
   ogTitle: page.value?.title,
   description: page.value?.description,
-  ogSiteName: 'Graficos.NET',
+  ogSiteName: 'graficos.net',
   twitterTitle: page.value?.title,
   twitterCreator: '@paulmelero',
 })
