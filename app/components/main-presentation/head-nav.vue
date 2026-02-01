@@ -41,9 +41,3 @@ const closeBurgerMenu = () => {
   }
 }
 </script>
-
-<style scoped>
-abbr[title] {
-  text-decoration: none;
-}
-</style>

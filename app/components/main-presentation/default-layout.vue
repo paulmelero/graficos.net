@@ -32,7 +32,7 @@ useHead({
 })
 </script>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 .bg-container {
   &:after {
     content: '';
