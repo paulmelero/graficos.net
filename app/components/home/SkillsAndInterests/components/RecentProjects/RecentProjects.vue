@@ -10,15 +10,8 @@
     </div>
     <div class="grid lg:grid-cols-3 container pb-4 mx-auto">
       <div class="lg:col-span-2 lg:col-start-2 grid gap-4 lg:grid-cols-3">
-        <NuxtLink
-          :to="project.link"
-          v-for="project in recentProjects"
-          :key="project.link"
-          class="card no-underline group"
-        >
-          <h3
-            class="text-lg font-ibm dark:font-thin mb-2 text-gray-darker dark:text-gray-light group-hover:underline group-hover:text-accent group-hover:dark:text-actionDark"
-          >
+        <NuxtLink :to="project.link" v-for="project in recentProjects" :key="project.link" class="card no-underline">
+          <h3 class="text-2xl font-title mb-2">
             {{ project.title }}
           </h3>
           <p class="text-sm text-gray-dark dark:text-gray-light">{{ project.description }}</p>
