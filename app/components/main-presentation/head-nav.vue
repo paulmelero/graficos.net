@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="flex items-center justify-between bg-primary dark:bg-gray-darkest dark:text-fwhite sm:sticky top-0"
+    class="flex items-center justify-between bg-fwhite dark:bg-gray-darkest dark:text-fwhite sm:sticky top-0"
     aria-label="Main Navigation"
   >
     <nuxt-link

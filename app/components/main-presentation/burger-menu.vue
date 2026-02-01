@@ -13,7 +13,7 @@
         id="top-menu"
         :aria-expanded="isOpen"
         aria-live="polite"
-        class="card !bg-primary absolute z-10 top-full right-0 w-[300px] -mr-2"
+        class="card absolute z-10 top-full right-0 w-[300px] -mr-2"
       >
         <ul class="divide-y dark:divide-gray-dark mb-0">
           <li v-for="link of links" :key="link.href" class="relative h-[3rem]">

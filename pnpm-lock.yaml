@@ -39,6 +39,9 @@ importers:
         specifier: ^3.5.27
         version: 3.5.27(typescript@5.9.3)
     devDependencies:
+      '@iconify-json/material-symbols-light':
+        specifier: ^1.2.53
+        version: 1.2.53
       '@iconify-json/octicon':
         specifier: ^1.2.20
         version: 1.2.20
@@ -1465,6 +1468,9 @@ packages:
   '@humanwhocodes/retry@0.4.3':
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
+
+  '@iconify-json/material-symbols-light@1.2.53':
+    resolution: {integrity: sha512-g8pOHI4jCiMTYQEtMNRRNtkOya3XOh4AUfD2mBr/bga2N21+m5fNIM7LJNF3BB1X5Skt9nQU5/He4c1cRQYM6w==}
 
   '@iconify-json/octicon@1.2.20':
     resolution: {integrity: sha512-BCIWoh06jlOKMY3JCDx547g+4a0TOj96cdrtD1N4gz3oNlWF7yXdrK9WbqYN4ykmDl+KdJYRtOYIFP1AvGXgVA==}
@@ -8852,6 +8858,10 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/retry@0.4.3': {}
+
+  '@iconify-json/material-symbols-light@1.2.53':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify-json/octicon@1.2.20':
     dependencies:

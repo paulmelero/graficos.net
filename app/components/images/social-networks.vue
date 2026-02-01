@@ -2,7 +2,7 @@
   <!-- accepts display classes -->
   <ul class="flex my-0 pl-0 list-none">
     <li v-for="(network, i) in socialNetworks" :key="i" class="flex group">
-      <base-texts-external-link :href="network.link" class="no-underline flex items-center">
+      <base-texts-external-link @click="$emit('click')" :href="network.link" class="no-underline flex items-center">
         <component
           :is="network.iconFile"
           :font-controlled="false"
