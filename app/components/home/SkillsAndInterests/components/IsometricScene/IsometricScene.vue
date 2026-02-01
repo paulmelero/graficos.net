@@ -549,7 +549,7 @@ onUnmounted(() => {
         v-for="(vid, index) in videos"
         :key="index"
         aria-hidden
-        class="flex-1 h-full cursor-col-resize hover:bg-[rgba(255,255,255,0.01)] focus:bg-[rgba(255,255,255,0.01)] focus:outline-none"
+        class="flex-1 h-full cursor-col-resize hover:bg-[rgba(255,255,255,0.01)] focus:outline-none"
         type="button"
         @click.prevent
         @mouseenter="((activeVideoSrc = vid), $emit('video-hover', index))"
