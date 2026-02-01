@@ -1,5 +1,5 @@
 .card {
-  @apply bg-fwhite dark:bg-gray-darkest overflow-hidden rounded shadow-md py-4 px-6 transition-shadow;
+  @apply bg-fwhite dark:bg-gray-darkest overflow-hidden shadow-md py-4 px-6 transition-shadow;
   &:hover {
     @apply shadow-xl;
   }

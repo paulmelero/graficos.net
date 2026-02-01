@@ -2,13 +2,17 @@ import wasm from 'vite-plugin-wasm'
 
 import socialLinks from './app/config/social-links'
 
-const APP_NAME = 'Graficos.net'
+const APP_NAME = 'graficos.net'
 const APP_URL = 'https://graficos.net' // do not end it in slash
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-20',
   devtools: { enabled: true },
+
+  devServer: {
+    port: 1337,
+  },
 
   css: ['~/assets/css/main.css'],
 
@@ -60,8 +64,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxtjs/color-mode',
-    '@pinia/nuxt',
     'nuxt-svgo',
+    '@nuxt/fonts',
     '@vueuse/nuxt',
   ],
 
@@ -87,5 +91,19 @@ export default defineNuxtConfig({
   svgo: {
     svgo: false,
     defaultImport: 'component',
+  },
+
+  fonts: {
+    provider: 'google',
+    defaults: {
+      weights: [100, 400, 600, 700, 900],
+      styles: ['italic', 'normal'],
+      subsets: ['latin'],
+    },
+    families: [
+      { name: 'Montserrat', weights: ['900'], styles: ['italic'] },
+      { name: 'IBM Plex Mono' },
+      { name: 'IBM Plex Sans' },
+    ],
   },
 })

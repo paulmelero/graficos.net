@@ -2,15 +2,15 @@
   <article class="article-post">
     <header
       v-if="post && post.thumbnail"
-      class="py-16 bg-image bg-center bg-cover min-h-50 flex-col flex content-center"
+      class="py-16 bg-image bg-center bg-cover min-h-[50vh] flex-col flex content-center"
       :style="`background-image: url( ${post.thumbnail} )`"
     >
       <div class="w-3/4 xl:w-1/2 my-auto mx-auto text-white max-w-3xl">
-        <h1 class="mb-8 sm:text-5xl text-3xl title-bold">{{ post.title }}</h1>
+        <h1 class="mb-8 sm:text-5xl text-3xl font-title">{{ post.title }}</h1>
         <p>
-          <base-texts-the-time :date="post.date" class="block sm:inline-block" />
+          <base-texts-the-time :date="post.date" class="font-ibm block sm:inline-block" />
           <span class="hidden sm:inline-block sm:mx-2">·</span>
-          <span class="block sm:inline-block">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
+          <span class="block sm:inline-block font-ibm">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
         <BlogWebMentions :lang="post.lang" />
       </div>

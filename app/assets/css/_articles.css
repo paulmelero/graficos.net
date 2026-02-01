@@ -9,8 +9,7 @@
   }
 
   :where(h1, h2, h3, h4, h5, h6):has(a) {
-    @apply mb-[1em] font-black italic;
-    font-family: 'Montserrat', sans-serif;
+    @apply mb-[1em] font-ibm;
   }
   :is(h1, h2, h3, h4, h5, h6) a {
     @apply no-underline hover:underline;
@@ -43,8 +42,16 @@
   ul,
   ol,
   p,
-  hr {
+  hr,
+  pre,
+  blockquote,
+  table,
+  details {
     margin-bottom: 1.45em;
+  }
+
+  ul li {
+    @apply mb-4;
   }
 
   li > ul {
@@ -56,11 +63,15 @@
     padding-left: 1.2em;
   }
 
+  code {
+    @apply font-ibm;
+  }
+
   :is(p, ul, blockquote, details) code {
-    @apply bg-fwhite dark:bg-gray-darkest text-gray-darker dark:text-gray-light p-1 rounded-md text-sm font-mono;
+    @apply bg-fwhite dark:bg-gray-darkest text-primaryDark dark:text-gray-lightest p-1 rounded-md text-sm;
   }
   :is(h1, h2, h3, h4, h5, h6) code {
-    @apply bg-fwhite dark:bg-gray-darkest p-1 rounded-md font-mono;
+    @apply bg-gray-lightest dark:bg-gray-darkest p-1 rounded-md;
   }
 
   a[data-footnote-backref] {
@@ -69,7 +80,7 @@
 }
 
 .post-container {
-  @apply w-3/4 xl:w-1/2 mx-auto py-10 sm:text-lg max-w-3xl;
+  @apply w-3/4 xl:w-1/2 mx-auto sm:text-lg max-w-3xl;
 }
 
 /* Foot notes */
@@ -90,7 +101,7 @@ blockquote p {
 blockquote p:before,
 blockquote p:after {
   text-box: trim-both cap alphabetic;
-  @apply absolute leading-none opacity-25 z-0 text-gray-darker dark:text-gray-light text-5xl font-bold;
+  @apply absolute leading-none opacity-25 -z-1 text-gray-darker dark:text-gray-light text-5xl font-bold;
 }
 
 blockquote p:before {
