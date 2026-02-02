@@ -34,6 +34,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
+      routes: ['/feed'],
     },
     preset: 'cloudflare_module',
     cloudflare: {
