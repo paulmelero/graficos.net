@@ -4,7 +4,11 @@
       <main-presentation-head-nav />
     </header>
 
-    <main :class="container === 'contained' ? 'container mx-auto py-10' : 'w-full' + ' flex-grow'" role="main">
+    <main
+      class="pb-24"
+      :class="container === 'contained' ? 'container mx-auto pt-10' : 'w-full' + ' flex-grow'"
+      role="main"
+    >
       <div class="relative z-[2]"><slot /></div>
       <div class="isolate" v-if="container === 'contained'"><div class="bg-container" aria-hidden="true" /></div>
     </main>
