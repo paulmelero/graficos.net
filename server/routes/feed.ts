@@ -25,6 +25,8 @@ export default defineEventHandler(async (event) => {
 
   const articles = await queryCollection(event, 'blog').all()
 
+  articles.sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime())
+
   articles.forEach((article) => {
     const url = `${appUrl}/blog/${article.path}`
 
