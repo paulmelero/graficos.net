@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
   articles.sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime())
 
   articles.forEach((article) => {
-    const url = `${appUrl}/blog${article.path}`
+    const url = `${appUrl}${article.path}`
 
     feed.addItem({
       title: article.title,
