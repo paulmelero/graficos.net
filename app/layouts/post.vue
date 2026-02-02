@@ -3,7 +3,7 @@
     <header role="banner" class="isolate z-10 sticky top-0">
       <main-presentation-head-nav />
     </header>
-    <main class="flex-grow z-0" role="main">
+    <main class="flex-grow z-0 pb-24" role="main">
       <slot />
     </main>
     <lazy-main-presentation-the-footer />
