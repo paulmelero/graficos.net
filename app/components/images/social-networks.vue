@@ -1,24 +1,26 @@
 <template>
   <!-- accepts display classes -->
   <ul class="flex my-0 pl-0 list-none">
-    <li v-for="(network, i) in socialNetworks" :key="i" class="flex group">
-      <base-texts-external-link
-        @click="$emit('click')"
-        :href="network.link"
-        :title="network.name"
-        class="no-underline flex items-center"
-      >
-        <component
-          :is="network.iconFile"
-          :font-controlled="false"
-          :filled="!shouldDisplayNames"
-          width="24"
-          height="24"
-          class="w-6 mr-2 [&:not(:group-first)]:mx-2 transition-[fill] fill-black hover:fill-accent dark:fill-fwhite dark:hover:fill-actionDark"
-        />
-        <span v-if="shouldDisplayNames">{{ network.name }}</span>
-      </base-texts-external-link>
-    </li>
+    <template v-for="(network, i) in socialNetworks" :key="i">
+      <li class="flex group" v-if="!onlySocials || network.kind === 'social'">
+        <base-texts-external-link
+          @click="$emit('click')"
+          :href="network.link"
+          :title="network.name"
+          class="no-underline flex items-center"
+        >
+          <component
+            :is="network.iconFile"
+            :font-controlled="false"
+            :filled="!shouldDisplayNames"
+            width="24"
+            height="24"
+            class="w-6 mr-2 [&:not(:group-first)]:mx-2 transition-[fill] fill-black hover:fill-accent dark:fill-fwhite dark:hover:fill-actionDark"
+          />
+          <span v-if="shouldDisplayNames">{{ network.name }}</span>
+        </base-texts-external-link>
+      </li>
+    </template>
   </ul>
 </template>
 
@@ -35,9 +37,11 @@ import { tw } from '~/core/tw'
 withDefaults(
   defineProps<{
     shouldDisplayNames?: boolean
+    onlySocials?: boolean
   }>(),
   {
     shouldDisplayNames: false,
+    onlySocials: false,
   }
 )
 
@@ -46,21 +50,25 @@ const socialNetworks = computed(() => {
   return [
     {
       name: 'Bluesky',
+      kind: 'social',
       link: publicConfig.socialLinks.bsky.link,
       iconFile: IconBsky,
     },
     {
       name: 'GitHub',
+      kind: 'social',
       link: publicConfig.socialLinks.github.link,
       iconFile: IconGithub,
     },
     {
       name: 'LinkedIn',
+      kind: 'social',
       link: publicConfig.socialLinks.linkedin.link,
       iconFile: IconLinkedin,
     },
     {
       name: 'Go to Atom feed URL',
+      kind: 'content-syndication',
       link: '/feed',
       iconFile: () =>
         h(GIcon, {

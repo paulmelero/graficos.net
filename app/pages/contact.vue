@@ -64,7 +64,7 @@
 
     <p>You can also contact me on the social media accounts where I am most active:</p>
 
-    <images-social-networks class="flex-col gap-4" :should-display-names="true" />
+    <images-social-networks class="flex-col gap-4" :should-display-names="true" :only-socials="true" />
   </div>
 </template>
 
