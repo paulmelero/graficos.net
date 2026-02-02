@@ -7,7 +7,9 @@
       </li>
     </ul>
     <p v-else class="text-sm text-gray-500">No tags found</p>
-    <p v-if="!shouldHide">Go back to <nuxt-link to="/blog">Blog</nuxt-link> to see all posts.</p>
+    <p v-if="!shouldHide" class="text-sm font-ibm dark:font-thin">
+      Go back to <nuxt-link to="/blog">the blog</nuxt-link> to see all posts.
+    </p>
   </div>
 </template>
 

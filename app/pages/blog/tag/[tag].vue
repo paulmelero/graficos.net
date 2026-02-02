@@ -1,13 +1,13 @@
 <template>
-  <div :key="tag">
+  <div class="post-container mx-auto" :key="tag">
     <BaseTextsTheTitle class="mb-24">
       <h1 class="text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>
       </h1>
     </BaseTextsTheTitle>
     <section class="sm:flex sm:justify-between">
-      <blog-article-list v-if="posts" class="max-w-3xl" :articles="posts"></blog-article-list>
-      <aside class="sm:flex-1 sm:mt-0 mt-6 sm:ml-6">
+      <blog-article-list v-if="posts" :articles="posts" />
+      <aside class="sm:mt-0 mt-6 sm:ml-6 sm:sticky h-max sm:top-24 sm:max-w-56">
         <blog-tag-cloud sectionTitle="Related Tags" :tags="tags" class="mb-8" />
       </aside>
     </section>
