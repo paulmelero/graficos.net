@@ -1,0 +1,116 @@
+media:
+  input: public/images/uploads
+  output: /images/uploads
+
+content:
+  - name: blog
+    label: Blog Posts
+    type: collection
+    path: content/blog
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: summary
+        label: Summary
+        type: text
+        required: true
+      - name: description
+        label: Description
+        type: text
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: lang
+        label: Language
+        type: string
+        default: EN
+      - name: date
+        label: Published Date
+        type: date
+        required: true
+      - name: thumbnail
+        label: Thumbnail
+        type: image
+      - name: body
+        label: Content
+        type: rich-text
+    view:
+      fields:
+        - title
+        - date
+        - lang
+        - tags
+      primary: title
+      sort:
+        - date
+        - title
+      default:
+        sort: date
+        order: desc
+
+  - name: openSource
+    label: Open Source Projects
+    type: collection
+    path: content/openSource
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: summary
+        label: Summary
+        type: text
+      - name: description
+        label: Description
+        type: text
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: yearCreated
+        label: Year Created
+        type: number
+      - name: thumbnail
+        label: Thumbnail
+        type: image
+      - name: url
+        label: Project URL
+        type: string
+      - name: repositoryUrl
+        label: Repository URL
+        type: string
+      - name: license
+        label: License
+        type: string
+      - name: body
+        label: Content
+        type: rich-text
+    view:
+      fields:
+        - title
+        - yearCreated
+        - tags
+      primary: title
+      sort:
+        - yearCreated
+        - title
+      default:
+        sort: yearCreated
+        order: desc
+
+  - name: homeSections
+    label: Home Sections
+    type: collection
+    path: content/homeSections
+    format: raw
+    subfolders: false
+
+  - name: slashes
+    label: Slash Pages
+    type: collection
+    path: content/slashes
+    format: raw
+    subfolders: false
