@@ -1,5 +1,5 @@
 ---
-title: [SAFE]Reader
+title: '[SAFE]Reader'
 summary: It's a small and simple reader app that allows you to read articles from your favorite sites without annoying "Accept Cookies or Pay" walls.
 description: It's a Nuxt 3 app that uses an iframe to load the external URLs. It is deployed on Github Pagees, and open source.
 tags: [open-source, nuxt, Github Pages]
