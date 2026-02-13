@@ -14,6 +14,7 @@ tags:
   - Soft Skills
 lang: EN
 date: 2026-01-13
+modifiedDate: 2026-02-02
 thumbnail: /images/uploads/senior-engineer.avif
 ---
 

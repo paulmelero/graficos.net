@@ -9,6 +9,14 @@
         <h1 class="mb-8 sm:text-5xl text-3xl font-title">{{ post.title }}</h1>
         <p>
           <base-texts-the-time :date="post.date" class="font-ibm block sm:inline-block" />
+          <span class="block sm:inline-block font-ibm text-xs">
+            <span v-if="post.modifiedDate"
+              ><span class="hidden sm:inline-block">&nbsp;</span>(<span class="text-xs">Last modified:</span
+              >&nbsp;</span
+            ><base-texts-the-time v-if="post.modifiedDate" :date="post.modifiedDate" /><span v-if="post.modifiedDate"
+              >)</span
+            >
+          </span>
           <span class="hidden sm:inline-block sm:mx-2">·</span>
           <span class="block sm:inline-block font-ibm">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
@@ -37,7 +45,7 @@ const { data: post } = await useAsyncData(
   () => {
     return queryCollection('blog')
       .where('path', '=', route.path)
-      .select('title', 'lang', 'summary', 'tags', 'date', 'thumbnail', 'body', 'description')
+      .select('title', 'lang', 'summary', 'tags', 'date', 'thumbnail', 'body', 'description', 'modifiedDate')
       .first()
   },
   {
