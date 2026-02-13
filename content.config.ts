@@ -20,6 +20,7 @@ export default defineContentConfig({
         tags: z.array(z.string()).default([]),
         lang: z.string().default('en'),
         date: z.string().default(new Date().toISOString()),
+        modifiedDate: z.string().default(new Date().toISOString()).optional(),
         thumbnail: z.string().default(''),
       }),
     }),
