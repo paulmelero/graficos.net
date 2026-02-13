@@ -1,7 +1,7 @@
 ---
 title: I created a mini-PWA to read articles without cookie walls
-summary: As I was getting annoyed by the "Accept Cookies or Pay" walls on many media outlets, I created a small and simple reader app that allows you to read articles from your favorite sites without having to deal with these walls.
-description: PWA to provide a better reading experience on mobile devices by blocking third-party cookies and scripts, while still allowing the content to be displayed.
+summary: As I was getting annoyed by the "Accept Cookies or Pay" walls on many media outlets, I created a small and simple reader app called [SAFE]Reader that allows you to read articles from your favorite sites without having to give away your privacy.
+description: I created this mini PWA to provide a better reading experience on mobile devices by blocking third-party cookies and scripts, while still allowing the content to be displayed.
 tags:
   - open-source
   - nuxt
@@ -14,6 +14,8 @@ date: 2026-02-12
 modifiedDate: 2026-02-13
 thumbnail: /images/uploads/safe-reader.avif
 ---
+
+## What is \[SAFE\]Reader?
 
 As I shared last year in the [/open-source/safe-reader](https://graficos.net/opensource/safe-reader) post, I created a tool to read articles in a more privacy-friendly way, without having to deal with the "Accept Cookies or Pay" walls that many media outlets have implemented.
 
@@ -29,7 +31,7 @@ Having worked in media companies in the past, and knowing how tracking systems w
 
 What kind of data gets collected? It can be anything from your browsing history, to your location (or IP), to your device information, to your interests, and much more. This data is then used to create a profile of you, which can be used for targeted advertising, or even sold to third parties. Have you heard about the Cambridge Analytica scandal? That was a clear example of how data can be misused, and how it can have a huge impact on people's lives.
 
-## How does the [SAFE]Reader work?
+## How does the \[SAFE\]Reader work?
 
 I'm going to provide a rather technical explanation of how the app works here, since this is my tech blog, but if you want a simpler explanation, you can check the [/open-source/safe-reader](https://graficos.net/opensource/safe-reader) post or even the [about page of the app](https://safe-reader.graficos.net/en/about).
 
@@ -56,13 +58,23 @@ I found out that very large articles were causing long CPU usage and were reachi
 
 ## Sharing capabilities
 
-Why a PWA? For me, one of the key features of the app is that it can be installed on your device, and you can **share** articles from your browser (or any other app) to _[SAFE]Reader_, so you can read them in a more comfortable way. This is particularly useful on mobile devices, where the cookie walls are more difficult to escape from.
+Why a PWA? For me, one of the key features of the app is that it can be installed on your device, and you can **share** articles from your browser (or any other app) to _\[SAFE\]Reader_, so you can read them in a more comfortable way. This is particularly useful on mobile devices, where the cookie walls are more difficult to escape from.
 
 I also added a share button so you can share the safe-reader version of the articles with your friends, so they can also read them.
 
 ## Philosophical thoughts
 
 This app is important for me at a personal level, since I value strongly the idea of a free and open web, where everybody has the right to be informed and educated without having to pay for it, whether with money or with their personal data. I want to believe I am helping a handful of people to access information, and all actions that contribute to a more open and free web are worth it, even if they are small.
+
+It resembles a symbol act of "tech anarchy", in the sense that it is a way to fight against the walled gardens and the data exploitation that many companies are taking part in, and to provide a tool that empowers users to take control of their own data.
+
+## Is it legal?
+
+With this tool, I am doing the same thing that a browser does when it loads a page in reading mode, or when it blocks third-party cookies. But I understand some publishers might not be happy about it, since they rely on the data collected from users to monetize their content.
+
+However, I am not doing anything illegal, since I am **not bypassing any paywalls** or accessing any content that is behind a login, and I am not collecting any data from users. I am simply providing a way to read the content that is already publicly available on the Internet, in a more private and user-friendly way.
+
+Despite that, I have a [FAQ section in the app](https://safe-reader.graficos.net/en/faq) to address some of these legal concerns, and I will be happy to discuss any legal issues that might arise with publishers or users. Reach me at [/contact](https://graficos.net/contact) if you want to talk about it.
 
 ## Disclaimer
 
