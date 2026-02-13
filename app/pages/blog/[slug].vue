@@ -8,15 +8,7 @@
       <div class="w-3/4 xl:w-1/2 my-auto mx-auto text-white max-w-3xl">
         <h1 class="mb-8 sm:text-5xl text-3xl font-title">{{ post.title }}</h1>
         <p>
-          <base-texts-the-time :date="post.date" class="font-ibm block sm:inline-block" />
-          <span class="block sm:inline-block font-ibm text-xs">
-            <span v-if="post.modifiedDate"
-              ><span class="hidden sm:inline-block">&nbsp;</span>(<span class="text-xs">Last modified:</span
-              >&nbsp;</span
-            ><base-texts-the-time v-if="post.modifiedDate" :date="post.modifiedDate" /><span v-if="post.modifiedDate"
-              >)</span
-            >
-          </span>
+          <BlogArticleDate :date="post.date" :modifiedDate="post.modifiedDate" />
           <span class="hidden sm:inline-block sm:mx-2">·</span>
           <span class="block sm:inline-block font-ibm">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>
@@ -63,6 +55,8 @@ useSeoMeta({
   ogTitle: post.value?.title,
   description: post.value?.description,
   ogDescription: post.value?.description,
+  ...(post.value?.date && { publishedTime: post.value.date }),
+  ...(post.value?.modifiedDate && { modifiedTime: post.value.modifiedDate }),
   ogImage: post.value?.thumbnail,
   ogLocale: post.value?.lang,
   ogSiteName: APP_NAME,
