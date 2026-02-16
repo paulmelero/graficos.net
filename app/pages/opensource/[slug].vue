@@ -45,10 +45,12 @@ const { data: page } = await useAsyncData(`opensource-${route.path}`, () =>
 useSeoMeta({
   title: page.value?.title,
   ogTitle: page.value?.title,
+  ogUrl: route.fullPath,
+  ogType: 'article',
   description: page.value?.description,
+  ogDescription: page.value?.description,
   ogSiteName: 'graficos.net',
   twitterTitle: page.value?.title,
-  twitterCreator: '@paulmelero',
 })
 </script>
 

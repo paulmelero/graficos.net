@@ -36,7 +36,6 @@ useHead({
     // Twitter
     { name: 'twitter:card', content: 'summary' },
     { name: 'twitter:site', content: '@paul_melero' },
-    { name: 'twitter:creator', content: '@paul_melero' },
     { name: 'twitter:title', content: APP_NAME },
     { name: 'twitter:description', content: pkg.description },
     { name: 'twitter:image', content: APP_URL + APP_COVER_IMG },

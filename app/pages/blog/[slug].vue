@@ -47,23 +47,29 @@ const { data: post } = await useAsyncData(
   }
 )
 
-const { APP_NAME, TWITTER_USERNAME } = useRuntimeConfig().public
+const { APP_NAME, APP_URL } = useRuntimeConfig().public
+const ogUrl = new URL(route.fullPath, APP_URL).href
+const socialImageUrl = post.value?.thumbnail
+  ? new URL(post.value.thumbnail.replace(/\.avif(?=($|[?#]))/i, '.png'), APP_URL).href
+  : undefined
 
 // Head - SEO
 useSeoMeta({
   title: post.value?.title,
   ogTitle: post.value?.title,
+  ogUrl,
+  ogType: 'article',
   description: post.value?.description,
   ogDescription: post.value?.description,
   ...(post.value?.date && { publishedTime: post.value.date }),
   ...(post.value?.modifiedDate && { modifiedTime: post.value.modifiedDate }),
-  ogImage: post.value?.thumbnail,
+  ogImage: socialImageUrl,
   ogLocale: post.value?.lang,
   ogSiteName: APP_NAME,
   twitterTitle: post.value?.title,
   twitterDescription: post.value?.description,
-  twitterImage: post.value?.thumbnail,
-  twitterCreator: `@${TWITTER_USERNAME}`,
+  twitterImage: socialImageUrl,
+  twitterCard: 'summary_large_image',
 })
 
 useCanonicalUrl(route.fullPath)
