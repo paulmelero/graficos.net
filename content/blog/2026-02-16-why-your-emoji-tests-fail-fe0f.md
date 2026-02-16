@@ -173,6 +173,7 @@ This is a tiny Unicode detail that can break your tests. But it also taught me a
 
 In summary, you will understand perfectly the different looking of emojis and text by looking at this table taken from the [Emoji wikipedia page](https://en.wikipedia.org/wiki/Emoji#Emoji_versus_text_presentation):
 
+<!-- prettier-ignore -->
 | U+ | 2139 | 231B | 26A0 | 2712 | 2764 | 1F004 | 1F21A |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | Default presentation | Text | Emoji | Text | Text | Text | Emoji | Emoji |
