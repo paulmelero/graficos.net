@@ -18,9 +18,12 @@
 const route = useRoute()
 const tag = computed(() => route.params.tag as string)
 
+const { allTags } = useBlogTags()
+
 const { data: posts } = await useAsyncData(`posts-${tag.value}`, () => {
   return queryCollection('blog')
     .select('path', 'title', 'lang', 'summary', 'tags')
+    .where('tags', 'LIKE', `%${tag.value}%`)
     .all()
     .then((res) => {
       return res.filter((post) => {
@@ -29,17 +32,21 @@ const { data: posts } = await useAsyncData(`posts-${tag.value}`, () => {
     })
 })
 
-const tags = (posts.value || []).reduce(
-  (acc, post) => {
-    return (post.tags || []).reduce((acc, tag) => {
-      if (!acc[tag]) {
-        acc[tag] = 1
-      } else {
-        acc[tag]++
-      }
-      return acc
-    }, acc)
-  },
-  {} as Record<string, number>
-)
+const tags = computed(() => {
+  if (!posts.value) return {}
+  
+  // Get all unique tags from the filtered posts
+  const relatedTagNames = new Set<string>()
+  posts.value.forEach(post => {
+    (post.tags || []).forEach(t => relatedTagNames.add(t.toLowerCase()))
+  })
+
+  // Build a tag record using the GLOBAL counts for these related tags
+  const relatedTags: Record<string, number> = {}
+  relatedTagNames.forEach(tagName => {
+    relatedTags[tagName] = allTags.value[tagName] || 0
+  })
+  
+  return relatedTags
+})
 </script>
