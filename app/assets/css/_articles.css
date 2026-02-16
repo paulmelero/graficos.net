@@ -77,6 +77,19 @@
   a[data-footnote-backref] {
     @apply pl-2;
   }
+
+  table {
+    @apply w-full;
+  }
+
+  table th,
+  table td {
+    @apply p-2 border border-gray-light dark:border-gray-darkest;
+  }
+
+  .table-wrapper {
+    @apply overflow-x-auto;
+  }
 }
 
 .post-container {
