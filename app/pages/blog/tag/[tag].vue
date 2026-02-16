@@ -18,6 +18,15 @@
 const route = useRoute()
 const tag = computed(() => route.params.tag as string)
 
+useSeoMeta({
+  title: `Blog posts on "${tag.value}"`,
+  description: `Blog posts on "${tag.value}" by Paul Melero. Web Engineer located in Spain.`,
+  ogTitle: `Blog posts on "${tag.value}"`,
+  ogDescription: `Blog posts on "${tag.value}" by Paul Melero. Web Engineer located in Spain.`,
+  ogUrl: route.fullPath,
+  ogType: 'article',
+})
+
 const { allTags } = useBlogTags()
 
 const { data: posts } = await useAsyncData(`posts-${tag.value}`, () => {
@@ -34,19 +43,18 @@ const { data: posts } = await useAsyncData(`posts-${tag.value}`, () => {
 
 const tags = computed(() => {
   if (!posts.value) return {}
-  
   // Get all unique tags from the filtered posts
   const relatedTagNames = new Set<string>()
-  posts.value.forEach(post => {
-    (post.tags || []).forEach(t => relatedTagNames.add(t.toLowerCase()))
+  posts.value.forEach((post) => {
+    ;(post.tags || []).forEach((t) => relatedTagNames.add(t.toLowerCase()))
   })
 
   // Build a tag record using the GLOBAL counts for these related tags
   const relatedTags: Record<string, number> = {}
-  relatedTagNames.forEach(tagName => {
+  relatedTagNames.forEach((tagName) => {
     relatedTags[tagName] = allTags.value[tagName] || 0
   })
-  
+
   return relatedTags
 })
 </script>

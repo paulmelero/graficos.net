@@ -22,7 +22,6 @@ export default defineNuxtConfig({
       APP_URL,
       WEBMENTIONS_TOKEN: 'iNlunTkDd9uJ93CWoVrhYw',
       socialLinks,
-      TWITTER_USERNAME: 'paul_melero',
     },
   },
 
