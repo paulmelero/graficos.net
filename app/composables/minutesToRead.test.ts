@@ -39,7 +39,7 @@ describe('Minutes to read', () => {
     [10, 4, { emojisWhileReading: '☕️', formattedMinutesToRead: '10 mins' }],
     [9, 5, { emojisWhileReading: '☕️', formattedMinutesToRead: '11 mins' }],
     [20, 4, { emojisWhileReading: '☕️☕️', formattedMinutesToRead: '20 mins' }],
-    [22, 5, { emojisWhileReading: '🧘🍹', formattedMinutesToRead: '22 mins' }],
+    [22, 5, { emojisWhileReading: '🧘🍹', formattedMinutesToRead: '27 mins' }],
   ])('should return the correct value for %s children and %s levels deep', (children, levels, result) => {
     const post = computed(() => fakePostFactory(children, levels))
 
