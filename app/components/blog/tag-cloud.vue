@@ -2,7 +2,7 @@
   <div class="card">
     <h3 class="font-ibm dark:font-thin mb-4">{{ sectionTitle }}</h3>
     <ul v-if="Object.keys(tags).length" class="list-reset flex gap-2 flex-wrap">
-      <li v-for="(tag, i) in Object.keys(tags)" :key="i">
+      <li v-for="(tag, i) in sortedTags" :key="i">
         <blog-tag-media :name="tag" :size="tags[tag] || 1" class="capitalize" />
       </li>
     </ul>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-withDefaults(
+const props = withDefaults(
   defineProps<{
     tags: Record<string, number>
     sectionTitle?: string
@@ -25,4 +25,8 @@ withDefaults(
     shouldHide: false,
   }
 )
+
+const sortedTags = computed(() => {
+  return Object.keys(props.tags).sort((a, b) => props.tags[b] - props.tags[a])
+})
 </script>

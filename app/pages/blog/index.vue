@@ -27,24 +27,7 @@ useSeoMeta({
   description: 'Blog - Web development related posts by Paul Melero. Web Engineer located in Spain.',
 })
 
-const getTagsFromPosts = (posts: PostInList[]) => {
-  return posts
-    .map((post) => post.tags ?? [])
-    .reduce((acc, tags) => [...acc, ...tags], [] as string[])
-    .reduce(
-      (acc, tag) => {
-        if (!tag) return acc
-        const lowerCaseTag = tag.toLowerCase()
-        if (acc[lowerCaseTag]) {
-          acc[lowerCaseTag]++
-        } else {
-          acc[lowerCaseTag] = 1
-        }
-        return acc
-      },
-      {} as Record<string, number>
-    )
-}
+const { allTags } = useBlogTags()
 
 const { data: posts } = await useAsyncData<PostInList[]>('blog', async () => {
   const content = await queryCollection('blog')
@@ -55,7 +38,7 @@ const { data: posts } = await useAsyncData<PostInList[]>('blog', async () => {
   return content as PostInList[]
 })
 
-const tags = computed(() => (posts.value ? getTagsFromPosts(posts.value) : {}))
+const tags = allTags
 </script>
 
 <style scoped>
