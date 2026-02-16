@@ -72,7 +72,7 @@ export const useMinutesToRead = ({ post }: { post: Ref<Post | undefined | null> 
     }
 
     if (minutesToRead.value >= 10 && minutesToRead.value <= 20) {
-      return new Array(Math.floor(minutesToRead.value / 10)).fill('☕').join('')
+      return new Array(Math.floor(minutesToRead.value / 10)).fill('☕️').join('')
     }
 
     if (minutesToRead.value > 20) {
