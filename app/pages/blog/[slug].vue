@@ -68,6 +68,18 @@ useSeoMeta({
 
 useCanonicalUrl(route.fullPath)
 
+useHead({
+  // preload LCP iamge with fetchpriority="high"
+  link: [
+    {
+      rel: 'preload',
+      href: post.value?.thumbnail,
+      as: 'image',
+      fetchpriority: 'high',
+    },
+  ],
+})
+
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
 </script>
 
