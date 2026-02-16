@@ -8,7 +8,13 @@
         </li>
       </ul>
 
-      <div v-if="hasMoreTags" class="overflow-hidden transition-all duration-300 ease-in-out" :style="expandedStyle">
+      <div
+        v-if="hasMoreTags"
+        :id="`tags-accordion-${sectionTitle.replace(/\s+/g, '-').toLowerCase()}`"
+        class="overflow-hidden transition-all duration-300 ease-in-out"
+        :style="expandedStyle"
+        :aria-hidden="!isExpanded"
+      >
         <ul class="list-reset flex gap-2 flex-wrap pb-4">
           <li v-for="(tag, i) in hiddenTags" :key="i">
             <blog-tag-media :name="tag" :size="tags[tag] || 1" class="capitalize" />
@@ -18,11 +24,15 @@
 
       <button
         v-if="hasMoreTags"
-        class="text-sm font-ibm dark:font-thin text-gray-dark dark:text-gray-light hover:underline flex items-center gap-1"
+        class="text-sm font-ibm dark:font-thin text-gray-dark dark:text-gray-light hover:underline flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded !px-1"
+        :aria-expanded="isExpanded"
+        :aria-controls="`tags-accordion-${sectionTitle.replace(/\s+/g, '-').toLowerCase()}`"
         @click="isExpanded = !isExpanded"
       >
         {{ isExpanded ? 'Show less' : `Show ${hiddenTags.length} more tags` }}
-        <span class="transition-transform duration-300" :class="{ 'rotate-180': isExpanded }">↓</span>
+        <span class="transition-transform duration-300" :class="{ 'rotate-180': isExpanded }" aria-hidden="true"
+          >↓</span
+        >
       </button>
     </div>
     <p v-else class="text-sm text-gray-500">No tags found</p>

@@ -10,8 +10,8 @@ const post: Partial<Post> = {
   date: '2024',
   tags: [],
   body: {
-    type: 'root',
-    children: [],
+    type: 'minimark',
+    value: [''],
   },
 }
 const fakePostFactory: (averageChildren: number, nestedLevels?: number, averageLength?: number) => Post = (
@@ -23,15 +23,7 @@ const fakePostFactory: (averageChildren: number, nestedLevels?: number, averageL
 
   for (let i = 0; i < nestedLevels; i++) {
     for (let j = 0; j < averageChildren; j++) {
-      postCopy.body!.children.push({
-        type: 'paragraph',
-        children: [
-          {
-            value: Array(averageLength).fill('x').join(''),
-            type: 'text',
-          },
-        ],
-      })
+      postCopy.body!.value = postCopy.body!.value.concat(Array(averageLength).fill('x').join(''))
     }
   }
   return postCopy
