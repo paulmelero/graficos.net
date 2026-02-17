@@ -2,7 +2,8 @@
 lang: EN
 title: 'How to git stash one file and add a message'
 date: 2019-07-23
-thumbnail: /images/uploads/gitstash.png
+modifiedDate: 2026-02-17
+thumbnail: /images/uploads/gitstash.avif
 tags:
   - git
 description: 'Stashing one file only is done with git stash push but what about adding also a message to the stash so you can easily get it afterward?'
