@@ -130,8 +130,6 @@ You'll see something like:
 
 That `fe0f` is the hidden culprit!
 
-Go ahead, test something like this in the console:
-
 ## How to Fix Your Broken Tests
 
 You've got options:
