@@ -10,8 +10,10 @@ content:
     fields:
       - name: title
         label: Title
-        type: string
+        type: rich-text
         required: true
+        options:
+          media: false
       - name: summary
         label: Summary
         type: text
