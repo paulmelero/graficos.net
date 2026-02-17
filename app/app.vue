@@ -13,8 +13,6 @@ const APP_COVER_IMG = '/cover.png'
 
 const boxColours = useBorderColours()
 
-defineOgImage(false)
-
 useHead({
   htmlAttrs: {
     lang: 'en',
