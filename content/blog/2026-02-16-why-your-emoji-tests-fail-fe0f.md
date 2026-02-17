@@ -2,6 +2,7 @@
 lang: EN
 title: "The Tiny Unicode Gotcha Behind Your Emoji Tests Failing: U+FE0F"
 date: 2026-02-16
+modifiedDate: 2026-02-17
 thumbnail: /images/uploads/ufeof.avif
 tags:
   - Unicode
@@ -25,6 +26,8 @@ Both looked identical in my editor a few months ago, but they are different Unic
 
 - `☕` -> `U+2615`
 - `☕️` -> `U+2615 U+FE0F`
+
+> **Note**: you may or may not see them differently in your device as you read this post. But bear with me, I'll explain why this happens.
 
 That extra `U+FE0F` is **Variation Selector-16**, which requests emoji presentation. In visual terms, they often look the same. In string comparison terms, they are not equal.
 
@@ -109,9 +112,9 @@ Two more important ones:
 - `©`, `®`, `™` can also take `U+FE0F` (`©️`, `®️`, `™️`) depending on platform/font behavior.
 - Keycaps are sequences too, like `1️⃣` = `1` + `U+FE0F` + `combining keycap mark`.
 
-> Note: these are not the only characters that can be displayed as both text and emoji. There are many more. Also, if you see them displayed equally, it's not necessarily because they are the same character. It's because the font or the platform is displaying them that way.
+This is a non-exhaustive list. There are many more characters that can be displayed as both text and emoji.
 
-## How to Detect It
+## How to Detect Them
 
 Log the code points:
 
@@ -125,11 +128,11 @@ You'll see something like:
 ;['2764', 'fe0f']
 ```
 
-That `fe0f` is the hidden culprit.
+That `fe0f` is the hidden culprit!
 
 Go ahead, test something like this in the console:
 
-## How to Fix It
+## How to Fix Your Broken Tests
 
 You've got options:
 
