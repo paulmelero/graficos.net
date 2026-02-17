@@ -2,8 +2,7 @@
 lang: EN
 title: Typescript's Immediately Indexed Mapped Type (IIMT)
 date: 2024-05-07
-modifiedDate: 2026-02-17
-thumbnail: /images/uploads/Immediately.avif
+thumbnail: /images/uploads/Immediately.png
 tags:
   - TypeScript
 description: Let's explore what "Immediately Indexed Mapped Type (IIMT)", the concept coined by Matt Pocock, means. To understand IIMT, we need to understand the underlying concepts first.

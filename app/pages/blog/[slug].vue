@@ -48,24 +48,10 @@ const { data: post } = await useAsyncData(
 )
 
 const { APP_NAME, APP_URL } = useRuntimeConfig().public
-const origin = import.meta.env.DEV ? 'http://localhost:1337' : useRequestURL().origin
-const ogUrl = new URL(route.fullPath, origin).href
+const ogUrl = new URL(route.fullPath, APP_URL).href
 const socialImageUrl = post.value?.thumbnail
-  ? new URL(post.value.thumbnail.replace(/\.avif(?=($|[?#]))/i, '.png'), ogUrl).href
+  ? new URL(post.value.thumbnail.replace(/\.avif(?=($|[?#]))/i, '.png'), APP_URL).href
   : undefined
-const darkerSocialImageUrl = socialImageUrl?.replace(/\.png$/, '_darker.png') || undefined
-
-const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
-
-defineOgImage({
-  component: 'BlogPost',
-  props: {
-    title: post.value?.title,
-    date: post.value?.date,
-    readingTime: `${emojisWhileReading.value ?? ''} ${formattedMinutesToRead.value}`.trim(),
-    image: darkerSocialImageUrl ?? socialImageUrl ?? new URL('/cover.png', APP_URL).href,
-  },
-})
 
 // Head - SEO
 useSeoMeta({
@@ -77,10 +63,12 @@ useSeoMeta({
   ogDescription: post.value?.description,
   ...(post.value?.date && { publishedTime: post.value.date }),
   ...(post.value?.modifiedDate && { modifiedTime: post.value.modifiedDate }),
+  ogImage: socialImageUrl,
   ogLocale: post.value?.lang,
   ogSiteName: APP_NAME,
   twitterTitle: post.value?.title,
   twitterDescription: post.value?.description,
+  twitterImage: socialImageUrl,
   twitterCard: 'summary_large_image',
 })
 
@@ -97,6 +85,8 @@ useHead({
     },
   ],
 })
+
+const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
 </script>
 
 <style lang="postcss" scoped>
