@@ -2,7 +2,7 @@
 lang: EN
 title: 'How to filter GitHub issues other people made in your repository'
 date: 2019-06-25
-thumbnail: /images/uploads/carbon.png
+thumbnail: /images/uploads/carbon.avif
 tags:
   - tip
   - GitHub

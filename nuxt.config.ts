@@ -9,6 +9,10 @@ const APP_URL = 'https://graficos.net' // do not end it in slash
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-20',
   devtools: { enabled: true },
+  site: {
+    url: APP_URL,
+    name: APP_NAME,
+  },
 
   devServer: {
     port: 1337,
@@ -57,8 +61,8 @@ export default defineNuxtConfig({
 
   modules: [
     'nitro-cloudflare-dev',
-    '@nuxt/test-utils/module',
-    '@nuxt/eslint', // this needs to be before `@nuxt/content`
+    '@nuxt/test-utils/module', // this needs to be before `@nuxt/content`
+    '@nuxt/eslint',
     'nuxt-content-twoslash',
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
@@ -67,6 +71,7 @@ export default defineNuxtConfig({
     'nuxt-svgo',
     '@nuxt/fonts',
     '@vueuse/nuxt',
+    'nuxt-og-image',
   ],
 
   colorMode: {
@@ -105,5 +110,12 @@ export default defineNuxtConfig({
       { name: 'IBM Plex Mono' },
       { name: 'IBM Plex Sans' },
     ],
+  },
+
+  ogImage: {
+    fonts: ['Montserrat:ital:900', 'IBM Plex Sans:400', 'IBM Plex Mono:400'],
+    defaults: {
+      renderer: 'satori',
+    },
   },
 })
