@@ -1,7 +1,7 @@
 <template>
   <div class="post-container mx-auto" :key="tag">
     <BaseTextsTheTitle class="mb-24">
-      <h1 class="text-3xl">
+      <h1 class="text-2xl sm:text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>
       </h1>
     </BaseTextsTheTitle>

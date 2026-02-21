@@ -2,7 +2,7 @@
   <section class="w-screen min-h-screen flex flex-col relative bg-gray-lightest dark:bg-primaryDark">
     <div class="container pt-24 px-10">
       <BaseTextsTheTitle>
-        <h2 class="text-3xl font-ibm dark:font-thin">Who am I?</h2>
+        <h2 class="text-2xl sm:text-3xl">Who am I?</h2>
       </BaseTextsTheTitle>
     </div>
 

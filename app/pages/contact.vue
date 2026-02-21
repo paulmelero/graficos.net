@@ -1,7 +1,7 @@
 <template>
   <div class="post-container">
     <BaseTextsTheTitle class="mb-24">
-      <h1 class="text-3xl">{{ title }}</h1>
+      <h1 class="text-2xl sm:text-3xl">{{ title }}</h1>
 
       <template #subtitle>
         <p class="text-lg mt-4">Feel free to reach out to me via email or through my social media accounts.</p>

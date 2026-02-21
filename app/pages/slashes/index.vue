@@ -1,7 +1,7 @@
 <template>
   <article class="post-container">
     <BaseTextsTheTitle class="mb-24">
-      <h1 class="text-3xl">Slash Pages</h1>
+      <h1 class="text-2xl sm:text-3xl">Slash Pages</h1>
       <template #subtitle>
         <p>
           Slash pages list of graficos.net. See

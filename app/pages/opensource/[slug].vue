@@ -1,7 +1,7 @@
 <template>
   <section class="post-container mx-auto py-10">
     <BaseTextsTheTitle class="mb-24" v-if="page">
-      <h1 class="text-3xl">{{ page.title }}</h1>
+      <h1 class="text-2xl sm:text-3xl">{{ page.title }}</h1>
     </BaseTextsTheTitle>
     <table v-if="page" class="mt-4 mb-6 border-collapse w-full table-fixed">
       <tbody>

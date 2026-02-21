@@ -1,7 +1,7 @@
 <template>
   <div class="post-container mx-auto">
     <BaseTextsTheTitle class="mb-24">
-      <h1 class="text-3xl">{{ title }}</h1>
+      <h1 class="text-2xl sm:text-3xl">{{ title }}</h1>
       <template #subtitle>
         <p class="text-lg text-gray-dark dark:text-gray-light">
           Where I share my thoughts and experiences about web development, programming, technology, and more.
