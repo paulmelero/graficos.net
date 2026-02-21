@@ -1,7 +1,7 @@
 <template>
   <article class="post-container">
     <BaseTextsTheTitle class="mb-24">
-      <h1 class="text-3xl">Open Source Software Projects</h1>
+      <h1 class="text-2xl sm:text-3xl">Open Source Software Projects</h1>
       <template #subtitle>
         <p>
           Since I started graficos.net, I have been committed to open source. Here you can find a non-thorough list of
