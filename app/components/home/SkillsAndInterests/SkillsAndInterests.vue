@@ -17,7 +17,7 @@
         />
         <HomeSkillsAndInterestsComponentsWordsCloudDesktop
           class="hidden sm:block"
-          :view-box="{ width: 800, height: 600 }"
+          :view-box="{ width: 1200, height: 600 }"
           :active-topic="activeTopic"
         />
         <HomeSkillsAndInterestsComponentsWordsCloudMobile

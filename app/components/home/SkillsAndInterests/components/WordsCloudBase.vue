@@ -1,5 +1,5 @@
 <template>
-  <svg :class="svgClass" :viewBox="svgViewBox" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <svg :class="props.svgClass" :viewBox="svgViewBox" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
     <g v-for="skill in skillShapes" :key="skill.label" class="skill-and-interest" fill="currentColor">
       <line
         :x1="skill.line.startX"
@@ -30,6 +30,8 @@
         }"
       />
       <text
+        ref="textRefs"
+        :data-label="skill.label"
         :x="skill.x"
         :y="skill.y"
         :font-size="fontSize"
@@ -54,7 +56,7 @@
 
 <script lang="ts" setup>
 import { useMediaQuery } from '@vueuse/core'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { RELATED_TO, skillsAndInterestsPerCategory } from '../SkillsAndInterests.constants'
 import { clamp } from 'three/src/math/MathUtils.js'
 
@@ -80,6 +82,10 @@ type LayoutPresetOverride = {
 }
 
 type LayoutConfigOverrides = Partial<Record<'default' | 'compact', LayoutPresetOverride>>
+
+const GRID_COLS = 24
+const GRID_EXPANSION_ROWS = 4
+const MAX_GRID_EXPANSIONS = 5
 
 const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
   compact: {
@@ -110,9 +116,6 @@ const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
   },
 }
 
-const LCG_MODULUS = 2147483647
-const LCG_MULTIPLIER = 16807
-
 const props = withDefaults(
   defineProps<{
     activeTopic: number | null
@@ -125,12 +128,14 @@ const props = withDefaults(
     cacheKey?: string
     layoutConfig?: LayoutConfigOverrides
     forceLayout?: 'default' | 'compact'
+    seed?: number
   }>(),
   {
     cacheKey: 'skills-and-interests-cloud-positions',
     svgClass:
       'absolute inset-x-0 top-[8vh] w-[calc(100%-2.5rem)] mx-auto h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none',
     viewBox: () => ({ width: 800, height: 600 }),
+    seed: 122333,
   }
 )
 
@@ -160,11 +165,12 @@ type SkillShape = PositionedSkillOrInterest & {
   }
 }
 
-const svgClass = computed(() => props.svgClass)
 const filterIdValue = computed(() => props.filterId ?? 'text-bg-filter')
 const filterUrl = computed(() => `url(#${filterIdValue.value})`)
 
 const isCompactLayout = ref(false)
+const textRefs = ref<SVGTextElement[]>([])
+const realWidths = ref<Map<string, number>>(new Map())
 
 const layoutKey = computed<'default' | 'compact'>(() => {
   if (props.forceLayout) {
@@ -208,13 +214,6 @@ const currentViewBox = computed(() => {
   }
 })
 
-const svgViewBox = computed(() => {
-  const viewBox = currentViewBox.value
-  return `0 0 ${viewBox.width} ${viewBox.height}`
-})
-
-const fontSize = computed(() => layoutMetrics.value.fontSize)
-
 const positionsCache = useState<
   Record<
     string,
@@ -223,23 +222,53 @@ const positionsCache = useState<
         width: number
         height: number
       }
+      gridHeight: number
       items: PositionedSkillOrInterest[]
+      seed: number
+      measured?: boolean
     }
   >
 >(props.cacheKey, () => ({}))
+
+const computedGridHeight = computed(() => {
+  const key = layoutKey.value
+  return positionsCache.value[key]?.gridHeight ?? currentViewBox.value.height
+})
+
+const svgViewBox = computed(() => {
+  const width = currentViewBox.value.width
+  const height = computedGridHeight.value
+  return `0 0 ${width} ${height}`
+})
+
+const fontSize = computed(() => layoutMetrics.value.fontSize)
 
 const ensurePositions = () => {
   const key = layoutKey.value
   const viewBox = currentViewBox.value
   const metrics = layoutMetrics.value
+  const seed = props.seed
+
   const cached = positionsCache.value[key]
 
-  if (!cached || cached.viewBox.width !== viewBox.width || cached.viewBox.height !== viewBox.height) {
+  const needsUpdate =
+    !cached ||
+    cached.viewBox.width !== viewBox.width ||
+    cached.viewBox.height !== viewBox.height ||
+    cached.seed !== seed ||
+    (realWidths.value.size > 0 && !cached.measured)
+
+  if (needsUpdate) {
+    const layout = createPositions(Array.from(flatSkillsAndInterests), viewBox, metrics, seed, realWidths.value)
+
     positionsCache.value = {
       ...positionsCache.value,
       [key]: {
         viewBox,
-        items: createPositions(Array.from(flatSkillsAndInterests), viewBox, metrics),
+        seed,
+        measured: realWidths.value.size > 0,
+        items: layout.items,
+        gridHeight: layout.gridHeight,
       },
     }
   }
@@ -249,6 +278,31 @@ ensurePositions()
 
 if (import.meta.client) {
   const compactQuery = !props.forceLayout ? useMediaQuery('(max-width: 768px)') : null
+
+  const measureAndRefine = () => {
+    nextTick(() => {
+      const cellWidth = Math.floor(currentViewBox.value.width / GRID_COLS)
+      const significantDiff = cellWidth * 0.5
+
+      let changed = false
+      textRefs.value.forEach((el) => {
+        const label = el.dataset.label
+        if (!label) return
+
+        const bbox = el.getBBox()
+        const current = realWidths.value.get(label)
+
+        if (!current || Math.abs(current - bbox.width) > significantDiff) {
+          realWidths.value.set(label, bbox.width)
+          changed = true
+        }
+      })
+
+      if (changed) {
+        ensurePositions()
+      }
+    })
+  }
 
   onMounted(() => {
     if (compactQuery) {
@@ -261,6 +315,7 @@ if (import.meta.client) {
     }
 
     ensurePositions()
+    measureAndRefine()
 
     watch(currentViewBox, ensurePositions, { deep: true })
     watch(layoutKey, ensurePositions)
@@ -269,6 +324,8 @@ if (import.meta.client) {
       () => ensurePositions(),
       { deep: true }
     )
+
+    watch(positionedSkillsAndInterests, measureAndRefine, { flush: 'post' })
   })
 }
 
@@ -280,6 +337,9 @@ const positionedSkillsAndInterests = computed(() => {
 const skillShapes = computed<SkillShape[]>(() => {
   const skills = positionedSkillsAndInterests.value ?? []
   const { diagonalLineLength, horizontalOffset } = layoutMetrics.value
+
+  // Gravity center is the original (unexpanded) viewport center, not the grown grid's,
+  // so connectors point toward where the eye expects the visual middle.
   const center = {
     x: currentViewBox.value.width / 2,
     y: currentViewBox.value.height / 2,
@@ -293,20 +353,23 @@ const skillShapes = computed<SkillShape[]>(() => {
     let lineEndX = skill.x + halfWidth
     let lineY = skill.y + horizontalOffset
 
+    const layoutWidth = currentViewBox.value.width
+    const layoutHeight = computedGridHeight.value
+
     if (lineStartX < 0) {
-      lineEndX = Math.min(lineEndX - lineStartX, currentViewBox.value.width)
+      lineEndX = Math.min(lineEndX - lineStartX, layoutWidth)
       lineStartX = 0
     }
 
-    if (lineEndX > currentViewBox.value.width) {
-      const overflow = lineEndX - currentViewBox.value.width
+    if (lineEndX > layoutWidth) {
+      const overflow = lineEndX - layoutWidth
       lineStartX = Math.max(0, lineStartX - overflow)
-      lineEndX = currentViewBox.value.width
+      lineEndX = layoutWidth
     }
 
-    lineStartX = clamp(lineStartX, 0, currentViewBox.value.width)
-    lineEndX = clamp(lineEndX, 0, currentViewBox.value.width)
-    lineY = clamp(lineY, 0, currentViewBox.value.height)
+    lineStartX = clamp(lineStartX, 0, layoutWidth)
+    lineEndX = clamp(lineEndX, 0, layoutWidth)
+    lineY = clamp(lineY, 0, layoutHeight)
 
     const connectorBaseX = center.x >= skill.x ? lineEndX : lineStartX
     const connectorBaseY = lineY
@@ -363,112 +426,134 @@ const isSkillOrInterestActive = (skillOrInterest: string) => {
   return relatedSkillsAndInterests.includes(skillOrInterest as any)
 }
 
-function createPositions(
-  labels: string[],
-  viewBox: { width: number; height: number },
-  metrics: LayoutMetrics
-): PositionedSkillOrInterest[] {
-  const total = labels.length
-
-  if (!total) {
-    return []
+function calculateLineWidth(label: string) {
+  if (realWidths.value.has(label)) {
+    const { extraLineWidth } = layoutMetrics.value
+    return realWidths.value.get(label)! + extraLineWidth
   }
 
-  const labelledEntries = labels.map((label, index) => ({ label, index }))
-  const placementOrder = [...labelledEntries].sort((a, b) => b.label.length - a.label.length)
-  const results: PositionedSkillOrInterest[] = new Array(total)
-
-  const areaPerItem = (viewBox.width * viewBox.height) / total
-  const baseSpacing = Math.sqrt(areaPerItem)
-  const jitterRangeX = Math.min((baseSpacing + metrics.collisionPaddingX * 2) * 0.9, viewBox.width * 0.35)
-  const jitterRangeY = Math.min((baseSpacing + metrics.collisionPaddingY * 2) * 0.9, viewBox.height * 0.35)
-
-  const rng = createSeededGenerator(Math.random())
-  const placed: Array<{ x: number; y: number; halfWidth: number; halfHeight: number }> = []
-
-  placementOrder.forEach(({ label, index: originalIndex }, placementIndex) => {
-    const approxWidth = Math.max(metrics.minLineWidth, label.length * metrics.averageCharWidth + metrics.extraLineWidth)
-    const approxHeight = metrics.fontSize
-    const halfWidth = approxWidth / 2 + metrics.collisionPaddingX
-    const halfHeight = approxHeight / 2 + metrics.collisionPaddingY
-    const maxAttempts = 18
-
-    let attempt = 0
-    let position: PositionedSkillOrInterest | null = null
-
-    while (attempt < maxAttempts && !position) {
-      const baseX = halton(placementIndex + 1, 2) * viewBox.width
-      const baseY = halton(placementIndex + 1, 3) * viewBox.height
-      const spreadFactor = 1 + attempt * 0.35
-      const offsetX = (rng() - 0.5) * jitterRangeX * spreadFactor
-      const offsetY = (rng() - 0.5) * jitterRangeY * spreadFactor
-      const x = clamp(baseX + offsetX, halfWidth, viewBox.width - halfWidth)
-      const y = clamp(baseY + offsetY, halfHeight, viewBox.height - halfHeight)
-
-      const overlaps = placed.some((item) => checkBoxOverlap(item, { x, y, halfWidth, halfHeight }))
-
-      if (!overlaps) {
-        position = { label, x, y }
-        placed.push({ x, y, halfWidth, halfHeight })
-        results[originalIndex] = position
-      }
-
-      attempt += 1
-    }
-
-    if (!position) {
-      const fallbackX = clamp(halton(originalIndex + 1, 5) * viewBox.width, halfWidth, viewBox.width - halfWidth)
-      const fallbackY = clamp(halton(originalIndex + 1, 7) * viewBox.height, halfHeight, viewBox.height - halfHeight)
-      const overlaps = placed.some((item) =>
-        checkBoxOverlap(item, { x: fallbackX, y: fallbackY, halfWidth, halfHeight })
-      )
-
-      if (!overlaps) {
-        placed.push({ x: fallbackX, y: fallbackY, halfWidth, halfHeight })
-      }
-
-      results[originalIndex] = { label, x: fallbackX, y: fallbackY }
-    }
-  })
-
-  return results.filter(Boolean) as PositionedSkillOrInterest[]
-}
-
-function calculateLineWidth(label: string) {
   const { averageCharWidth, extraLineWidth, minLineWidth } = layoutMetrics.value
   return Math.max(minLineWidth, label.length * averageCharWidth + extraLineWidth)
 }
 
-function createSeededGenerator(seed: number) {
-  let value = Math.floor(seed * (LCG_MODULUS - 1)) + 1
+function createPositions(
+  labels: string[],
+  viewBox: { width: number; height: number },
+  metrics: LayoutMetrics,
+  seed: number,
+  measuredWidths: Map<string, number>
+): { items: PositionedSkillOrInterest[]; gridHeight: number } {
+  if (!labels.length) return { items: [], gridHeight: viewBox.height }
 
+  const rng = mulberry32(seed)
+  const cellWidth = viewBox.width / GRID_COLS
+  const cellHeight = metrics.fontSize + metrics.collisionPaddingY * 2
+
+  let currentRows = Math.max(Math.ceil(viewBox.height / cellHeight), Math.ceil(labels.length / (GRID_COLS * 0.6)))
+  let grid = new Uint8Array(currentRows * GRID_COLS)
+
+  const items = labels.map((label) => {
+    const width = measuredWidths.get(label) ?? Math.max(metrics.minLineWidth, label.length * metrics.averageCharWidth)
+    const collisionWidth = width + metrics.extraLineWidth + metrics.collisionPaddingX * 2
+    const collisionHeight = metrics.fontSize + metrics.collisionPaddingY * 2
+    const colsNeeded = Math.max(1, Math.ceil(collisionWidth / cellWidth))
+    const rowsNeeded = Math.max(1, Math.ceil(collisionHeight / cellHeight))
+
+    return { label, colsNeeded, rowsNeeded }
+  })
+
+  // First-Fit Decreasing: place largest items first so big labels claim slots
+  // before small ones fragment the grid.
+  items.sort((a, b) => b.colsNeeded * b.rowsNeeded - a.colsNeeded * a.rowsNeeded)
+
+  // Rank each cell as `radialDistance * 0.5 + rng * 0.5`. The radial term pulls
+  // placements toward center; the random term breaks ties so the cloud reads as
+  // organic rather than as a centered grid.
+  const generateRankedCells = (rows: number) => {
+    const list = []
+    const centerC = (GRID_COLS - 1) / 2
+    const centerR = (rows - 1) / 2
+    const maxDist = Math.sqrt(centerR * centerR + centerC * centerC) || 1
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < GRID_COLS; c++) {
+        const dr = r - centerR
+        const dc = c - centerC
+        const normDist = Math.sqrt(dr * dr + dc * dc) / maxDist
+        list.push({ r, c, rank: normDist * 0.5 + rng() * 0.5 })
+      }
+    }
+    list.sort((a, b) => a.rank - b.rank)
+    return list
+  }
+
+  let rankedCells = generateRankedCells(currentRows)
+  const results: PositionedSkillOrInterest[] = []
+
+  const tryPlace = (item: { label: string; colsNeeded: number; rowsNeeded: number }) => {
+    for (const { r, c } of rankedCells) {
+      if (c + item.colsNeeded > GRID_COLS) continue
+      if (r + item.rowsNeeded > currentRows) continue
+
+      let overlaps = false
+      for (let y = 0; y < item.rowsNeeded && !overlaps; y++) {
+        const rowOffset = (r + y) * GRID_COLS
+        for (let x = 0; x < item.colsNeeded; x++) {
+          if (grid[rowOffset + c + x] === 1) {
+            overlaps = true
+            break
+          }
+        }
+      }
+      if (overlaps) continue
+
+      for (let y = 0; y < item.rowsNeeded; y++) {
+        const rowOffset = (r + y) * GRID_COLS
+        for (let x = 0; x < item.colsNeeded; x++) {
+          grid[rowOffset + c + x] = 1
+        }
+      }
+
+      results.push({
+        label: item.label,
+        x: c * cellWidth + (item.colsNeeded * cellWidth) / 2,
+        y: r * cellHeight + (item.rowsNeeded * cellHeight) / 2,
+      })
+      return true
+    }
+    return false
+  }
+
+  for (const item of items) {
+    let placed = tryPlace(item)
+    for (let attempt = 0; !placed && attempt < MAX_GRID_EXPANSIONS; attempt++) {
+      const newRows = currentRows + GRID_EXPANSION_ROWS
+      const newGrid = new Uint8Array(newRows * GRID_COLS)
+      newGrid.set(grid)
+      grid = newGrid
+      currentRows = newRows
+      rankedCells = generateRankedCells(currentRows)
+      placed = tryPlace(item)
+    }
+
+    if (!placed && import.meta.dev) {
+      console.warn(`[WordsCloud] Could not place "${item.label}" even after expansion.`)
+    }
+  }
+
+  return {
+    items: results,
+    gridHeight: currentRows * cellHeight,
+  }
+}
+
+function mulberry32(seed: number) {
+  let a = seed
   return () => {
-    value = (value * LCG_MULTIPLIER) % LCG_MODULUS
-    return value / LCG_MODULUS
+    let t = (a += 0x6d2b79f5)
+    t = Math.imul(t ^ (t >>> 15), t | 1)
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
   }
-}
-
-function checkBoxOverlap(
-  a: { x: number; y: number; halfWidth: number; halfHeight: number },
-  b: { x: number; y: number; halfWidth: number; halfHeight: number }
-) {
-  const overlapX = Math.abs(a.x - b.x) < a.halfWidth + b.halfWidth
-  const overlapY = Math.abs(a.y - b.y) < a.halfHeight + b.halfHeight
-
-  return overlapX && overlapY
-}
-
-function halton(index: number, base: number) {
-  let result = 0
-  let f = 1 / base
-  let i = index
-
-  while (i > 0) {
-    result += f * (i % base)
-    i = Math.floor(i / base)
-    f /= base
-  }
-
-  return result
 }
 </script>
