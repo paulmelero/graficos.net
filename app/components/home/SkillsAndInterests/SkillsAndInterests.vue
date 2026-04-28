@@ -17,12 +17,12 @@
         />
         <HomeSkillsAndInterestsComponentsWordsCloudDesktop
           class="hidden sm:block"
-          :view-box="{ width: 1200, height: 600 }"
+          :view-box="{ width: 1400, height: 600 }"
           :active-topic="activeTopic"
         />
         <HomeSkillsAndInterestsComponentsWordsCloudMobile
           class="sm:hidden"
-          :view-box="{ width: 400, height: 800 }"
+          :view-box="{ width: 500, height: 800 }"
           :active-topic="activeTopic"
         />
         <HomeSkillsAndInterestsComponentsRecentProjects />
