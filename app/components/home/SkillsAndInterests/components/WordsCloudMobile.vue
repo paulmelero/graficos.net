@@ -41,6 +41,7 @@ const layoutConfig = computed(() => ({
       fontSize: 20,
       collisionPaddingX: 30,
       collisionPaddingY: 18,
+      verticalJitter: 14,
     },
   },
 }))

@@ -69,6 +69,7 @@ type LayoutMetrics = {
   fontSize: number
   collisionPaddingX: number
   collisionPaddingY: number
+  verticalJitter: number
 }
 
 type LayoutPreset = {
@@ -99,6 +100,7 @@ const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
       fontSize: 22,
       collisionPaddingX: 28,
       collisionPaddingY: 18,
+      verticalJitter: 14,
     },
   },
   default: {
@@ -112,6 +114,7 @@ const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
       fontSize: 14,
       collisionPaddingX: 20,
       collisionPaddingY: 12,
+      verticalJitter: 0,
     },
   },
 }
@@ -466,9 +469,9 @@ function createPositions(
   // before small ones fragment the grid.
   items.sort((a, b) => b.colsNeeded * b.rowsNeeded - a.colsNeeded * a.rowsNeeded)
 
-  // Rank each cell as `radialDistance * 0.5 + rng * 0.5`. The radial term pulls
-  // placements toward center; the random term breaks ties so the cloud reads as
-  // organic rather than as a centered grid.
+  // Rank each cell as `radialDistance * 0.3 + rng * 0.7`. The radial term gives
+  // a mild pull toward center so the cloud reads as a single mass; the dominant
+  // random term spreads items toward the edges instead of clumping the middle.
   const generateRankedCells = (rows: number) => {
     const list = []
     const centerC = (GRID_COLS - 1) / 2
@@ -480,7 +483,7 @@ function createPositions(
         const dr = r - centerR
         const dc = c - centerC
         const normDist = Math.sqrt(dr * dr + dc * dc) / maxDist
-        list.push({ r, c, rank: normDist * 0.5 + rng() * 0.5 })
+        list.push({ r, c, rank: normDist * 0.3 + rng() * 0.7 })
       }
     }
     list.sort((a, b) => a.rank - b.rank)
@@ -514,10 +517,17 @@ function createPositions(
         }
       }
 
+      // Vertical jitter staggers labels off the rigid row baseline so adjacent
+      // cells don't share an exact y — without it underlines on the same row
+      // visually merge into a single line. Capped to half the slack between
+      // the glyph and the cell, so the jitter cannot push text into a neighbor.
+      const maxJitter = Math.min(metrics.verticalJitter, (cellHeight - metrics.fontSize) / 2)
+      const jitterY = maxJitter > 0 ? (rng() - 0.5) * 2 * maxJitter : 0
+
       results.push({
         label: item.label,
         x: c * cellWidth + (item.colsNeeded * cellWidth) / 2,
-        y: r * cellHeight + (item.rowsNeeded * cellHeight) / 2,
+        y: r * cellHeight + (item.rowsNeeded * cellHeight) / 2 + jitterY,
       })
       return true
     }
