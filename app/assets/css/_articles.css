@@ -1,11 +1,23 @@
 .article-post {
-  img,
+  img:not(:is(figure img)),
   pre {
     @apply mb-4 rounded-lg;
   }
 
   img {
     @apply block mx-auto;
+  }
+
+  figure {
+    @apply mb-4;
+  }
+
+  figure img {
+    @apply rounded-lg;
+  }
+
+  figure figcaption {
+    @apply text-sm text-gray-darker dark:text-gray-light text-center mt-2 mb-4;
   }
 
   :where(h1, h2, h3, h4, h5, h6):has(a) {
