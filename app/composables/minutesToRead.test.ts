@@ -1,6 +1,6 @@
 import type { Post } from '~/types'
 
-const post: Partial<Post> = {
+const post: Partial<Post> & { _id: string } = {
   _id: '1234567890',
   title: 'Test post',
   description: 'This is a test post.',
