@@ -1,6 +1,41 @@
 <template>
   <svg :class="props.svgClass" :viewBox="svgViewBox" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-    <g v-for="skill in skillShapes" :key="skill.label" class="skill-and-interest" fill="currentColor">
+    <DevOnly>
+      <g class="debug-grid-layer" opacity="0.3">
+        <line
+          v-for="col in GRID_COLS + 1"
+          :key="`debug-v-${col}`"
+          :x1="(col - 1) * debugGridCellWidth"
+          :y1="0"
+          :x2="(col - 1) * debugGridCellWidth"
+          :y2="computedGridHeight"
+          stroke="#999"
+          stroke-width="0.5"
+        />
+        <line
+          v-for="row in debugGridRows + 1"
+          :key="`debug-h-${row}`"
+          :x1="0"
+          :y1="(row - 1) * debugGridCellHeight"
+          :x2="currentViewBox.width"
+          :y2="(row - 1) * debugGridCellHeight"
+          stroke="#999"
+          stroke-width="0.5"
+        />
+      </g>
+    </DevOnly>
+
+    <defs>
+      <filter x="-.15" y="0" width="1.3" height="1" :id="filterIdValue">
+        <feFlood flood-color="oklch(0.71 0.2 53.96)" result="bg" />
+        <feMerge>
+          <feMergeNode in="bg" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    <g v-for="skill in skillShapes" :key="`lines-${skill.label}`" fill="currentColor">
       <line
         :x1="skill.line.startX"
         :x2="skill.line.endX"
@@ -29,28 +64,24 @@
           'opacity-10': !isSkillOrInterestActive(skill.label),
         }"
       />
-      <text
-        ref="textRefs"
-        :data-label="skill.label"
-        :x="skill.x"
-        :y="skill.y"
-        :font-size="fontSize"
-        class="font-ibm transition-[opacity,color] duration-300 ease-in-out"
-        :class="[isSkillOrInterestActive(skill.label) ? 'opacity-100' : 'opacity-10', 'text-primaryDark']"
-        text-anchor="middle"
-        dominant-baseline="middle"
-        :filter="filterUrl"
-      >
-        {{ skill.label }}
-      </text>
-      <filter x="-.15" y="0" width="1.3" height="1" :id="filterIdValue">
-        <feFlood flood-color="oklch(0.71 0.2 53.96)" result="bg" />
-        <feMerge>
-          <feMergeNode in="bg" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
     </g>
+
+    <text
+      v-for="skill in skillShapes"
+      :key="`text-${skill.label}`"
+      ref="textRefs"
+      :data-label="skill.label"
+      :x="skill.x"
+      :y="skill.y"
+      :font-size="fontSize"
+      class="font-ibm transition-[opacity,color] duration-300 ease-in-out"
+      :class="[isSkillOrInterestActive(skill.label) ? 'opacity-100' : 'opacity-10', 'text-primaryDark']"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      :filter="filterUrl"
+    >
+      {{ skill.label }}
+    </text>
   </svg>
 </template>
 
@@ -245,6 +276,10 @@ const svgViewBox = computed(() => {
 })
 
 const fontSize = computed(() => layoutMetrics.value.fontSize)
+
+const debugGridCellWidth = computed(() => currentViewBox.value.width / GRID_COLS)
+const debugGridCellHeight = computed(() => layoutMetrics.value.fontSize + layoutMetrics.value.collisionPaddingY * 2)
+const debugGridRows = computed(() => Math.ceil(computedGridHeight.value / debugGridCellHeight.value))
 
 const ensurePositions = () => {
   const key = layoutKey.value
