@@ -28,11 +28,11 @@ const recentProjects = Object.freeze([
     description: 'A web application to query odds of various events.',
     link: '/opensource/odds-and-end-points',
   },
-  // {
-  // title: 'FlipTheCoin.app',
-  // description: 'A toy project to simulate coin flips with a physics engine in the browser.',
-  // link: '/opensource/flip-the-coin-app',
-  // },
+  {
+    title: 'FlipTheCoin.app',
+    description: 'A toy project to simulate coin flips with a physics engine in the browser and in a browser extension',
+    link: '/opensource/flip-the-coin-app',
+  },
   {
     title: 'Safe reader',
     description: 'A privacy-focused reading app for online media articles.',
