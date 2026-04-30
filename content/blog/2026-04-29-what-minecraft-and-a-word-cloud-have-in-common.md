@@ -51,7 +51,7 @@ while (attempt < maxAttempts && !position) {
 
 // All retries exhausted — place it anyway, overlap or not
 if (!position) {
-  positions.push({ label, x: fallbackX, y: fallbackY })
+  positions.push({ label, x: someX, y: fallbackY })
 }
 ```
 
@@ -93,6 +93,8 @@ for (let y = 0; y < item.rowsNeeded && !overlaps; y++) {
 }
 ```
 
+Here `r` and `c` are the candidate row and column where we're trying to place the label. The outer loop walks through the rows the label would occupy (`item.rowsNeeded`, equal to 1 in this case), and the inner loop walks through its columns (`item.colsNeeded`, which depends on text width). For each cell, we compute a flat index into the `Uint8Array` — `rowOffset + c + x` — and check if it's already taken. If any cell is `1`, we bail out early and try the next candidate position.
+
 No `getBoundingClientRect` calculations. No nearest neighbor lookups. Just array lookups — **O(1)** per cell.
 
 This is the same data structure that roboticists Hans Moravec and Alberto Elfes [introduced in 1985](https://www.ri.cmu.edu/publications/high-resolution-maps-from-wide-angle-sonar/) as **occupancy grids**: split an environment into cells, mark each as free or occupied. What works for a robot navigating a room works for labels navigating an SVG.
@@ -108,7 +110,7 @@ This is the same data structure that roboticists Hans Moravec and Alberto Elfes 
 
 The grid solves _collision detection_, but you still need a strategy for _where_ to place each label. Scanning left-to-right, top-to-bottom would pack labels into the top-left corner. You need something that looks random but is actually deterministic.
 
-Minecraft, and similar procedural games, face the same problem — at a vastly larger scale. A world seed initializes a PRNG that feeds into layers of [Perlin noise](https://en.wikipedia.org/wiki/Perlin_noise). That noise function generates terrain heights, biome boundaries, cave systems, all **deterministically**. Same seed, same world, every time. Instead of storing every single square meter of the world, they store a seed and a PRNG that generates the world on the fly. If the PRNG is seeded with the same seed, the world will be the same every time.
+Minecraft, and similar procedural games, face the same problem — at a vastly larger scale. A world seed initializes a PRNG (pseudo-random number generator) that feeds into layers of [Perlin noise](https://en.wikipedia.org/wiki/Perlin_noise). That noise function generates terrain heights, biome boundaries, cave systems, all **deterministically**. Same seed, same world, every time. Instead of storing every single square meter of the world, they store a seed and a PRNG that generates the world on the fly. If the PRNG is seeded with the same seed, the world will be the same every time.
 
 The word cloud component uses a simpler version of the same idea. 💡 A [Mulberry32](https://gist.github.com/tommyettinger/46a874533244883189143505d203312c) PRNG (by Tommy Ettinger) generates a deterministic sequence from a seed:
 
@@ -124,17 +126,21 @@ function mulberry32(seed: number) {
 }
 ```
 
+The bitwise operations (`^`, `>>>`, `Math.imul`) look cryptic, but they're doing something simple: scrambling the state thoroughly enough that consecutive outputs _look_ unrelated, even though each one is fully determined by the previous. The constant `0x6d2b79f5` advances the state by a fixed step (a [Weyl sequence](https://en.wikipedia.org/wiki/Weyl_sequence)), and the XOR-shift-multiply passes mix the bits so that small changes in state produce large changes in output. The final `>>> 0` coerces the result to an unsigned 32-bit integer, and dividing by `2³² = 4294967296` maps it to a float between 0 and 1. Wow. The whole thing is 8 lines, has zero dependencies, and is fast enough that it adds no measurable overhead. That's why I chose it over heavier alternatives.
+
+With a seeded PRNG (pseudo-random number generator) in hand, the next question is: how do we use it to decide _where_ each label goes? The answer is **ranking**. Assigning each grid cell a score, then trying cells in score order. The score determines which cells are "preferred," and the PRNG makes those preferences look random while staying deterministic. But purely random ranking has a subtle problem: it skews toward the edges.
+
 ## Even distribution: why random is not enough
 
-But which cell should each label go to? If you rank cells by a purely random value, the result skews toward the edges — there are simply **more cells far from center than near it**. And I wanted them all to have this focal point effect. This is the same problem as [uniformly sampling points inside a circle](https://en.wikipedia.org/wiki/Disk_point_picking): if you pick a random angle and a random radius, points cluster near the center because **the area grows with r²**. Here the problem is inverted — in a rectangular grid, the periphery has more cells at each distance band, so pure randomness produces an edge-heavy cloud with a sparse center.
+If you rank cells by a purely random value, the result skews toward the edges — there are simply **more cells far from center than near it**. And I wanted them all to have this focal point effect. This is the same problem as [uniformly sampling points inside a circle](https://en.wikipedia.org/wiki/Disk_point_picking): if you pick a random angle and a random radius, points cluster near the center because **the area grows with r²**. Here the problem is inverted — in a rectangular grid, the periphery has more cells at each distance band, so pure randomness produces an edge-heavy cloud with a sparse center.
 
-The classic fix for disk sampling (as I've came to learn) is to weight by the **square root of the radius** in the case of a circle. The word cloud uses a simpler blend — each cell gets a **rank** that mixes a small (30%) radial bias with a dominant (70%) random term extracted from the PRNG:
+The classic fix for disk sampling (as I've came to learn) is to weight by the **square root of the radius** in the case of a circle. The word cloud uses a simpler blend — each cell gets a **rank** that mixes a small (30%) radial bias with a dominant (70%) random term extracted from the PRNG again (again, no `Math.random()`):
 
 ```ts
 const rank = normDist * 0.3 + rng() * 0.7
 ```
 
-The 30% radial term gives center cells a slight advantage, counteracting their numerical disadvantage. The 70% random term prevents a dense bullseye. The result is an even spread that reads as a single visual mass without obviously clustering anywhere. Cells are sorted by rank, and labels are placed largest first. This is something an LLM suggested after I explained the problem to it, since it's a common problem in "packing algorithms".
+The 30% radial term gives center cells a slight advantage, counteracting their numerical disadvantage. The 70% random term prevents a dense bullseye. The result is an even spread that reads as a single visual mass without obviously clustering anywhere. Cells are sorted by rank, and labels are placed "largest first". This is something an LLM (I don't get paid to say which one 😅) suggested after I explained the problem to it, since it's a common problem in "packing algorithms".
 
 ```ts
 items.sort((a, b) => b.colsNeeded * b.rowsNeeded - a.colsNeeded * a.rowsNeeded)
@@ -144,11 +150,11 @@ Big labels claim cells while the grid is mostly empty. Small labels fill the gap
 
 ## Seeding for SSR-friendliness
 
-This matters beyond aesthetics. JavaScript's `Math.random()` can't accept a seed — it's automatically seeded by the runtime. In a server-side rendering framework like Nuxt, the server renders the HTML first, then the client hydrates it. If both call `Math.random()`, they produce different sequences, and the layout shifts on hydration. I could have used [`useId`](https://vuejs.org/api/composition-api-helpers.html#useid) to generate a unique seed for each client, but I opted to explore a solution that didn't tied the logic of something related to graphics to the framework itself.
+This matters beyond aesthetics. You might have noticed that I am not relying on JavaScript's `Math.random()` to generate random numbers or even the `crypto` JS Object for that matter. This is because `Math.random()` can't accept a seed — it's automatically seeded by the runtime. In a server-side rendering framework like Vue/Nuxt, the server renders the HTML first, then the client hydrates it. If both call `Math.random()`, they produce different sequences, and the layout shifts on hydration. I could have used [Vue's `useId`](https://vuejs.org/api/composition-api-helpers.html#useid) to generate a unique seed for each client, but I opted to explore a solution that didn't tied the logic of something purely related to graphics to the framework itself.
 
 A seeded PRNG eliminates the hydration mismatch problem entirely. Same seed on server and client, same sequence, same layout. Zero hydration mismatch, zero layout shift. The word cloud is effectively a **pure function** from seed to SVG.
 
-This trick, often used in game development to save memory and compute resources, is used to generate graphics that feel random but are actually deterministic (even during the hydration process) on the Web. How cool is that?
+This trick, often used in game development to save memory and compute resources, is used to generate graphics that feel random but are actually deterministic (even during the hydration process) on the Web and stay highly performant. How cool is that?
 
 ## Jitter: adding a bit of randomness to the rigid layout
 
@@ -167,9 +173,9 @@ The offset is capped to half the slack between the glyph and the cell edge. Sinc
 
 ## Dodecahedron, videos, and labels category
 
-In case you didn't notice, the word cloud is not the only thing in this section. There's a Three.js-powered dodecahedron and a video (actually three videos) playing over it.
+In case you didn't notice, the word cloud in [the homepage](/) is not the only thing in this section. There's a Three.js-powered dodecahedron and a video (actually three videos) playing over it.
 
-I think that alone deserves a future post. But I also wanted to mention that, to me this sections is more personal than it seems. The three videos and the three labels categories are a reflection of my interests and hobbies:
+I think that alone deserves a future post. But I also wanted to mention that, to me, this sections is more personal than it seems. The three videos and the three labels categories are a reflection of my interests and hobbies:
 
 - Video 1: "Art"
 - Video 2: "Nature"
@@ -177,7 +183,7 @@ I think that alone deserves a future post. But I also wanted to mention that, to
 
 Some of the labels are used in 1 or 2 categories, some are used in all three.
 
-The dodecahedron for me, represents a the poly-facetted individual that I consider myself to be. And the implemeentation of the word cloud is a combination of 2 of my passions and interests: web development and mathematics.
+The dodecahedron for me, represents a the poly-facetted individual that I consider myself to be, this is why I chose it for this section. And the implemeentation of the word cloud is a combination of 2 of my passions and interests: web development and mathematics.
 
 ## Why it works: determinism inside stochasticity
 
@@ -193,7 +199,7 @@ This is the same principle behind seemingly unrelated ideas.
 
 In all cases, the power comes from **discretization**: continuous, messy reality is projected onto a finite set of slots, and slot ownership is non-negotiable. We go from a continuous space to a discrete one, from Real Numbers to Integers.
 
-There's something philosophically satisfying about it too. We tend to think of "random" and "guaranteed" as opposites. But a seeded PRNG is _deterministic_ — it's a pure function from seed to sequence. What _looks_ stochastic or "random" is actually as predictable as a hardcoded sequence. The word cloud's layout feels organic and alive, but it was fully _determined_ the moment the seed was chosen. Every label's position was already decided before the first pixel was painted on screen.
+There's something philosophically satisfying about it too 😊. We tend to think of "random" and "guaranteed" as opposites. But a seeded PRNG is _deterministic_ — it's a pure function from seed to sequence. What _looks_ stochastic or "random" is actually as predictable as a hardcoded sequence. The word cloud's layout feels organic and alive, but it was fully _determined_ the moment the seed was chosen. Every label's position was already decided before the first pixel was painted on screen.
 
 When it comes to the intersection of randomness and determinism, I can't help to get a bit philosophical!
 
