@@ -5,8 +5,12 @@
     </header>
 
     <main
-      class="pb-24"
-      :class="container === 'contained' ? 'container mx-auto pt-10' : 'w-full' + ' flex-grow'"
+      :class="[
+        container === 'contained' ? 'container mx-auto pt-10' : 'w-full' + ' flex-grow',
+        {
+          'pb-24': container === 'contained',
+        },
+      ]"
       role="main"
     >
       <div class="relative z-[2]"><slot /></div>

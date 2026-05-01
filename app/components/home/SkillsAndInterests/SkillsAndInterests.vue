@@ -1,6 +1,6 @@
 <template>
-  <section ref="sectionRef" class="relative w-screen min-h-[130vh] sm:min-h-[200vh]">
-    <div class="sticky top-0 flex min-h-[130vh] sm:min-h-[200vh] flex-col">
+  <section ref="sectionRef" class="relative w-screen min-h-[max(2000px,220dvh)] sm:min-h-[max(1700px,180vh)]">
+    <div class="sticky top-0 flex min-h-[max(2000px,220dvh)] sm:min-h-[max(1700px,180vh)] flex-col">
       <div class="container mx-auto py-4 px-10">
         <BaseTextsTheTitle>
           <h2 class="text-2xl sm:text-3xl">Personal Interests</h2>
@@ -10,7 +10,9 @@
         </BaseTextsTheTitle>
       </div>
 
-      <div class="relative flex-1 h-[130vh] sm:h-[200vh] flex items-center justify-start">
+      <div
+        class="relative flex-1 min-h-[max(2000px,220dvh)] sm:min-h-[max(1700px,180vh)] flex items-center justify-start"
+      >
         <HomeSkillsAndInterestsComponentsIsometricScene
           :scroll-progress="scrollProgress"
           @video-hover="handleVideoHover"
