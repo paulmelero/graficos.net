@@ -36,6 +36,8 @@
     >
       <NuxtImg
         src="/images/sticker.webp"
+        width="96"
+        height="119"
         alt="colourful explosion around smiling man"
         class="mb-4 lg:mb-0 lg:mx-0 mx-auto w-16 lg:w-24 h-auto"
       />

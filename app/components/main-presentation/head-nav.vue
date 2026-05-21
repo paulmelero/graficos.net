@@ -4,7 +4,7 @@
     aria-label="Main Navigation"
   >
     <nuxt-link
-      class="flex items-center text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark flex-no-shrink mx-6 py-4 disable-underline disable-transition disable-hover"
+      class="flex items-center text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark flex-no-shrink mx-6 py-4 disable-underline transition-none disable-hover"
       to="/"
       aria-label="Go to Home Page"
       @click="closeBurgerMenu"

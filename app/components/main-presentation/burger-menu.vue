@@ -1,62 +1,93 @@
 <template>
-  <div class="relative">
-    <button @click="isOpen = !isOpen">
-      <span class="sr-only"> Toggle Menu </span>
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-      </svg>
+  <div ref="menuContainer" class="relative">
+    <button
+      @click="isOpen = !isOpen"
+      :aria-label="isOpen ? 'Close menu' : 'Open menu'"
+      :aria-expanded="isOpen"
+      aria-controls="mobile-menu"
+      class="relative z-[60] flex flex-col justify-center items-center w-10 h-10 gap-[6px] text-accent dark:text-actionDark"
+    >
+      <span
+        :class="[
+          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center bg-currentColor',
+          isOpen ? 'translate-y-2 rotate-45' : '',
+        ]"
+      />
+      <span
+        :class="[
+          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center bg-currentColor',
+          isOpen ? 'opacity-0 scale-x-0' : '',
+        ]"
+      />
+      <span
+        :class="[
+          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center bg-currentColor',
+          isOpen ? '-translate-y-2 -rotate-45' : '',
+        ]"
+      />
     </button>
-    <transition appear>
-      <section
+
+    <Transition
+      enter-active-class="transition-opacity duration-300 ease-in"
+      leave-active-class="transition-opacity duration-300 ease-out"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
+    >
+      <nav
         v-if="isOpen"
+        id="mobile-menu"
         ref="menu"
-        id="top-menu"
-        :aria-expanded="isOpen"
-        aria-live="polite"
-        class="card absolute z-10 top-full right-0 w-[320px] -mr-2"
+        tabindex="-1"
+        class="fixed inset-0 z-50 flex gap-8 flex-col justify-between items-center bg-fwhite dark:bg-gray-darkest py-8"
+        aria-label="Mobile navigation"
       >
-        <ul class="divide-y dark:divide-gray-dark mb-0">
-          <li v-for="link of links" :key="link.href" class="relative h-[3rem]">
+        <ul class="flex flex-col items-center justify-center gap-6 list-none p-0 flex-grow mb-0">
+          <li
+            v-for="(link, index) of links"
+            :key="link.href"
+            class="transition-all duration-300 ease-out"
+            :style="{
+              transitionDelay: show ? `${index * 100}ms` : '0ms',
+              opacity: show ? 1 : 0,
+              transform: show ? 'translateX(0)' : 'translateX(16px)',
+            }"
+          >
             <nuxt-link
               :to="link.href"
-              class="no-underline hover:underline absolute inset-0 leading-[3rem] text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark"
+              class="text-2xl no-underline text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark"
               @click="isOpen = false"
-              >{{ link.name }}</nuxt-link
             >
+              {{ link.name }}
+            </nuxt-link>
           </li>
         </ul>
-        <hr class="dark:text-gray-dark" />
-        <MainPresentationIconsMenu class="mt-6 justify-between" />
-      </section>
-    </transition>
-    <ClientOnly>
-      <Teleport to="body">
-        <transition appear>
-          <buttton
-            v-if="isOpen"
-            type="button"
-            class="fixed inset-0 bg-black/30 dark:bg-black/50 z-[9]"
-            aria-hidden="true"
-            @click.prevent="isOpen = false"
-          ></buttton>
-        </transition>
-      </Teleport>
-    </ClientOnly>
+        <MainPresentationIconsMenu
+          class="transition-all duration-300 ease-out"
+          :style="{
+            transitionDelay: show ? `${links.length * 100}ms` : '0ms',
+            opacity: show ? 1 : 0,
+            transform: show ? 'translateX(0)' : 'translateX(16px)',
+          }"
+        />
+      </nav>
+    </Transition>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useMagicKeys } from '@vueuse/core'
+import { useMagicKeys, useScrollLock } from '@vueuse/core'
 
 import { linksWithHome as links } from '../../config/pages'
 
 const isOpen = ref(false)
+const show = ref(false)
 
 defineExpose({ isOpen })
 
 const { escape } = useMagicKeys()
+const menuContainer = useTemplateRef('menuContainer')
 const menuFocusTarget = useTemplateRef('menu')
-const { focused } = useFocusWithin(menuFocusTarget)
+const { focused } = useFocusWithin(menuContainer)
 
 watchEffect(() => {
   if (escape?.value) {
@@ -64,9 +95,18 @@ watchEffect(() => {
   }
 })
 
-watch(isOpen, (whenOpen) => {
-  if (whenOpen) {
-    menuFocusTarget.value?.focus()
+const scrollLock = useScrollLock(import.meta.client ? document.body : null)
+
+watch(isOpen, async (open) => {
+  scrollLock.value = open
+  if (open) {
+    await nextTick()
+    requestAnimationFrame(() => {
+      show.value = true
+      menuFocusTarget.value?.focus()
+    })
+  } else {
+    show.value = false
   }
 })
 
