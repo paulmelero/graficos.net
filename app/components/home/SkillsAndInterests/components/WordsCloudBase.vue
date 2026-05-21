@@ -259,7 +259,6 @@ const positionsCache = useState<
       gridHeight: number
       items: PositionedSkillOrInterest[]
       seed: number
-      measured?: boolean
     }
   >
 >(props.cacheKey, () => ({}))
@@ -293,18 +292,16 @@ const ensurePositions = () => {
     !cached ||
     cached.viewBox.width !== viewBox.width ||
     cached.viewBox.height !== viewBox.height ||
-    cached.seed !== seed ||
-    (realWidths.value.size > 0 && !cached.measured)
+    cached.seed !== seed
 
   if (needsUpdate) {
-    const layout = createPositions(Array.from(flatSkillsAndInterests), viewBox, metrics, seed, realWidths.value)
+    const layout = createPositions(Array.from(flatSkillsAndInterests), viewBox, metrics, seed)
 
     positionsCache.value = {
       ...positionsCache.value,
       [key]: {
         viewBox,
         seed,
-        measured: realWidths.value.size > 0,
         items: layout.items,
         gridHeight: layout.gridHeight,
       },
@@ -322,7 +319,6 @@ if (import.meta.client) {
       const cellWidth = Math.floor(currentViewBox.value.width / GRID_COLS)
       const significantDiff = cellWidth * 0.5
 
-      let changed = false
       textRefs.value.forEach((el) => {
         const label = el.dataset.label
         if (!label) return
@@ -332,13 +328,8 @@ if (import.meta.client) {
 
         if (!current || Math.abs(current - bbox.width) > significantDiff) {
           realWidths.value.set(label, bbox.width)
-          changed = true
         }
       })
-
-      if (changed) {
-        ensurePositions()
-      }
     })
   }
 
@@ -478,8 +469,7 @@ function createPositions(
   labels: string[],
   viewBox: { width: number; height: number },
   metrics: LayoutMetrics,
-  seed: number,
-  measuredWidths: Map<string, number>
+  seed: number
 ): { items: PositionedSkillOrInterest[]; gridHeight: number } {
   if (!labels.length) return { items: [], gridHeight: viewBox.height }
 
@@ -491,7 +481,7 @@ function createPositions(
   let grid = new Uint8Array(currentRows * GRID_COLS)
 
   const items = labels.map((label) => {
-    const width = measuredWidths.get(label) ?? Math.max(metrics.minLineWidth, label.length * metrics.averageCharWidth)
+    const width = Math.max(metrics.minLineWidth, label.length * metrics.averageCharWidth)
     const collisionWidth = width + metrics.extraLineWidth + metrics.collisionPaddingX * 2
     const collisionHeight = metrics.fontSize + metrics.collisionPaddingY * 2
     const colsNeeded = Math.max(1, Math.ceil(collisionWidth / cellWidth))
