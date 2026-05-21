@@ -6,7 +6,7 @@
   "author": "paul_melero",
   "scripts": {
     "dev": "nuxt dev",
-    "build": "nuxt build",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 nuxt build",
     "generate": "nuxt generate",
     "lint:fix": "eslint --ignore-pattern .gitignore . --fix",
     "precommit": "pnpm run lint:fix",
