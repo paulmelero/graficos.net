@@ -39,7 +39,7 @@ importers:
         specifier: ^0.182.0
         version: 0.182.0
       vue:
-        specifier: ^3.5.27
+        specifier: ^3.5.34
         version: 3.5.34(typescript@5.9.3)
     devDependencies:
       '@iconify-json/material-symbols-light':
