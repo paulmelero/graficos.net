@@ -27,3 +27,4 @@ sw.*
 # Cloudflare
 .wrangler/
 .data
+.claude
