@@ -62,7 +62,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [wasm()],
     optimizeDeps: {
-      include: ['@iconify/vue'],
+      include: ['@iconify/vue', 'three', 'three/src/math/MathUtils.js'],
     },
   },
 
