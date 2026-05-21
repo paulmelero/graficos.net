@@ -1,3 +1,11 @@
+// We need to reference the .nuxt/nuxt.node.d.ts file to use the
+// Nitro types in the Nuxt config
+// and all the module augmentation types in `NuxtConfig`
+// (routeRules, and nitro configs)
+/// <reference path=".nuxt/nuxt.node.d.ts" />
+
+import { defineNuxtConfig } from 'nuxt/config'
+
 import wasm from 'vite-plugin-wasm'
 
 import socialLinks from './app/config/social-links'
@@ -42,10 +50,6 @@ export default defineNuxtConfig({
     },
   },
 
-  vite: {
-    plugins: [wasm()],
-  },
-
   routeRules: {
     '/': { prerender: true },
     '/blog': { prerender: true },
@@ -53,6 +57,13 @@ export default defineNuxtConfig({
     '/contact': { prerender: true },
     '/slashes': { prerender: true },
     '/slashes/**': { prerender: true },
+  },
+
+  vite: {
+    plugins: [wasm()],
+    optimizeDeps: {
+      include: ['@iconify/vue'],
+    },
   },
 
   modules: [
