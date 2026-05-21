@@ -11,7 +11,7 @@
       <div class="sm:grid grid-cols-3 place-items-center flex flex-col-reverse gap-10">
         <ContentRenderer v-if="section" :value="section" class="col-span-2 article-post font-ibm" />
         <div class="media flex justify-center items-start">
-          <NuxtImg src="/images/sticker.webp" alt="colourful explosion around smiling man" />
+          <NuxtImg src="/images/sticker.webp" alt="colourful explosion around smiling man" width="736" height="913" class="h-auto" />
         </div>
       </div>
     </div>
