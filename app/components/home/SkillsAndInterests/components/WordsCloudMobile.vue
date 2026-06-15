@@ -34,7 +34,6 @@ const layoutConfig = computed(() => ({
     heightMultiplier: 1,
     metrics: {
       horizontalOffset: 12,
-      averageCharWidth: 6.5,
       extraLineWidth: 12,
       minLineWidth: 36,
       diagonalLineLength: 48,

@@ -2,6 +2,7 @@
 lang: EN
 title: 'The Algorithm Behind Procedural Games Like Minecraft — Applied to UI Development'
 date: 2026-04-29
+modifiedDate: 2026-06-15
 thumbnail: /images/uploads/grid-desktop.png
 tags:
   - Algorithm
@@ -184,6 +185,25 @@ I think that alone deserves a future post. But I also wanted to mention that, to
 Some of the labels are used in 1 or 2 categories, some are used in all three.
 
 The dodecahedron for me, represents a the poly-facetted individual that I consider myself to be, this is why I chose it for this section. And the implemeentation of the word cloud is a combination of 2 of my passions and interests: web development and mathematics.
+
+## An honest correction: cells aren't pixels
+
+_Update (June 2026)._ I called this layout "solid as a rock," and at the grid level it is — two labels can never claim the same cell. But I kept noticing overlapping words anyway, especially on narrow viewports. The grid was keeping its promise; I'd just been measuring the wrong thing.
+
+Here's the crack. To decide how many **columns** a label reserves, the code estimated its width as `label.length * averageCharWidth`, with `averageCharWidth` hand-tuned to a small constant (`6.5`–`7`). That estimate was **too low**. The browser paints the real glyphs, not my estimate — and the real glyphs were wider than the cells I'd reserved for them. So the grid guaranteed non-overlap _in cells_ while the rendered text spilled past those cells _in pixels_. On a 500px-wide mobile viewport, two long labels like `Open Source Contribution` and `AI & Machine Learning` each "fit" in ~11 columns, so the grid placed both on one row — but their rendered widths summed to more than the viewport. No placement strategy can save a row that was over-packed in the first place.
+
+The fix turned out to be embarrassingly clean, and it was hiding in the font choice. The cloud is set in **IBM Plex Mono** — a _monospace_ face. Every glyph in a monospace font advances by the exact same amount: `0.6em`. So there's nothing to estimate. The real rendered width _is_:
+
+```ts
+const MONO_CHAR_RATIO = 0.6
+const renderWidth = label.length * fontSize * MONO_CHAR_RATIO + extraLineWidth
+```
+
+That single line replaces the fuzzy `averageCharWidth` guess with the precise value the browser will actually use. Now the columns a label reserves match the pixels it paints — **cells and pixels finally agree** — and the grid stops over-packing rows. As a bonus, this is still a pure function of the seed and the font metrics, so it stays SSR-deterministic with zero layout shift. It even let me delete the client-side `getBBox()` measurement I'd been using to "correct" widths after render: for a monospace font, there's nothing to correct.
+
+One more touch. Once a row _can_ hold its labels without overlap, I wanted them to breathe. So when two or more labels share a row, they're now **justified** across the viewport with equal gaps — pushed out toward the sides instead of huddling together. Single-label rows keep their organic, off-center placement so the cloud still reads as a focal-point mass rather than a set of justified lines. The spreading is, again, pure geometry over deterministic widths: same result on server and client.
+
+The lesson I keep relearning: a guarantee is only as good as the quantity it's defined over. "No two labels share a cell" was true the whole time. It just wasn't the promise I actually needed — which was "no two labels share a pixel."
 
 ## Why it works: determinism inside stochasticity
 

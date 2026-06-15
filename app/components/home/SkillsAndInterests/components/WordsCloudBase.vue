@@ -69,8 +69,6 @@
     <text
       v-for="skill in skillShapes"
       :key="`text-${skill.label}`"
-      ref="textRefs"
-      :data-label="skill.label"
       :x="skill.x"
       :y="skill.y"
       :font-size="fontSize"
@@ -87,13 +85,12 @@
 
 <script lang="ts" setup>
 import { useMediaQuery } from '@vueuse/core'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { RELATED_TO, skillsAndInterestsPerCategory } from '../SkillsAndInterests.constants'
 import { clamp } from 'three/src/math/MathUtils.js'
 
 type LayoutMetrics = {
   horizontalOffset: number
-  averageCharWidth: number
   extraLineWidth: number
   minLineWidth: number
   diagonalLineLength: number
@@ -101,6 +98,9 @@ type LayoutMetrics = {
   collisionPaddingX: number
   collisionPaddingY: number
   verticalJitter: number
+  // How far same-row labels are pushed toward the sides: 0 keeps the clustered
+  // grid placement, 1 fully justifies them edge-to-edge. Values in between lerp.
+  rowSpread: number
 }
 
 type LayoutPreset = {
@@ -119,12 +119,16 @@ const GRID_COLS = 24
 const GRID_EXPANSION_ROWS = 4
 const MAX_GRID_EXPANSIONS = 5
 
+// IBM Plex Mono (the cloud's `font-ibm` face) is monospace: every glyph advances
+// exactly 0.6em. So `label.length * fontSize * MONO_CHAR_RATIO` is the real rendered
+// width — exact and deterministic, no DOM measurement needed.
+const MONO_CHAR_RATIO = 0.6
+
 const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
   compact: {
     heightMultiplier: 0.85,
     metrics: {
       horizontalOffset: 10,
-      averageCharWidth: 7,
       extraLineWidth: 12,
       minLineWidth: 44,
       diagonalLineLength: 56,
@@ -132,13 +136,13 @@ const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
       collisionPaddingX: 28,
       collisionPaddingY: 18,
       verticalJitter: 14,
+      rowSpread: 1,
     },
   },
   default: {
     heightMultiplier: 1,
     metrics: {
       horizontalOffset: 10,
-      averageCharWidth: 7,
       extraLineWidth: 10,
       minLineWidth: 40,
       diagonalLineLength: 60,
@@ -146,6 +150,7 @@ const DEFAULT_LAYOUT_PRESETS: Record<'default' | 'compact', LayoutPreset> = {
       collisionPaddingX: 20,
       collisionPaddingY: 12,
       verticalJitter: 0,
+      rowSpread: 0,
     },
   },
 }
@@ -203,8 +208,6 @@ const filterIdValue = computed(() => props.filterId ?? 'text-bg-filter')
 const filterUrl = computed(() => `url(#${filterIdValue.value})`)
 
 const isCompactLayout = ref(false)
-const textRefs = ref<SVGTextElement[]>([])
-const realWidths = ref<Map<string, number>>(new Map())
 
 const layoutKey = computed<'default' | 'compact'>(() => {
   if (props.forceLayout) {
@@ -314,25 +317,6 @@ ensurePositions()
 if (import.meta.client) {
   const compactQuery = !props.forceLayout ? useMediaQuery('(max-width: 768px)') : null
 
-  const measureAndRefine = () => {
-    nextTick(() => {
-      const cellWidth = Math.floor(currentViewBox.value.width / GRID_COLS)
-      const significantDiff = cellWidth * 0.5
-
-      textRefs.value.forEach((el) => {
-        const label = el.dataset.label
-        if (!label) return
-
-        const bbox = el.getBBox()
-        const current = realWidths.value.get(label)
-
-        if (!current || Math.abs(current - bbox.width) > significantDiff) {
-          realWidths.value.set(label, bbox.width)
-        }
-      })
-    })
-  }
-
   onMounted(() => {
     if (compactQuery) {
       isCompactLayout.value = compactQuery.value
@@ -344,7 +328,6 @@ if (import.meta.client) {
     }
 
     ensurePositions()
-    measureAndRefine()
 
     watch(currentViewBox, ensurePositions, { deep: true })
     watch(layoutKey, ensurePositions)
@@ -353,8 +336,6 @@ if (import.meta.client) {
       () => ensurePositions(),
       { deep: true }
     )
-
-    watch(positionedSkillsAndInterests, measureAndRefine, { flush: 'post' })
   })
 }
 
@@ -456,13 +437,8 @@ const isSkillOrInterestActive = (skillOrInterest: string) => {
 }
 
 function calculateLineWidth(label: string) {
-  if (realWidths.value.has(label)) {
-    const { extraLineWidth } = layoutMetrics.value
-    return realWidths.value.get(label)! + extraLineWidth
-  }
-
-  const { averageCharWidth, extraLineWidth, minLineWidth } = layoutMetrics.value
-  return Math.max(minLineWidth, label.length * averageCharWidth + extraLineWidth)
+  const { extraLineWidth, minLineWidth, fontSize } = layoutMetrics.value
+  return Math.max(minLineWidth, label.length * fontSize * MONO_CHAR_RATIO + extraLineWidth)
 }
 
 function createPositions(
@@ -480,9 +456,14 @@ function createPositions(
   let currentRows = Math.max(Math.ceil(viewBox.height / cellHeight), Math.ceil(labels.length / (GRID_COLS * 0.6)))
   let grid = new Uint8Array(currentRows * GRID_COLS)
 
+  // Exact rendered width: the font is monospace, so each glyph advances
+  // `fontSize * MONO_CHAR_RATIO`. This is what the browser actually paints, so the
+  // grid reserves columns that match the pixels — no more under-packing/overlap.
+  const renderWidth = (label: string) =>
+    Math.max(metrics.minLineWidth, label.length * metrics.fontSize * MONO_CHAR_RATIO + metrics.extraLineWidth)
+
   const items = labels.map((label) => {
-    const width = Math.max(metrics.minLineWidth, label.length * metrics.averageCharWidth)
-    const collisionWidth = width + metrics.extraLineWidth + metrics.collisionPaddingX * 2
+    const collisionWidth = renderWidth(label) + metrics.collisionPaddingX * 2
     const collisionHeight = metrics.fontSize + metrics.collisionPaddingY * 2
     const colsNeeded = Math.max(1, Math.ceil(collisionWidth / cellWidth))
     const rowsNeeded = Math.max(1, Math.ceil(collisionHeight / cellHeight))
@@ -516,7 +497,8 @@ function createPositions(
   }
 
   let rankedCells = generateRankedCells(currentRows)
-  const results: PositionedSkillOrInterest[] = []
+  // Carry the grid row + rendered width so we can justify each row afterwards.
+  const placements: Array<PositionedSkillOrInterest & { row: number; width: number }> = []
 
   const tryPlace = (item: { label: string; colsNeeded: number; rowsNeeded: number }) => {
     for (const { r, c } of rankedCells) {
@@ -549,10 +531,12 @@ function createPositions(
       const maxJitter = Math.min(metrics.verticalJitter, (cellHeight - metrics.fontSize) / 2)
       const jitterY = maxJitter > 0 ? (rng() - 0.5) * 2 * maxJitter : 0
 
-      results.push({
+      placements.push({
         label: item.label,
         x: c * cellWidth + (item.colsNeeded * cellWidth) / 2,
         y: r * cellHeight + (item.rowsNeeded * cellHeight) / 2 + jitterY,
+        row: r,
+        width: renderWidth(item.label),
       })
       return true
     }
@@ -575,6 +559,48 @@ function createPositions(
       console.warn(`[WordsCloud] Could not place "${item.label}" even after expansion.`)
     }
   }
+
+  // Spread each crowded row toward the sides: when ≥2 labels share a grid row,
+  // compute their fully-justified (equal-gap, edge-to-edge) positions, then lerp
+  // from the clustered grid placement toward that by `metrics.rowSpread` — so
+  // desktop (rowSpread 0) stays tightly clustered while mobile (rowSpread 1) fans
+  // out near the sides. Singletons keep their organic placement (centered focal
+  // point). Pure geometry from deterministic widths → identical SSR/client (no CLS).
+  if (metrics.rowSpread > 0) {
+    const edgeMargin = cellWidth * 0.5
+    const rowGroups = new Map<number, typeof placements>()
+    for (const p of placements) {
+      const group = rowGroups.get(p.row)
+      if (group) group.push(p)
+      else rowGroups.set(p.row, [p])
+    }
+
+    for (const group of rowGroups.values()) {
+      if (group.length < 2) continue
+
+      group.sort((a, b) => a.x - b.x)
+      const sumWidths = group.reduce((acc, p) => acc + p.width, 0)
+      const available = viewBox.width - edgeMargin * 2
+      const gap = (available - sumWidths) / (group.length - 1)
+
+      if (gap < 0) {
+        // Should not happen now that widths are exact, but never overlap on purpose.
+        if (import.meta.dev) {
+          console.warn(`[WordsCloud] Row too tight to justify (${group.map((p) => p.label).join(', ')}).`)
+        }
+        continue
+      }
+
+      let cursor = edgeMargin
+      for (const p of group) {
+        const justifiedX = cursor + p.width / 2
+        p.x += (justifiedX - p.x) * metrics.rowSpread
+        cursor += p.width + gap
+      }
+    }
+  }
+
+  const results: PositionedSkillOrInterest[] = placements.map(({ label, x, y }) => ({ label, x, y }))
 
   return {
     items: results,
