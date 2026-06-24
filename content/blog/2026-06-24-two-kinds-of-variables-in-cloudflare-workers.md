@@ -15,13 +15,15 @@ description: "Why an environment variable can 'exist' in your Cloudflare config 
 summary: "Why an environment variable can 'exist' in your Cloudflare config and still be missing at runtime — the build vs. runtime split, and the Nuxt useRuntimeConfig vs. process.env footgun."
 ---
 
-Working with Nuxt makes it super easy to work with environment variables. You just need to add them to the `.env` file and they will be available in the `process.env` object. More so, if you are using the `runtimeConfig` feature, you can access them in your code using the `useRuntimeConfig()`. So Nuxt populates the `process.env` object AND the `runtimeConfig` object with the variables from the `.env` file (or if you expose them in other ways in your machine).
+Working with Nuxt makes it super easy to work with environment variables. You just need to add them to the `.env` file and they will be available in the `process.env` object. More so, if you are using the `runtimeConfig` feature, you can access them in your code using the `useRuntimeConfig()`. Also, nuxt populates the `process.env` object AND the `runtimeConfig` object with the variables from the `.env` file (or if you expose them in other ways in your machine).
 
-Then, you want to add them in Cloudflare Workers by the time you want to use them in production, but you discover that Cloudflare has 2 different environments for variables: build variables and runtime variables. Workers treat secrets differently depending on where they live.
+But one day, you want to add them in Cloudflare Workers because you want to use them in production, and you discover that Cloudflare has 2 different environments for variables: build variables and runtime variables. Workers treat secrets differently depending on where they live.
 
-## The mental model
+Combining the 2 had more nuances than I expected, and it took me a while to figure out why my CUSTOM_ENV_VARS were not available in my Cloudflare Workers runtime code.
 
-There are two distinct phases, and each has its own environment:
+## The mental model about build and runtime variables
+
+Before we dive into the details, let's understand one basic difference. There are two distinct phases, and each has its own environment:
 
 1. **Build time** — your CI runs the build command (`nuxt build`, then `wrangler deploy`). Build variables exist here and only here.
 2. **Runtime** — the deployed Worker serves traffic. Runtime variables and secrets are bound to the Worker and available on every request.
@@ -50,7 +52,7 @@ import { env } from 'cloudflare:workers'
 const { MY_VARIABLE } = env
 ```
 
-## Difference between "deployments" and "builds"
+## Difference between "deployments" and "builds" (_the more you know..._)
 
 This is something that clicked when I was debugging environment variables. Since one of the latest Cloudflare UI redesigns, I was confused about the difference between the "Deployment" and "Build" sections in "Workers > Deployments".
 

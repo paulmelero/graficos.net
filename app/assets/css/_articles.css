@@ -21,7 +21,7 @@
   }
 
   :where(h1, h2, h3, h4, h5, h6):has(a) {
-    @apply mb-[1em] font-ibm;
+    @apply mt-[3em] mb-[2em] font-ibm;
   }
   :is(h1, h2, h3, h4, h5, h6) a {
     @apply no-underline hover:underline;
