@@ -28,3 +28,4 @@ sw.*
 .wrangler/
 .data
 .claude
+.opencode/goals
