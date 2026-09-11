@@ -5,6 +5,8 @@ date: 2019-07-23
 thumbnail: /images/uploads/gitstash.png
 tags:
   - git
+  - tip
+  - cli
 description: 'Stashing one file only is done with git stash push but what about adding also a message to the stash so you can easily get it afterward?'
 summary: 'Stashing one file only is done with git stash push but what about adding also a message to the stash so you can easily get it afterward?'
 ---
