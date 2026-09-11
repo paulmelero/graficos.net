@@ -13,6 +13,8 @@ description: 'A secret got committed and pushed. Rewrite the history with git-fi
 summary: 'A secret got committed and pushed. Rewrite the history with git-filter-repo or an interactive rebase, then force-push — and rotate the secret first.'
 ---
 
+ℹ️ **Note:** the commands below use `.env` as the example secret file. Replace it with the actual path of the file you committed (e.g. `credentials.json`, `config/secrets.yml`).
+
 So you committed a `.env` (or `credentials.json`, or a password or API key) and pushed it. Deleting the file in a new commit does **not** remove it from Git — it is still in every earlier commit, and anyone who cloned already has it.
 
 ⚠️ **First: rotate the secret.** Once it is pushed, treat it as compromised. Rewriting history cleans up the traces, but it is not a substitute for rotating the secret. If the secret is live, revoke it _before_ you touch Git. This is the real fix. But sometimes, it's not a secret you can rotate, and you just want to remove the traces from Git history.
@@ -80,6 +82,17 @@ git rebase --continue
 ```
 
 This rewrites that commit without the file. Force-push as above.
+
+## ⚠️ Don't rely on `git rm`
+
+`git rm .env` (or `git rm --cached .env`) only changes what is tracked **from now on**. The blob stays in every earlier commit: `git log --all -- .env` still finds it, and `git show <old-commit>:.env` still prints the secret.
+
+It is only enough if:
+
+- the secret was **never committed**, or
+- it's in the **last commit and you haven't pushed**: then `git rm --cached .env` + `git commit --amend` fixes that one commit.
+
+Once it's been pushed, `rm` in any form is useless — you need the rebase above or `git filter-repo`, plus rotation.
 
 ## What about `git history`?
 
