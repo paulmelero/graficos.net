@@ -129,19 +129,21 @@ function mulberry32(seed: number) {
 
 The bitwise operations (`^`, `>>>`, `Math.imul`) look cryptic, but they're doing something simple: scrambling the state thoroughly enough that consecutive outputs _look_ unrelated, even though each one is fully determined by the previous. The constant `0x6d2b79f5` advances the state by a fixed step (a [Weyl sequence](https://en.wikipedia.org/wiki/Weyl_sequence)), and the XOR-shift-multiply passes mix the bits so that small changes in state produce large changes in output. The final `>>> 0` coerces the result to an unsigned 32-bit integer, and dividing by `2³² = 4294967296` maps it to a float between 0 and 1. Wow. The whole thing is 8 lines, has zero dependencies, and is fast enough that it adds no measurable overhead. That's why I chose it over heavier alternatives.
 
-With a seeded PRNG (pseudo-random number generator) in hand, the next question is: how do we use it to decide _where_ each label goes? The answer is **ranking**. Assigning each grid cell a score, then trying cells in score order. The score determines which cells are "preferred," and the PRNG makes those preferences look random while staying deterministic. But purely random ranking has a subtle problem: it skews toward the edges.
+With a seeded PRNG (pseudo-random number generator) in hand, the next question is: how do we use it to decide _where_ each label goes? The answer is **ranking**. Assigning each grid cell a score, then trying cells in score order. The score determines which cells are "preferred," and the PRNG makes those preferences look random while staying deterministic. But purely random ranking has a subtle aesthetic problem: it produces a flat, uniform cloud with no focal point.
 
-## Even distribution: why random is not enough
+## Even distribution: from uniform to a focal point
 
-If you rank cells by a purely random value, the result skews toward the edges — there are simply **more cells far from center than near it**. And I wanted them all to have this focal point effect. This is the same problem as [uniformly sampling points inside a circle](https://en.wikipedia.org/wiki/Disk_point_picking): if you pick a random angle and a random radius, points cluster near the center because **the area grows with r²**. Here the problem is inverted — in a rectangular grid, the periphery has more cells at each distance band, so pure randomness produces an edge-heavy cloud with a sparse center.
+Ranking cells by a purely random value gives every cell an equal chance of being picked first, so the labels land **uniformly** across the viewport. It does not favour the edges — each cell is exactly as likely as any other. I originally wrote the opposite in this section; the disk point picking problem I cited actually says [the reverse of what I claimed](https://mathworld.wolfram.com/DiskPointPicking.html), so let me set the record straight.
 
-The classic fix for disk sampling (as I've came to learn) is to weight by the **square root of the radius** in the case of a circle. The word cloud uses a simpler blend — each cell gets a **rank** that mixes a small (30%) radial bias with a dominant (70%) random term extracted from the PRNG again (again, no `Math.random()`):
+To sample points uniformly in a disk, picking a random angle and a random radius is **wrong**: it clusters points near the **center**. The area element is `dA = 2πr dr`, so the outer rings — being larger — are under-sampled relative to their area. The fix is `r = R√u`. In other words, naive randomness errs toward the center, not the edge. A uniform grid of cells is already the corrected version of that: the cells have equal area, so ranking them randomly is like drawing equal-area rings — exactly uniform, no edge bias.
+
+What uniform coverage _does_ lack is a **focal point**. A rectangle has more area away from its center, so an even spread reads as a diffuse field rather than a single mass. The word cloud therefore uses a simple blend — each cell gets a **rank** that mixes a small (30%) radial bias with a dominant (70%) random term extracted from the PRNG (again, no `Math.random()`):
 
 ```ts
 const rank = normDist * 0.3 + rng() * 0.7
 ```
 
-The 30% radial term gives center cells a slight advantage, counteracting their numerical disadvantage. The 70% random term prevents a dense bullseye. The result is an even spread that reads as a single visual mass without obviously clustering anywhere. Cells are sorted by rank, and labels are placed "largest first". This is something an LLM (I don't get paid to say which one 😅) suggested after I explained the problem to it, since it's a common problem in "packing algorithms".
+The 30% radial term gives center cells a deliberate advantage, pulling the mass inward; the 70% random term keeps it from collapsing into a dense bullseye. The result reads as a single visual mass rather than a flat field or an obvious bullseye. Cells are sorted by rank, and labels are placed "largest first". This is something an LLM (I don't get paid to say which one 😅) suggested after I explained the problem to it, since it's a common problem in "packing algorithms".
 
 ```ts
 items.sort((a, b) => b.colsNeeded * b.rowsNeeded - a.colsNeeded * a.rowsNeeded)

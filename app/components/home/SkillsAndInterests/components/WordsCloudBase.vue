@@ -475,9 +475,10 @@ function createPositions(
   // before small ones fragment the grid.
   items.sort((a, b) => b.colsNeeded * b.rowsNeeded - a.colsNeeded * a.rowsNeeded)
 
-  // Rank each cell as `radialDistance * 0.3 + rng * 0.7`. The radial term gives
-  // a mild pull toward center so the cloud reads as a single mass; the dominant
-  // random term spreads items toward the edges instead of clumping the middle.
+  // Rank each cell as `radialDistance * 0.3 + rng * 0.7`. Ranking by `rng` alone
+  // is already uniform across the equal-area cells; the radial term adds a
+  // deliberate pull toward center so the cloud reads as a single mass instead of
+  // a flat field.
   const generateRankedCells = (rows: number) => {
     const list = []
     const centerC = (GRID_COLS - 1) / 2
