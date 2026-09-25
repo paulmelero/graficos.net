@@ -1,21 +1,27 @@
 <template>
   <!-- accepts display classes -->
-  <ul class="flex my-0 pl-0 list-none">
+  <ul
+    class="flex my-0 pl-0 list-none w-full justify-center"
+    :class="{
+      'gap-2': !shouldDisplayNames,
+    }"
+  >
     <template v-for="(network, i) in socialNetworks" :key="i">
-      <li class="flex group" v-if="!onlySocials || network.kind === 'social'">
+      <li v-if="!onlySocials || network.kind === 'social'">
         <base-texts-external-link
           @click="$emit('click')"
           :href="network.link"
           :title="network.name"
-          class="no-underline flex items-center"
+          class="no-underline"
         >
           <component
             :is="network.iconFile"
-            :font-controlled="false"
-            :filled="!shouldDisplayNames"
             width="24"
             height="24"
-            class="w-6 mr-2 [&:not(:group-first)]:mx-2 transition-[fill] fill-black hover:fill-accent dark:fill-fwhite dark:hover:fill-actionDark"
+            class="w-6 inline-block align-text-bottom transition-[fill] fill-black hover:fill-accent dark:fill-fwhite dark:hover:fill-actionDark"
+            :class="{
+              'mr-2': shouldDisplayNames,
+            }"
           />
           <span v-if="shouldDisplayNames">{{ network.name }}</span>
         </base-texts-external-link>

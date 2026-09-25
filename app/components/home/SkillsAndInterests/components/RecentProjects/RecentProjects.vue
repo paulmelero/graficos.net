@@ -10,7 +10,12 @@
     </div>
     <div class="grid lg:grid-cols-3 container pb-4 mx-auto">
       <div class="lg:col-span-2 lg:col-start-2 grid gap-4 lg:grid-cols-3">
-        <NuxtLink :to="project.link" v-for="project in recentProjects" :key="project.link" class="card no-underline">
+        <NuxtLink
+          :to="project.link"
+          v-for="(project, i) in recentProjects"
+          :key="project.link"
+          class="card no-underline"
+        >
           <h3 class="text-2xl font-title mb-2">
             {{ project.title }}
           </h3>
@@ -36,14 +41,9 @@ const recentProjects = Object.freeze([
     link: '/opensource/nuxt-comments',
   },
   {
-    title: 'Safe reader',
+    title: '[Safe]Reader',
     description: 'A privacy-focused reading app for online media articles.',
     link: '/opensource/safe-reader',
-  },
-  {
-    title: 'Churn Explorer',
-    description: 'A VS Code extension to analyze code churn data.',
-    link: '/opensource/churnlens-extension',
   },
 ])
 </script>
