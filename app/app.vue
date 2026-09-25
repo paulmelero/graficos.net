@@ -46,9 +46,10 @@ useHead({
     { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' },
   ],
   link: [
+    // @ts-ignore unhead v3 does not type the non-standard `publisher` rel
     { rel: 'publisher', href: APP_URL },
     // Favicons
-    { rel: 'favicon', href: '/favicon.ico' },
+    { rel: 'icon', href: '/favicon.ico' },
     { rel: 'shortcut icon', href: '/favicon.ico' },
 
     { rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
@@ -66,12 +67,8 @@ useHead({
     { rel: 'webmention', href: 'https://webmention.io/graficos.net/webmention' },
     { rel: 'pingback', href: 'https://webmention.io/graficos.net/xmlrpc' },
     // preconnect
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'preconnect', href: 'https://storage.googleapis.com/', crossorigin: 'crossorigin' },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'crossorigin' },
+    { rel: 'preconnect', href: 'https://storage.googleapis.com/', crossorigin: 'anonymous' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
   ],
   style: [
     `:root {
