@@ -1,6 +1,10 @@
 ## IDE
 
-VS Code, but I am giving Cursor a try!
+VS Code. I tried Cursor but the AI stuff was not worth it.
+
+## Agent Harness
+
+Opencode + Openrouter
 
 ### Editor's Theme
 
@@ -12,4 +16,4 @@ IntelOne Mono
 
 ## Terminal
 
-iTerm2
+~iTerm2~ Ghostty
