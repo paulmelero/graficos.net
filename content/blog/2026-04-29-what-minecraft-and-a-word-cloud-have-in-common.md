@@ -133,7 +133,7 @@ With a seeded PRNG (pseudo-random number generator) in hand, the next question i
 
 ## Even distribution: from uniform to a focal point
 
-Ranking cells by a purely random value gives every cell an equal chance of being picked first, so the labels land **uniformly** across the viewport. It does not favour the edges — each cell is exactly as likely as any other. I originally wrote the opposite in this section; the disk point picking problem I cited actually says [the reverse of what I claimed](https://mathworld.wolfram.com/DiskPointPicking.html), so let me set the record straight.
+Ranking cells by a purely random value gives every cell an equal chance of being picked first, so the labels land **uniformly** across the viewport. It does not favour the edges — each cell is exactly as likely as any other. I originally wrote the opposite here; the disk point picking problem I cited actually says [the reverse of what I claimed in a previous version of this article](https://mathworld.wolfram.com/DiskPointPicking.html), so let me set the record straight.
 
 To sample points uniformly in a disk, picking a random angle and a random radius is **wrong**: it clusters points near the **center**. The area element is `dA = 2πr dr`, so the outer rings — being larger — are under-sampled relative to their area. The fix is `r = R√u`. In other words, naive randomness errs toward the center, not the edge. A uniform grid of cells is already the corrected version of that: the cells have equal area, so ranking them randomly is like drawing equal-area rings — exactly uniform, no edge bias.
 
