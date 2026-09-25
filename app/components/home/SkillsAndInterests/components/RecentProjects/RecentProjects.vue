@@ -24,14 +24,16 @@
 <script lang="ts" setup>
 const recentProjects = Object.freeze([
   {
-    title: 'Odds & End—point—s',
-    description: 'A web application to query odds of various events.',
-    link: '/opensource/odds-and-end-points',
+    title: 'FlipTheCoin.app',
+    description:
+      'The only 3D coin flip simulator online with a real physics engine and a personal blog on probability, statistics, math, and more.',
+    link: '/opensource/flip-the-coin-app',
   },
   {
-    title: 'FlipTheCoin.app',
-    description: 'A toy project to simulate coin flips with a physics engine in the browser and in a browser extension',
-    link: '/opensource/flip-the-coin-app',
+    title: 'Nuxt comments',
+    description:
+      'Embeddable, unstyled comments system for Nuxt 4, backed by Cloudflare D1 and authenticated via @nuxtjs/better-auth',
+    link: '/opensource/nuxt-comments',
   },
   {
     title: 'Safe reader',
