@@ -35,7 +35,6 @@ export default defineNuxtConfig({
 
   experimental: {
     inlineRouteRules: true,
-    granularCachedData: true,
   },
 
   nitro: {
@@ -79,10 +78,6 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@vueuse/nuxt',
   ],
-
-  colorMode: {
-    classSuffix: '',
-  },
 
   content: {
     database: { bindingName: 'D1', type: 'd1' },
