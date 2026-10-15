@@ -40,10 +40,15 @@ const recentProjects = Object.freeze([
       'Embeddable, unstyled comments system for Nuxt 4, backed by Cloudflare D1 and authenticated via @nuxtjs/better-auth',
     link: '/opensource/nuxt-comments',
   },
+  // {
+  //   title: '[Safe]Reader',
+  //   description: 'A privacy-focused reading app for online media articles.',
+  //   link: '/opensource/safe-reader',
+  // },
   {
-    title: '[Safe]Reader',
-    description: 'A privacy-focused reading app for online media articles.',
-    link: '/opensource/safe-reader',
-  },
+    title: 'ChurnLens',
+    description: 'A VS Code extension to visualise code churn and hotspots in your codebase.',
+    link: '/opensource/churnlens-extension',
+  }
 ])
 </script>
