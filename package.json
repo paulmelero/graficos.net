@@ -50,7 +50,7 @@
     "@nuxt/eslint": "^1.12.1",
     "@nuxt/image": "^2.1.0",
     "@nuxt/kit": "4.5.2",
-    "@nuxt/schema": "^4.5.2",
+    "@nuxt/schema": "^4.6.4",
     "@nuxt/test-utils": "^4.3.2",
     "@types/node": "^25.0.9",
     "@vue/test-utils": "^2.4.6",
