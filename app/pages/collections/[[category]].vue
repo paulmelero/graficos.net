@@ -29,7 +29,7 @@
         <section v-if="activeCategory">
           <header class="mb-6">
             <h2 class="text-xl font-title sm:text-2xl">{{ activeLabel }}</h2>
-            <p v-if="activeSubline" class="mt-2 max-w-prose text-sm text-gray-dark dark:text-gray-light">
+            <p v-if="activeSubline" class="mt-2 text-sm text-gray-dark dark:text-gray-light">
               {{ activeSubline }}
             </p>
           </header>
@@ -45,7 +45,7 @@
           >
             <header class="mb-6">
               <h2 class="text-xl font-title sm:text-2xl">{{ group.label }}</h2>
-              <p v-if="group.subline" class="mt-2 max-w-prose text-sm text-gray-dark dark:text-gray-light">
+              <p v-if="group.subline" class="mt-2 text-gray-darker dark:text-gray-lightest">
                 {{ group.subline }}
               </p>
             </header>
