@@ -9,9 +9,9 @@ repositoryUrl: https://github.com/graficos/churnlens-extension
 license: MIT
 ---
 
-> Elbaum, S., & Munson, J. C. (1998). *Code Churn: A Measure for Estimating the Impact of Code Change.* Proceedings of the International Conference on Software Maintenance (ICSM '98), Bethesda, MD, USA, pp. 24–31.
+> Elbaum, S., & Munson, J. C. (1998). _Code Churn: A Measure for Estimating the Impact of Code Change._ Proceedings of the International Conference on Software Maintenance (ICSM '98), Bethesda, MD, USA, pp. 24–31.
 
-In that study, researchers found that **code churn** predicted defects better than the number of change requests, net code growth, or even the number of people involved. 
+In that study, researchers found that **code churn** predicted defects better than the number of change requests, net code growth, or even the number of people involved.
 
 That finding is why I built **ChurnLens**: to bring that insight directly into VS Code and spot codebase hotspots before they turn into bugs.
 
@@ -19,8 +19,8 @@ That finding is why I built **ChurnLens**: to bring that insight directly into V
 
 The core idea behind the extension is that **how much a file changed** and **how much it grew** are fundamentally different questions:
 
-> - **Delta** is net change (`added − deleted`). A file that loses 200 lines and gains 200 new ones has a delta of `0`. Delta says *"no change"*.
-> - **Churn** is total movement (`|added + deleted|`). That same rewrite represents `400` lines of movement. 
+> - **Delta** is net change (`added − deleted`). A file that loses 200 lines and gains 200 new ones has a delta of `0`. Delta says _"no change"_.
+> - **Churn** is total movement (`|added + deleted|`). That same rewrite represents `400` lines of movement.
 
 Churn warns you more clearly about the number of changes. Removing code is about as dangerous as adding it, which is why ChurnLens ranks risk by **churn** by default.
 

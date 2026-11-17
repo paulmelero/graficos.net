@@ -1,9 +1,7 @@
 <template>
   <div :key="tag" class="post-container mx-auto">
     <BaseTextsTheTitle class="mb-24">
-      <h1 class="text-2xl sm:text-3xl">
-        Blog posts on <span class="capitalize">"{{ tag }}"</span>
-      </h1>
+      <h1 class="text-2xl sm:text-3xl">Blog posts on <span class="capitalize">"{{ tag }}"</span></h1>
     </BaseTextsTheTitle>
     <section class="sm:flex sm:justify-between">
       <blog-article-list v-if="posts" :articles="posts" />

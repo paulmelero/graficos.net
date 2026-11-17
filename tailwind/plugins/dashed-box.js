@@ -1,6 +1,6 @@
-const plugin = require('tailwindcss/plugin')
+import plugin from 'tailwindcss/plugin'
 
-module.exports = plugin(function ({ addUtilities, theme }) {
+export default plugin(function ({ addUtilities, theme }) {
   addUtilities({
     '.dashed-box': {
       'border-style': 'dashed',

@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "vue"],
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "node": true,
+    "vitest": true
+  },
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-require-imports": "error"
+  }
+}

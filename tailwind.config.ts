@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 import colors from 'tailwindcss/colors'
 
-import dashedBox from './tailwind/plugins/dashed-box.cjs'
+import dashedBox from './tailwind/plugins/dashed-box'
 
 const customColors = {
   currentColor: colors.current,

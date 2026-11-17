@@ -1,5 +1,5 @@
 // Brings Nitro types and module augmentations (routeRules, nitro config) into NuxtConfig.
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference -- path references have no import equivalent
+// oxlint-disable-next-line typescript/triple-slash-reference -- path references have no import equivalent
 /// <reference path=".nuxt/nuxt.node.d.ts" />
 
 import { defineNuxtConfig } from 'nuxt/config'
@@ -66,7 +66,6 @@ export default defineNuxtConfig({
   modules: [
     'nitro-cloudflare-dev',
     '@nuxt/test-utils/module',
-    '@nuxt/eslint', // this needs to be before `@nuxt/content`
     'nuxt-content-twoslash',
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
