@@ -8,7 +8,7 @@
       <div class="w-3/4 xl:w-1/2 my-auto mx-auto text-white max-w-3xl">
         <h1 class="mb-8 sm:text-5xl text-3xl font-title">{{ post.title }}</h1>
         <p>
-          <BlogArticleDate :date="post.date" :modifiedDate="post.modifiedDate" />
+          <BlogArticleDate :date="post.date" :modified-date="post.modifiedDate" />
           <span class="hidden sm:inline-block sm:mx-2">·</span>
           <span class="block sm:inline-block font-ibm">{{ emojisWhileReading }}️ {{ formattedMinutesToRead }} read</span>
         </p>

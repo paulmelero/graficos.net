@@ -18,6 +18,4 @@ const props = defineProps({
 })
 
 console.log(props.error)
-
-const handleError = () => clearError({ redirect: '/' })
 </script>

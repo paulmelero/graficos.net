@@ -13,7 +13,7 @@
     </p>
     <ClientOnly>
       <div v-if="isSupported">
-        <button type="button" @click="copy(email)" class="pill-button flex items-center gap-2">
+        <button type="button" class="pill-button flex items-center gap-2" @click="copy(email)">
           <GIcon name="octicon:copy-24" class="inline" />
           {{ copied ? 'Copied' : 'Copy' }} to clipboard{{ copied ? '!' : '' }}
         </button>

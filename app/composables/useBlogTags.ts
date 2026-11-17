@@ -1,9 +1,7 @@
-import type { PostInList } from '~/types'
-
 export const useBlogTags = () => {
   const allTags = useState<Record<string, number>>('blog-tags', () => ({}))
 
-  const getTagsFromPosts = (posts: PostInList[]) => {
+  const getTagsFromPosts = (posts: { tags?: string[] }[]) => {
     return posts.reduce(
       (acc, post) => {
         return (post.tags || []).reduce((acc, tag) => {

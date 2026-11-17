@@ -4,13 +4,11 @@ export default defineNuxtPlugin(async () => {
   // Only fetch if tags haven't been populated yet
   if (Object.keys(allTags.value).length === 0) {
     const { data: allPosts } = await useAsyncData('all-blog-posts-for-tags-plugin', () => {
-      return queryCollection('blog')
-        .select('tags')
-        .all()
+      return queryCollection('blog').select('tags').all()
     })
 
     if (allPosts.value) {
-      allTags.value = getTagsFromPosts(allPosts.value as any)
+      allTags.value = getTagsFromPosts(allPosts.value)
     }
   }
 })

@@ -1,8 +1,7 @@
 <template>
   <ul class="w-full mb-4 flex flex-col">
-    <li v-for="(article, i) in articles">
+    <li v-for="article in articles" :key="article.path">
       <blog-article-card
-        :key="i"
         :lang="article.lang"
         :title="article.title"
         :url="article.path"

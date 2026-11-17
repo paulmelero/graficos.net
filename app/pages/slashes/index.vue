@@ -5,7 +5,8 @@
       <template #subtitle>
         <p>
           Slash pages list of graficos.net. See
-          <BaseTextsExternalLink hasIcon href="https://slashpages.net/">https://slashpages.net/</BaseTextsExternalLink>.
+          <BaseTextsExternalLink has-icon href="https://slashpages.net/">https://slashpages.net/</BaseTextsExternalLink
+          >.
         </p>
       </template>
     </BaseTextsTheTitle>

@@ -1,6 +1,8 @@
 import type { Config } from 'tailwindcss'
 import colors from 'tailwindcss/colors'
 
+import dashedBox from './tailwind/plugins/dashed-box.cjs'
+
 const customColors = {
   currentColor: colors.current,
   transparent: colors.transparent,
@@ -65,7 +67,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('./tailwind/plugins/dashed-box')],
+  plugins: [dashedBox],
 }
 
 export default config

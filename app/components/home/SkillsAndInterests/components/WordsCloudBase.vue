@@ -1,5 +1,10 @@
 <template>
-  <svg :class="props.svgClass" :viewBox="svgViewBox" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <svg
+    :class="props.svgClass"
+    :viewBox="svgViewBox"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid meet"
+  >
     <DevOnly>
       <g class="debug-grid-layer" opacity="0.3">
         <line
@@ -26,7 +31,7 @@
     </DevOnly>
 
     <defs>
-      <filter x="-.15" y="0" width="1.3" height="1" :id="filterIdValue">
+      <filter :id="filterIdValue" x="-.15" y="0" width="1.3" height="1">
         <feFlood flood-color="oklch(0.71 0.2 53.96)" result="bg" />
         <feMerge>
           <feMergeNode in="bg" />
@@ -431,9 +436,9 @@ const isSkillOrInterestActive = (skillOrInterest: string) => {
     return true
   }
 
-  const relatedSkillsAndInterests =
+  const relatedSkillsAndInterests: readonly string[] =
     skillsAndInterestsPerCategory[activeTopic as keyof typeof skillsAndInterestsPerCategory]
-  return relatedSkillsAndInterests.includes(skillOrInterest as any)
+  return relatedSkillsAndInterests.includes(skillOrInterest)
 }
 
 function calculateLineWidth(label: string) {

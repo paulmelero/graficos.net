@@ -24,8 +24,7 @@ const props = withDefaults(
   }>(),
   {
     viewBox: () => ({ width: 1400, height: 600 }),
-    svgClass:
-      'absolute inset-x-0 top-[8vh] w-full mx-auto h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none',
+    svgClass: 'absolute inset-x-0 top-[8vh] w-full mx-auto h-[75vh] sm:top-[5vh] sm:h-screen z-20 pointer-events-none',
   }
 )
 

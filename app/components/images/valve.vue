@@ -61,7 +61,7 @@ export default {
       colour7: 'currentColor',
       colour8: 'currentColor',
       colour9: 'currentColor',
-      style: {color: this.colour},
+      style: { color: this.colour },
     }
   },
 }

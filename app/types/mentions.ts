@@ -8,7 +8,7 @@ export interface MentionChildren {
   type: string
   author: MentionAuthor
   url: string
-  published: any
+  published: string
   'wm-received': string
   'wm-id': number
   'wm-source': string

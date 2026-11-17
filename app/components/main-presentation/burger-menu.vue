@@ -1,11 +1,11 @@
 <template>
   <div ref="menuContainer" class="relative">
     <button
-      @click="isOpen = !isOpen"
       :aria-label="isOpen ? 'Close menu' : 'Open menu'"
       :aria-expanded="isOpen"
       aria-controls="mobile-menu"
       class="relative z-[60] flex flex-col justify-center items-center w-10 h-10 gap-[6px] text-accent dark:text-actionDark"
+      @click="isOpen = !isOpen"
     >
       <span
         :class="[

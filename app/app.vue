@@ -46,7 +46,7 @@ useHead({
     { name: 'google-site-verification', content: 'i9WbOFWpz5buDSxx-_jC7DjtnD8Xrin3p2lPHhBOlkM' },
   ],
   link: [
-    // @ts-ignore unhead v3 does not type the non-standard `publisher` rel
+    // @ts-expect-error unhead v3 does not type the non-standard `publisher` rel
     { rel: 'publisher', href: APP_URL },
     // Favicons
     { rel: 'icon', href: '/favicon.ico' },

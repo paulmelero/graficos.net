@@ -1,19 +1,9 @@
 <template>
-  <BaseTextsExternalLink
-    v-if="isExternal"
-    :href="props.href"
-    :has-icon="true"
-    v-bind="attrs"
-  >
+  <BaseTextsExternalLink v-if="isExternal" :href="props.href" :has-icon="true" v-bind="attrs">
     <slot />
   </BaseTextsExternalLink>
 
-  <NuxtLink
-    v-else
-    :href="props.href"
-    :target="props.target"
-    v-bind="attrs"
-  >
+  <NuxtLink v-else :href="props.href" :target="props.target" v-bind="attrs">
     <slot />
   </NuxtLink>
 </template>
@@ -43,8 +33,7 @@ const isExternal = computed(() => {
   try {
     const url = new URL(props.href, currentOrigin)
     return /^https?:$/.test(url.protocol) && url.origin !== currentOrigin
-  }
-  catch {
+  } catch {
     return false
   }
 })

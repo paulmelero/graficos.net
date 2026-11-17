@@ -167,9 +167,7 @@ const scheduleVideoPlay = (video: HTMLVideoElement, url: string) => {
     return
   }
 
-  const idleScheduler = (window as any).requestIdleCallback as
-    | ((callback: () => void, opts?: { timeout?: number }) => number)
-    | undefined
+  const idleScheduler = typeof window.requestIdleCallback === 'function' ? window.requestIdleCallback : undefined
 
   if (idleScheduler) {
     idleScheduler(startPlayback, { timeout: 200 })

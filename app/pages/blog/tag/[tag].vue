@@ -1,5 +1,5 @@
 <template>
-  <div class="post-container mx-auto" :key="tag">
+  <div :key="tag" class="post-container mx-auto">
     <BaseTextsTheTitle class="mb-24">
       <h1 class="text-2xl sm:text-3xl">
         Blog posts on <span class="capitalize">"{{ tag }}"</span>
@@ -8,7 +8,7 @@
     <section class="sm:flex sm:justify-between">
       <blog-article-list v-if="posts" :articles="posts" />
       <aside class="sm:mt-0 mt-6 sm:ml-6 sm:sticky h-max sm:top-24 sm:max-w-56">
-        <blog-tag-cloud sectionTitle="Related Tags" :tags="tags" class="mb-8" />
+        <blog-tag-cloud section-title="Related Tags" :tags="tags" class="mb-8" />
       </aside>
     </section>
   </div>

@@ -14,7 +14,7 @@
       role="main"
     >
       <div class="relative z-[2]"><slot /></div>
-      <div class="isolate" v-if="container === 'contained'"><div class="bg-container" aria-hidden="true" /></div>
+      <div v-if="container === 'contained'" class="isolate"><div class="bg-container" aria-hidden="true" /></div>
     </main>
 
     <main-presentation-the-footer />

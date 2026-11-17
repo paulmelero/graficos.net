@@ -10,12 +10,7 @@
     </div>
     <div class="grid lg:grid-cols-3 container pb-4 mx-auto">
       <div class="lg:col-span-2 lg:col-start-2 grid gap-4 lg:grid-cols-3">
-        <NuxtLink
-          :to="project.link"
-          v-for="(project, i) in recentProjects"
-          :key="project.link"
-          class="card no-underline"
-        >
+        <NuxtLink v-for="project in recentProjects" :key="project.link" :to="project.link" class="card no-underline">
           <h3 class="text-2xl font-title mb-2">
             {{ project.title }}
           </h3>
@@ -49,6 +44,6 @@ const recentProjects = Object.freeze([
     title: 'ChurnLens',
     description: 'A VS Code extension to visualise code churn and hotspots in your codebase.',
     link: '/opensource/churnlens-extension',
-  }
+  },
 ])
 </script>

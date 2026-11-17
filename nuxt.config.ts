@@ -1,7 +1,5 @@
-// We need to reference the .nuxt/nuxt.node.d.ts file to use the
-// Nitro types in the Nuxt config
-// and all the module augmentation types in `NuxtConfig`
-// (routeRules, and nitro configs)
+// Brings Nitro types and module augmentations (routeRules, nitro config) into NuxtConfig.
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference -- path references have no import equivalent
 /// <reference path=".nuxt/nuxt.node.d.ts" />
 
 import { defineNuxtConfig } from 'nuxt/config'

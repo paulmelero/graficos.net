@@ -9,10 +9,10 @@
     <template v-for="(network, i) in socialNetworks" :key="i">
       <li v-if="!onlySocials || network.kind === 'social'">
         <base-texts-external-link
-          @click="$emit('click')"
           :href="network.link"
           :title="network.name"
           class="no-underline"
+          @click="$emit('click')"
         >
           <component
             :is="network.iconFile"

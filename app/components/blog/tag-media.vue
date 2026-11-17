@@ -7,12 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-const sizesTable = {
-  1: 'text-base',
-  2: 'text-xl',
-  3: 'text-2xl',
-}
-
 defineProps<{
   name: string
   size: number

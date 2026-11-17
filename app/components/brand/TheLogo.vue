@@ -4,7 +4,7 @@
     viewBox="0 0 747 229"
     height="150"
     aria-label="graficos.net Logo"
-    :class="class"
+    :class="$props.class"
   >
     <title>graficos.net Logo</title>
     <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">

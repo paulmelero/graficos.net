@@ -1,5 +1,5 @@
 <template>
-  <img :src="src" :alt="alt ?? ''" loading="lazy"></img>
+  <img :src="src" :alt="alt ?? ''" loading="lazy" />
 </template>
 
 <script setup lang="ts">

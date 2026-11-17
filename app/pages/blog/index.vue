@@ -11,7 +11,7 @@
     <section class="sm:flex sm:justify-between">
       <blog-article-list v-if="posts" :articles="posts" />
       <aside class="sm:mt-0 mt-6 sm:ml-6 sm:sticky h-max sm:top-24 sm:max-w-56">
-        <blog-tag-cloud :tags="tags" :shouldHide="true" />
+        <blog-tag-cloud :tags="tags" :should-hide="true" />
       </aside>
     </section>
   </div>
