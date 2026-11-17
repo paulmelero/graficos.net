@@ -1,6 +1,8 @@
 import { defineCollection, defineContentConfig } from '@nuxt/content'
 import { z } from 'zod'
 
+import { collectionCategorySlugs } from './app/config/collections'
+
 export default defineContentConfig({
   collections: {
     pages: defineCollection({
@@ -46,6 +48,20 @@ export default defineContentConfig({
         url: z.string().default(''),
         repositoryUrl: z.string().default(''),
         license: z.string().default('').optional(),
+      }),
+    }),
+    collections: defineCollection({
+      // Load every file inside the `content/collections` directory
+      source: 'collections/*.md',
+      // Specify the type of content in this collection
+      type: 'page',
+      schema: z.object({
+        title: z.string(),
+        link: z.string().url(),
+        createdAt: z.string(),
+        description: z.string(),
+        category: z.enum(collectionCategorySlugs),
+        featured: z.boolean().default(false),
       }),
     }),
     homeSections: defineCollection({

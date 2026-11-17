@@ -1,0 +1,1 @@
+Back in the early days, even before Google, people used their personal websites to share cool things they found on the Internet. Sometimes linking just virtual "friends", sometimes creating real friendship afterwards, and sometimes simply sharing cool stuff they found online.

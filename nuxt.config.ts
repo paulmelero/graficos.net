@@ -6,6 +6,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 import wasm from 'vite-plugin-wasm'
 
+import { collectionCategories } from './app/config/collections'
 import socialLinks from './app/config/social-links'
 
 const APP_NAME = 'graficos.net'
@@ -38,7 +39,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
-      routes: ['/feed'],
+      routes: ['/feed', ...collectionCategories.map((category) => `/collections/${category.slug}`)],
     },
     preset: 'cloudflare_module',
     cloudflare: {
@@ -51,6 +52,8 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/blog': { prerender: true },
     '/blog/**': { prerender: true },
+    '/collections': { prerender: true },
+    '/collections/**': { prerender: true },
     '/contact': { prerender: true },
     '/slashes': { prerender: true },
     '/slashes/**': { prerender: true },

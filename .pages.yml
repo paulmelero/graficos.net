@@ -101,6 +101,57 @@ content:
         sort: yearCreated
         order: desc
 
+  - name: collections
+    label: Collections
+    type: collection
+    path: content/collections
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: link
+        label: Link
+        type: string
+        required: true
+      - name: createdAt
+        label: Created At
+        type: date
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: category
+        label: Category
+        type: select
+        options:
+          values:
+            - fonts
+            - web-projects
+            - movements
+            - websites
+            - animation-3d
+            - web-games
+        required: true
+      - name: featured
+        label: Featured
+        type: boolean
+        default: false
+    view:
+      fields:
+        - title
+        - category
+        - featured
+        - createdAt
+      primary: title
+      sort:
+        - createdAt
+        - title
+      default:
+        sort: createdAt
+        order: desc
+
   - name: homeSections
     label: Home Sections
     type: collection

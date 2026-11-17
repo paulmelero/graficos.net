@@ -5,6 +5,7 @@
     </section>
     <HomeWhatIsGraficosNet />
     <HomeWhoAmI />
+    <HomeFeaturedCollections />
     <LazyHydrationHomeSkillsAndInterests />
   </div>
 </template>

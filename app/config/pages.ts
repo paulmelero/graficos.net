@@ -5,6 +5,12 @@ export const links = Object.freeze([
     title: 'Blog',
     head: true,
   },
+  {
+    href: '/collections',
+    name: 'Collections',
+    title: 'Collections',
+    head: true,
+  },
   { href: '/contact', name: 'Contact', title: 'Contact', head: true },
   { href: '/slashes', name: 'Slash Pages', title: 'Slashes', head: false },
   {

@@ -1,4 +1,4 @@
-import type { BlogCollectionItem } from '@nuxt/content'
+import type { BlogCollectionItem, CollectionsCollectionItem } from '@nuxt/content'
 
 export type Post = Pick<
   BlogCollectionItem,
@@ -6,3 +6,8 @@ export type Post = Pick<
 >
 
 export type PostInList = Pick<BlogCollectionItem, 'path' | 'title' | 'summary' | 'tags' | 'lang' | 'date'>
+
+export type CollectionInList = Pick<
+  CollectionsCollectionItem,
+  'path' | 'title' | 'link' | 'createdAt' | 'description' | 'category' | 'featured'
+>
