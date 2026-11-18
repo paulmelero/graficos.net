@@ -9,7 +9,8 @@ const customColors = {
   black: colors.black,
   white: colors.white,
   fwhite: 'hsl(0, 0%, 98%)',
-  'gray-darkest': colors.zinc['800'],
+  // Thanks, https://x.com/AlexCristache/status/2120781074187870719/photo/1
+  'gray-darkest': '#13131c',
   'gray-darker': colors.zinc['700'],
   'gray-dark': colors.zinc['600'],
   gray: colors.zinc['500'],
