@@ -2,7 +2,7 @@
   <article
     class="card group relative flex h-full flex-col focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent dark:focus-within:outline-actionDark"
   >
-    <header class="mb-1 flex items-start justify-between gap-2">
+    <header v-if="!minimalInfo" class="mb-1 flex items-start justify-between gap-2">
       <p class="font-ibm text-xs tracking-wider text-accent uppercase dark:text-actionDark">
         {{ categoryLabel }}
       </p>
@@ -20,7 +20,7 @@
         rel="noopener noreferrer"
         class="no-underline"
         :class="{
-          'card-link group-hover:underline focus-visible:outline-none': fullLink
+          'card-link group-hover:underline focus-visible:outline-none': fullLink,
         }"
       >
         {{ item.title }}
@@ -38,7 +38,7 @@
 import type { CollectionInList } from '~/types'
 import { collectionCategoryLabel } from '../../config/collections'
 
-const props = defineProps<{ item: CollectionInList, fullLink?: boolean }>()
+const props = defineProps<{ item: CollectionInList; fullLink?: boolean; minimalInfo?: boolean }>()
 
 const categoryLabel = computed(() => collectionCategoryLabel(props.item.category))
 </script>

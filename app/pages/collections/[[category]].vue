@@ -4,8 +4,8 @@
       <h1 class="text-2xl sm:text-3xl">Collections</h1>
       <template #subtitle>
         <p>
-          Things I discover on the web and want to share and keep: fonts, web projects, movements, websites, animation, 3D,
-          games, etc.
+          Things I discover on the web and want to share and keep: fonts, web projects, movements, websites, animation,
+          3D, games, etc.
         </p>
       </template>
     </BaseTextsTheTitle>
@@ -33,7 +33,7 @@
             {{ activeSubline }}
           </p>
         </header>
-        <CollectionsCollectionGrid v-if="filteredItems.length" :items="filteredItems" />
+        <CollectionsCollectionGrid v-if="filteredItems.length" :items="filteredItems" minimalInfo />
         <p v-else class="text-gray-dark dark:text-gray-light">I still need to add something here... 🫶🏽😄</p>
       </section>
 
@@ -49,7 +49,7 @@
               {{ group.subline }}
             </p>
           </header>
-          <CollectionsCollectionGrid :items="group.items" />
+          <CollectionsCollectionGrid :items="group.items" minimalInfo />
         </section>
       </template>
     </div>
