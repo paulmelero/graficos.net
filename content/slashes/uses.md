@@ -1,10 +1,18 @@
 ## IDE
 
-VS Code. I tried Cursor but the AI stuff was not worth it.
+VS Code.
+
+## Main Package Manager
+
+`pnpm`
 
 ## Agent Harness
 
 Opencode + Openrouter
+
+## Local model
+
+`nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB`
 
 ### Editor's Theme
 
@@ -16,4 +24,4 @@ IntelOne Mono
 
 ## Terminal
 
-~iTerm2~ Ghostty
+Ghostty

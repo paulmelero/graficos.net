@@ -1,8 +1,9 @@
 export const collectionCategorySlugs = [
   'fonts',
-  'web-projects',
+  'software-projects',
   'movements',
   'websites',
+  'artificial-intelligence',
   'animation-3d',
   'web-games',
 ] as const
@@ -21,9 +22,10 @@ export const collectionCategories: ReadonlyArray<CollectionCategoryConfig> = [
     label: 'Fonts',
     subline: 'Apart from the all time classics, I want to share a few Fonts I encounter on the Internet that I liked',
   },
-  { slug: 'web-projects', label: 'Web Projects' },
+  { slug: 'software-projects', label: 'Software' },
   { slug: 'movements', label: 'Movements' },
   { slug: 'websites', label: 'Websites' },
+  { slug: 'artificial-intelligence', label: 'AI' },
   { slug: 'animation-3d', label: 'Animation / 3D' },
   { slug: 'web-games', label: 'Web Games' },
 ]

@@ -8,6 +8,7 @@
       </p>
       <GIcon
         name="material-symbols-light:open-in-new"
+        :size="16"
         class="shrink-0 text-base text-gray-dark dark:text-gray-light"
         aria-hidden="true"
       />
@@ -17,13 +18,16 @@
         :href="item.link"
         target="_blank"
         rel="noopener noreferrer"
-        class="card-link no-underline group-hover:underline focus-visible:outline-none"
+        class="no-underline"
+        :class="{
+          'card-link group-hover:underline focus-visible:outline-none': fullLink
+        }"
       >
         {{ item.title }}
         <span class="sr-only">(opens in a new tab)</span>
       </a>
     </h3>
-    <p class="mb-4 text-sm text-gray-dark dark:text-gray-light">{{ item.description }}</p>
+    <MDC :value="item.description" class="collection-description mb-4 text-sm text-gray-dark dark:text-gray-light" />
     <footer class="mt-auto pt-2 font-ibm text-xs text-gray-dark dark:text-gray-light">
       <BaseTextsTheTime :date="item.createdAt" />
     </footer>
@@ -34,7 +38,7 @@
 import type { CollectionInList } from '~/types'
 import { collectionCategoryLabel } from '../../config/collections'
 
-const props = defineProps<{ item: CollectionInList }>()
+const props = defineProps<{ item: CollectionInList, fullLink?: boolean }>()
 
 const categoryLabel = computed(() => collectionCategoryLabel(props.item.category))
 </script>
@@ -44,5 +48,14 @@ const categoryLabel = computed(() => collectionCategoryLabel(props.item.category
   content: '';
   position: absolute;
   inset: 0;
+}
+
+.collection-description :deep(p:last-child) {
+  margin-bottom: 0;
+}
+
+.collection-description :deep(a) {
+  position: relative;
+  z-index: 1;
 }
 </style>
