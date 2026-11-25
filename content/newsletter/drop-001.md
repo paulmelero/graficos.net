@@ -8,7 +8,7 @@ date: 2026-11-26
 
 ## Intro
 
-Hi! This is my first _drop_! It's been a while since I wanted to make a Newsletter for graficos.net. So I present you _*GRAFICOZZ*_. I will use to to share cool things I encounter on the web. The latest news in the platform and some cool libraries.
+Hi! This is my first _drop_! It's been a while since I wanted to make a Newsletter for graficos.net. So I present you _*GRAFICOZZ*_. I will use it to share cool things I encounter on the web. The latest news in the platform and some cool libraries.
 
 I am a big fan of other newsletters and they have helped me stay up-to-date with the latest news in Web Development. This is also my way of staying DIY with this underground-style newsletter.
 
