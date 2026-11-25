@@ -17,6 +17,7 @@
     </header>
     <div v-if="post" class="post-container">
       <ContentRenderer :value="post" class="py-10" />
+      <NewsletterSignup variant="post" />
     </div>
   </article>
 </template>

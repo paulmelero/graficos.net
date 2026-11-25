@@ -8,7 +8,9 @@
       </template>
     </BaseTextsTheTitle>
 
-    <p class="p-4 rounded-md bg-fwhite dark:bg-gray-dark text-gray-darkest dark:text-gray-lightest font-thin">
+    <p
+      class="p-4 rounded-md border border-gray-light bg-fwhite text-gray-darkest dark:border-gray dark:bg-gray-dark dark:text-gray-lightest font-thin"
+    >
       <BaseTextsEmail ref="emailComp" />
     </p>
     <ClientOnly>

@@ -2,9 +2,9 @@
   <div class="absolute container px-10 lg:pl-0 inset-x-0 top-[calc(105svh+96px)] h-[calc(95svh-96px*2)] z-20">
     <div class="grid lg:grid-cols-3 container py-4">
       <BaseTextsTheTitle class="mb-16 lg:col-span-2 lg:col-start-2">
-        <h2 class="text-2xl sm:text-3xl">Recent projects</h2>
+        <h2 class="text-2xl sm:text-3xl">Some personal projects</h2>
         <template #subtitle>
-          <p>These are some of my recent projects.</p>
+          <p>A few things I've built and maintain.</p>
         </template>
       </BaseTextsTheTitle>
     </div>

@@ -7,6 +7,9 @@ npm-debug.log
 # Nuxt build
 .nuxt
 
+# Maizzle
+.maizzle
+
 # Nuxt generate
 dist
 sw.*
@@ -29,3 +32,5 @@ sw.*
 .data
 .claude
 .opencode/goals
+# Generated Maizzle issue previews
+newsletter/issues/

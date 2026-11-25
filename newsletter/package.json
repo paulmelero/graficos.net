@@ -1,0 +1,17 @@
+{
+  "name": "graficos-newsletter-emails",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.mjs",
+    "sync": "node sync.mjs",
+    "build": "node build.mjs",
+    "preview": "node preview.mjs",
+    "send": "node --env-file-if-exists=../.env send.mjs"
+  },
+  "devDependencies": {
+    "@maizzle/framework": "^6.4.0",
+    "gray-matter": "^4.0.3",
+    "tailwindcss": "^4.3.5"
+  }
+}

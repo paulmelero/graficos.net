@@ -6,6 +6,7 @@
     <HomeWhatIsGraficosNet />
     <HomeWhoAmI />
     <HomeFeaturedCollections />
+    <NewsletterSignup variant="home" />
     <LazyHydrationHomeSkillsAndInterests />
   </div>
 </template>

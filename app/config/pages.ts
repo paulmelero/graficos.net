@@ -30,3 +30,17 @@ export const linksWithHome = Object.freeze([
   },
   ...links,
 ])
+
+export const footerNavigation = Object.freeze([
+  { href: '/', name: 'Home', title: 'Home' },
+  { href: '/contact', name: 'Contact', title: 'Contact' },
+  { href: '/privacy', name: 'Privacy', title: 'Privacy' },
+])
+
+export const footerSharing = Object.freeze([
+  { href: '/blog', name: 'Blog', title: 'Blog' },
+  { href: '/collections', name: 'Collections', title: 'Collections' },
+  { href: '/slashes', name: 'Slash Pages', title: 'Slashes' },
+  { href: '/opensource', name: 'Open Source', title: 'Open Source Projects' },
+  { href: '/newsletter', name: 'GRAFICOZZ', title: 'GRAFICOZZ' },
+])

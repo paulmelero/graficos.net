@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     public: {
       APP_NAME,
       APP_URL,
+      NEWSLETTER_URL: 'https://newsletter.graficos.net', // do not end it in slash
       WEBMENTIONS_TOKEN: 'iNlunTkDd9uJ93CWoVrhYw',
       socialLinks,
     },
@@ -55,6 +56,8 @@ export default defineNuxtConfig({
     '/collections': { prerender: true },
     '/collections/**': { prerender: true },
     '/contact': { prerender: true },
+    '/newsletter': { prerender: true },
+    '/privacy': { prerender: true },
     '/slashes': { prerender: true },
     '/slashes/**': { prerender: true },
   },

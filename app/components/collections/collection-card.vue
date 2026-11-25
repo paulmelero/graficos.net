@@ -13,12 +13,24 @@
         aria-hidden="true"
       />
     </header>
-    <h3 class="mb-2 text-2xl font-title">
+    <h3 class="mb-2 flex items-start gap-2 text-2xl font-title">
+      <img
+        v-if="faviconUrl && showFavicon"
+        :src="faviconUrl"
+        alt=""
+        width="20"
+        height="20"
+        loading="lazy"
+        decoding="async"
+        referrerpolicy="no-referrer"
+        class="mt-1 h-5 w-5 shrink-0 rounded-sm"
+        @error="showFavicon = false"
+      />
       <a
         :href="item.link"
         target="_blank"
         rel="noopener noreferrer"
-        class="no-underline"
+        class="no-underline [text-box-trim:trim-both]"
         :class="{
           'card-link group-hover:underline focus-visible:outline-none': fullLink,
         }"
@@ -41,6 +53,14 @@ import { collectionCategoryLabel } from '../../config/collections'
 const props = defineProps<{ item: CollectionInList; fullLink?: boolean; minimalInfo?: boolean }>()
 
 const categoryLabel = computed(() => collectionCategoryLabel(props.item.category))
+const showFavicon = ref(true)
+const faviconUrl = computed(() => {
+  try {
+    return `https://icons.duckduckgo.com/ip3/${new URL(props.item.link).hostname}.ico`
+  } catch {
+    return null
+  }
+})
 </script>
 
 <style scoped>

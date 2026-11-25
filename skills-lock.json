@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "maizzle": {
+      "source": "maizzle/framework",
+      "commit": "b7f338ca7a7e4cf89a3056363d809f6fc71682bc",
+      "sourceType": "github",
+      "skillPath": "skills/maizzle/SKILL.md",
+      "computedHash": "8f43fc5ecec180ccfeb6151f924f49b591d2f05197939ac3859cb55697a29160"
+    }
+  }
+}

@@ -15,6 +15,12 @@
     "precommit": "pnpm run lint:fix && pnpm run format",
     "prepare": "nuxt prepare",
     "preview": "pnpm build && pnpm dlx wrangler dev",
+    "newsletter:install": "pnpm --dir newsletter install",
+    "newsletter:sync": "pnpm --dir newsletter sync",
+    "newsletter:dev": "pnpm --dir newsletter dev",
+    "newsletter:build": "pnpm --dir newsletter build",
+    "newsletter:preview": "pnpm --dir newsletter preview",
+    "newsletter:send": "pnpm --dir newsletter send",
     "test": "vitest"
   },
   "engines": {
