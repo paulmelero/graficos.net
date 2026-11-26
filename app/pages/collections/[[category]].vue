@@ -146,6 +146,8 @@ const groups = computed(() => groupCollectionsByCategory(collections.value ?? []
 </script>
 
 <style scoped>
+@reference '../../assets/css/main.css';
+
 .collection-tab {
   @apply relative inline-flex shrink-0 items-center px-3 py-3 font-ibm text-sm text-gray-dark no-underline transition-colors dark:text-gray-light;
 }

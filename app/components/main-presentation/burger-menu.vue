@@ -9,19 +9,19 @@
     >
       <span
         :class="[
-          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center bg-currentColor',
+          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center',
           isOpen ? 'translate-y-2 rotate-45' : '',
         ]"
       />
       <span
         :class="[
-          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center bg-currentColor',
+          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center',
           isOpen ? 'opacity-0 scale-x-0' : '',
         ]"
       />
       <span
         :class="[
-          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center bg-currentColor',
+          'block h-0.5 w-6 bg-current rounded-full transition-all duration-300 origin-center',
           isOpen ? '-translate-y-2 -rotate-45' : '',
         ]"
       />

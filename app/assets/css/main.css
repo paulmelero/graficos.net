@@ -1,10 +1,65 @@
-/** ------------------------------------------------------------
-  ##  CUSTOM CLASSES
-  --------------------------------------------------------- */
-@import '_custom-preflight';
-@import '_resets/_nuxt';
-@import '_resets/_shiki';
-@import '_texts';
-@import '_articles';
-@import '_cards';
-@import '_buttons';
+/* Tailwind v4 CSS-first config. Seeded from the old tailwind.config.ts. */
+@import 'tailwindcss';
+@import './_base.css';
+@import './_components.css';
+
+@source not "../../../newsletter";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-*: initial;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-fwhite: hsl(0, 0%, 98%);
+  --color-gray-darkest: #13131c;
+  --color-gray-darker: #3f3f46;
+  --color-gray-dark: #52525b;
+  --color-gray: #71717a;
+  --color-gray-light: #a1a1aa;
+  --color-gray-lightest: #e4e4e7;
+  --color-primary: oklch(0.71 0.2 53.96);
+  --color-primaryDark: #18181b;
+  --color-secondary: #b45309;
+  --color-secondaryDark: oklch(0.68 0.22 42.54);
+  --color-accent: #c31b54;
+  --color-accentDark: #fdba74;
+  --color-actionDark: #d97706;
+
+  --font-title: Montserrat, sans-serif;
+  --font-ibm: 'IBM Plex Mono', monospace;
+  --font-ibm-sans: 'IBM Plex Sans', sans-serif;
+
+  /* The old config dropped the default line-heights on text-* utilities. */
+  --text-*: initial;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+}
+
+/* v3's container was centered and capped at each breakpoint. */
+@utility container {
+  margin-inline: auto;
+
+  @media (width >= 40rem) {
+    max-width: 40rem;
+  }
+  @media (width >= 48rem) {
+    max-width: 48rem;
+  }
+  @media (width >= 64rem) {
+    max-width: 64rem;
+  }
+  @media (width >= 80rem) {
+    max-width: 80rem;
+  }
+  @media (width >= 96rem) {
+    max-width: 96rem;
+  }
+}

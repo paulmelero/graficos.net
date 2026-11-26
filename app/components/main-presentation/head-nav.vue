@@ -4,12 +4,12 @@
     aria-label="Main Navigation"
   >
     <nuxt-link
-      class="flex items-center text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark flex-no-shrink mx-6 py-4 disable-underline transition-none disable-hover"
+      class="flex items-center text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark shrink-0 mx-6 py-4 no-underline transition-none"
       to="/"
       aria-label="Go to Home Page"
       @click="closeBurgerMenu"
     >
-      <images-logo class="h-8 transition:color disable-hover" />
+      <images-logo class="h-8 transition-colors" />
     </nuxt-link>
     <ul class="pl-0 h-full w-full flex-1 flex-grow items-center my-0 hidden sm:flex justify-start">
       <template v-for="(link, i) in links" :key="i">
@@ -17,7 +17,7 @@
           <nuxt-link
             :to="link.href"
             :title="link.title"
-            class="my-0 text-sm text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark disable-hover mr-4"
+            class="my-0 text-sm text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark mr-4"
             >{{ link.name }}</nuxt-link
           >
         </li>

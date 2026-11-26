@@ -54,7 +54,9 @@ useSeoMeta({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
+@reference '../../assets/css/main.css';
+
 table,
 th,
 td {

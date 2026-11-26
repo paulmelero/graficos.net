@@ -16,14 +16,12 @@
   </svg>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 .dashed-line {
   stroke: var(--border-color);
 }
 
-@prefers-color-scheme: dark {
-  .dashed-line {
-    stroke: var(--border-color-dark);
-  }
+.dark .dashed-line {
+  stroke: var(--border-color-dark);
 }
 </style>

@@ -1,0 +1,193 @@
+@layer components {
+  .font-title {
+    @apply font-black;
+    font-optical-sizing: auto;
+  }
+
+  .card {
+    @apply overflow-hidden bg-fwhite px-6 py-4 shadow-md transition-shadow dark:bg-gray-darkest;
+
+    &:hover {
+      @apply shadow-xl;
+    }
+  }
+
+  .pill-button {
+    @apply rounded bg-accent px-8 py-3 text-fwhite transition hover:bg-accentDark hover:text-fwhite dark:bg-actionDark dark:text-white dark:hover:bg-primary dark:hover:text-fwhite;
+  }
+
+  .post-container {
+    @apply mx-auto w-3/4 max-w-3xl sm:text-lg xl:w-1/2;
+  }
+
+  .article-post {
+    img:not(:is(figure img)),
+    pre {
+      @apply mb-4 rounded-lg;
+    }
+
+    img {
+      @apply mx-auto block;
+    }
+
+    figure {
+      @apply mb-4;
+    }
+
+    figure img {
+      @apply rounded-lg;
+    }
+
+    figure figcaption {
+      @apply mb-4 mt-2 text-center text-sm text-gray-darker dark:text-gray-light;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6):has(a) {
+      @apply mb-[2em] mt-[3em] font-ibm;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) a {
+      @apply no-underline hover:underline;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) a:before {
+      content: '## ';
+      @apply text-gray dark:text-gray-light;
+    }
+
+    :is(h3) a:before {
+      content: '### ';
+    }
+
+    :is(h4) a:before {
+      content: '#### ';
+    }
+
+    :is(h5) a:before {
+      content: '##### ';
+    }
+
+    :is(h6) a:before {
+      content: '###### ';
+    }
+
+    ul {
+      @apply list-disc;
+    }
+
+    ol {
+      @apply list-decimal;
+    }
+
+    ul,
+    ol,
+    p,
+    hr,
+    pre,
+    blockquote,
+    table,
+    details {
+      margin-bottom: 1.45em;
+    }
+
+    ul li {
+      @apply mb-4;
+    }
+
+    li > ul {
+      @apply my-2;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.2em;
+    }
+
+    code {
+      @apply font-ibm;
+    }
+
+    :is(p, ul, blockquote, details) code {
+      @apply rounded-md bg-fwhite p-1 text-sm text-primaryDark dark:bg-gray-darkest dark:text-gray-lightest;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) code {
+      @apply rounded-md bg-gray-lightest p-1 dark:bg-gray-darkest;
+    }
+
+    a[data-footnote-backref] {
+      @apply pl-2;
+    }
+
+    table {
+      @apply w-full;
+    }
+
+    table th,
+    table td {
+      @apply border border-gray-light p-2 dark:border-gray-darkest;
+    }
+
+    .table-wrapper {
+      @apply overflow-x-auto;
+    }
+  }
+
+  a[aria-describedby='footnote-label'] {
+    @apply scroll-mt-24;
+  }
+
+  blockquote {
+    @apply px-4;
+  }
+
+  blockquote p {
+    @apply relative italic;
+  }
+
+  blockquote p:before,
+  blockquote p:after {
+    text-box: trim-both cap alphabetic;
+    @apply absolute -z-1 text-5xl font-bold leading-none text-gray-darker opacity-25 dark:text-gray-light;
+  }
+
+  blockquote p:before {
+    content: ' «';
+    @apply -left-4 top-0;
+  }
+
+  blockquote p:after {
+    content: '»';
+    @apply bottom-0 right-0;
+  }
+
+  .dashed-box {
+    border-style: dashed;
+    border-width: 1px;
+    border-color: var(--border-color);
+  }
+
+  .dark .dashed-box {
+    border-color: var(--border-color-dark);
+  }
+
+  .twoslash-popup-code,
+  html .shiki.shiki span {
+    @apply bg-fwhite dark:bg-gray-darkest;
+  }
+
+  .v-popper__popper[data-popper-placement^='bottom'] .v-popper__arrow-inner.v-popper__arrow-inner {
+    top: -6px;
+  }
+
+  .twoslash .twoslash-error-line.twoslash-error-line {
+    width: auto;
+  }
+}
+
+@layer utilities {
+  /* Must beat the text-* utilities on exact-active links, as it did unlayered in v3. */
+  .router-link-exact-active {
+    @apply text-secondary no-underline dark:text-secondaryDark;
+  }
+}

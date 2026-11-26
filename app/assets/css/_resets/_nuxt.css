@@ -1,7 +1,0 @@
-.nuxt-progress + * {
-  margin-top: -2px;
-}
-
-.router-link-exact-active {
-  @apply text-secondary dark:text-secondaryDark no-underline;
-}

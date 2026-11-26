@@ -2,7 +2,7 @@
   <div class="card">
     <h3 class="font-ibm dark:font-thin mb-4">{{ sectionTitle }}</h3>
     <div v-if="Object.keys(tags).length">
-      <ul class="list-reset flex gap-2 flex-wrap mb-4">
+      <ul class="flex gap-2 flex-wrap mb-4">
         <li v-for="(tag, i) in visibleTags" :key="i">
           <blog-tag-media :name="tag" :size="tags[tag] || 1" class="capitalize" />
         </li>
@@ -15,7 +15,7 @@
         :style="expandedStyle"
         :aria-hidden="!isExpanded"
       >
-        <ul class="list-reset flex gap-2 flex-wrap pb-4">
+        <ul class="flex gap-2 flex-wrap pb-4">
           <li v-for="(tag, i) in hiddenTags" :key="i">
             <blog-tag-media :name="tag" :size="tags[tag] || 1" class="capitalize" />
           </li>
@@ -24,7 +24,7 @@
 
       <button
         v-if="hasMoreTags"
-        class="text-sm font-ibm dark:font-thin text-gray-dark dark:text-gray-light hover:underline flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded !px-1"
+        class="text-sm font-ibm dark:font-thin text-gray-dark dark:text-gray-light hover:underline flex items-center gap-1 focus:outline-hidden focus:ring-2 focus:ring-gray-light rounded !px-1"
         :aria-expanded="isExpanded"
         :aria-controls="`tags-accordion-${sectionTitle.replace(/\s+/g, '-').toLowerCase()}`"
         @click="isExpanded = !isExpanded"
@@ -35,7 +35,7 @@
         >
       </button>
     </div>
-    <p v-else class="text-sm text-gray-500">No tags found</p>
+    <p v-else class="text-sm text-gray">No tags found</p>
     <p v-if="!shouldHide" class="text-sm font-ibm dark:font-thin">
       Go back to <nuxt-link to="/blog">the blog</nuxt-link> to see all posts.
     </p>

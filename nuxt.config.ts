@@ -4,6 +4,7 @@
 
 import { defineNuxtConfig } from 'nuxt/config'
 
+import tailwindcss from '@tailwindcss/vite'
 import wasm from 'vite-plugin-wasm'
 
 import { collectionCategories } from './app/config/collections'
@@ -64,7 +65,7 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    plugins: [wasm()],
+    plugins: [tailwindcss(), wasm()],
     optimizeDeps: {
       include: ['@iconify/vue', 'three', 'three/src/math/MathUtils.js'],
     },
@@ -75,7 +76,6 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
     'nuxt-content-twoslash',
     '@nuxt/content',
-    '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxtjs/color-mode',
     'nuxt-svgo',

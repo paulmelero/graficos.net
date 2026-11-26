@@ -32,7 +32,7 @@
         rel="noopener noreferrer"
         class="no-underline [text-box-trim:trim-both]"
         :class="{
-          'card-link group-hover:underline focus-visible:outline-none': fullLink,
+          'card-link group-hover:underline focus-visible:outline-hidden': fullLink,
         }"
       >
         {{ item.title }}
