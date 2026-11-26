@@ -1,76 +1,82 @@
 # Converting MJML to Maizzle
+
 Guide for converting MJML templates to Maizzle 6 (Vue SFC) templates.
 
 ## Syntax Changes
-| MJML | Maizzle |
-|---|---|
-| `attribute="value"` (style as XML attrs) | `class="..."` (Tailwind) or inline `style="..."` |
-| `<mj-attributes>` (per-tag defaults) | `html.attributes.add` in config, or component class defaults |
-| `<mj-style>` | `<style>` block in `<Head>` |
-| `<mj-include path="./x.mjml" />` | Custom Vue component (`<X />`, auto-imported from `components/`) |
-| `<mj-raw>` | `<Raw>` |
-| Mustache `{{ name }}` (via templating layer) | Vue interpolation `{{ name }}` |
-| _(no native conditionals)_ | `v-if` / `v-else-if` / `v-else` |
-| _(no native loops)_ | `v-for="item in items" :key="item.id"` |
-| _(no native props)_ | `defineProps()` in `<script setup>` |
-| `<mj-title>` | `useHead({ title: '...' })` |
+
+| MJML                                         | Maizzle                                                          |
+| -------------------------------------------- | ---------------------------------------------------------------- |
+| `attribute="value"` (style as XML attrs)     | `class="..."` (Tailwind) or inline `style="..."`                 |
+| `<mj-attributes>` (per-tag defaults)         | `html.attributes.add` in config, or component class defaults     |
+| `<mj-style>`                                 | `<style>` block in `<Head>`                                      |
+| `<mj-include path="./x.mjml" />`             | Custom Vue component (`<X />`, auto-imported from `components/`) |
+| `<mj-raw>`                                   | `<Raw>`                                                          |
+| Mustache `{{ name }}` (via templating layer) | Vue interpolation `{{ name }}`                                   |
+| _(no native conditionals)_                   | `v-if` / `v-else-if` / `v-else`                                  |
+| _(no native loops)_                          | `v-for="item in items" :key="item.id"`                           |
+| _(no native props)_                          | `defineProps()` in `<script setup>`                              |
+| `<mj-title>`                                 | `useHead({ title: '...' })`                                      |
 
 ## Component Mapping
-| MJML | Maizzle | Notes |
-|---|---|---|
-| `<mjml>` | `<Html>` (or `<Layout>` for full doc setup) | |
-| `<mj-head>` | `<Head>` | When not using `<Layout>`, contains `<style>@import "@maizzle/tailwindcss";</style>`. |
-| `<mj-title>title</mj-title>` | `useHead({ title: '...' })` | Composable in `<script setup>`. |
-| `<mj-preview>text</mj-preview>` | `<Preheader>text</Preheader>` | Auto-teleported to body start. |
-| `<mj-body width="600px">` | `<Body>` + `<Container width="600">` | Width lives on `<Container>`, not `<Body>`. |
-| `<mj-section>` | `<Section>` | MSO `<table>` wrapped automatically. |
-| `<mj-group>` | `<Row>` | Side-by-side, no stacking on mobile. |
-| `<mj-column>` | `<Column>` | Width via `class="w-1/2"`; add `xs:w-full` for mobile stacking. Without explicit widths, auto-calculates `min-width` from nearest sized ancestor. |
-| `<mj-text>` | `<Text>` | Supports `as="span"`. |
-| `<mj-button href="...">` | `<Button href="...">` | VML fallback for Outlook automatic. Variants: `solid`(default)/`outline`/`ghost`/`link`. |
-| `<mj-image src="..." width="150px">` | `<Img src="..." width="150">` | `width` required. `dark-src`/`motion-src` for variant images via `<picture>`. |
-| `<mj-divider border-color="#ccc">` | `<Hr class="bg-gray-300">` | `<Hr>` is a styled `<div>` (defaults `h-px leading-px my-6 bg-slate-300`). Override `bg-*`/`m*-*`/`h-*`/`leading-*`. |
-| `<mj-spacer height="24px">` | `<Spacer class="h-6">` | Vertical sizing via `leading-*` or `h-*`; Outlook fine-tune with `mso-line-height-alt-*`. |
-| `<mj-table>` | Plain `<table>` with Tailwind classes | No dedicated wrapper. |
-| `<mj-raw>` | `<Raw>` | Verbatim pass-through. |
-| `<mj-attributes><mj-all font-family="..." />` | `html.attributes.add` in `maizzle.config.ts` | Or shared Tailwind classes on a `<Layout>` wrapper. |
-| `<mj-class name="...">` | Tailwind utility class | Author utilities directly. |
-| `<mj-style>` | `<style>` in `<Head>` | Or `@theme { ... }` inside the Tailwind import. |
-| `<mj-include path="./header.mjml">` | `<Header />` (in `components/Header.vue`) | Auto-imported. |
-| `<mj-font name="..." href="...">` | `<link>` in `<Head>`, or `@font-face` in `<style>` | `<Layout>` includes Inter by default. |
-| `<mj-social>`/`<mj-social-element>` | `<Row>` + `<Column>` + `<Img>` | Compose with icons inside columns. |
-| `<mj-navbar>`/`<mj-navbar-link>` | `<Row>` + `<Column>` + `<Link>` | Compose manually. |
-| `<mj-hero>` | `<Section>` + `<OutlookBg>` for VML fallback | Section bg image + VML fallback. |
-| `<mj-carousel>` / `<mj-accordion>` | _(not supported)_ | Interactive content rarely renders. Flatten to stacked sections / hero+button. |
+
+| MJML                                          | Maizzle                                            | Notes                                                                                                                                             |
+| --------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<mjml>`                                      | `<Html>` (or `<Layout>` for full doc setup)        |                                                                                                                                                   |
+| `<mj-head>`                                   | `<Head>`                                           | When not using `<Layout>`, contains `<style>@import "@maizzle/tailwindcss";</style>`.                                                             |
+| `<mj-title>title</mj-title>`                  | `useHead({ title: '...' })`                        | Composable in `<script setup>`.                                                                                                                   |
+| `<mj-preview>text</mj-preview>`               | `<Preheader>text</Preheader>`                      | Auto-teleported to body start.                                                                                                                    |
+| `<mj-body width="600px">`                     | `<Body>` + `<Container width="600">`               | Width lives on `<Container>`, not `<Body>`.                                                                                                       |
+| `<mj-section>`                                | `<Section>`                                        | MSO `<table>` wrapped automatically.                                                                                                              |
+| `<mj-group>`                                  | `<Row>`                                            | Side-by-side, no stacking on mobile.                                                                                                              |
+| `<mj-column>`                                 | `<Column>`                                         | Width via `class="w-1/2"`; add `xs:w-full` for mobile stacking. Without explicit widths, auto-calculates `min-width` from nearest sized ancestor. |
+| `<mj-text>`                                   | `<Text>`                                           | Supports `as="span"`.                                                                                                                             |
+| `<mj-button href="...">`                      | `<Button href="...">`                              | VML fallback for Outlook automatic. Variants: `solid`(default)/`outline`/`ghost`/`link`.                                                          |
+| `<mj-image src="..." width="150px">`          | `<Img src="..." width="150">`                      | `width` required. `dark-src`/`motion-src` for variant images via `<picture>`.                                                                     |
+| `<mj-divider border-color="#ccc">`            | `<Hr class="bg-gray-300">`                         | `<Hr>` is a styled `<div>` (defaults `h-px leading-px my-6 bg-slate-300`). Override `bg-*`/`m*-*`/`h-*`/`leading-*`.                              |
+| `<mj-spacer height="24px">`                   | `<Spacer class="h-6">`                             | Vertical sizing via `leading-*` or `h-*`; Outlook fine-tune with `mso-line-height-alt-*`.                                                         |
+| `<mj-table>`                                  | Plain `<table>` with Tailwind classes              | No dedicated wrapper.                                                                                                                             |
+| `<mj-raw>`                                    | `<Raw>`                                            | Verbatim pass-through.                                                                                                                            |
+| `<mj-attributes><mj-all font-family="..." />` | `html.attributes.add` in `maizzle.config.ts`       | Or shared Tailwind classes on a `<Layout>` wrapper.                                                                                               |
+| `<mj-class name="...">`                       | Tailwind utility class                             | Author utilities directly.                                                                                                                        |
+| `<mj-style>`                                  | `<style>` in `<Head>`                              | Or `@theme { ... }` inside the Tailwind import.                                                                                                   |
+| `<mj-include path="./header.mjml">`           | `<Header />` (in `components/Header.vue`)          | Auto-imported.                                                                                                                                    |
+| `<mj-font name="..." href="...">`             | `<link>` in `<Head>`, or `@font-face` in `<style>` | `<Layout>` includes Inter by default.                                                                                                             |
+| `<mj-social>`/`<mj-social-element>`           | `<Row>` + `<Column>` + `<Img>`                     | Compose with icons inside columns.                                                                                                                |
+| `<mj-navbar>`/`<mj-navbar-link>`              | `<Row>` + `<Column>` + `<Link>`                    | Compose manually.                                                                                                                                 |
+| `<mj-hero>`                                   | `<Section>` + `<OutlookBg>` for VML fallback       | Section bg image + VML fallback.                                                                                                                  |
+| `<mj-carousel>` / `<mj-accordion>`            | _(not supported)_                                  | Interactive content rarely renders. Flatten to stacked sections / hero+button.                                                                    |
 
 ## Maizzle-Only Components & Features
-| Component | Purpose |
-|---|---|
-| `<Layout>` | Full document scaffold (replaces `<mjml> + <mj-head> + <mj-body>`). Props: `lang`, `dir`, `body-class`, `aria-label`, `double-head`, `outlook-fallback`. |
-| `<Container>` | Max-width wrapper distinct from `<Section>`. |
-| `<Heading level="1">` | Semantic `h1`–`h6` with email-safe defaults. |
-| `<Link>` | Anchor defaulting to `no-underline`. |
-| `<Tailwind>` | Scope a Tailwind stylesheet (+optional `@theme` config) to a subtree. |
-| `<Markdown>` | Render Markdown inline; accepts `src` for `.md` files. |
-| `<CodeBlock>` / `<CodeInline>` | Shiki syntax highlighting. |
-| `<Outlook>` / `<NotOutlook>` | Render inside (or outside) MSO. Outlook supports version filtering. |
-| `<OutlookBg>` | VML background images. |
-| `<NoWidows>` | Prevents orphaned last words. |
-| `<WithUrl>` | Scoped URL rewriting (base URL, UTM params). |
-| `<Plaintext>` / `<NotPlaintext>` | Plaintext-only or HTML-only routing. |
-| `<QrCode value="...">` | Table-based QR. Props: `value`, `ecc`, `border`, `alt`. Sized via `size-*`/`w-*`/`h-*`. |
-| Responsive | `sm:` (≤600px), `xs:` (≤430px). MJML auto-stacks; Maizzle gives explicit control. |
-| Dark mode | `dark:` via `prefers-color-scheme`. |
-| Client variants | `gmail:`, `outlook-mac:`, `apple-mail:`, `yahoo:`, etc. |
-| `defineConfig()` | Per-template config overrides. |
-| `useEvent()` | Template-level lifecycle hooks. |
+
+| Component                        | Purpose                                                                                                                                                  |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<Layout>`                       | Full document scaffold (replaces `<mjml> + <mj-head> + <mj-body>`). Props: `lang`, `dir`, `body-class`, `aria-label`, `double-head`, `outlook-fallback`. |
+| `<Container>`                    | Max-width wrapper distinct from `<Section>`.                                                                                                             |
+| `<Heading level="1">`            | Semantic `h1`–`h6` with email-safe defaults.                                                                                                             |
+| `<Link>`                         | Anchor defaulting to `no-underline`.                                                                                                                     |
+| `<Tailwind>`                     | Scope a Tailwind stylesheet (+optional `@theme` config) to a subtree.                                                                                    |
+| `<Markdown>`                     | Render Markdown inline; accepts `src` for `.md` files.                                                                                                   |
+| `<CodeBlock>` / `<CodeInline>`   | Shiki syntax highlighting.                                                                                                                               |
+| `<Outlook>` / `<NotOutlook>`     | Render inside (or outside) MSO. Outlook supports version filtering.                                                                                      |
+| `<OutlookBg>`                    | VML background images.                                                                                                                                   |
+| `<NoWidows>`                     | Prevents orphaned last words.                                                                                                                            |
+| `<WithUrl>`                      | Scoped URL rewriting (base URL, UTM params).                                                                                                             |
+| `<Plaintext>` / `<NotPlaintext>` | Plaintext-only or HTML-only routing.                                                                                                                     |
+| `<QrCode value="...">`           | Table-based QR. Props: `value`, `ecc`, `border`, `alt`. Sized via `size-*`/`w-*`/`h-*`.                                                                  |
+| Responsive                       | `sm:` (≤600px), `xs:` (≤430px). MJML auto-stacks; Maizzle gives explicit control.                                                                        |
+| Dark mode                        | `dark:` via `prefers-color-scheme`.                                                                                                                      |
+| Client variants                  | `gmail:`, `outlook-mac:`, `apple-mail:`, `yahoo:`, etc.                                                                                                  |
+| `defineConfig()`                 | Per-template config overrides.                                                                                                                           |
+| `useEvent()`                     | Template-level lifecycle hooks.                                                                                                                          |
 
 ## Conversion Steps
 
 ### 1. File format
+
 `.mjml` XML → `.vue` SFC with `<script setup>` + `<template>`.
 
 ### 2. Document structure
+
 Recommended — `<Layout>` sets everything up:
 
 ```vue
@@ -93,6 +99,7 @@ MJML-like with explicit `<Html>`/`<Head>`/`<Body>` and `<Tailwind>`:
 ```
 
 ### 3. Title and preheader
+
 ```vue
 <script setup>
 useHead({ title: 'Welcome to Acme' })
@@ -105,6 +112,7 @@ useHead({ title: 'Welcome to Acme' })
 ```
 
 ### 4. Per-tag defaults
+
 MJML's `<mj-attributes>` block disappears. Three replacements:
 
 - **Style defaults** (font, color, size): Tailwind classes on a wrapper, or `@theme` inside the Tailwind import.
@@ -124,6 +132,7 @@ MJML's `<mj-attributes>` block disappears. Three replacements:
 ```
 
 ### 5. Sections, columns, widths
+
 ```vue
 <Section>
   <Row>
@@ -134,6 +143,7 @@ MJML's `<mj-attributes>` block disappears. Three replacements:
 ```
 
 ### 6. Buttons and dividers
+
 Drop MJML's per-tag style attrs; replace with Tailwind classes.
 
 ```vue
@@ -142,9 +152,11 @@ Drop MJML's per-tag style attrs; replace with Tailwind classes.
 ```
 
 ### 7. Spacer
+
 `<mj-spacer height="32px" />` → `<Spacer class="h-8" />`. For Outlook fine-tuning use `mso-line-height-alt-*`.
 
 ### 8. Includes → components
+
 `<mj-include path="./header.mjml" />` → place a component in `components/Header.vue`, then use `<Header />`. Auto-imported.
 
 ```vue
@@ -157,6 +169,7 @@ Drop MJML's per-tag style attrs; replace with Tailwind classes.
 ```
 
 ### 9. Templating data
+
 MJML files don't take props natively. In Maizzle, `defineProps()` lets the template own its inputs:
 
 ```vue
@@ -173,6 +186,7 @@ const props = defineProps({
 ```
 
 ### 10. Compiling
+
 Replace `mjml emails/welcome.mjml -o dist/welcome.html` with `npx maizzle build`, or programmatically:
 
 ```ts
@@ -183,6 +197,7 @@ const { html } = await render('emails/welcome.vue', { name: 'Alex' })
 ```
 
 ## Full Example: Welcome Email
+
 **MJML:**
 
 ```xml
@@ -224,7 +239,9 @@ useHead({ title: 'Welcome to Acme' })
       <Section class="bg-white px-6 py-10 text-base leading-6 text-slate-600">
         <Heading level="1" class="text-2xl font-bold text-slate-900 mb-4">Hi {{ name }}</Heading>
         <Text>Thanks for signing up. Click below to verify your email.</Text>
-        <Button href="https://example.com/verify" class="bg-blue-600 text-white px-7 py-3.5 rounded-md my-6">Verify email</Button>
+        <Button href="https://example.com/verify" class="bg-blue-600 text-white px-7 py-3.5 rounded-md my-6"
+          >Verify email</Button
+        >
         <Hr class="bg-slate-200 my-6" />
         <Text class="text-sm text-slate-400">If you didn't sign up, ignore this email.</Text>
       </Section>
@@ -234,6 +251,7 @@ useHead({ title: 'Welcome to Acme' })
 ```
 
 ## Common Pitfalls
+
 1. Treating `<Body>` like `<mj-body width="...">` — width lives on `<Container>`.
 2. Setting Button colors via `background-color` attribute — use Tailwind classes (`class="bg-blue-600 text-white"`) or inline `style`.
 3. Using `<Heading as="h2">` — prop is `level="2"` (number, not tag name).

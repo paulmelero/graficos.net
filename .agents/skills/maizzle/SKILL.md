@@ -4,13 +4,13 @@ description: Use when building, editing, or debugging HTML email templates with 
 license: MIT
 metadata:
   author: Maizzle
-  version: "1.0.0"
+  version: '1.0.0'
   homepage: https://maizzle.com
   source: https://github.com/maizzle/framework
   openclaw:
     install:
       - kind: node
-        package: "@maizzle/framework"
+        package: '@maizzle/framework'
         label: Maizzle
     links:
       repository: https://github.com/maizzle/framework
@@ -18,16 +18,21 @@ metadata:
 ---
 
 # Maizzle
+
 Build and send HTML emails that work in all major email clients, with Vue components and Tailwind CSS.
 
 ## Install
+
 Scaffold a project. The official Maizzle 6 starter is `maizzle/maizzle`, branch `master`:
+
 ```sh
 npx maizzle new maizzle/maizzle#master [directory]
 ```
+
 For i18n (multi-language) emails, use `maizzle/starter-i18n#master`.
 
 Add to an existing project:
+
 ```sh
 npm i @maizzle/framework
 ```
@@ -40,6 +45,7 @@ npm i @maizzle/framework
 The dev server generates `.maizzle/` (typed `.d.ts` for auto-imported components and composables). Include it in `tsconfig.json`. Works with npm, yarn, pnpm, bun.
 
 ## Basic template
+
 ```vue
 <script setup>
 defineProps({
@@ -51,15 +57,9 @@ defineProps({
   <Layout>
     <Container class="max-w-xl">
       <Section>
-        <Heading level="1" class="text-2xl font-semibold mb-4">
-          Welcome, {{ name }}!
-        </Heading>
-        <Text class="text-gray-700 mb-6">
-          Build HTML emails with Vue and Tailwind.
-        </Text>
-        <Button class="bg-blue-600 text-white px-4 py-2 rounded" href="https://maizzle.com">
-          Learn more
-        </Button>
+        <Heading level="1" class="text-2xl font-semibold mb-4"> Welcome, {{ name }}! </Heading>
+        <Text class="text-gray-700 mb-6"> Build HTML emails with Vue and Tailwind. </Text>
+        <Button class="bg-blue-600 text-white px-4 py-2 rounded" href="https://maizzle.com"> Learn more </Button>
       </Section>
     </Container>
   </Layout>
@@ -67,6 +67,7 @@ defineProps({
 ```
 
 ## Components
+
 All built-in components auto-import. Full props/usage in `references/COMPONENTS.md`; multi-column layout patterns in `references/PATTERNS.md`.
 
 **Document scaffolding** — `<Layout>`, `<Html>`, `<Head>`, `<Body>`, `<Tailwind>`, `<Font>`, `<Preheader>`
@@ -80,6 +81,7 @@ All built-in components auto-import. Full props/usage in `references/COMPONENTS.
 **AMP4Email** — `<amp-*>` tags pass through verbatim (native, no component resolution). `<style amp-custom>` is preserved like `<style embed>` — use `@reference "@maizzle/tailwindcss"` (not `@import`) for `@apply` inside.
 
 ## Authoring rules
+
 Surgical edits: change only what was asked. Keep existing structure, components, and class lists intact unless explicitly requested.
 
 Reach for built-in components over raw HTML unless explicitly asked for — they encode email-client quirks. Style with Tailwind utilities; arbitrary values are fine. Don't add `box-border` or `align="left"` on `<Button>` (left is the default), or `border-solid border-*` on `<Hr>` (use `bg-*` for color).
@@ -91,6 +93,7 @@ Don't add a `leading-*` that restates a `text-*` size's built-in line-height —
 Don't add `mso-style` to repeat padding/bg for Outlook — `<Container>`, `<Section>`, `<Column>` auto-hoist `background-color`/`padding*` from your classes onto the MSO `<td>`. Reserve `mso-style` for Outlook-only overrides. (Skipped if the element has a horizontal border, or on `<Column>` with a percentage width.)
 
 What survives across email clients:
+
 - **Outlook desktop on Windows** uses Word as renderer — no `border-radius`, `background-image`, modern CSS, or media queries. Maizzle's components include MSO ghost tables / VML where needed.
 - **Gmail clips emails > ~102 KB**. Keep templates lean; minify for production. `<QrCode>` can be heavy.
 - **Layout**: no flex/grid in older clients. Use `<Row>` / `<Column>`.
@@ -103,9 +106,11 @@ What survives across email clients:
 For brand color/logo gathering, depth styling guidance, dark mode, and footer patterns, see `references/STYLING.md`.
 
 ## Static assets & URLs
+
 Place static files in `public/`. Reference them via absolute paths (`/logo.png`). The build copies `public/` to the output dir.
 
 Production rewriting (relative → absolute) happens via `url.base` in config or scoped via `<WithUrl>`:
+
 ```ts
 // maizzle.config.ts
 export default defineConfig({
@@ -128,6 +133,7 @@ Values starting with a template tag (`{{`, `{%`, `<%`, e.g. Twig/Liquid/Blade/ER
 ```
 
 ## Styling overview
+
 Maizzle uses Tailwind CSS 4 via `@maizzle/tailwindcss` — email-safe resets, MSO utilities, client variants. `<Layout>` already imports it. For manual control:
 
 ```vue
@@ -143,6 +149,7 @@ Client variants: `gmail:`, `gmail-android:`, `apple-mail:`, `ios:`, `outlook-mac
 Full CSS / HTML / pipeline knobs: `references/CONFIGURATION.md` and `references/TRANSFORMERS.md`.
 
 ## Programmatic render
+
 ```ts
 import { render } from '@maizzle/framework'
 
@@ -154,6 +161,7 @@ const { html, plaintext } = await render('emails/welcome.vue', {
 Accepts an SFC path, raw SFC string, or imported Vue component. Runs SSR + full transformer pipeline.
 
 ## Plaintext
+
 Enable globally:
 
 ```ts
@@ -163,9 +171,11 @@ export default defineConfig({ plaintext: true })
 Or per-template via `usePlaintext()` in `<script setup>`. Customize destination/extension/strip-HTML opts by passing an object. See `references/COMPOSABLES.md`.
 
 ## CLI
+
 `npx maizzle …` or install globally with `npm i -g maizzle`. Full command/flag reference: `references/CLI.md`.
 
 ## References
+
 - `references/COMPONENTS.md` — every component, props, examples.
 - `references/PATTERNS.md` — column / responsive layout patterns.
 - `references/STYLING.md` — Tailwind, color tokens, brand brief, authoring principles.

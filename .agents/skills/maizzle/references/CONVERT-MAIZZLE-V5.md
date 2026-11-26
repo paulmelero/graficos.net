@@ -1,50 +1,54 @@
 # Converting Maizzle 5 to Maizzle 6
+
 Migrate Maizzle 5 projects (PostHTML + Tailwind v3 + YAML frontmatter) to Maizzle 6 (Vue SFC SSR + Tailwind v4 CSS-first + `defineConfig()`). v6 is a complete rewrite — prefer scaffolding fresh with `npx maizzle new` and porting over.
 
 ## Project Layout
-| Maizzle 5 | Maizzle 6 |
-|---|---|
-| `emails/*.html` | `emails/*.vue` (or `*.md` for prose) |
-| `components/*.html` (kebab-case) | `components/*.vue` (PascalCase filenames) |
-| `layouts/*.html` | `components/*.vue` (no separate `layouts/` dir) |
-| `tailwind.config.js` | _(deleted)_ — `@theme {}` in `<style>` |
-| `config.js` / `config.production.js` | `maizzle.config.ts` / `production.config.ts` |
+
+| Maizzle 5                            | Maizzle 6                                       |
+| ------------------------------------ | ----------------------------------------------- |
+| `emails/*.html`                      | `emails/*.vue` (or `*.md` for prose)            |
+| `components/*.html` (kebab-case)     | `components/*.vue` (PascalCase filenames)       |
+| `layouts/*.html`                     | `components/*.vue` (no separate `layouts/` dir) |
+| `tailwind.config.js`                 | _(deleted)_ — `@theme {}` in `<style>`          |
+| `config.js` / `config.production.js` | `maizzle.config.ts` / `production.config.ts`    |
 
 Tag resolution: `<x-card.header>` → `components/card/header.vue` → auto-imports as `<CardHeader>` (kebab-to-PascalCase, `directoryAsNamespace` + `collapseSamePrefixes`).
 
 ## Expressions
+
 PostHTML expressions are gone. Use Vue's template syntax:
 
-| Maizzle 5 (PostHTML) | Maizzle 6 (Vue) |
-|---|---|
-| `{{ page.name }}` | `{{ name }}` |
-| `{{{ unsafe }}}` | `<span v-html="unsafe" />` |
-| `@{{ keep }}` | `<span v-pre>{{ keep }}</span>` or `<Raw>{{ keep }}</Raw>` |
-| `<if condition="x">` | `<div v-if="x">` |
-| `<elseif condition="y">` | `<div v-else-if="y">` |
-| `<else>` | `<div v-else>` |
-| `<each loop="item in items">` | `<div v-for="item in items" :key="item.id">` |
-| `<switch>` / `<case n="x">` | `v-if` / `v-else-if` chain |
-| `<scope with="...">` | child component, or destructure in `<script setup>` |
-| `<yield />` | `<slot />` |
-| `<block name="x">` (defines slot) | `<slot name="x" />` |
-| `<block name="x">` (fills slot) | `<template #x>...</template>` |
-| `<slot:x>fallback</slot:x>` (slot + default) | `<slot name="x">fallback</slot>` |
-| `loop.first` / `loop.index` (in `<each>`) | `v-for="(item, index) in items"` → `index === 0` / `index` |
+| Maizzle 5 (PostHTML)                         | Maizzle 6 (Vue)                                            |
+| -------------------------------------------- | ---------------------------------------------------------- |
+| `{{ page.name }}`                            | `{{ name }}`                                               |
+| `{{{ unsafe }}}`                             | `<span v-html="unsafe" />`                                 |
+| `@{{ keep }}`                                | `<span v-pre>{{ keep }}</span>` or `<Raw>{{ keep }}</Raw>` |
+| `<if condition="x">`                         | `<div v-if="x">`                                           |
+| `<elseif condition="y">`                     | `<div v-else-if="y">`                                      |
+| `<else>`                                     | `<div v-else>`                                             |
+| `<each loop="item in items">`                | `<div v-for="item in items" :key="item.id">`               |
+| `<switch>` / `<case n="x">`                  | `v-if` / `v-else-if` chain                                 |
+| `<scope with="...">`                         | child component, or destructure in `<script setup>`        |
+| `<yield />`                                  | `<slot />`                                                 |
+| `<block name="x">` (defines slot)            | `<slot name="x" />`                                        |
+| `<block name="x">` (fills slot)              | `<template #x>...</template>`                              |
+| `<slot:x>fallback</slot:x>` (slot + default) | `<slot name="x">fallback</slot>`                           |
+| `loop.first` / `loop.index` (in `<each>`)    | `v-for="(item, index) in items"` → `index === 0` / `index` |
 
 ESP / mail-merge syntax (`{{ mailchimp_var }}`, `*|MERGE|*`, etc.) that you need preserved verbatim: wrap in `<Raw>` or use `v-pre` on the parent.
 
 An `<each>` body that emits sibling elements per iteration (e.g. a separator `<tr>` then a content `<tr>`) needs `<template v-for>` — v-for on one element can't wrap multiple roots.
 
 ## Components
+
 PostHTML components → Vue components. Definition: wrap body in `<template>`, replace `<yield />` with `<slot />`. Usage: `<x-card>` → `<Card>`. `<component src="...">` / `<module href="...">` → auto-imported PascalCased tag; `locals="..."` → `v-bind="..."`.
 
 Sizing/styling moved from props to Tailwind classes:
 
-| Maizzle 5 | Maizzle 6 |
-|---|---|
+| Maizzle 5                                                   | Maizzle 6                                |
+| ----------------------------------------------------------- | ---------------------------------------- |
 | `<x-divider height="2px" space-y="32px" color="#e2e8f0" />` | `<Hr class="h-0.5 my-8 bg-slate-200" />` |
-| `<x-spacer height="32px" />` | `<Spacer class="h-8" />` |
+| `<x-spacer height="32px" />`                                | `<Spacer class="h-8" />`                 |
 
 For Outlook fine-tuning of spacer height: `mso-line-height-alt-*` utility.
 
@@ -66,6 +70,7 @@ For Outlook fine-tuning of spacer height: `mso-line-height-alt-*` utility.
 ```
 
 ## `.vue` Templates: No Frontmatter
+
 `.vue` templates have **no frontmatter**. Move it into `<script setup>` via `defineConfig()`:
 
 ```diff
@@ -89,6 +94,7 @@ Prefer dedicated composables for common cases: `usePreheader`, `usePlaintext`, `
 `{{ page.x }}` no longer exists — values are just local bindings in `<script setup>`.
 
 ## `.md` Templates: Frontmatter Still Works
+
 `.md` templates **keep YAML frontmatter** — it's parsed automatically and head keys (`title`, `description`, `meta`) are injected via `@unhead/vue`. `.md` files also support `<script setup>` at the top.
 
 ```md
@@ -107,11 +113,13 @@ layout: MarketingLayout
 ```
 
 Special frontmatter keys for `.md`:
+
 - `layout: ComponentName` — wrap with a custom layout (default: built-in `MarkdownLayout`).
 - `layout: false` — no wrapping.
 - The whole frontmatter object is passed as `frontmatter` prop to the wrapping layout. `MarkdownLayout` reads `lang`, `dir`, `ariaLabel`, etc. from it.
 
 ## `config.js` → `maizzle.config.ts`
+
 ```ts
 import { defineConfig } from '@maizzle/framework'
 
@@ -141,6 +149,7 @@ export default defineConfig({
 **CSS / HTML defaults flipped to ON** — `css.inline`, `css.purge`, `css.shorthand`, `html.format` (was `prettify`) are now enabled by default. Disable explicitly if a v5 project depended on them being off.
 
 **Removed keys** — delete from config; v6 handles or replaces:
+
 - `posthtml.*`, `expressions.*` — PostHTML is gone.
 - `components.*` — keep only `components.source` (was `components.folders`).
 - `outlook` — use the `<Outlook>` component.
@@ -148,13 +157,13 @@ export default defineConfig({
 
 **Renamed keys**:
 
-| Maizzle 5 | Maizzle 6 |
-|---|---|
-| `attributes.add` | `html.attributes.add` |
-| `attributes.remove` | `html.attributes.remove` |
-| `prettify` | `html.format` |
-| `minify` | `html.minify` |
-| `components.folders` | `components.source` |
+| Maizzle 5            | Maizzle 6                |
+| -------------------- | ------------------------ |
+| `attributes.add`     | `html.attributes.add`    |
+| `attributes.remove`  | `html.attributes.remove` |
+| `prettify`           | `html.format`            |
+| `minify`             | `html.minify`            |
+| `components.folders` | `components.source`      |
 
 **`plaintext` shape changed** — string shorthand and `output.*` nesting are gone:
 
@@ -194,6 +203,7 @@ Per-template plaintext: `usePlaintext()` in `<script setup>` instead of frontmat
 ```
 
 ## Tailwind v3 → v4
+
 Delete `tailwind.config.js`. Replace `tailwindcss-preset-email` with `@maizzle/tailwindcss`. Port `theme.extend.*` to a `@theme {}` block:
 
 ```vue
@@ -211,6 +221,7 @@ Delete `tailwind.config.js`. Replace `tailwindcss-preset-email` with `@maizzle/t
 Token naming: `colors.brand` → `--color-brand`, `fontFamily.display` → `--font-display`, `spacing.lg` → `--spacing-lg`. `@theme` tokens must live in the same `<style>` block that imports Tailwind — built-in `<Layout>` owns its own `<head>` and import (compiled in isolation), so you can't add tokens to it. To customize the theme, drop `<Layout>` and write your own `<Html>`/`<Head>`/`<Body>` with a `<style>` block that imports `@maizzle/tailwindcss` and defines `@theme`. Full Tailwind story: `references/STYLING.md`.
 
 ## Events
+
 Event handlers register at the root of the config; signatures changed.
 
 **`afterTransformers` → `afterTransform`**:
@@ -237,8 +248,8 @@ Event handlers register at the root of the config; signatures changed.
 
 ```ts
 interface TemplateInfo {
-  source: string         // raw Vue SFC source
-  path: ParsedPath       // path.parse(absolutePath) result
+  source: string // raw Vue SFC source
+  path: ParsedPath // path.parse(absolutePath) result
 }
 ```
 

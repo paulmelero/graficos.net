@@ -9,6 +9,7 @@ type Frontmatter = {
 const props = defineProps<{
   markdown: string
   frontmatter: Frontmatter
+  slug?: string
 }>()
 
 const issueDate = computed(() => {
@@ -46,6 +47,7 @@ Some links that did not make the collections.
     preheader: 'A preview of GRAFICOZZ.',
     date: '2026-11-30',
   },
+  slug: 'drop-001',
 })
 
 useHead({
@@ -121,6 +123,11 @@ useHead({
             </Row>
             <Text class="mt-6 font-body text-sm leading-relaxed text-gray-dark">
               Reply to this email if you want to say hi.
+            </Text>
+            <Text v-if="slug" class="mt-2 font-code text-xs text-muted">
+              <Link :href="`https://graficos.net/newsletter/${slug}`" class="text-accent underline">
+                Read this issue online
+              </Link>
             </Text>
           </div>
         </Container>

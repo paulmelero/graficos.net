@@ -11,9 +11,9 @@
       <h2>GRAFICOZZ</h2>
       <p>
         If you subscribe, I store your email address, your name if you provide one, the time you subscribed, and whether
-        you have unsubscribed. I use it only to send GRAFICOZZ. The list lives in Cloudflare D1, and emails are delivered
-        through Resend. Both process the data on my behalf. Emails may also request web fonts from Bunny Fonts when your
-        email client supports them.
+        you have unsubscribed. I use it only to send GRAFICOZZ. The list lives in Cloudflare D1, and emails are
+        delivered through Resend. Both process the data on my behalf. Emails may also request web fonts from Bunny Fonts
+        when your email client supports them.
       </p>
       <p>
         You can unsubscribe from any email. You can also ask me to delete your address; I will remove it unless I need

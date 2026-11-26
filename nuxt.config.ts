@@ -57,6 +57,7 @@ export default defineNuxtConfig({
     '/collections/**': { prerender: true },
     '/contact': { prerender: true },
     '/newsletter': { prerender: true },
+    '/newsletter/drops': { prerender: true },
     '/privacy': { prerender: true },
     '/slashes': { prerender: true },
     '/slashes/**': { prerender: true },

@@ -31,6 +31,10 @@
       I only use your email to send GRAFICOZZ. Read the
       <NuxtLink to="/privacy">privacy policy</NuxtLink>.
     </p>
+
+    <p class="mt-8 font-ibm">
+      <NuxtLink to="/newsletter/drops">Read past Drops</NuxtLink>
+    </p>
   </article>
 </template>
 

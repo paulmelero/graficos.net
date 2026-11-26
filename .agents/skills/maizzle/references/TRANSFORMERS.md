@@ -1,40 +1,44 @@
 # Maizzle Transformers Reference
+
 After Vue SSR renders a template, Maizzle pipes the HTML through a fixed sequence of transformers before writing the file. Order matters: CSS is compiled, inlined, then purged; HTML formatting/minification runs last.
 
 Disable the whole pipeline with `useTransformers: false` (config or composable). Toggle individual transformers with `useTransformers: { inlineCss: false, minify: true }`. See `CONFIGURATION.md` for the full surface.
 
 ## Defaults
+
 On by default: `css.inline`, `css.purge`, `css.shorthand`, `css.safe`, `css.preferUnitless`, `css.sixHex`, `html.decodeEntities`, `addAttributes` (table + img defaults).
 
 Off by default: `html.minify`, `html.format`, `attributeToStyle`, `url.base`, `url.query`, `replaceStrings`, custom `filters`, custom `removeAttributes`.
 
 ## Pipeline Order
+
 The DOM is parsed once, walked by all DOM-based transformers, then serialized; string-only transformers run last.
 
-| # | Stage | Driven by | Default |
-|---|---|---|---|
-| 0 | Inline `<link>` stylesheets | always-on | — |
-| 0.5 | `<Tailwind>` block compile | presence of component | — |
-| 1 | Tailwind CSS compile + lower | always-on | — |
-| 2 | Safe class names | `css.safe` | on |
-| 3 | Attribute → style | `css.inline.attributeToStyle` | off |
-| 4 | CSS inline (Juice) | `css.inline` | on |
-| 4.5 | MSO placeholder resolution | always-on | — |
-| 4.6 | Column min-width resolution | always-on | — |
-| 5 | Remove attributes | `html.attributes.remove` | always strips empty `style`/`class` |
-| 6 | Shorthand CSS | `css.shorthand` | on |
-| 7 | Six-digit HEX | `css.sixHex` | on |
-| 8 | Add attributes | `html.attributes.add` | on (table + img defaults) |
-| 9 | Filters | `filters` | on (built-ins) |
-| 10 | Base URL | `url.base` | off |
-| 11 | URL query | `url.query` | off |
-| 12 | Purge CSS | `css.purge` | on |
-| 13 | Entities | `html.decodeEntities` | on |
-| 14 | Replace strings | `replaceStrings` | off |
-| 15 | Format | `html.format` | on (skipped when minify is on) |
-| 16 | Minify | `html.minify` | off |
+| #   | Stage                        | Driven by                     | Default                             |
+| --- | ---------------------------- | ----------------------------- | ----------------------------------- |
+| 0   | Inline `<link>` stylesheets  | always-on                     | —                                   |
+| 0.5 | `<Tailwind>` block compile   | presence of component         | —                                   |
+| 1   | Tailwind CSS compile + lower | always-on                     | —                                   |
+| 2   | Safe class names             | `css.safe`                    | on                                  |
+| 3   | Attribute → style            | `css.inline.attributeToStyle` | off                                 |
+| 4   | CSS inline (Juice)           | `css.inline`                  | on                                  |
+| 4.5 | MSO placeholder resolution   | always-on                     | —                                   |
+| 4.6 | Column min-width resolution  | always-on                     | —                                   |
+| 5   | Remove attributes            | `html.attributes.remove`      | always strips empty `style`/`class` |
+| 6   | Shorthand CSS                | `css.shorthand`               | on                                  |
+| 7   | Six-digit HEX                | `css.sixHex`                  | on                                  |
+| 8   | Add attributes               | `html.attributes.add`         | on (table + img defaults)           |
+| 9   | Filters                      | `filters`                     | on (built-ins)                      |
+| 10  | Base URL                     | `url.base`                    | off                                 |
+| 11  | URL query                    | `url.query`                   | off                                 |
+| 12  | Purge CSS                    | `css.purge`                   | on                                  |
+| 13  | Entities                     | `html.decodeEntities`         | on                                  |
+| 14  | Replace strings              | `replaceStrings`              | off                                 |
+| 15  | Format                       | `html.format`                 | on (skipped when minify is on)      |
+| 16  | Minify                       | `html.minify`                 | off                                 |
 
 ## Per-Transformer Notes
+
 **Inline `<link>`** — local `href` paths are always inlined; remote URLs only when the `<link>` carries an `inline` attribute. `<style>` tags marked `raw`, `embed`, or `data-embed` are skipped (raw drops the marker; embed/data-embed are preserved for the inliner).
 
 **Tailwind CSS** — compiles utilities found in the rendered DOM. Lowers modern CSS (nesting, `oklch`, `color-mix`, `@property`) via lightningcss with an IE 1 target so most clients render it. Merges duplicate `@media` queries. Honors `css.base` and `css.exclude`.

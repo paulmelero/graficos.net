@@ -32,7 +32,7 @@ const { data, content } = matter(raw) as { data: any; content: string }
 </script>
 
 <template>
-  <EmailLayout :markdown="content" :frontmatter="data" />
+  <EmailLayout :markdown="content" :frontmatter="data" :slug="'${slug}'" />
 </template>
 `
 

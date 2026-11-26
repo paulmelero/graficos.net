@@ -27,6 +27,18 @@ export default defineContentConfig({
         thumbnail: z.string().default(''),
       }),
     }),
+    newsletter: defineCollection({
+      source: 'newsletter/*.md',
+      type: 'page',
+      schema: z.object({
+        title: z.string(),
+        summary: z.string(),
+        date: z.string(),
+        subject: z.string(),
+        preheader: z.string().default(''),
+        draft: z.boolean().default(false),
+      }),
+    }),
     slashes: defineCollection({
       // Load every file inside the `content/slashes` directory
       source: 'slashes/*.md',

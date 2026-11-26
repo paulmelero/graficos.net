@@ -24,7 +24,7 @@ export async function build() {
     if (data.draft) continue
 
     const { html, plaintext } = await render('layout.vue', {
-      props: { markdown: content, frontmatter: data },
+      props: { markdown: content, frontmatter: data, slug },
       plaintext: true,
       html: { minify: true },
       url: { base: 'https://graficos.net' },

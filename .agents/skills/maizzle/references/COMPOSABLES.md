@@ -1,7 +1,9 @@
 # Maizzle Composables Reference
+
 All composables auto-import in `<script setup>` — no imports needed.
 
 ## defineConfig
+
 Per-template config override. Deep-merged with `maizzle.config.ts`. Also used in the config file as a typed identity function.
 
 ```vue
@@ -14,13 +16,14 @@ defineConfig({
 ```
 
 ## definePreviewProps
+
 Sample props for the dev server, which passes no props to templates (required props would otherwise be `undefined`). Merged under real props; never used by `build` or `render()`, so a forgotten production prop can't silently render sample data (unlike `withDefaults()`). Argument is `Partial<Props>`.
 
 ```vue
 <script setup lang="ts">
 import { sampleUser } from '../fixtures/users'
 
-type Props = { name: string, plan: string }
+type Props = { name: string; plan: string }
 
 defineProps<Props>()
 definePreviewProps<Props>({ name: sampleUser.name, plan: 'Pro' })
@@ -28,12 +31,14 @@ definePreviewProps<Props>({ name: sampleUser.name, plan: 'Pro' })
 ```
 
 Compiler macro, like `defineProps()`:
+
 - Call once per template.
 - Can't reference variables declared in `<script setup>`; use inline values or imports. Imports used only here load only in the dev server.
 - Breaking these rules errors in the dev server only; never fails `build` or `render()`.
 - `.vue` templates only, not Markdown templates.
 
 ## useConfig
+
 Read the resolved config (global + per-template `defineConfig` overrides up the tree). Useful inside child components for accessing custom data.
 
 ```vue
@@ -46,6 +51,7 @@ const config = useConfig()
 ```
 
 ## useTransformers
+
 Per-template counterpart of the `useTransformers` config option.
 
 - `useTransformers(false)` — skip entire pipeline.
@@ -55,6 +61,7 @@ Per-template counterpart of the `useTransformers` config option.
 Force-enable (`true`) only works for boolean-driven transformers (`inlineCss`, `purgeCss`, `prettify`, `minify`, `shorthandCss`, `sixHex`, `safeSelectors`, `entities`). Data-driven ones (`filters`, `baseURL`, `urlQuery`, `addAttributes`, `removeAttributes`, `replaceStrings`, `attributeToStyle`) need real values.
 
 ## useBaseUrl
+
 SFC-scoped equivalent of `config.url.base`.
 
 ```vue
@@ -65,6 +72,7 @@ useBaseUrl({ url: 'https://cdn.example.com/', styleTag: true })
 ```
 
 ## useUrlQuery
+
 SFC-scoped equivalent of `config.url.query`. Common use: per-template UTM params.
 
 ```vue
@@ -78,29 +86,31 @@ useUrlQuery({
 ```
 
 ## useEvent
+
 Register lifecycle handlers from `<script setup>`. Config handlers run first, then SFC handlers in registration order. SFC handlers clear between template renders.
 
-| Event | Receives | Returns |
-|---|---|---|
-| `beforeCreate` | `{ config }` | — |
-| `beforeRender` | `{ config, template }` | string\|void (replaces `template.source`) |
-| `afterRender` | `{ config, template, html }` | string\|void (replaces HTML, before transformers) |
-| `afterTransform` | `{ config, template, html }` | string\|void (replaces HTML, after transformers) |
-| `afterBuild` | `{ files, config }` | — |
+| Event            | Receives                     | Returns                                           |
+| ---------------- | ---------------------------- | ------------------------------------------------- |
+| `beforeCreate`   | `{ config }`                 | —                                                 |
+| `beforeRender`   | `{ config, template }`       | string\|void (replaces `template.source`)         |
+| `afterRender`    | `{ config, template, html }` | string\|void (replaces HTML, before transformers) |
+| `afterTransform` | `{ config, template, html }` | string\|void (replaces HTML, after transformers)  |
+| `afterBuild`     | `{ files, config }`          | —                                                 |
 
 `template` is `{ source, path }` — `path` is Node's `path.parse(absolutePath)` (`{ root, dir, base, ext, name }`). Inside SFC `<script setup>`, call `useCurrentTemplate()` to read the same `ParsedPath` directly.
 
 ```vue
 <script setup>
-useEvent('afterRender', ({ html }) =>
-  html.replace('<body', '<body><div class="bg-blue-500 p-4">Banner</div>'))
+useEvent('afterRender', ({ html }) => html.replace('<body', '<body><div class="bg-blue-500 p-4">Banner</div>'))
 
 useEvent('afterTransform', ({ html }) =>
-  html.replace('</body>', '<img src="https://track.example.com/p.gif" width="1" height="1" alt=""></body>'))
+  html.replace('</body>', '<img src="https://track.example.com/p.gif" width="1" height="1" alt=""></body>')
+)
 </script>
 ```
 
 ## useCurrentTemplate
+
 Read the `ParsedPath` of the template currently being processed. Returns `undefined` outside per-template scope (`beforeCreate`, `afterBuild`, etc.).
 
 ```vue
@@ -111,17 +121,21 @@ console.log(file?.name) // 'welcome'
 ```
 
 ## useDoctype
+
 Override the default `<!DOCTYPE html>`. Maizzle adapts void-element serialization: HTML5 → `<br>`/`<img>`, XHTML → `<br />`/`<img />`.
 
 ```vue
 <script setup>
-useDoctype('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
+useDoctype(
+  '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
+)
 </script>
 ```
 
 Common values: HTML5 (default, recommended), `XHTML 1.0 Transitional`, `HTML 4.01 Transitional`.
 
 ## useOutlookFallback
+
 Toggle MSO/VML fallback for the current template subtree (script equivalent of the `outlookFallback` prop on MSO-aware components — see COMPONENTS.md "Conventions").
 
 ```vue
@@ -133,6 +147,7 @@ useOutlookFallback(false)
 Skips ghost tables, VML rectangles, `xmlns:v/o`, mso-only CSS, and Button MSO spacers. Each component's `outlookFallback` prop overrides inheritance for its subtree.
 
 ## usePlaintext
+
 Generate a plaintext version of the current template. With `render()`, returned in the result; during build, a `.txt` is written next to the HTML.
 
 Options: `extension` (default `'txt'`), `destination` (output dir override), `options` (forwarded to [`string-strip-html`](https://codsen.com/os/string-strip-html), deep-merged over global `plaintext.options`).
@@ -145,6 +160,7 @@ usePlaintext({ extension: 'text', destination: 'dist/plaintext', options: { igno
 ```
 
 ## usePreheader
+
 Hidden preview text injected at `<body>` start. Script equivalent of `<Preheader>`. Padded with invisible filler sequences (`&#8199;&#65279;&#847;`) so clients don't pull body text into the inbox snippet.
 
 Options: `spaces` (number) — explicit filler count; auto-derived to fill a ~200-char preview budget when omitted.
@@ -157,6 +173,7 @@ usePreheader('Short preview.', { spaces: 50 })
 ```
 
 ## useFont
+
 Register a font for the current template — emits a `<link>` tag in `<head>` and merges a `--font-{slug}` token into the Tailwind compile so a `font-{slug}` utility is generated. Script equivalent of `<Font>`.
 
 Options: `family` (required), `weights` (default `[400]`), `styles` (`('normal'|'italic')[]`, default `['normal']`), `display` (default `'swap'`), `provider` (`'google'`/`'bunny'`, default `'google'`), `url` (pre-built stylesheet URL — overrides `provider`/`weights`/`styles`/`display`), `fallback` (CSS fallback list; default category-aware).
@@ -171,6 +188,7 @@ useFont({ family: 'Acme', url: 'https://cdn.example.com/acme.css' })
 Deduplicated by family (first registration wins).
 
 ## useHead
+
 Re-export of [`useHead`](https://unhead.unjs.io/docs/head/api/composables/use-head) from `@unhead/vue`. Tags are SSR-rendered into the final HTML.
 
 ```vue
