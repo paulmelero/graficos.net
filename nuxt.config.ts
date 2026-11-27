@@ -110,7 +110,6 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/image',
     '@nuxtjs/color-mode',
-    'nuxt-svgo',
     '@nuxt/fonts',
     '@vueuse/nuxt',
     // Runs after @nuxt/content, whose Nitro hook installs the local SQLite adapter.
@@ -150,11 +149,6 @@ export default defineNuxtConfig({
         },
       },
     },
-  },
-
-  svgo: {
-    svgo: false,
-    defaultImport: 'component',
   },
 
   fonts: {

@@ -33,9 +33,9 @@
 <script lang="ts" setup>
 import { h } from 'vue'
 
-import IconGithub from '~/assets/images/logos/github.svg'
-import IconLinkedin from '~/assets/images/logos/linkedin.svg'
-import IconBsky from '~/assets/images/logos/bluesky.svg'
+import IconBsky from './icons/bluesky.vue'
+import IconGithub from './icons/github.vue'
+import IconLinkedin from './icons/linkedin.vue'
 
 import GIcon from '../GIcon.vue'
 import { tw } from '~/core/tw'
