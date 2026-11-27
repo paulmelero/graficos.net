@@ -1,7 +1,9 @@
+import { defineHandler, useRuntimeConfig } from 'nuxt/server'
+
 import { queryCollection } from '@nuxt/content/server'
 import { Feed } from 'feed'
 
-export default defineEventHandler(async (event) => {
+export default defineHandler(async (event) => {
   const config = useRuntimeConfig()
   const appUrl = config.public.APP_URL
   const appName = config.public.APP_NAME
@@ -46,6 +48,6 @@ export default defineEventHandler(async (event) => {
     })
   })
 
-  event.res.setHeader('Content-Type', 'application/atom+xml')
+  event.res.headers.set('content-type', 'application/atom+xml')
   return feed.atom1()
 })

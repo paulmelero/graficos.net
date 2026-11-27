@@ -4,6 +4,7 @@
 @import './_components.css';
 
 @source not "../../../newsletter";
+@source not "../../../.agents";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
