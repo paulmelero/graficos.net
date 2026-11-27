@@ -39,6 +39,12 @@ Migration notes for `graficos.net`.
 - **Rsbuild content template patch.** Nuxt Content's virtual `components.ts` is parsed as JavaScript. The template contents are rewritten to remove the two `: string[]` annotations and to use absolute component import paths.
 - **pnpm hoisting and peers.** `.npmrc` hoists dependencies for Rsbuild and disables peer auto-install/dedupe, which deadlocks on the DevTools v4 graph.
 
+## Rsbuild SVG icons
+
+`nuxt-svgo` has no Rsbuild integration. Its SVG imports became data URI asset URLs on the client, so `<component :is="…">` tried to create an element whose tag name was the whole `data:image/svg+xml;base64,…` URL. That threw during hydration, which disabled router navigation and left the newsletter form falling back to a native POST.
+
+The three social SVGs are now plain Vue components in `app/components/images/icons/`, and `nuxt-svgo` was removed. Header navigation and the newsletter submit handler were verified in headless Chrome.
+
 ## Remaining module noise
 
 `@nuxt/fonts` 1.2.1 still registers Nitro's deprecated `rollup:before` hook on the Nitro 3 RC. It is harmless and comes from the module, not this config.
