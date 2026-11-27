@@ -39,6 +39,10 @@ Migration notes for `graficos.net`.
 - **Rsbuild content template patch.** Nuxt Content's virtual `components.ts` is parsed as JavaScript. The template contents are rewritten to remove the two `: string[]` annotations and to use absolute component import paths.
 - **pnpm hoisting and peers.** `.npmrc` hoists dependencies for Rsbuild and disables peer auto-install/dedupe, which deadlocks on the DevTools v4 graph.
 
+## Remaining module noise
+
+`@nuxt/fonts` 1.2.1 still registers Nitro's deprecated `rollup:before` hook on the Nitro 3 RC. It is harmless and comes from the module, not this config.
+
 ## DevTools caveat
 
 DevTools v4 installs successfully with:
