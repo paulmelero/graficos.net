@@ -1,0 +1,64 @@
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-light);
+  }
+
+  html {
+    @apply bg-primary dark:text-fwhite;
+  }
+
+  body {
+    @apply bg-gray-lightest font-ibm-sans dark:bg-primaryDark dark:text-fwhite;
+  }
+
+  a {
+    @apply text-accent underline underline-offset-1 dark:text-actionDark;
+  }
+
+  ul,
+  ol,
+  p {
+    @apply mb-4;
+  }
+
+  p {
+    @apply leading-normal;
+  }
+
+  pre:not(:is(.twoslash-popup-container *)) {
+    @apply mb-4 max-w-full overflow-scroll bg-fwhite p-3 text-base sm:overflow-auto dark:bg-gray-darkest;
+  }
+
+  code {
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word !important;
+  }
+
+  svg {
+    max-width: 100%;
+  }
+
+  label,
+  label input,
+  label textarea {
+    @apply block;
+  }
+
+  input:not([type='radio']):not([type='checkbox']),
+  textarea {
+    @apply font-mono;
+  }
+
+  button {
+    @apply rounded p-2 font-bold text-black hover:text-accent dark:text-fwhite dark:hover:text-actionDark;
+  }
+
+  .nuxt-progress + * {
+    margin-top: -2px;
+  }
+}

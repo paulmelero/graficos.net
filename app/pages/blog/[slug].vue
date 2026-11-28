@@ -90,7 +90,9 @@ useHead({
 const { formattedMinutesToRead, emojisWhileReading } = useMinutesToRead({ post })
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
+@reference '../../assets/css/main.css';
+
 .bg-image {
   @apply z-1 relative;
 

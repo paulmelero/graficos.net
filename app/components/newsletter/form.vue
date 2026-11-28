@@ -20,7 +20,7 @@
           maxlength="100"
           enterkeyhint="next"
           placeholder="Your name"
-          class="mt-1 w-full border-b border-gray-light bg-transparent py-2 font-ibm text-base text-gray-darkest outline-none placeholder:text-gray focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:border-gray dark:text-fwhite dark:placeholder:text-gray-light dark:focus-visible:border-actionDark dark:focus-visible:outline-actionDark"
+          class="mt-1 w-full border-b border-gray-light bg-transparent py-2 font-ibm text-base text-gray-darkest outline-hidden placeholder:text-gray focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:border-gray dark:text-fwhite dark:placeholder:text-gray-light dark:focus-visible:border-actionDark dark:focus-visible:outline-actionDark"
         />
       </div>
       <div>
@@ -37,7 +37,7 @@
           :aria-describedby="describedBy"
           placeholder="you@example.com"
           required
-          class="mt-1 w-full border-b border-gray-light bg-transparent py-2 font-ibm text-base text-gray-darkest outline-none placeholder:text-gray focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:border-gray dark:text-fwhite dark:placeholder:text-gray-light dark:focus-visible:border-actionDark dark:focus-visible:outline-actionDark"
+          class="mt-1 w-full border-b border-gray-light bg-transparent py-2 font-ibm text-base text-gray-darkest outline-hidden placeholder:text-gray focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:border-gray dark:text-fwhite dark:placeholder:text-gray-light dark:focus-visible:border-actionDark dark:focus-visible:outline-actionDark"
           @input="clearError"
         />
       </div>

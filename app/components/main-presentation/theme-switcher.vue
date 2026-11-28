@@ -3,7 +3,7 @@
     <ColorScheme placeholder="💬">
       <div class="ml-3" v-bind="$attrs">
         <div
-          class="relative isolate flex items-center gap-1 rounded-full border border-zinc-950/10 bg-zinc-950/5 p-1 shadow-sm backdrop-blur dark:border-zinc-50/10 dark:bg-zinc-50/5"
+          class="relative isolate flex items-center gap-1 rounded-full border border-black/10 bg-black/5 p-1 shadow-xs backdrop-blur dark:border-white/10 dark:bg-white/5"
           role="group"
           aria-label="Toggle color theme"
         >
@@ -17,8 +17,10 @@
             :key="mode"
             type="button"
             :class="[
-              'relative flex size-9 items-center justify-center rounded-full text-foreground transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/60',
-              mode === activeMode ? 'text-primary' : 'text-foreground/70 hover:text-foreground',
+              'relative flex size-9 items-center justify-center rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/60',
+              mode === activeMode
+                ? 'text-primary'
+                : 'text-gray-dark hover:text-accent dark:text-gray-light dark:hover:text-actionDark',
             ]"
             :style="`anchor-name:--color-mode-${mode}`"
             :aria-pressed="mode === activeMode"

@@ -10,7 +10,7 @@
       >
       <nuxt-link
         :to="url"
-        class="ml-3 no-underline disable-underline transition:color leading-normal flex-grow flex-shrink-0 basis-0 self-start"
+        class="ml-3 no-underline transition-colors leading-normal flex-grow flex-shrink-0 basis-0 self-start"
         >{{ title }}</nuxt-link
       >
     </h2>

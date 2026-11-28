@@ -40,7 +40,9 @@ useHead({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
+@reference '../../assets/css/main.css';
+
 .bg-container {
   &:after {
     content: '';
@@ -55,7 +57,7 @@ useHead({
 .dark .bg-container:after {
   filter: opacity(0.1);
 }
-@screen md {
+@media (width >= 48rem) {
   .bg-container:after {
     background-position: 85vw -9vw;
     background-size: 40vw;

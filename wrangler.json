@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "graficos-net",
+  "main": "./.output/server/index.mjs",
+  "compatibility_date": "2025-07-20",
+  "observability": {
+    "enabled": true
+  },
+  "placement": {
+    "mode": "smart"
+  },
+  "d1_databases": [
+    {
+      "binding": "D1",
+      "database_name": "graficos_net_content",
+      "database_id": "faee6a30-19c0-4808-8d89-aee0c61f41ca"
+    }
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./.output/public/"
+  }
+}
