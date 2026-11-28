@@ -68,7 +68,7 @@ importers:
         version: 4.7.0
       '@nuxt/test-utils':
         specifier: ^4.4.0
-        version: 4.4.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@20.14.5)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@20.14.5))(vue@3.5.46(typescript@5.9.3))
+        version: 4.4.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@21.0.4)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@21.0.4))(vue@3.5.46(typescript@5.9.3))
       '@nuxtjs/color-mode':
         specifier: ^4.1.0
         version: 4.1.0(@nuxt/schema@4.7.0)
@@ -82,8 +82,8 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6
       happy-dom:
-        specifier: ^20.14.5
-        version: 20.14.5
+        specifier: ^21.0.4
+        version: 21.0.4
       lightningcss:
         specifier: ^1.31.1
         version: 1.33.0
@@ -107,7 +107,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.0.2
-        version: 4.1.11(@types/node@25.0.9)(happy-dom@20.14.5)
+        version: 4.1.11(@types/node@25.0.9)(happy-dom@21.0.4)
       wrangler:
         specifier: ^4.59.3
         version: 4.59.3
@@ -2556,8 +2556,8 @@ packages:
   '@types/whatwg-mimetype@3.0.2':
     resolution: {integrity: sha512-c2AKvDT8ToxLIOUlN51gTiHXflsfIFisS4pO7pDPoKouJCESkhZnEy623gwP9laCy5lnLDAw1vAzu2vM2YLOrA==}
 
-  '@types/ws@8.18.1':
-    resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
+  '@types/ws@8.18.2':
+    resolution: {integrity: sha512-67MQl+fpWKVTT1NYdnmo3U4sc/xPo/zQBncVnI74qmQa0z/b+1g6iYqNmGCPbxO+zz2aklb08a0oHfegiVd0/w==}
 
   '@typescript/vfs@1.6.4':
     resolution: {integrity: sha512-PJFXFS4ZJKiJ9Qiuix6Dz/OwEIqHD7Dme1UwZhTK11vR+5dqW2ACbdndWQexBzCx+CPuMe5WBYQWCsFyGlQLlQ==}
@@ -3693,8 +3693,8 @@ packages:
       ocache:
         optional: true
 
-  happy-dom@20.14.5:
-    resolution: {integrity: sha512-x/RzkpWO40bTjIoT30iQtt64FLLmH/iRcUCN2X//bLx7H3ifkdfPXyqsro/OYtqzIAhiLMMA7mmiOR9C3NOKjQ==}
+  happy-dom@21.0.4:
+    resolution: {integrity: sha512-tFm+GaLBgo6o0awHnvHaNoraVo27qJ+2tZEtZ+cIa08hXbeitrxAJajLI05hsUy/2/YTKcUjQYzHe5mCcraLBw==}
     engines: {node: '>=20.0.0'}
 
   has-flag@4.0.0:
@@ -5773,8 +5773,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.23.0:
-    resolution: {integrity: sha512-wCkmX8QMOrKjgO8HW2WyDbTSGeqkocxgDzS9iR79rEAexty6/2qzilx3Ag8Tqf9ykop3irLKle0MtVn5qjVnoQ==}
+  ws@8.23.1:
+    resolution: {integrity: sha512-1rzWDSN0NOi3tpwgHsQExjWRoKUGtjCkJ2gZRaaRtzhYLboMytOI9pj9PU7yCgY37auqdd4OyLofZDbkeuZmPA==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -7484,7 +7484,7 @@ snapshots:
       rc9: 3.1.0
       std-env: 4.3.0
 
-  '@nuxt/test-utils@4.4.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@20.14.5)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@20.14.5))(vue@3.5.46(typescript@5.9.3))':
+  '@nuxt/test-utils@4.4.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@21.0.4)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@21.0.4))(vue@3.5.46(typescript@5.9.3))':
     dependencies:
       '@clack/prompts': 1.8.1
       '@nuxt/devtools-kit': 3.4.4(@nuxt/schema@4.7.0)(magic-string@1.4.5)(unplugin@3.7.0)
@@ -7505,13 +7505,13 @@ snapshots:
       tinyexec: 1.3.1
       ufo: 1.6.4
       unplugin: 3.7.0
-      vitest-environment-nuxt: 2.0.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@20.14.5)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@20.14.5))(vue@3.5.46(typescript@5.9.3))
+      vitest-environment-nuxt: 2.0.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@21.0.4)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@21.0.4))(vue@3.5.46(typescript@5.9.3))
       vue: 3.5.46(typescript@5.9.3)
     optionalDependencies:
       '@vue/test-utils': 2.4.6
-      happy-dom: 20.14.5
+      happy-dom: 21.0.4
       nuxt: 4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3)
-      vitest: 4.1.11(@types/node@25.0.9)(happy-dom@20.14.5)
+      vitest: 4.1.11(@types/node@25.0.9)(happy-dom@21.0.4)
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@nuxt/schema'
@@ -8490,7 +8490,7 @@ snapshots:
 
   '@types/whatwg-mimetype@3.0.2': {}
 
-  '@types/ws@8.18.1':
+  '@types/ws@8.18.2':
     dependencies:
       '@types/node': 25.0.9
 
@@ -9802,15 +9802,15 @@ snapshots:
     optionalDependencies:
       crossws: 0.4.17
 
-  happy-dom@20.14.5:
+  happy-dom@21.0.4:
     dependencies:
       '@types/node': 25.0.9
       '@types/whatwg-mimetype': 3.0.2
-      '@types/ws': 8.18.1
+      '@types/ws': 8.18.2
       buffer-image-size: 0.6.4
       entities: 7.0.1
       whatwg-mimetype: 3.0.0
-      ws: 8.23.0
+      ws: 8.23.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -12534,9 +12534,9 @@ snapshots:
       fsevents: 2.3.3
       jiti: 2.7.0
 
-  vitest-environment-nuxt@2.0.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@20.14.5)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@20.14.5))(vue@3.5.46(typescript@5.9.3)):
+  vitest-environment-nuxt@2.0.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@21.0.4)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@21.0.4))(vue@3.5.46(typescript@5.9.3)):
     dependencies:
-      '@nuxt/test-utils': 4.4.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@20.14.5)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@20.14.5))(vue@3.5.46(typescript@5.9.3))
+      '@nuxt/test-utils': 4.4.0(@nuxt/schema@4.7.0)(@vue/test-utils@2.4.6)(happy-dom@21.0.4)(nuxt@4.7.0(@nuxt/devtools@4.2.2(@nuxt/kit@4.7.0(@nuxt/schema@4.7.0))(nitro@3.0.261103-rc)(vue@3.5.46(typescript@5.9.3)))(@types/node@25.0.9)(better-sqlite3@13.2.0)(lightningcss@1.33.0)(nitro@3.0.261103-rc)(oxlint@1.94.0)(typescript@5.9.3))(vitest@4.1.11(@types/node@25.0.9)(happy-dom@21.0.4))(vue@3.5.46(typescript@5.9.3))
     transitivePeerDependencies:
       - '@cucumber/cucumber'
       - '@farmfe/core'
@@ -12570,7 +12570,7 @@ snapshots:
       - vue
       - webpack
 
-  vitest@4.1.11(@types/node@25.0.9)(happy-dom@20.14.5):
+  vitest@4.1.11(@types/node@25.0.9)(happy-dom@21.0.4):
     dependencies:
       '@vitest/expect': 4.1.11
       '@vitest/mocker': 4.1.11(vite@8.3.8(@types/node@25.0.9))
@@ -12594,7 +12594,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 25.0.9
-      happy-dom: 20.14.5
+      happy-dom: 21.0.4
     transitivePeerDependencies:
       - '@vitejs/devtools'
       - esbuild
@@ -12764,7 +12764,7 @@ snapshots:
 
   ws@8.18.3: {}
 
-  ws@8.23.0: {}
+  ws@8.23.1: {}
 
   wsl-utils@0.3.1:
     dependencies:
